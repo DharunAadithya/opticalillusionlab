@@ -1,0 +1,1138 @@
+---
+// src/pages/how-they-work.astro
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout 
+  title="How Do Optical Illusions Work? The Complete Science Guide | Optical Illusion Lab" 
+  description="Discover how optical illusions work, why they trick your brain, and the neuroscience behind visual perception. Interactive demonstrations included."
+>
+
+  <!-- Hero Section -->
+  <section class="relative overflow-hidden py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-slate-900 via-purple-950 to-slate-950 text-white border-b border-indigo-500/10">
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(168,85,247,0.15),transparent_50%)]"></div>
+    
+    <div class="relative mx-auto max-w-4xl text-center space-y-6">
+      <div class="inline-flex items-center space-x-2 rounded-full border border-purple-500/30 bg-purple-500/15 px-4 py-1.5 text-xs font-black uppercase tracking-wider text-purple-300 backdrop-blur-sm">
+        🔬 Visual Neuroscience Center 🔬
+      </div>
+      <h1 class="font-display text-4xl sm:text-6xl font-black tracking-tight bg-gradient-to-r from-pink-400 via-purple-400 to-indigo-400 bg-clip-text text-transparent">
+        How Do Optical Illusions Work?
+      </h1>
+      <p class="mx-auto max-w-2xl text-lg sm:text-xl text-slate-200 font-medium leading-relaxed">
+        The complete science of why your brain gets fooled — explained with interactive demonstrations.
+      </p>
+    </div>
+  </section>
+
+  <!-- SECTION 1: THE QUICK ANSWER -->
+  <section class="py-12 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
+    <div class="bg-gradient-to-r from-purple-900/30 to-indigo-900/30 border border-purple-500/20 rounded-3xl p-6 sm:p-8 text-center space-y-4 shadow-2xl relative overflow-hidden">
+      <div class="absolute top-0 left-0 w-2 h-full bg-purple-500"></div>
+      <h3 class="text-xs font-black text-purple-300 uppercase tracking-widest">🧠 Executive Summary</h3>
+      <p class="text-lg sm:text-xl text-slate-100 font-bold leading-relaxed max-w-3xl mx-auto italic">
+        "Optical illusions work because your brain predicts reality rather than recording it. Your visual system takes shortcuts using past experience, context, and assumptions. Illusions reveal exactly where those shortcuts break down."
+      </p>
+    </div>
+  </section>
+
+  <!-- SECTION 2: WHAT IS AN OPTICAL ILLUSION? -->
+  <section class="py-12 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto space-y-6">
+    <h2 class="font-display text-3xl font-bold text-white border-b border-slate-800 pb-3">What is an Optical Illusion?</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-slate-300 leading-relaxed text-sm sm:text-base">
+      <div class="space-y-4">
+        <p>
+          To understand <strong>how do optical illusions work</strong>, we must first establish the <strong>optical illusion definition</strong>. At its core, an optical illusion (or visual illusion) is a perceptual mismatch between the physical reality of an image and how our brain interprets it. The word "illusion" originates from the Latin <em>illusio</em>, meaning to mock or trick. The earliest documented records of illusions date back to Ancient Greece, where Epicharmus (c. 500 BC) noted that even when the mind is clear, the senses can easily lead us astray.
+        </p>
+        <p>
+          Our eyes capture raw electromagnetic wavelengths, but the brain must synthesize those inputs to construct a coherent 3D representation. When this synthesis fails, we see an illusion.
+        </p>
+      </div>
+      <div class="space-y-4 bg-slate-900/40 border border-slate-850 p-6 rounded-2xl">
+        <h3 class="text-sm font-black text-purple-300 uppercase tracking-widest mb-2">The 3 Major Illusion Categories</h3>
+        <ul class="space-y-3 text-xs sm:text-sm">
+          <li>
+            <strong class="text-white">1. Literal Illusions:</strong>
+            <p class="text-slate-450 text-xs">Drawings or structures that are physically different from the components that compose them (e.g. geometric distortions).</p>
+          </li>
+          <li>
+            <strong class="text-white">2. Physiological Illusions:</strong>
+            <p class="text-slate-450 text-xs">Triggered by sensory overstimulation (excessive brightness, color contrast, or movement), leading to neural fatigue.</p>
+          </li>
+          <li>
+            <strong class="text-white">3. Cognitive Illusions:</strong>
+            <p class="text-slate-450 text-xs">Arise from top-down logical assumptions, where the brain projects templates based on prior experience.</p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 3: THE 3 TYPES — FULLY INTERACTIVE DEMOS -->
+  <section class="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-12">
+    <h2 class="font-display text-3xl font-bold text-white text-center">Interactive Visual Science Demonstrations</h2>
+    
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      
+      <!-- DEMO 1: LITERAL ILLUSIONS (Ames Room) -->
+      <div class="bg-slate-900/60 border border-purple-500/20 rounded-3xl p-6 flex flex-col justify-between hover:shadow-2xl transition-all">
+        <div class="space-y-4">
+          <div class="inline-flex items-center space-x-2 rounded-full border border-indigo-500/30 bg-indigo-500/15 px-3 py-1 text-[10px] font-black uppercase tracking-wider text-indigo-300">
+            Type 1: Literal
+          </div>
+          <h3 class="text-xl font-bold text-white">The Ames Room Simulator</h3>
+          <p class="text-xs text-slate-400">Watch the character grow and shrink as they walk across this distorted room layout.</p>
+          
+          <!-- Interactive SVG canvas -->
+          <div class="bg-slate-950/60 border border-slate-850 rounded-2xl aspect-square flex items-center justify-center p-3 relative overflow-hidden">
+            <svg id="ames-room-svg" viewBox="0 0 300 300" class="w-full h-full text-indigo-500 fill-none">
+              <!-- Room Back Wall -->
+              <polygon points="50,50 250,110 250,190 50,250" class="stroke-indigo-500/40" stroke-width="2" />
+              <!-- Floor Grid lines to convey perspective -->
+              <line x1="50" y1="250" x2="250" y2="190" class="stroke-indigo-500/30" stroke-width="1.5" />
+              <line x1="50" y1="50" x2="250" y2="110" class="stroke-indigo-500/30" stroke-width="1.5" />
+              <line x1="100" y1="235" x2="100" y2="65" class="stroke-indigo-500/20" stroke-width="1" />
+              <line x1="150" y1="220" x2="150" y2="80" class="stroke-indigo-500/20" stroke-width="1" />
+              <line x1="200" y1="205" x2="200" y2="95" class="stroke-indigo-500/20" stroke-width="1" />
+              
+              <!-- Left and Right Corner Borders -->
+              <line x1="50" y1="50" x2="50" y2="250" class="stroke-indigo-400" stroke-width="3" />
+              <line x1="250" y1="110" x2="250" y2="190" class="stroke-indigo-400" stroke-width="3" />
+              
+              <!-- Walkable Character -->
+              <g id="ames-character" transform="translate(50, 250) scale(0.4)">
+                <!-- Simple stick-figure avatar -->
+                <circle cx="0" cy="-60" r="14" class="fill-pink-500 stroke-none" />
+                <line x1="0" y1="-46" x2="0" y2="-10" class="stroke-pink-500" stroke-width="6" stroke-linecap="round" />
+                <line x1="0" y1="-10" x2="-15" y2="20" class="stroke-pink-500" stroke-width="5" stroke-linecap="round" />
+                <line x1="0" y1="-10" x2="15" y2="20" class="stroke-pink-500" stroke-width="5" stroke-linecap="round" />
+                <line x1="-20" y1="-30" x2="20" y2="-30" class="stroke-pink-500" stroke-width="5" stroke-linecap="round" />
+              </g>
+            </svg>
+          </div>
+          
+          <!-- Walk Slider -->
+          <div class="space-y-2">
+            <div class="flex justify-between text-xs font-bold text-slate-350">
+              <label for="ames-slider">Walk across room:</label>
+              <span id="ames-scale-pct" class="text-pink-400">Scale: 0.40x</span>
+            </div>
+            <input type="range" id="ames-slider" min="0" max="100" value="0" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-purple-500" />
+          </div>
+        </div>
+
+        <div class="bg-slate-950/40 border-t border-slate-850 p-4 mt-6 rounded-2xl text-xs text-slate-350 space-y-2">
+          <h4 class="font-bold text-white">How it works:</h4>
+          <p>
+            An Ames Room is trapezoidal, with the left corner twice as far away as the right. However, the brain assumes the room is rectangular. Thus, as the character walks right, the brain misinterprets the change in distance as a dramatic change in size.
+          </p>
+        </div>
+      </div>
+
+      <!-- DEMO 2: PHYSIOLOGICAL ILLUSIONS (Motion Aftereffect) -->
+      <div class="bg-slate-900/60 border border-purple-500/20 rounded-3xl p-6 flex flex-col justify-between hover:shadow-2xl transition-all">
+        <div class="space-y-4">
+          <div class="inline-flex items-center space-x-2 rounded-full border border-pink-500/30 bg-pink-500/15 px-3 py-1 text-[10px] font-black uppercase tracking-wider text-pink-300">
+            Type 2: Physiological
+          </div>
+          <h3 class="text-xl font-bold text-white">Motion Aftereffect</h3>
+          <p class="text-xs text-slate-400">Stare at the red dot in the scrolling stripes for 20 seconds, then click STOP.</p>
+          
+          <!-- Stripe canvas -->
+          <div class="bg-slate-950/60 border border-slate-850 rounded-2xl aspect-square flex flex-col items-center justify-center p-3 relative overflow-hidden">
+            <canvas id="mae-canvas" width="240" height="240" class="w-full h-full rounded-xl bg-white"></canvas>
+            
+            <!-- Red fixation dot -->
+            <div class="absolute w-3 h-3 bg-red-500 rounded-full border-2 border-white shadow-md top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></div>
+            
+            <!-- Stare Countdown overlay -->
+            <div id="mae-timer-overlay" class="hidden absolute inset-0 bg-slate-950/95 flex flex-col items-center justify-center text-center space-y-2">
+              <span class="text-xs text-slate-400 uppercase tracking-widest font-black">Stare at Red Dot</span>
+              <span id="mae-timer" class="text-5xl font-black text-purple-400">20</span>
+              <span class="text-[10px] text-slate-500">Keep eyes locked on center</span>
+            </div>
+          </div>
+
+          <div class="flex gap-2">
+            <button id="mae-start-btn" class="flex-1 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-xs font-bold text-white transition-colors">Start Staring 👁️</button>
+            <button id="mae-stop-btn" disabled class="flex-1 py-2.5 rounded-xl bg-slate-800 disabled:opacity-30 text-xs font-bold text-white transition-colors">STOP 🛑</button>
+          </div>
+        </div>
+
+        <div class="bg-slate-950/40 border-t border-slate-850 p-4 mt-6 rounded-2xl text-xs text-slate-350 space-y-2">
+          <h4 class="font-bold text-white">How it works:</h4>
+          <p>
+            Staring at downwards-moving stripes fatigues direction-specific neurons in your visual cortex (V5). When you stop the motion, the unfatigued upward-sensitive neurons fire normally, creating a phantom upward drift.
+          </p>
+        </div>
+      </div>
+
+      <!-- DEMO 3: COGNITIVE ILLUSIONS (Kanizsa Triangle) -->
+      <div class="bg-slate-900/60 border border-purple-500/20 rounded-3xl p-6 flex flex-col justify-between hover:shadow-2xl transition-all">
+        <div class="space-y-4">
+          <div class="inline-flex items-center space-x-2 rounded-full border border-emerald-500/30 bg-emerald-500/15 px-3 py-1 text-[10px] font-black uppercase tracking-wider text-emerald-300">
+            Type 3: Cognitive
+          </div>
+          <h3 class="text-xl font-bold text-white">The Kanizsa Shape Projection</h3>
+          <p class="text-xs text-slate-400">Toggle Pac-Mans and chevrons to see how your brain constructs shapes.</p>
+          
+          <!-- Canvas area -->
+          <div class="bg-slate-950/60 border border-slate-850 rounded-2xl aspect-square flex items-center justify-center p-3 relative overflow-hidden">
+            <svg id="kanizsa-svg" viewBox="0 0 240 240" class="w-full h-full">
+              <!-- Grid background -->
+              <rect x="0" y="0" width="240" height="240" fill="#020617" />
+              
+              <!-- Simulated hallucinated white triangle outline (dashed/hidden by default) -->
+              <polygon id="kanizsa-phantom" points="120,40 200,180 40,180" class="fill-none stroke-pink-500" stroke-width="2.5" stroke-dasharray="4,4" style="display: none;" />
+
+              <!-- Group for angles -->
+              <g id="kanizsa-angles">
+                <!-- Angle at bottom -->
+                <path d="M 120,55 L 110,75 L 130,75" class="stroke-indigo-400 fill-none" stroke-width="3" />
+                <!-- Angle bottom right -->
+                <path d="M 190,175 L 170,170 L 180,150" class="stroke-indigo-400 fill-none" stroke-width="3" />
+                <!-- Angle bottom left -->
+                <path d="M 50,175 L 70,170 L 60,150" class="stroke-indigo-400 fill-none" stroke-width="3" />
+              </g>
+
+              <!-- Group for Pacmans -->
+              <g id="kanizsa-pacmans">
+                <!-- Top Pacman -->
+                <path d="M 120,50 A 20,20 0 1,1 110,67.3 L 120,50 Z" fill="#c084fc" />
+                <!-- Bottom Right Pacman -->
+                <path d="M 200,180 A 20,20 0 1,1 180,180 L 200,180 Z" fill="#c084fc" transform="rotate(-120, 200, 180)" />
+                <!-- Bottom Left Pacman -->
+                <path d="M 40,180 A 20,20 0 1,1 60,180 L 40,180 Z" transform="rotate(120, 40, 180)" fill="#c084fc" />
+              </g>
+            </svg>
+          </div>
+
+          <div class="space-y-3 pt-2 text-xs font-bold text-slate-300">
+            <div class="flex items-center gap-2">
+              <input type="checkbox" id="toggle-pacman" checked class="h-4 w-4 rounded border-slate-800 text-purple-600 focus:ring-purple-500 bg-slate-950" />
+              <label for="toggle-pacman">Show Pac-Man shapes</label>
+            </div>
+            <div class="flex items-center gap-2">
+              <input type="checkbox" id="toggle-angles" checked class="h-4 w-4 rounded border-slate-800 text-purple-600 focus:ring-purple-500 bg-slate-950" />
+              <label for="toggle-angles">Show corner V-angles</label>
+            </div>
+            <div class="flex items-center gap-2">
+              <input type="checkbox" id="toggle-phantom" class="h-4 w-4 rounded border-slate-800 text-purple-600 focus:ring-purple-500 bg-slate-950" />
+              <label for="toggle-phantom" class="text-pink-400 font-black">Highlight illusory boundaries</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-slate-950/40 border-t border-slate-850 p-4 mt-6 rounded-2xl text-xs text-slate-350 space-y-2">
+          <h4 class="font-bold text-white">How it works:</h4>
+          <p>
+            Your brain uses top-down processing to fill in missing chunks of information. Because of Gestalt rules of closure and continuity, it hallucinates a bright white overlay triangle that is physically not there.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECTION 4: YOUR VISUAL SYSTEM EXPLAINED (Interactive Flowchart) -->
+  <section class="py-16 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto border-t border-slate-800 space-y-8">
+    <div class="text-center space-y-2">
+      <h2 class="font-display text-3xl font-bold text-white">Your Visual Processing Pathway</h2>
+      <p class="text-slate-400 text-sm max-w-xl mx-auto">Click on the nodes below to trace how electrical signals flow from your eyes to your cognitive cortex.</p>
+    </div>
+
+    <!-- Visual Pathway Flowchart SVG -->
+    <div class="flex flex-col items-center space-y-6">
+      <div class="w-full bg-slate-950/40 border border-slate-850 p-6 rounded-3xl overflow-x-auto flex justify-center shadow-inner">
+        <svg viewBox="0 0 680 260" class="w-full max-w-[620px] select-none h-auto">
+          <!-- Flow arrows -->
+          <g stroke="#6366f1" stroke-width="2.5" fill="none" stroke-dasharray="6,4">
+            <!-- Eye to Optic Nerve -->
+            <line x1="100" y1="130" x2="160" y2="130" id="flow-eye-nerve" />
+            <!-- Optic Nerve to LGN -->
+            <line x1="240" y1="130" x2="300" y2="130" id="flow-nerve-lgn" />
+            <!-- LGN to V1 -->
+            <line x1="380" y1="130" x2="440" y2="130" id="flow-lgn-v1" />
+            <!-- V1 to V2 -->
+            <line x1="520" y1="130" x2="570" y2="130" id="flow-v1-v2" />
+            <!-- V2 split to V4 -->
+            <path d="M 610,110 L 610,65 L 610,65" id="flow-v2-v4" />
+            <!-- V2 split to V5 -->
+            <path d="M 610,150 L 610,195 L 610,195" id="flow-v2-v5" />
+          </g>
+
+          <!-- Pathway Nodes -->
+          <!-- Eye -->
+          <g class="pathway-node cursor-pointer" data-node="eye">
+            <circle cx="60" cy="130" r="40" class="fill-slate-900 stroke-indigo-500 hover:stroke-pink-500 transition-colors" stroke-width="3" />
+            <text x="60" y="134" fill="#ffffff" font-size="11" font-weight="black" text-anchor="middle">👁️ EYE</text>
+          </g>
+          
+          <!-- Optic Nerve -->
+          <g class="pathway-node cursor-pointer" data-node="nerve">
+            <rect x="160" y="100" width="80" height="60" rx="10" class="fill-slate-900 stroke-indigo-500 hover:stroke-pink-500 transition-colors" stroke-width="3" />
+            <text x="200" y="134" fill="#ffffff" font-size="10" font-weight="black" text-anchor="middle">OPTIC NERVE</text>
+          </g>
+          
+          <!-- LGN -->
+          <g class="pathway-node cursor-pointer" data-node="lgn">
+            <rect x="300" y="100" width="80" height="60" rx="10" class="fill-slate-900 stroke-indigo-500 hover:stroke-pink-500 transition-colors" stroke-width="3" />
+            <text x="340" y="134" fill="#ffffff" font-size="10" font-weight="black" text-anchor="middle">🧠 LGN</text>
+          </g>
+
+          <!-- V1 -->
+          <g class="pathway-node cursor-pointer" data-node="v1">
+            <circle cx="480" cy="130" r="40" class="fill-slate-900 stroke-indigo-500 hover:stroke-pink-500 transition-colors" stroke-width="3" id="v1-circle" />
+            <text x="480" y="134" fill="#ffffff" font-size="12" font-weight="black" text-anchor="middle">V1 (Striate)</text>
+          </g>
+
+          <!-- V2 -->
+          <g class="pathway-node cursor-pointer" data-node="v2">
+            <circle cx="610" cy="130" r="28" class="fill-slate-900 stroke-indigo-500 hover:stroke-pink-500 transition-colors" stroke-width="2.5" id="v2-circle" />
+            <text x="610" y="134" fill="#ffffff" font-size="10" font-weight="black" text-anchor="middle">V2</text>
+          </g>
+
+          <!-- V4 (Color) -->
+          <g class="pathway-node cursor-pointer" data-node="v4">
+            <circle cx="610" cy="45" r="25" class="fill-slate-900 stroke-indigo-500 hover:stroke-pink-500 transition-colors" stroke-width="2" id="v4-circle" />
+            <text x="610" y="49" fill="#ffffff" font-size="9" font-weight="black" text-anchor="middle">V4 (Color)</text>
+          </g>
+
+          <!-- V5/MT (Motion) -->
+          <g class="pathway-node cursor-pointer" data-node="v5">
+            <circle cx="610" cy="215" r="25" class="fill-slate-900 stroke-indigo-500 hover:stroke-pink-500 transition-colors" stroke-width="2" id="v5-circle" />
+            <text x="610" y="219" fill="#ffffff" font-size="9" font-weight="black" text-anchor="middle">V5 (Motion)</text>
+          </g>
+        </svg>
+      </div>
+
+      <!-- Detail Card (shows details of the clicked node) -->
+      <div id="node-info-panel" class="w-full bg-slate-900/60 border border-purple-500/20 rounded-3xl p-6 sm:p-8 space-y-4">
+        <h3 id="info-node-title" class="text-xl font-bold text-white flex items-center gap-2">
+          Select a node to inspect...
+        </h3>
+        <p id="info-node-role" class="text-sm text-slate-300 leading-relaxed"></p>
+        <div id="info-node-illusions-box" class="hidden bg-slate-950/50 p-4 rounded-xl border border-slate-850">
+          <strong class="text-xs text-pink-400 uppercase tracking-widest block mb-1">Exploited By:</strong>
+          <span id="info-node-illusions" class="text-xs text-slate-400"></span>
+        </div>
+      </div>
+
+      <button id="fool-brain-btn" class="rounded-2xl bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-600 px-6 py-3 text-xs font-bold text-white shadow-lg hover:scale-102 transition-transform">
+        💡 Simulate Illusion Vulnerability
+      </button>
+
+    </div>
+  </section>
+
+  <!-- SECTION 5 & 6: NEUROSCIENCE & EVOLUTION ARTICLES -->
+  <section class="py-16 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto border-t border-slate-800 grid grid-cols-1 md:grid-cols-2 gap-10">
+    
+    <!-- Neuroscience (Predictive Coding) -->
+    <div class="space-y-4 text-slate-300 text-sm sm:text-base leading-relaxed">
+      <h2 class="font-display text-2xl sm:text-3xl font-bold text-white">Why the Brain Predicts Instead of Records</h2>
+      <p>
+        Historically, visual perception was thought to be passive—like a camera projecting onto a film screen. However, in 1867, German physicist Hermann von Helmholtz proposed the theory of <strong>unconscious inference</strong>. He argued that since sensory data is sparse, the brain must make unconscious, probabilistic bets about what objects are causing visual signals.
+      </p>
+      <p>
+        Modern neuroscience has formalized this under **predictive coding**, notably championed by Karl Friston's Free Energy Principle. The brain does not wait for signals to crawl up from the eyes. Instead, it constantly sends top-down predictions down the pathway. The eyes only send back "prediction errors" when reality differs from what was predicted. When an illusion is presented, it matches a top-down prediction so well that the brain visualizes the expectation rather than the flat lines.
+      </p>
+    </div>
+
+    <!-- Evolution context -->
+    <div class="space-y-4 text-slate-300 text-sm sm:text-base leading-relaxed bg-slate-900/30 border border-slate-850 p-6 rounded-3xl">
+      <h2 class="font-display text-2xl font-bold text-white">Evolution: Speed vs. Accuracy Tradeoff</h2>
+      <p>
+        If optical illusions fool us so easily, why didn't evolution filter them out? The answer lies in survival: visual shortcuts are **faster**, and in nature, speed keeps you alive.
+      </p>
+      <p>
+        A hominid scanning the grass for predators cannot wait 500 milliseconds for pixel-perfect image rendering. If a shape looks slightly like a hidden tiger, the brain triggers a jump response instantly. In computer science terms, your brain trades mathematical accuracy for execution speed. 
+      </p>
+      <ul class="space-y-2 text-xs pt-2 text-slate-400">
+        <li>🌿 <strong class="text-white">Grouping Objects:</strong> Helps spot prey hidden behind leaves using Gestalt continuation.</li>
+        <li>☀️ <strong class="text-white">Color Constancy:</strong> Keeps fruits looking the same color at dawn, noon, or dusk.</li>
+        <li>🏃 <strong class="text-white">Motion Extrapolation:</strong> Predicts where a thrown object will land before it arrives.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- SECTION 7: INTERACTIVE BRAIN QUIZ -->
+  <section class="py-16 px-4 sm:px-6 lg:px-8 max-w-3xl mx-auto border-t border-slate-800 space-y-6">
+    <h2 class="font-display text-3xl font-bold text-white text-center">Interactive Brain Quiz</h2>
+    <p class="text-slate-400 text-sm text-center max-w-md mx-auto">Test your understanding of visual cortex pathways and predictive visual science.</p>
+    
+    <div class="bg-slate-900/60 border border-purple-500/20 rounded-3xl p-6 sm:p-8 shadow-2xl space-y-6" id="quiz-box">
+      
+      <!-- Question progress -->
+      <div class="flex justify-between items-center text-xs font-bold text-slate-400">
+        <span id="quiz-progress-label">Question 1 of 5</span>
+        <span id="quiz-score-label" class="text-purple-400">Correct: 0/5</span>
+      </div>
+
+      <!-- Question wrapper -->
+      <div id="quiz-container">
+        <!-- Q1 -->
+        <div class="quiz-question space-y-4" data-qidx="0" data-correct="2">
+          <h3 class="text-lg font-bold text-white">Q1: Which visual cortex area is primarily responsible for processing motion?</h3>
+          <div class="flex flex-col gap-3">
+            <button class="quiz-option-btn text-left p-4 rounded-xl border border-slate-700 bg-slate-800 hover:bg-slate-700 text-sm text-slate-200 transition-colors" data-oidx="0">A. Area V1</button>
+            <button class="quiz-option-btn text-left p-4 rounded-xl border border-slate-700 bg-slate-800 hover:bg-slate-700 text-sm text-slate-200 transition-colors" data-oidx="1">B. Area V4</button>
+            <button class="quiz-option-btn text-left p-4 rounded-xl border border-slate-700 bg-slate-800 hover:bg-slate-700 text-sm text-slate-200 transition-colors" data-oidx="2">C. Area V5/MT</button>
+          </div>
+          <p class="quiz-explanation hidden text-xs text-slate-400 bg-slate-950 p-4 rounded-xl border border-slate-850 mt-4 leading-relaxed"></p>
+        </div>
+      </div>
+
+      <!-- Quiz Navigation -->
+      <div class="flex justify-between pt-4">
+        <button id="quiz-next-btn" disabled class="py-2 px-5 bg-purple-600 hover:bg-purple-500 disabled:opacity-30 rounded-xl text-xs font-bold text-white transition-colors">
+          Next Question →
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECTION 8: SEARCHABLE GLOSSARY -->
+  <section class="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-slate-800 space-y-8">
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6 border-b border-slate-850 pb-6">
+      <div>
+        <h2 class="font-display text-3xl font-bold text-white">Glossary of Key Terms</h2>
+        <p class="text-slate-400 text-sm">Find visual science definitions for 20 essential perception concepts.</p>
+      </div>
+      <!-- Search bar -->
+      <div class="w-full md:max-w-xs relative">
+        <input 
+          type="text" 
+          id="glossary-search" 
+          placeholder="Search glossary terms..." 
+          class="w-full px-4 py-2 bg-slate-950 border border-slate-800 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-purple-500 text-sm"
+        />
+      </div>
+    </div>
+
+    <!-- Glossary grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" id="glossary-grid">
+      <!-- Term 1 -->
+      <div class="glossary-card bg-slate-900/40 border border-slate-800 p-5 rounded-2xl space-y-2 flex flex-col justify-between">
+        <div>
+          <h4 class="font-bold text-white text-base">Lateral Inhibition</h4>
+          <p class="text-xs text-slate-450 leading-relaxed">The capacity of an excited neuron to suppress the activity of its immediate neighbors, increasing local edge contrast.</p>
+        </div>
+        <span class="text-[9px] text-purple-400 uppercase tracking-widest font-bold">Retina & LGN</span>
+      </div>
+
+      <!-- Term 2 -->
+      <div class="glossary-card bg-slate-900/40 border border-slate-800 p-5 rounded-2xl space-y-2 flex flex-col justify-between">
+        <div>
+          <h4 class="font-bold text-white text-base">Gestalt Principles</h4>
+          <p class="text-xs text-slate-450 leading-relaxed">Psychological rules of pattern grouping stating that the brain views elements globally rather than as distinct pixels.</p>
+        </div>
+        <span class="text-[9px] text-purple-400 uppercase tracking-widest font-bold">Psychology</span>
+      </div>
+
+      <!-- Term 3 -->
+      <div class="glossary-card bg-slate-900/40 border border-slate-800 p-5 rounded-2xl space-y-2 flex flex-col justify-between">
+        <div>
+          <h4 class="font-bold text-white text-base">Perceptual Rivalry</h4>
+          <p class="text-xs text-slate-450 leading-relaxed">Alternation of visual perception between two stable geometric hypotheses of a single visual stimulus.</p>
+        </div>
+        <span class="text-[9px] text-purple-400 uppercase tracking-widest font-bold">Bistability</span>
+      </div>
+
+      <!-- Term 4 -->
+      <div class="glossary-card bg-slate-900/40 border border-slate-800 p-5 rounded-2xl space-y-2 flex flex-col justify-between">
+        <div>
+          <h4 class="font-bold text-white text-base">Binocular Rivalry</h4>
+          <p class="text-xs text-slate-450 leading-relaxed">Occurs when each eye receives different visual images, causing the brain to suppress one eye in alternating phases.</p>
+        </div>
+        <span class="text-[9px] text-purple-400 uppercase tracking-widest font-bold">Stereoscopic</span>
+      </div>
+
+      <!-- Term 5 -->
+      <div class="glossary-card bg-slate-900/40 border border-slate-800 p-5 rounded-2xl space-y-2 flex flex-col justify-between">
+        <div>
+          <h4 class="font-bold text-white text-base">Troxler Fading</h4>
+          <p class="text-xs text-slate-450 leading-relaxed">The fading of stationary visual stimuli in peripheral vision over time due to neuronal adaptation.</p>
+        </div>
+        <span class="text-[9px] text-purple-400 uppercase tracking-widest font-bold">Adaptation</span>
+      </div>
+
+      <!-- Term 6 -->
+      <div class="glossary-card bg-slate-900/40 border border-slate-800 p-5 rounded-2xl space-y-2 flex flex-col justify-between">
+        <div>
+          <h4 class="font-bold text-white text-base">Peripheral Drift</h4>
+          <p class="text-xs text-slate-450 leading-relaxed">The illusion of motion generated in static high-contrast patterns when scanned in peripheral vision.</p>
+        </div>
+        <span class="text-[9px] text-purple-400 uppercase tracking-widest font-bold">Area V5</span>
+      </div>
+
+      <!-- Term 7 -->
+      <div class="glossary-card bg-slate-900/40 border border-slate-800 p-5 rounded-2xl space-y-2 flex flex-col justify-between">
+        <div>
+          <h4 class="font-bold text-white text-base">Predictive Coding</h4>
+          <p class="text-xs text-slate-450 leading-relaxed">Theory that the brain acts as an engine predicting reality rather than passively taking pictures.</p>
+        </div>
+        <span class="text-[9px] text-purple-400 uppercase tracking-widest font-bold">Cognitive</span>
+      </div>
+
+      <!-- Term 8 -->
+      <div class="glossary-card bg-slate-900/40 border border-slate-800 p-5 rounded-2xl space-y-2 flex flex-col justify-between">
+        <div>
+          <h4 class="font-bold text-white text-base">Unconscious Inference</h4>
+          <p class="text-xs text-slate-450 leading-relaxed">Helmholtz's concept that visual perception is the result of involuntary assumptions about visual inputs.</p>
+        </div>
+        <span class="text-[9px] text-purple-400 uppercase tracking-widest font-bold">Helmholtz</span>
+      </div>
+
+      <!-- Term 9 -->
+      <div class="glossary-card bg-slate-900/40 border border-slate-800 p-5 rounded-2xl space-y-2 flex flex-col justify-between">
+        <div>
+          <h4 class="font-bold text-white text-base">Opponent Process</h4>
+          <p class="text-xs text-slate-450 leading-relaxed">Color channels theory explaining that color is parsed through opposing visual cells (red vs green, blue vs yellow).</p>
+        </div>
+        <span class="text-[9px] text-purple-400 uppercase tracking-widest font-bold">Retina</span>
+      </div>
+
+      <!-- Term 10 -->
+      <div class="glossary-card bg-slate-900/40 border border-slate-800 p-5 rounded-2xl space-y-2 flex flex-col justify-between">
+        <div>
+          <h4 class="font-bold text-white text-base">Achromatopsia</h4>
+          <p class="text-xs text-slate-450 leading-relaxed">Cortical color-blindness occurring when the color-processing area V4 of the occipital lobe is injured.</p>
+        </div>
+        <span class="text-[9px] text-purple-400 uppercase tracking-widest font-bold">Area V4</span>
+      </div>
+
+      <!-- Term 11 -->
+      <div class="glossary-card bg-slate-900/40 border border-slate-800 p-5 rounded-2xl space-y-2 flex flex-col justify-between">
+        <div>
+          <h4 class="font-bold text-white text-base">Akinetopsia</h4>
+          <p class="text-xs text-slate-450 leading-relaxed">Motion blindness occurring when the motion-selective cortical area V5/MT is damaged.</p>
+        </div>
+        <span class="text-[9px] text-purple-400 uppercase tracking-widest font-bold">Area V5</span>
+      </div>
+
+      <!-- Term 12 -->
+      <div class="glossary-card bg-slate-900/40 border border-slate-800 p-5 rounded-2xl space-y-2 flex flex-col justify-between">
+        <div>
+          <h4 class="font-bold text-white text-base">Bistable Perception</h4>
+          <p class="text-xs text-slate-450 leading-relaxed">The alternating flip between two distinct interpretations of a single visual stimulus.</p>
+        </div>
+        <span class="text-[9px] text-purple-400 uppercase tracking-widest font-bold">Cognitive</span>
+      </div>
+
+      <!-- Term 13 -->
+      <div class="glossary-card bg-slate-900/40 border border-slate-800 p-5 rounded-2xl space-y-2 flex flex-col justify-between">
+        <div>
+          <h4 class="font-bold text-white text-base">Size Constancy</h4>
+          <p class="text-xs text-slate-450 leading-relaxed">The visual scaling system ensuring we see objects keeping their size regardless of retinal distance changes.</p>
+        </div>
+        <span class="text-[9px] text-purple-400 uppercase tracking-widest font-bold">Constancy</span>
+      </div>
+
+      <!-- Term 14 -->
+      <div class="glossary-card bg-slate-900/40 border border-slate-800 p-5 rounded-2xl space-y-2 flex flex-col justify-between">
+        <div>
+          <h4 class="font-bold text-white text-base">Color Constancy</h4>
+          <p class="text-xs text-slate-450 leading-relaxed">Perceptual adjustment ensuring objects retain color identity under different lighting conditions.</p>
+        </div>
+        <span class="text-[9px] text-purple-400 uppercase tracking-widest font-bold">Area V4</span>
+      </div>
+
+      <!-- Term 15 -->
+      <div class="glossary-card bg-slate-900/40 border border-slate-800 p-5 rounded-2xl space-y-2 flex flex-col justify-between">
+        <div>
+          <h4 class="font-bold text-white text-base">Illusory Contours</h4>
+          <p class="text-xs text-slate-450 leading-relaxed">Visual hallucination of boundaries in space where no physical change in luminance is present.</p>
+        </div>
+        <span class="text-[9px] text-purple-400 uppercase tracking-widest font-bold">Gestalt</span>
+      </div>
+
+      <!-- Term 16 -->
+      <div class="glossary-card bg-slate-900/40 border border-slate-800 p-5 rounded-2xl space-y-2 flex flex-col justify-between">
+        <div>
+          <h4 class="font-bold text-white text-base">Top-Down Processing</h4>
+          <p class="text-xs text-slate-450 leading-relaxed">Mental parsing that starts with expectations and works down to direct raw visual signals.</p>
+        </div>
+        <span class="text-[9px] text-purple-400 uppercase tracking-widest font-bold">Cognitive</span>
+      </div>
+
+      <!-- Term 17 -->
+      <div class="glossary-card bg-slate-900/40 border border-slate-800 p-5 rounded-2xl space-y-2 flex flex-col justify-between">
+        <div>
+          <h4 class="font-bold text-white text-base">Bottom-Up Processing</h4>
+          <p class="text-xs text-slate-450 leading-relaxed">Sensory building starting with raw signal characteristics before parsing shapes globally.</p>
+        </div>
+        <span class="text-[9px] text-purple-400 uppercase tracking-widest font-bold">Retina</span>
+      </div>
+
+      <!-- Term 18 -->
+      <div class="glossary-card bg-slate-900/40 border border-slate-800 p-5 rounded-2xl space-y-2 flex flex-col justify-between">
+        <div>
+          <h4 class="font-bold text-white text-base">Receptive Field</h4>
+          <p class="text-xs text-slate-450 leading-relaxed">The coordinate patch in visual space to which a specific visual cell responds.</p>
+        </div>
+        <span class="text-[9px] text-purple-400 uppercase tracking-widest font-bold">Cortex</span>
+      </div>
+
+      <!-- Term 19 -->
+      <div class="glossary-card bg-slate-900/40 border border-slate-800 p-5 rounded-2xl space-y-2 flex flex-col justify-between">
+        <div>
+          <h4 class="font-bold text-white text-base">Accommodation</h4>
+          <p class="text-xs text-slate-450 leading-relaxed">The visual focusing process adjusting the eye lens to resolve elements at varying depths.</p>
+        </div>
+        <span class="text-[9px] text-purple-400 uppercase tracking-widest font-bold">Retina</span>
+      </div>
+
+      <!-- Term 20 -->
+      <div class="glossary-card bg-slate-900/40 border border-slate-800 p-5 rounded-2xl space-y-2 flex flex-col justify-between">
+        <div>
+          <h4 class="font-bold text-white text-base">Visual Saccades</h4>
+          <p class="text-xs text-slate-450 leading-relaxed">Rapid, ballistic micro-movements of the eye that keep peripheral details refreshed and active.</p>
+        </div>
+        <span class="text-[9px] text-purple-400 uppercase tracking-widest font-bold">Motor control</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FAQ Section (10 Questions) -->
+  <section class="py-16 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto border-t border-slate-800">
+    <h2 class="font-display text-3xl font-bold text-white text-center mb-8">Frequently Asked Questions</h2>
+    <div class="space-y-4">
+      
+      <!-- FAQ 1 -->
+      <div class="border border-slate-800 rounded-2xl overflow-hidden bg-slate-900/40">
+        <button class="faq-toggle w-full p-5 text-left font-bold text-white flex justify-between items-center hover:bg-slate-900 transition-colors">
+          <span>How do optical illusions work?</span>
+          <span class="faq-icon text-purple-400 transition-transform">▼</span>
+        </button>
+        <div class="faq-content hidden p-5 text-sm text-slate-350 border-t border-slate-850 bg-slate-950/20 leading-relaxed">
+          Optical illusions work because the brain does not passively record visual inputs. Instead, it creates predictions about the outside world based on prior experience, lighting, and angles. When an image contains mismatched inputs (such as specific contrasting stripes or shapes), the brain's top-down prediction conflicts with the physical layout, producing an illusion.
+        </div>
+      </div>
+
+      <!-- FAQ 2 -->
+      <div class="border border-slate-800 rounded-2xl overflow-hidden bg-slate-900/40">
+        <button class="faq-toggle w-full p-5 text-left font-bold text-white flex justify-between items-center hover:bg-slate-900 transition-colors">
+          <span>Why do optical illusions work?</span>
+          <span class="faq-icon text-purple-400 transition-transform">▼</span>
+        </button>
+        <div class="faq-content hidden p-5 text-sm text-slate-350 border-t border-slate-850 bg-slate-950/20 leading-relaxed">
+          Illusions work because of evolutionary shortcuts. Processing every visual element in real-time requires immense energy and time. To react quickly, the brain takes shortcuts—like grouping lines together, assuming light comes from above, and adjusting colors to illumination. Illusions are simply the edge cases where these shortcuts fail.
+        </div>
+      </div>
+
+      <!-- FAQ 3 -->
+      <div class="border border-slate-800 rounded-2xl overflow-hidden bg-slate-900/40">
+        <button class="faq-toggle w-full p-5 text-left font-bold text-white flex justify-between items-center hover:bg-slate-900 transition-colors">
+          <span>How do optical illusions trick the brain?</span>
+          <span class="faq-icon text-purple-400 transition-transform">▼</span>
+        </button>
+        <div class="faq-content hidden p-5 text-sm text-slate-350 border-t border-slate-850 bg-slate-950/20 leading-relaxed">
+          Illusions trick the brain by exploiting specialized visual neurons. For example, motion illusions use alternating light/dark contrast bands to overstimulate motion-selective neurons in area V5. Color illusions trick the color-constancy cells in area V4 by introducing ambiguous ambient light.
+        </div>
+      </div>
+
+      <!-- FAQ 4 -->
+      <div class="border border-slate-800 rounded-2xl overflow-hidden bg-slate-900/40">
+        <button class="faq-toggle w-full p-5 text-left font-bold text-white flex justify-between items-center hover:bg-slate-900 transition-colors">
+          <span>What part of the brain sees optical illusions?</span>
+          <span class="faq-icon text-purple-400 transition-transform">▼</span>
+        </button>
+        <div class="faq-content hidden p-5 text-sm text-slate-350 border-t border-slate-850 bg-slate-950/20 leading-relaxed">
+          Visual processing starts in the primary visual cortex (V1) at the back of the brain. From V1, signals split into area V4 (processing color and form) and area V5/MT (processing motion). High-level cognitive interpretations are resolved in the parietal and temporal lobes.
+        </div>
+      </div>
+
+      <!-- FAQ 5 -->
+      <div class="border border-slate-800 rounded-2xl overflow-hidden bg-slate-900/40">
+        <button class="faq-toggle w-full p-5 text-left font-bold text-white flex justify-between items-center hover:bg-slate-900 transition-colors">
+          <span>Are optical illusions bad for your eyes?</span>
+          <span class="faq-icon text-purple-400 transition-transform">▼</span>
+        </button>
+        <div class="faq-content hidden p-5 text-sm text-slate-350 border-t border-slate-850 bg-slate-950/20 leading-relaxed">
+          No, optical illusions are completely harmless. They do not cause any physical damage to your eyes or brain. They simply showcase the natural boundaries of visual perception. If staring at highly repetitive motion lines causes mild eye strain, simply look away to rest your eyes.
+        </div>
+      </div>
+
+      <!-- FAQ 6 -->
+      <div class="border border-slate-800 rounded-2xl overflow-hidden bg-slate-900/40">
+        <button class="faq-toggle w-full p-5 text-left font-bold text-white flex justify-between items-center hover:bg-slate-900 transition-colors">
+          <span>Why do I see optical illusions differently from others?</span>
+          <span class="faq-icon text-purple-400 transition-transform">▼</span>
+        </button>
+        <div class="faq-content hidden p-5 text-sm text-slate-350 border-t border-slate-850 bg-slate-950/20 leading-relaxed">
+          Every brain is unique. Visual perception is influenced by prior experiences, eye cell density, screen contrast, and attention. In ambiguous illustrations like "The Dress," differences in perceived color depend on whether your brain assumes the dress is lit by blue sky light or yellow indoor light.
+        </div>
+      </div>
+
+      <!-- FAQ 7 -->
+      <div class="border border-slate-800 rounded-2xl overflow-hidden bg-slate-900/40">
+        <button class="faq-toggle w-full p-5 text-left font-bold text-white flex justify-between items-center hover:bg-slate-900 transition-colors">
+          <span>Can animals see optical illusions?</span>
+          <span class="faq-icon text-purple-400 transition-transform">▼</span>
+        </button>
+        <div class="faq-content hidden p-5 text-sm text-slate-350 border-t border-slate-850 bg-slate-950/20 leading-relaxed">
+          Yes! Many animals, including cats, dogs, birds, fish, and insects, have been observed reacting to optical illusions. For example, cats will stalk and pounce on the rotating snakes peripheral drift illusion, proving their motion-detection pathways are fooled similarly to ours.
+        </div>
+      </div>
+
+      <!-- FAQ 8 -->
+      <div class="border border-slate-800 rounded-2xl overflow-hidden bg-slate-900/40">
+        <button class="faq-toggle w-full p-5 text-left font-bold text-white flex justify-between items-center hover:bg-slate-900 transition-colors">
+          <span>What are the 3 types of optical illusions?</span>
+          <span class="faq-icon text-purple-400 transition-transform">▼</span>
+        </button>
+        <div class="faq-content hidden p-5 text-sm text-slate-350 border-t border-slate-850 bg-slate-950/20 leading-relaxed">
+          The three categories are: Literal illusions (images physically different from what compose them), Physiological illusions (neural fatigue from overstimulated sensors), and Cognitive illusions (where top-down assumptions construct phantom lines or shapes).
+        </div>
+      </div>
+
+      <!-- FAQ 9 -->
+      <div class="border border-slate-800 rounded-2xl overflow-hidden bg-slate-900/40">
+        <button class="faq-toggle w-full p-5 text-left font-bold text-white flex justify-between items-center hover:bg-slate-900 transition-colors">
+          <span>How do moving optical illusions work?</span>
+          <span class="faq-icon text-purple-400 transition-transform">▼</span>
+        </button>
+        <div class="faq-content hidden p-5 text-sm text-slate-350 border-t border-slate-850 bg-slate-950/20 leading-relaxed">
+          Moving illusions (peripheral drift) utilize asymmetric contrast transitions. Placing specific sequences of white, light-gray, black, and dark-gray segments tricks the direction-selective cells in your retina and visual cortex. The slight delay in processing dark versus light signals is interpreted by the brain as movement.
+        </div>
+      </div>
+
+      <!-- FAQ 10 -->
+      <div class="border border-slate-800 rounded-2xl overflow-hidden bg-slate-900/40">
+        <button class="faq-toggle w-full p-5 text-left font-bold text-white flex justify-between items-center hover:bg-slate-900 transition-colors">
+          <span>Can optical illusions cause headaches?</span>
+          <span class="faq-icon text-purple-400 transition-transform">▼</span>
+        </button>
+        <div class="faq-content hidden p-5 text-sm text-slate-350 border-t border-slate-850 bg-slate-950/20 leading-relaxed">
+          In rare cases, looking at highly repetitive patterns with high luminance contrast (like op-art grid stripes) for too long can cause mild eye strain or headaches. This occurs because the visual cortex has to exert significant metabolic energy trying to resolve the conflicting patterns.
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Client-side Logic Script -->
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+
+      // 1. Ames Room Slider Simulation
+      const amesSlider = document.getElementById('ames-slider');
+      const amesCharacter = document.getElementById('ames-character');
+      const amesScaleText = document.getElementById('ames-scale-pct');
+
+      if (amesSlider && amesCharacter) {
+        amesSlider.addEventListener('input', (e) => {
+          const val = parseInt(e.target.value);
+          // Scale ranges from 0.40 to 1.40
+          const scale = 0.40 + (val / 100) * 1.0;
+          
+          // Translate X ranges from 50 to 240
+          const x = 50 + (val / 100) * 190;
+          // Translate Y ranges from 250 to 185
+          const y = 250 - (val / 100) * 65;
+
+          amesCharacter.setAttribute('transform', `translate(${x}, ${y}) scale(${scale.toFixed(2)})`);
+          amesScaleText.textContent = `Scale: ${scale.toFixed(2)}x`;
+        });
+      }
+
+      // 2. Motion Aftereffect Experiment Canvas
+      const canvas = document.getElementById('mae-canvas');
+      const startBtn = document.getElementById('mae-start-btn');
+      const stopBtn = document.getElementById('mae-stop-btn');
+      const timerOverlay = document.getElementById('mae-timer-overlay');
+      const timerText = document.getElementById('mae-timer');
+
+      if (canvas && startBtn && stopBtn) {
+        const ctx = canvas.getContext('2d');
+        let animationFrameId = null;
+        let yOffset = 0;
+        let isStaring = false;
+        let isDrifting = false;
+        let driftSpeed = 0;
+        let lastTime = 0;
+
+        function drawStripes(offset) {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          const stripeWidth = 20;
+          
+          for (let x = 0; x < canvas.width; x += stripeWidth * 2) {
+            ctx.fillStyle = '#020617';
+            ctx.fillRect(x, 0, stripeWidth, canvas.height);
+            ctx.fillStyle = '#f8fafc';
+            ctx.fillRect(x + stripeWidth, 0, stripeWidth, canvas.height);
+          }
+
+          // Draw horizontal stripes scrolling downwards
+          for (let y = -stripeWidth * 2; y < canvas.height + stripeWidth * 2; y += stripeWidth * 2) {
+            ctx.fillStyle = 'rgba(99, 102, 241, 0.15)'; // Indigo translucent scroll overlay
+            ctx.fillRect(0, y + (offset % (stripeWidth * 2)), canvas.width, stripeWidth);
+          }
+        }
+
+        // Initial render
+        drawStripes(0);
+
+        function animateStare(timestamp) {
+          if (!lastTime) lastTime = timestamp;
+          const delta = timestamp - lastTime;
+          lastTime = timestamp;
+
+          yOffset += 0.2 * delta; // Scroll down
+          drawStripes(yOffset);
+          animationFrameId = requestAnimationFrame(animateStare);
+        }
+
+        function animateDrift(timestamp) {
+          if (!lastTime) lastTime = timestamp;
+          const delta = timestamp - lastTime;
+          lastTime = timestamp;
+
+          if (driftSpeed > 0.01) {
+            yOffset -= driftSpeed * delta; // Scroll up (aftereffect)
+            driftSpeed *= 0.985; // Decelerate
+            drawStripes(yOffset);
+            animationFrameId = requestAnimationFrame(animateDrift);
+          } else {
+            isDrifting = false;
+            stopBtn.disabled = true;
+            startBtn.disabled = false;
+          }
+        }
+
+        startBtn.addEventListener('click', () => {
+          isStaring = true;
+          isDrifting = false;
+          startBtn.disabled = true;
+          stopBtn.disabled = false;
+          timerOverlay.classList.remove('hidden');
+          
+          let secondsLeft = 20;
+          timerText.textContent = secondsLeft;
+          
+          const interval = setInterval(() => {
+            secondsLeft--;
+            timerText.textContent = secondsLeft;
+            
+            if (secondsLeft <= 0) {
+              clearInterval(interval);
+              timerOverlay.classList.add('hidden');
+              // Automatically trigger stop for the drift effect
+              stopExperiment();
+            }
+          }, 1000);
+
+          lastTime = 0;
+          animationFrameId = requestAnimationFrame(animateStare);
+          
+          // Attach interval reference to cancel if manually stopped
+          startBtn.dataset.intervalId = interval;
+        });
+
+        function stopExperiment() {
+          if (!isStaring) return;
+          isStaring = false;
+          
+          // Clear interval if active
+          const intervalId = startBtn.dataset.intervalId;
+          if (intervalId) {
+            clearInterval(parseInt(intervalId));
+          }
+          timerOverlay.classList.add('hidden');
+
+          cancelAnimationFrame(animationFrameId);
+
+          // Trigger upwards drift simulation
+          isDrifting = true;
+          driftSpeed = 0.45; // Start speed drifting up
+          lastTime = 0;
+          animationFrameId = requestAnimationFrame(animateDrift);
+        }
+
+        stopBtn.addEventListener('click', stopExperiment);
+      }
+
+      // 3. Kanizsa Shapes Toggles
+      const togglePacman = document.getElementById('toggle-pacman');
+      const toggleAngles = document.getElementById('toggle-angles');
+      const togglePhantom = document.getElementById('toggle-phantom');
+      const pacmanGroup = document.getElementById('kanizsa-pacmans');
+      const anglesGroup = document.getElementById('kanizsa-angles');
+      const phantomShape = document.getElementById('kanizsa-phantom');
+
+      if (togglePacman && pacmanGroup) {
+        togglePacman.addEventListener('change', (e) => {
+          pacmanGroup.style.display = e.target.checked ? 'block' : 'none';
+        });
+      }
+      if (toggleAngles && anglesGroup) {
+        toggleAngles.addEventListener('change', (e) => {
+          anglesGroup.style.display = e.target.checked ? 'block' : 'none';
+        });
+      }
+      if (togglePhantom && phantomShape) {
+        togglePhantom.addEventListener('change', (e) => {
+          phantomShape.style.display = e.target.checked ? 'block' : 'none';
+        });
+      }
+
+      // 4. Visual Pathway Diagram Details Inspector
+      const nodes = document.querySelectorAll('.pathway-node');
+      const nodeTitle = document.getElementById('info-node-title');
+      const nodeRole = document.getElementById('info-node-role');
+      const nodeIllusions = document.getElementById('info-node-illusions');
+      const nodeIllusionsBox = document.getElementById('info-node-illusions-box');
+      
+      const nodeDetails = {
+        'eye': {
+          title: '👁️ Retina & Photoreceptors',
+          role: 'Captures photons and converts electromagnetic wavelengths into electrical signals via rods and cones. Employs "lateral inhibition" right at the retina surface to highlight edge differences.',
+          illusions: 'Hermann Grid ghost dots, Troxler peripheral fading.'
+        },
+        'nerve': {
+          title: 'Optic Nerve Bundle',
+          role: 'A cable of over 1 million ganglion axons carrying sensory electrical impulses. Possesses a physical "blind spot" where the nerve passes through the retina, which the brain automatically patches.',
+          illusions: 'Blind spot visual vanishing tests.'
+        },
+        'lgn': {
+          title: '🧠 LGN (Lateral Geniculate Nucleus)',
+          role: 'A sensory relay station inside the thalamus. Sorts signals from both eyes into distinct visual channels (parvocellular for detail/color, magnocellular for motion) before sending them to V1.',
+          illusions: 'Luminance contrast and brightness distortions.'
+        },
+        'v1': {
+          title: 'V1 — Primary Visual Cortex (Striate)',
+          role: 'Located at the rear occipital lobe. Houses orientation-selective simple and complex cells. Resolves basic lines, borders, and spatial frequencies.',
+          illusions: 'Zöllner stripes skew, Poggendorff alignment cuts, café wall tiling.'
+        },
+        'v2': {
+          title: 'V2 — Secondary Visual Cortex',
+          role: 'Performs initial cognitive segmentation, grouping visual cues, rendering illusory contours, and determining figure-ground separation.',
+          illusions: 'Kanizsa Shape Projection, Rubin\'s Vase face/vase flip.'
+        },
+        'v4': {
+          title: 'V4 — Cerebral Color & Form',
+          role: 'Responsible for cerebral color processing, shape synthesis, and color constancy adjustments based on assumed ambient light profiles.',
+          illusions: 'The ambiguous blue-black/white-gold Dress, Munker-White color spheres.'
+        },
+        'v5': {
+          title: 'V5/MT — Motion-Selective Cortex',
+          role: 'Integrates local direction vectors from V1 to calculate global motion speed, trajectory, and speed gradients.',
+          illusions: 'Motion Aftereffect (waterfall drift), Peripheral Drift (Rotating Snakes).'
+        }
+      };
+
+      nodes.forEach(node => {
+        node.addEventListener('click', () => {
+          const key = node.dataset.node;
+          const info = nodeDetails[key];
+          
+          if (info) {
+            // Update UI card
+            nodeTitle.textContent = info.title;
+            nodeRole.textContent = info.role;
+            nodeIllusions.textContent = info.illusions;
+            nodeIllusionsBox.classList.remove('hidden');
+
+            // Reset other nodes stroke
+            nodes.forEach(n => {
+              const c = n.querySelector('circle, rect');
+              c.classList.remove('stroke-pink-500');
+              c.classList.add('stroke-indigo-500');
+            });
+
+            // Highlight active node
+            const c = node.querySelector('circle, rect');
+            c.classList.remove('stroke-indigo-500');
+            c.classList.add('stroke-pink-500');
+          }
+        });
+      });
+
+      // Simulation highlight button
+      document.getElementById('fool-brain-btn').addEventListener('click', () => {
+        // Highlight V1, V4, V5, V2, LGN
+        const targetIds = ['v1-circle', 'v2-circle', 'v4-circle', 'v5-circle'];
+        targetIds.forEach(id => {
+          const el = document.getElementById(id);
+          if (el) {
+            el.style.stroke = '#ec4899'; // Pink stroke
+            el.style.strokeWidth = '4.5px';
+            setTimeout(() => {
+              el.style.stroke = '';
+              el.style.strokeWidth = '';
+            }, 3000);
+          }
+        });
+        alert('💡 Brain areas V1 (lines), V2 (shapes), V4 (colors), and V5 (motion) highlighted! These cortical nodes are the main sensory centers manipulated by visual illusions.');
+      });
+
+      // 5. Interactive Brain Quiz Logic
+      const quizQuestions = [
+        {
+          q: "Which visual cortex area is primarily responsible for processing motion?",
+          options: ["A. Area V1", "B. Area V4", "C. Area V5/MT"],
+          correct: 2,
+          explanation: "Area V5 (also called MT) contains motion-selective cells that process direction and speed. Overstimulating this area produces the Motion Aftereffect drift."
+        },
+        {
+          q: "What is Helmholtz's 1867 theory that the brain makes bets about sensory data?",
+          options: ["A. Unconscious Inference", "B. Lateral Inhibition", "C. Binocular Rivalry"],
+          correct: 0,
+          explanation: "Hermann von Helmholtz proposed 'unconscious inference' to explain how the brain constructs a complete visual scene by making unconscious assumptions."
+        },
+        {
+          q: "What neural mechanism enhances edges by having visual cells suppress their neighbors?",
+          options: ["A. Predictive Coding", "B. Lateral Inhibition", "C. Troxler Fading"],
+          correct: 1,
+          explanation: "Lateral Inhibition occurs in the retina, where active light-receptor cells suppress neighboring cells. This makes grid crossings look darker in the Hermann Grid."
+        },
+        {
+          q: "Which brain area resolves illusory shapes like the Kanizsa Triangle?",
+          options: ["A. Area V4 (Color)", "B. Area V2 (Grouping)", "C. Retina"],
+          correct: 1,
+          explanation: "Area V2 contains neurons sensitive to visual grouping and illusory contours, helping the brain visualize borders where none exist."
+        },
+        {
+          q: "Why did evolution preserve optical illusion vulnerabilities in human vision?",
+          options: ["A. Shortcuts are faster and usually keep us safe", "B. Human eyes are poorly constructed", "C. The brain has infinite energy"],
+          correct: 0,
+          explanation: "Visual shortcuts allow the brain to process scenes much faster. Trading minor mathematical accuracy for speed is a major evolutionary survival benefit."
+        }
+      ];
+
+      let currentQ = 0;
+      let score = 0;
+      const progressLabel = document.getElementById('quiz-progress-label');
+      const scoreLabel = document.getElementById('quiz-score-label');
+      const quizContainer = document.getElementById('quiz-container');
+      const nextBtn = document.getElementById('quiz-next-btn');
+
+      function loadQuestion(idx) {
+        if (idx >= quizQuestions.length) {
+          // Quiz End
+          progressLabel.textContent = "Quiz Complete!";
+          quizContainer.innerHTML = `
+            <div class="text-center py-6 space-y-4">
+              <h3 class="text-2xl font-black text-white">Final Score: ${score} / ${quizQuestions.length}</h3>
+              <p class="text-sm text-slate-350">
+                ${score === 5 ? "👑 Master Level! Your visual neuroscience knowledge is flawless." : (score >= 3 ? "🌟 Great Job! You understand visual processing pathways." : "🧠 Keep practicing! Visual science is a fascinating journey.")}
+              </p>
+              <button id="quiz-reset" class="py-2.5 px-6 bg-purple-600 hover:bg-purple-500 rounded-xl text-xs font-bold text-white transition-colors">Retake Quiz</button>
+            </div>
+          `;
+          nextBtn.style.display = 'none';
+          
+          document.getElementById('quiz-reset').addEventListener('click', () => {
+            currentQ = 0;
+            score = 0;
+            nextBtn.style.display = 'inline-block';
+            nextBtn.disabled = true;
+            scoreLabel.textContent = `Correct: 0/${quizQuestions.length}`;
+            loadQuestion(0);
+          });
+          return;
+        }
+
+        const question = quizQuestions[idx];
+        progressLabel.textContent = `Question ${idx + 1} of ${quizQuestions.length}`;
+        
+        let optionsHtml = '';
+        question.options.forEach((opt, oIdx) => {
+          optionsHtml += `
+            <button class="quiz-option-btn text-left p-4 rounded-xl border border-slate-700 bg-slate-800 hover:bg-slate-700 text-sm text-slate-200 transition-colors w-full" data-oidx="${oIdx}">
+              ${opt}
+            </button>
+          `;
+        });
+
+        quizContainer.innerHTML = `
+          <div class="space-y-4">
+            <h3 class="text-lg font-bold text-white">${question.q}</h3>
+            <div class="flex flex-col gap-3" id="quiz-options">
+              ${optionsHtml}
+            </div>
+            <p class="quiz-explanation hidden text-xs text-slate-400 bg-slate-950 p-4 rounded-xl border border-slate-850 mt-4 leading-relaxed"></p>
+          </div>
+        `;
+
+        // Attach events
+        const buttons = quizContainer.querySelectorAll('.quiz-option-btn');
+        buttons.forEach(btn => {
+          btn.addEventListener('click', () => {
+            const chosen = parseInt(btn.dataset.oidx);
+            const explanationEl = quizContainer.querySelector('.quiz-explanation');
+            
+            // Disable further choice clicks
+            buttons.forEach(b => b.disabled = true);
+            
+            if (chosen === question.correct) {
+              btn.classList.add('bg-emerald-600/30', 'border-emerald-500', 'text-white');
+              score++;
+              scoreLabel.textContent = `Correct: ${score}/${quizQuestions.length}`;
+              explanationEl.textContent = `✅ CORRECT! ${question.explanation}`;
+            } else {
+              btn.classList.add('bg-rose-600/30', 'border-rose-500', 'text-white');
+              // Highlight correct button
+              buttons[question.correct].classList.add('bg-emerald-600/20', 'border-emerald-500/50', 'text-white');
+              explanationEl.textContent = `❌ INCORRECT. ${question.explanation}`;
+            }
+
+            explanationEl.classList.remove('hidden');
+            nextBtn.disabled = false;
+          });
+        });
+      }
+
+      nextBtn.addEventListener('click', () => {
+        currentQ++;
+        nextBtn.disabled = true;
+        loadQuestion(currentQ);
+      });
+
+      // Init Q1
+      loadQuestion(0);
+
+      // 6. Searchable Glossary
+      const searchInput = document.getElementById('glossary-search');
+      const glossaryCards = document.querySelectorAll('.glossary-card');
+
+      if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+          const query = e.target.value.toLowerCase().trim();
+          
+          glossaryCards.forEach(card => {
+            const title = card.querySelector('h4').textContent.toLowerCase();
+            const desc = card.querySelector('p').textContent.toLowerCase();
+            
+            if (title.includes(query) || desc.includes(query)) {
+              card.style.display = 'flex';
+            } else {
+              card.style.display = 'none';
+            }
+          });
+        });
+      }
+
+      // 7. FAQ Accordions
+      const faqToggles = document.querySelectorAll('.faq-toggle');
+      faqToggles.forEach(toggle => {
+        toggle.addEventListener('click', () => {
+          const content = toggle.nextElementSibling;
+          const icon = toggle.querySelector('.faq-icon');
+          
+          content.classList.toggle('hidden');
+          if (content.classList.contains('hidden')) {
+            icon.style.transform = 'rotate(0deg)';
+          } else {
+            icon.style.transform = 'rotate(180deg)';
+          }
+        });
+      });
+
+    });
+  </script>
+
+</Layout>

@@ -1,0 +1,1313 @@
+---
+// src/pages/drawings.astro
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout 
+  title="How to Draw Optical Illusions Step by Step — 8 Easy Tutorials | Optical Illusion Lab" 
+  description="Learn how to draw optical illusions step by step with our free tutorials. Easy optical illusions to draw for beginners, kids, and advanced artists."
+>
+
+  <!-- Hero Section -->
+  <section class="relative overflow-hidden py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-slate-900 via-purple-950 to-slate-950 text-white border-b border-indigo-500/10 no-print">
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(168,85,247,0.15),transparent_50%)]"></div>
+    
+    <div class="relative mx-auto max-w-4xl text-center space-y-6">
+      <div class="inline-flex items-center space-x-2 rounded-full border border-purple-500/30 bg-purple-500/15 px-4 py-1.5 text-xs font-black uppercase tracking-wider text-purple-300 backdrop-blur-sm">
+        ✏️ Step-by-Step Drawing Guide ✏️
+      </div>
+      <h1 class="font-display text-4xl sm:text-6xl font-black tracking-tight bg-gradient-to-r from-pink-400 via-purple-400 to-indigo-400 bg-clip-text text-transparent">
+        How to Draw Optical Illusions — Step by Step
+      </h1>
+      <p class="mx-auto max-w-2xl text-lg sm:text-xl text-slate-200 font-medium leading-relaxed">
+        Learn to draw 8 mind-bending optical illusions. No art skills needed — just a pencil and paper!
+      </p>
+
+      <!-- Intro Text -->
+      <div class="mx-auto max-w-3xl text-sm sm:text-base text-slate-350 leading-relaxed bg-slate-950/40 p-6 rounded-2xl border border-indigo-500/10">
+        <p>
+          Welcome to the ultimate guide on <strong>how to draw optical illusions step by step</strong>! Visual tricks aren't just for computer screens — with a simple pencil, ruler, and paper, you can create mind-bending depth on a flat sheet. Whether you are searching for <strong>easy optical illusions to draw</strong> for kids or looking to master complex dimensional shading, these 8 hand-drawn guides make it simple. We cover the entire spectrum of <strong>optical illusions drawings</strong>: from impossible geometries like the Penrose triangle to tricks that play with motion. You will even learn <strong>how to draw moving optical illusions</strong> that seem to dance and tilt right off your notebook page. Grab your sketching materials and follow along to unlock the fascinating geometry of visual deception.
+        </p>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex flex-wrap justify-center gap-4 pt-2">
+        <button id="download-all-pdf" class="rounded-2xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 px-6 py-3 text-sm font-bold text-white shadow-lg hover:scale-102 transition-all">
+          📄 Download All as PDF (Printable)
+        </button>
+        <a href="#tutorials-section" class="rounded-2xl border border-white/20 bg-white/5 hover:bg-white/10 px-6 py-3 text-sm font-bold text-slate-200 hover:text-white transition-all">
+          Explore Tutorials 🖍️
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Filter & Subscription waitlist banner -->
+  <section id="tutorials-section" class="py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-8 no-print">
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6 bg-slate-900/40 border border-indigo-500/10 rounded-2xl p-6">
+      <!-- Difficulty Filters -->
+      <div class="space-y-2">
+        <span class="text-xs font-bold text-slate-400 uppercase tracking-widest block">Filter by Difficulty</span>
+        <div class="flex flex-wrap gap-2" id="filter-buttons">
+          <button class="filter-btn active px-4 py-2 text-xs font-bold rounded-xl bg-purple-600 text-white transition-colors" data-difficulty="all">All Levels</button>
+          <button class="filter-btn px-4 py-2 text-xs font-bold rounded-xl bg-slate-800 text-slate-300 hover:bg-slate-750 transition-colors" data-difficulty="beginner">🟢 Beginner</button>
+          <button class="filter-btn px-4 py-2 text-xs font-bold rounded-xl bg-slate-800 text-slate-300 hover:bg-slate-750 transition-colors" data-difficulty="intermediate">🟡 Intermediate</button>
+          <button class="filter-btn px-4 py-2 text-xs font-bold rounded-xl bg-slate-800 text-slate-300 hover:bg-slate-750 transition-colors" data-difficulty="advanced">🔴 Advanced</button>
+        </div>
+      </div>
+
+      <!-- Waitlist Form -->
+      <div class="bg-indigo-950/20 border border-indigo-500/20 rounded-xl p-4 flex flex-col sm:flex-row sm:items-center gap-4 max-w-md w-full">
+        <div class="flex-1 space-y-1">
+          <div class="text-sm font-bold text-white flex items-center gap-2">
+            🎬 Video Guides Waitlist
+            <span class="inline-flex h-2 w-2 rounded-full bg-emerald-500 animate-ping"></span>
+          </div>
+          <p class="text-xs text-slate-400">Join <span id="waitlist-counter-display" class="font-semibold text-purple-300">12,450</span> artists for video tutorials!</p>
+        </div>
+        <form id="waitlist-form" class="flex gap-2">
+          <input 
+            type="email" 
+            required 
+            placeholder="Your email" 
+            class="px-3 py-1.5 text-xs bg-slate-950 border border-slate-750 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-purple-500 max-w-[160px]"
+          />
+          <button type="submit" class="px-3 py-1.5 text-xs font-bold bg-purple-600 hover:bg-purple-500 text-white rounded-lg transition-colors">Join</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tutorials Cards Grid -->
+  <section class="py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto no-print">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="tutorials-grid">
+
+      <!-- ==================== TUTORIAL 1 ==================== -->
+      <div class="tutorial-card bg-slate-900/60 border border-purple-500/20 rounded-3xl p-6 flex flex-col justify-between hover:translate-y-[-4px] hover:shadow-2xl transition-all duration-300 relative" 
+           data-difficulty="beginner" 
+           data-id="1"
+           data-instructions='[
+             "Step 1: Draw a large, simple outer triangle with equal sides using a ruler.",
+             "Step 2: Add parallel inner lines inside each side of the triangle to establish the bar thickness.",
+             "Step 3: Extend the lines at each corner to connect impossibly with the opposite inner bar edges.",
+             "Step 4: Shade the faces: leave the top face light gray, shade the right side medium, and the bottom face dark.",
+             "Step 5: Outline your lines in black marker and erase guidelines. Your impossible Penrose triangle is complete!"
+           ]'>
+        <div class="absolute top-4 right-4 bg-purple-600 text-white text-[10px] font-black uppercase px-2.5 py-1 rounded-full shadow-md tracking-wider">
+          🔥 Most Popular
+        </div>
+        <div class="space-y-4">
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-bold px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">🟢 Beginner</span>
+            <span class="text-xs text-slate-400">⏱️ 5 mins</span>
+          </div>
+          <div>
+            <h2 class="text-xl font-bold text-white mb-1">1. The Impossible Triangle</h2>
+            <p class="text-xs text-slate-400">Master the famous Penrose Triangle that cannot exist in 3D space.</p>
+          </div>
+
+          <!-- Drawing Canvas -->
+          <div class="flex items-center justify-center bg-slate-950/50 rounded-2xl p-4 border border-slate-800 aspect-square relative overflow-hidden group">
+            <svg class="w-full h-full max-h-[220px]" viewBox="0 0 300 300">
+              <!-- Grid background placeholder -->
+              <g opacity="0.05">
+                <path d="M 0,50 L 300,50 M 0,100 L 300,100 M 0,150 L 300,150 M 0,200 L 300,200 M 0,250 L 300,250" stroke="#a78bfa" stroke-width="1"/>
+                <path d="M 50,0 L 50,300 M 100,0 L 100,300 M 150,0 L 150,300 M 200,0 L 200,300 M 250,0 L 250,300" stroke="#a78bfa" stroke-width="1"/>
+              </g>
+              
+              <!-- STEP 1: Base Triangle -->
+              <g class="step-group" data-step="1">
+                <polygon points="150,45 260,235 40,235" class="stroke-indigo-400 fill-none" stroke-width="3" stroke-dasharray="1000" stroke-dashoffset="0"/>
+              </g>
+              <!-- STEP 2: Inner Parallel Lines -->
+              <g class="step-group" data-step="2">
+                <polygon points="150,90 220,210 80,210" class="stroke-purple-400 fill-none" stroke-width="2.5" stroke-dasharray="1000" stroke-dashoffset="0"/>
+                <polygon points="150,135 180,185 120,185" class="stroke-purple-500 fill-none" stroke-width="1.5" stroke-dasharray="1000" stroke-dashoffset="0" opacity="0.6"/>
+              </g>
+              <!-- STEP 3: Impossible Corner joints -->
+              <g class="step-group" data-step="3">
+                <line x1="150" y1="45" x2="150" y2="90" class="stroke-indigo-300" stroke-width="3" />
+                <line x1="260" y1="235" x2="220" y2="210" class="stroke-indigo-300" stroke-width="3" />
+                <line x1="40" y1="235" x2="80" y2="210" class="stroke-indigo-300" stroke-width="3" />
+                <path d="M 150,90 L 120,185 M 220,210 L 180,185 M 80,210 L 150,135" class="stroke-indigo-300" stroke-width="2" />
+              </g>
+              <!-- STEP 4: Face shading -->
+              <g class="step-group" data-step="4">
+                <!-- Face A (Light) -->
+                <polygon points="150,45 150,90 120,185 80,210 40,235" class="fill-indigo-400/20 stroke-none" />
+                <!-- Face B (Medium) -->
+                <polygon points="150,45 260,235 220,210 180,185 150,90" class="fill-purple-500/30 stroke-none" />
+                <!-- Face C (Dark) -->
+                <polygon points="40,235 80,210 220,210 260,235" class="fill-indigo-900/60 stroke-none" />
+              </g>
+              <!-- STEP 5: Final Result (Thick black outlines and glows) -->
+              <g class="step-group" data-step="5">
+                <!-- Inner borders -->
+                <path d="M 150,90 L 80,210 L 220,210 M 150,90 L 150,45 M 220,210 L 260,235 M 80,210 L 40,235" class="stroke-indigo-300 fill-none" stroke-width="3.5" />
+                <!-- Outer borders -->
+                <polygon points="150,45 260,235 40,235" class="stroke-purple-400 fill-none" stroke-width="4" />
+              </g>
+            </svg>
+          </div>
+
+          <!-- Step navigation -->
+          <div class="space-y-4">
+            <div class="flex items-center justify-between text-xs">
+              <span class="step-counter font-bold text-purple-400">Step 1 of 5</span>
+              <span class="text-slate-500">Materials: pencil, ruler, paper</span>
+            </div>
+            <div class="bg-slate-950/60 border border-slate-800 rounded-xl p-3 min-h-[64px] flex items-center">
+              <p class="step-instruction text-xs text-slate-350 leading-relaxed"></p>
+            </div>
+            <div class="flex gap-2">
+              <button class="prev-btn flex-1 py-2 rounded-xl bg-slate-800 hover:bg-slate-750 disabled:opacity-30 text-xs font-bold text-white transition-colors">← Previous</button>
+              <button class="next-btn flex-1 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 disabled:opacity-30 text-xs font-bold text-white transition-colors">Next →</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="border-t border-slate-850 mt-6 pt-4 flex items-center justify-between">
+          <button class="print-tutorial-btn text-[11px] font-bold text-slate-400 hover:text-white flex items-center gap-1">
+            🖨️ Print Tutorial
+          </button>
+          <button class="share-tutorial-btn text-[11px] font-bold text-purple-400 hover:text-purple-300 flex items-center gap-1">
+            📤 Share Drawing
+          </button>
+        </div>
+      </div>
+
+      <!-- ==================== TUTORIAL 2 ==================== -->
+      <div class="tutorial-card bg-slate-900/60 border border-purple-500/20 rounded-3xl p-6 flex flex-col justify-between hover:translate-y-[-4px] hover:shadow-2xl transition-all duration-300 relative" 
+           data-difficulty="beginner" 
+           data-id="2"
+           data-instructions='[
+             "Step 1: Sketch a flat, wide oval in the middle of your page using a light pencil.",
+             "Step 2: Draw horizontal grid lines across the paper, stopping at the oval boundary and curving down sharply inside it.",
+             "Step 3: Shade the center of the oval pitch black, gradually blending it outwards to form a dark radial gradient.",
+             "Step 4: Draw tiny wrinkle folds and depth cracks around the oval edges to simulate paper tearing downward.",
+             "Step 5: Deepen the shadow inside the hole and add light pencil highlights outside the rim to enhance the floating 3D illusion."
+           ]'>
+        <div class="space-y-4">
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-bold px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">🟢 Beginner</span>
+            <span class="text-xs text-slate-400">⏱️ 10 mins</span>
+          </div>
+          <div>
+            <h2 class="text-xl font-bold text-white mb-1">2. The 3D Hole in Paper</h2>
+            <p class="text-xs text-slate-400">Create a realistic illusion of a deep chasm dropping through your page.</p>
+          </div>
+
+          <!-- Drawing Canvas -->
+          <div class="flex items-center justify-center bg-slate-950/50 rounded-2xl p-4 border border-slate-800 aspect-square relative overflow-hidden">
+            <svg class="w-full h-full max-h-[220px]" viewBox="0 0 300 300">
+              <defs>
+                <clipPath id="hole-clip">
+                  <ellipse cx="150" cy="150" rx="80" ry="35" />
+                </clipPath>
+                <radialGradient id="hole-gradient" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="#020617" />
+                  <stop offset="60%" stop-color="#1e1b4b" />
+                  <stop offset="100%" stop-color="#4338ca" stop-opacity="0.1" />
+                </radialGradient>
+              </defs>
+              <!-- STEP 1: Center Oval -->
+              <g class="step-group" data-step="1">
+                <ellipse cx="150" cy="150" rx="80" ry="35" class="stroke-indigo-400 fill-none" stroke-width="2.5" />
+              </g>
+              <!-- STEP 2: Curved Grid Lines Inside -->
+              <g class="step-group" data-step="2">
+                <!-- Straight grid outside -->
+                <path d="M 20,90 L 280,90 M 20,110 L 280,110 M 20,130 L 280,130 M 20,170 L 280,170 M 20,190 L 280,190 M 20,210 L 280,210" class="stroke-slate-700/40 fill-none" stroke-width="1.5" />
+                <!-- Curved grid inside clip -->
+                <g clip-path="url(#hole-clip)">
+                  <path d="M 70,120 Q 150,165 230,120" class="stroke-indigo-400 fill-none" stroke-width="2" />
+                  <path d="M 70,140 Q 150,185 230,140" class="stroke-indigo-400 fill-none" stroke-width="2" />
+                  <path d="M 70,160 Q 150,205 230,160" class="stroke-indigo-400 fill-none" stroke-width="2" />
+                  <!-- vertical lines bending down -->
+                  <path d="M 90,115 Q 110,150 110,185" class="stroke-indigo-500 fill-none" stroke-width="1.5" />
+                  <path d="M 120,115 Q 135,150 135,185" class="stroke-indigo-500 fill-none" stroke-width="1.5" />
+                  <path d="M 150,115 Q 150,150 150,185" class="stroke-indigo-500 fill-none" stroke-width="1.5" />
+                  <path d="M 180,115 Q 165,150 165,185" class="stroke-indigo-500 fill-none" stroke-width="1.5" />
+                  <path d="M 210,115 Q 190,150 190,185" class="stroke-indigo-500 fill-none" stroke-width="1.5" />
+                </g>
+              </g>
+              <!-- STEP 3: Dark Radial Gradient -->
+              <g class="step-group" data-step="3">
+                <ellipse cx="150" cy="150" rx="80" ry="35" fill="url(#hole-gradient)" opacity="0.85" />
+              </g>
+              <!-- STEP 4: Wrinkle / rim creases -->
+              <g class="step-group" data-step="4">
+                <path d="M 70,135 L 60,130 M 80,120 L 70,110 M 220,125 L 235,115 M 230,145 L 245,150 M 150,185 L 150,195 M 120,180 L 115,190" class="stroke-indigo-300 fill-none" stroke-width="2" />
+              </g>
+              <!-- STEP 5: Color shading and light highlights -->
+              <g class="step-group" data-step="5">
+                <!-- Outer shading overlay -->
+                <ellipse cx="150" cy="155" rx="83" ry="38" class="stroke-indigo-500/30 fill-none" stroke-width="4" />
+                <ellipse cx="150" cy="150" rx="77" ry="32" class="stroke-white/20 fill-none" stroke-width="2" />
+              </g>
+            </svg>
+          </div>
+
+          <!-- Step navigation -->
+          <div class="space-y-4">
+            <div class="flex items-center justify-between text-xs">
+              <span class="step-counter font-bold text-purple-400">Step 1 of 5</span>
+              <span class="text-slate-500">Materials: pencil, soft eraser</span>
+            </div>
+            <div class="bg-slate-950/60 border border-slate-800 rounded-xl p-3 min-h-[64px] flex items-center">
+              <p class="step-instruction text-xs text-slate-350 leading-relaxed"></p>
+            </div>
+            <div class="flex gap-2">
+              <button class="prev-btn flex-1 py-2 rounded-xl bg-slate-800 hover:bg-slate-750 disabled:opacity-30 text-xs font-bold text-white transition-colors">← Previous</button>
+              <button class="next-btn flex-1 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 disabled:opacity-30 text-xs font-bold text-white transition-colors">Next →</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="border-t border-slate-850 mt-6 pt-4 flex items-center justify-between">
+          <button class="print-tutorial-btn text-[11px] font-bold text-slate-400 hover:text-white flex items-center gap-1">
+            🖨️ Print Tutorial
+          </button>
+          <button class="share-tutorial-btn text-[11px] font-bold text-purple-400 hover:text-purple-300 flex items-center gap-1">
+            📤 Share Drawing
+          </button>
+        </div>
+      </div>
+
+      <!-- ==================== TUTORIAL 3 ==================== -->
+      <div class="tutorial-card bg-slate-900/60 border border-purple-500/20 rounded-3xl p-6 flex flex-col justify-between hover:translate-y-[-4px] hover:shadow-2xl transition-all duration-300 relative" 
+           data-difficulty="beginner" 
+           data-id="3"
+           data-instructions='[
+             "Step 1: Sketch a simple square in the left-center of your canvas.",
+             "Step 2: Sketch an identical square offset slightly upward and to the right.",
+             "Step 3: Connect each of the 4 corners of the first square to the corresponding corner of the second square with diagonal lines.",
+             "Step 4: Use dashed lines (or erase guidelines) for the back-facing wires to make the wireframe structure easier to read.",
+             "Step 5: Apply light shading to the top, front, and side faces of the cube to give it a solid 3D form that flips perspective."
+           ]'>
+        <div class="absolute top-4 right-4 bg-purple-600 text-white text-[10px] font-black uppercase px-2.5 py-1 rounded-full shadow-md tracking-wider">
+          🔥 Most Popular
+        </div>
+        <div class="space-y-4">
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-bold px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">🟢 Beginner</span>
+            <span class="text-xs text-slate-400">⏱️ 5 mins</span>
+          </div>
+          <div>
+            <h2 class="text-xl font-bold text-white mb-1">3. The Necker Cube</h2>
+            <p class="text-xs text-slate-400">Draw the classic wireframe cube that tricks your brain into shifting depth.</p>
+          </div>
+
+          <!-- Drawing Canvas -->
+          <div class="flex items-center justify-center bg-slate-950/50 rounded-2xl p-4 border border-slate-800 aspect-square relative overflow-hidden">
+            <svg class="w-full h-full max-h-[220px]" viewBox="0 0 300 300">
+              <!-- STEP 1: Square 1 -->
+              <g class="step-group" data-step="1">
+                <rect x="70" y="100" width="110" height="110" class="stroke-indigo-400 fill-none" stroke-width="2.5" />
+              </g>
+              <!-- STEP 2: Square 2 -->
+              <g class="step-group" data-step="2">
+                <rect x="120" y="60" width="110" height="110" class="stroke-purple-400 fill-none" stroke-width="2.5" />
+              </g>
+              <!-- STEP 3: Connecting Corners -->
+              <g class="step-group" data-step="3">
+                <line x1="70" y1="100" x2="120" y2="60" class="stroke-indigo-300" stroke-width="2.5" />
+                <line x1="180" y1="100" x2="230" y2="60" class="stroke-indigo-300" stroke-width="2.5" />
+                <line x1="180" y1="210" x2="230" y2="170" class="stroke-indigo-300" stroke-width="2.5" />
+                <line x1="70" y1="210" x2="120" y2="170" class="stroke-indigo-300" stroke-width="2.5" />
+              </g>
+              <!-- STEP 4: Wireframe effect -->
+              <g class="step-group" data-step="4">
+                <!-- Turn back-facing lines dashed -->
+                <line x1="120" y1="60" x2="120" y2="170" class="stroke-slate-500" stroke-width="2.5" stroke-dasharray="4,4" />
+                <line x1="120" y1="170" x2="230" y2="170" class="stroke-slate-500" stroke-width="2.5" stroke-dasharray="4,4" />
+                <line x1="70" y1="210" x2="120" y2="170" class="stroke-slate-500" stroke-width="2.5" stroke-dasharray="4,4" />
+              </g>
+              <!-- STEP 5: Shade faces -->
+              <g class="step-group" data-step="5">
+                <!-- Top Face -->
+                <polygon points="70,100 120,60 230,60 180,100" class="fill-indigo-400/20 stroke-none" />
+                <!-- Side Face -->
+                <polygon points="180,100 230,60 230,170 180,210" class="fill-purple-400/30 stroke-none" />
+                <!-- Front Face -->
+                <rect x="70" y="100" width="110" height="110" class="fill-indigo-300/10 stroke-indigo-400" stroke-width="3" />
+              </g>
+            </svg>
+          </div>
+
+          <!-- Step navigation -->
+          <div class="space-y-4">
+            <div class="flex items-center justify-between text-xs">
+              <span class="step-counter font-bold text-purple-400">Step 1 of 5</span>
+              <span class="text-slate-500">Materials: pencil, ruler</span>
+            </div>
+            <div class="bg-slate-950/60 border border-slate-800 rounded-xl p-3 min-h-[64px] flex items-center">
+              <p class="step-instruction text-xs text-slate-350 leading-relaxed"></p>
+            </div>
+            <div class="flex gap-2">
+              <button class="prev-btn flex-1 py-2 rounded-xl bg-slate-800 hover:bg-slate-750 disabled:opacity-30 text-xs font-bold text-white transition-colors">← Previous</button>
+              <button class="next-btn flex-1 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 disabled:opacity-30 text-xs font-bold text-white transition-colors">Next →</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="border-t border-slate-850 mt-6 pt-4 flex items-center justify-between">
+          <button class="print-tutorial-btn text-[11px] font-bold text-slate-400 hover:text-white flex items-center gap-1">
+            🖨️ Print Tutorial
+          </button>
+          <button class="share-tutorial-btn text-[11px] font-bold text-purple-400 hover:text-purple-300 flex items-center gap-1">
+            📤 Share Drawing
+          </button>
+        </div>
+      </div>
+
+      <!-- ==================== TUTORIAL 4 ==================== -->
+      <div class="tutorial-card bg-slate-900/60 border border-purple-500/20 rounded-3xl p-6 flex flex-col justify-between hover:translate-y-[-4px] hover:shadow-2xl transition-all duration-300 relative" 
+           data-difficulty="intermediate" 
+           data-id="4"
+           data-instructions='[
+             "Step 1: Sketch light guide lines at 30-degree angles to establish an isometric grid system.",
+             "Step 2: Draw the horizontal tread and vertical rise of the first stair block in isometric view.",
+             "Step 3: Draw three ascending steps rising clockwise, following the isometric coordinate layout.",
+             "Step 4: Connect the top stair back to the first step impossibly, defying gravity and logic.",
+             "Step 5: Shade top surfaces light gray, left sides medium, and right risers dark to lock in the endless staircase illusion."
+           ]'>
+        <div class="space-y-4">
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-bold px-2 py-0.5 rounded-md bg-yellow-500/10 text-yellow-400 border border-yellow-500/20">🟡 Intermediate</span>
+            <span class="text-xs text-slate-400">⏱️ 15 mins</span>
+          </div>
+          <div>
+            <h2 class="text-xl font-bold text-white mb-1">4. The Infinite Staircase</h2>
+            <p class="text-xs text-slate-400">Draw the Escher-inspired Penrose steps that loop forever in a circle.</p>
+          </div>
+
+          <!-- Drawing Canvas -->
+          <div class="flex items-center justify-center bg-slate-950/50 rounded-2xl p-4 border border-slate-800 aspect-square relative overflow-hidden">
+            <svg class="w-full h-full max-h-[220px]" viewBox="0 0 300 300">
+              <!-- STEP 1: Isometric Grid -->
+              <g class="step-group" data-step="1" opacity="0.3">
+                <path d="M 50,150 L 250,50 M 50,200 L 250,100 M 50,250 L 250,150 M 50,100 L 250,200 M 50,50 L 250,150" class="stroke-indigo-500/50 fill-none" stroke-width="1" />
+              </g>
+              <!-- STEP 2: First Step -->
+              <g class="step-group" data-step="2">
+                <!-- Tread -->
+                <polygon points="120,200 150,185 180,200 150,215" class="stroke-indigo-400 fill-none" stroke-width="2" />
+                <!-- Left Riser -->
+                <polygon points="120,200 150,215 150,235 120,220" class="stroke-indigo-400 fill-none" stroke-width="2" />
+              </g>
+              <!-- STEP 3: 3 Ascending Steps -->
+              <g class="step-group" data-step="3">
+                <!-- Step 2 -->
+                <polygon points="150,185 180,170 210,185 180,200" class="stroke-purple-400 fill-none" stroke-width="2" />
+                <polygon points="180,200 210,185 210,205 180,220" class="stroke-purple-400 fill-none" stroke-width="2" />
+                <!-- Step 3 -->
+                <polygon points="180,170 150,155 180,140 210,155" class="stroke-purple-400 fill-none" stroke-width="2" />
+                <polygon points="180,170 210,155 210,175 180,190" class="stroke-purple-400 fill-none" stroke-width="2" />
+              </g>
+              <!-- STEP 4: Impossible loop connection -->
+              <g class="step-group" data-step="4">
+                <!-- Step 4 connecting down -->
+                <polygon points="150,155 120,170 150,185 180,170" class="stroke-indigo-300 fill-none" stroke-width="2" />
+                <!-- Impossible corner segment linking Step 4 to Step 1 -->
+                <line x1="120" y1="170" x2="120" y2="200" class="stroke-indigo-300" stroke-width="2" />
+                <line x1="150" y1="155" x2="120" y2="200" class="stroke-red-400/80" stroke-width="2.5" />
+              </g>
+              <!-- STEP 5: Final Shading -->
+              <g class="step-group" data-step="5">
+                <!-- Tread fills -->
+                <polygon points="120,200 150,185 180,200 150,215" class="fill-indigo-400/30 stroke-none" />
+                <polygon points="150,185 180,170 210,185 180,200" class="fill-indigo-400/30 stroke-none" />
+                <polygon points="180,170 150,155 180,140 210,155" class="fill-indigo-400/30 stroke-none" />
+                <polygon points="150,155 120,170 150,185 180,170" class="fill-indigo-400/30 stroke-none" />
+                
+                <!-- Riser Left fills -->
+                <polygon points="120,200 150,215 150,235 120,220" class="fill-purple-500/20 stroke-none" />
+                <!-- Riser Right fills -->
+                <polygon points="180,200 210,185 210,205 180,220" class="fill-indigo-900/60 stroke-none" />
+                <polygon points="180,170 210,155 210,175 180,190" class="fill-indigo-900/60 stroke-none" />
+              </g>
+            </svg>
+          </div>
+
+          <!-- Step navigation -->
+          <div class="space-y-4">
+            <div class="flex items-center justify-between text-xs">
+              <span class="step-counter font-bold text-purple-400">Step 1 of 5</span>
+              <span class="text-slate-500">Materials: pencil, ruler, grid</span>
+            </div>
+            <div class="bg-slate-950/60 border border-slate-800 rounded-xl p-3 min-h-[64px] flex items-center">
+              <p class="step-instruction text-xs text-slate-350 leading-relaxed"></p>
+            </div>
+            <div class="flex gap-2">
+              <button class="prev-btn flex-1 py-2 rounded-xl bg-slate-800 hover:bg-slate-750 disabled:opacity-30 text-xs font-bold text-white transition-colors">← Previous</button>
+              <button class="next-btn flex-1 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 disabled:opacity-30 text-xs font-bold text-white transition-colors">Next →</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="border-t border-slate-850 mt-6 pt-4 flex items-center justify-between">
+          <button class="print-tutorial-btn text-[11px] font-bold text-slate-400 hover:text-white flex items-center gap-1">
+            🖨️ Print Tutorial
+          </button>
+          <button class="share-tutorial-btn text-[11px] font-bold text-purple-400 hover:text-purple-300 flex items-center gap-1">
+            📤 Share Drawing
+          </button>
+        </div>
+      </div>
+
+      <!-- ==================== TUTORIAL 5 ==================== -->
+      <div class="tutorial-card bg-slate-900/60 border border-purple-500/20 rounded-3xl p-6 flex flex-col justify-between hover:translate-y-[-4px] hover:shadow-2xl transition-all duration-300 relative" 
+           data-difficulty="intermediate" 
+           data-id="5"
+           data-instructions='[
+             "Step 1: Sketch a neat circle in the center of the sheet using a compass.",
+             "Step 2: Draw parallel, straight horizontal lines across the entire background, leaving the circle completely blank.",
+             "Step 3: Inside the circle, continue the lines but curve them upwards like arches (convex curves) to suggest a 3D dome.",
+             "Step 4: Draw vertical curved grid lines inside the circle (leftward arches on left side, rightward on the right) to create longitude lines.",
+             "Step 5: Apply dark pencil shading around the edges of the sphere to make it look like a rounded ball bulging out of the page."
+           ] border border-purple-500/20 rounded-3xl p-6 flex flex-col justify-between hover:translate-y-[-4px] hover:shadow-2xl transition-all duration-300 relative'>
+        <div class="space-y-4">
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-bold px-2 py-0.5 rounded-md bg-yellow-500/10 text-yellow-400 border border-yellow-500/20">🟡 Intermediate</span>
+            <span class="text-xs text-slate-400">⏱️ 20 mins</span>
+          </div>
+          <div>
+            <h2 class="text-xl font-bold text-white mb-1">5. The Op Art Sphere</h2>
+            <p class="text-xs text-slate-400">Use curved line vectors to transform a flat circle into a bulging sphere.</p>
+          </div>
+
+          <!-- Drawing Canvas -->
+          <div class="flex items-center justify-center bg-slate-950/50 rounded-2xl p-4 border border-slate-800 aspect-square relative overflow-hidden">
+            <svg class="w-full h-full max-h-[220px]" viewBox="0 0 300 300">
+              <defs>
+                <clipPath id="sphere-clip">
+                  <circle cx="150" cy="150" r="65" />
+                </clipPath>
+                <radialGradient id="sphere-shade" cx="40%" cy="40%" r="60%">
+                  <stop offset="0%" stop-color="#ffffff" stop-opacity="0.3" />
+                  <stop offset="60%" stop-color="#818cf8" stop-opacity="0.3" />
+                  <stop offset="100%" stop-color="#312e81" stop-opacity="0.9" />
+                </radialGradient>
+              </defs>
+              <!-- STEP 1: Circle Outline -->
+              <g class="step-group" data-step="1">
+                <circle cx="150" cy="150" r="65" class="stroke-indigo-400 fill-none" stroke-width="2.5" />
+              </g>
+              <!-- STEP 2: Background Straight Lines -->
+              <g class="step-group" data-step="2">
+                <path d="M 20,85 H 280 M 20,105 H 280 M 20,125 H 280 M 20,145 H 280 M 20,165 H 280 M 20,185 H 280 M 20,205 H 280 M 20,215 H 280" class="stroke-slate-700 fill-none" stroke-width="1.5" />
+                <!-- Cover lines crossing the circle -->
+                <circle cx="150" cy="150" r="65.5" class="fill-slate-950 stroke-none" />
+                <circle cx="150" cy="150" r="65" class="stroke-indigo-400 fill-none" stroke-width="2.5" />
+              </g>
+              <!-- STEP 3: Horizontal Curves Inside -->
+              <g class="step-group" data-step="3" clip-path="url(#sphere-clip)">
+                <path d="M 80,105 Q 150,75 220,105" class="stroke-indigo-450 fill-none" stroke-width="2" />
+                <path d="M 80,125 Q 150,95 220,125" class="stroke-indigo-450 fill-none" stroke-width="2" />
+                <path d="M 80,145 Q 150,115 220,145" class="stroke-indigo-450 fill-none" stroke-width="2" />
+                <path d="M 80,165 Q 150,135 220,165" class="stroke-indigo-450 fill-none" stroke-width="2" />
+                <path d="M 80,185 Q 150,155 220,185" class="stroke-indigo-450 fill-none" stroke-width="2" />
+                <path d="M 80,205 Q 150,175 220,205" class="stroke-indigo-450 fill-none" stroke-width="2" />
+              </g>
+              <!-- STEP 4: Vertical Curves Inside -->
+              <g class="step-group" data-step="4" clip-path="url(#sphere-clip)">
+                <path d="M 105,80 Q 135,150 105,220" class="stroke-purple-500 fill-none" stroke-width="1.5" />
+                <path d="M 125,80 Q 145,150 125,220" class="stroke-purple-500 fill-none" stroke-width="1.5" />
+                <path d="M 150,80 Q 150,150 150,220" class="stroke-purple-500 fill-none" stroke-width="1.5" />
+                <path d="M 175,80 Q 155,150 175,220" class="stroke-purple-500 fill-none" stroke-width="1.5" />
+                <path d="M 195,80 Q 165,150 195,220" class="stroke-purple-500 fill-none" stroke-width="1.5" />
+              </g>
+              <!-- STEP 5: Sphere Shading -->
+              <g class="step-group" data-step="5">
+                <circle cx="150" cy="150" r="65" fill="url(#sphere-shade)" />
+              </g>
+            </svg>
+          </div>
+
+          <!-- Step navigation -->
+          <div class="space-y-4">
+            <div class="flex items-center justify-between text-xs">
+              <span class="step-counter font-bold text-purple-400">Step 1 of 5</span>
+              <span class="text-slate-500">Materials: pencil, compass</span>
+            </div>
+            <div class="bg-slate-950/60 border border-slate-800 rounded-xl p-3 min-h-[64px] flex items-center">
+              <p class="step-instruction text-xs text-slate-350 leading-relaxed"></p>
+            </div>
+            <div class="flex gap-2">
+              <button class="prev-btn flex-1 py-2 rounded-xl bg-slate-800 hover:bg-slate-750 disabled:opacity-30 text-xs font-bold text-white transition-colors">← Previous</button>
+              <button class="next-btn flex-1 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 disabled:opacity-30 text-xs font-bold text-white transition-colors">Next →</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="border-t border-slate-850 mt-6 pt-4 flex items-center justify-between">
+          <button class="print-tutorial-btn text-[11px] font-bold text-slate-400 hover:text-white flex items-center gap-1">
+            🖨️ Print Tutorial
+          </button>
+          <button class="share-tutorial-btn text-[11px] font-bold text-purple-400 hover:text-purple-300 flex items-center gap-1">
+            📤 Share Drawing
+          </button>
+        </div>
+      </div>
+
+      <!-- ==================== TUTORIAL 6 ==================== -->
+      <div class="tutorial-card bg-slate-900/60 border border-purple-500/20 rounded-3xl p-6 flex flex-col justify-between hover:translate-y-[-4px] hover:shadow-2xl transition-all duration-300 relative" 
+           data-difficulty="beginner" 
+           data-id="6"
+           data-instructions='[
+             "Step 1: Draw a series of perfectly straight, parallel horizontal lines down your page.",
+             "Step 2: Add small, diagonal hash lines between the horizontal rows, alternating directions in every row.",
+             "Step 3: Color alternating boxes in two highly contrasting colors (e.g. purple and white).",
+             "Step 4: Draw thin border outlines or grey stripes over the main lines to confuse visual alignment.",
+             "Step 5: Move your eyes across the page — the straight lines will appear to bend and tilt!"
+           ]'>
+        <div class="space-y-4">
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-bold px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">🟢 Beginner</span>
+            <span class="text-xs text-slate-400">⏱️ 10 mins</span>
+          </div>
+          <div>
+            <h2 class="text-xl font-bold text-white mb-1">6. Moving Lines Illusion</h2>
+            <p class="text-xs text-slate-400">Draw wobbly rows that look crooked even though they are completely parallel.</p>
+          </div>
+
+          <!-- Drawing Canvas -->
+          <div class="flex items-center justify-center bg-slate-950/50 rounded-2xl p-4 border border-slate-800 aspect-square relative overflow-hidden">
+            <svg class="w-full h-full max-h-[220px]" viewBox="0 0 300 300">
+              <!-- STEP 1: Straight parallel lines -->
+              <g class="step-group" data-step="1">
+                <path d="M 30,80 H 270 M 30,110 H 270 M 30,140 H 270 M 30,170 H 270 M 30,200 H 270 M 30,230 H 270" class="stroke-indigo-400 fill-none" stroke-width="2" />
+              </g>
+              <!-- STEP 2: Alternating diagonal ticks -->
+              <g class="step-group" data-step="2">
+                <!-- Row 1 ticks -->
+                <path d="M 50,80 L 60,110 M 90,80 L 100,110 M 130,80 L 140,110 M 170,80 L 180,110 M 210,80 L 220,110 M 250,80 L 260,110" class="stroke-slate-600 fill-none" stroke-width="1.5" />
+                <!-- Row 2 ticks (opposite) -->
+                <path d="M 60,110 L 50,140 M 100,110 L 90,140 M 140,110 L 130,140 M 180,110 L 170,140 M 220,110 L 210,140 M 260,110 L 250,140" class="stroke-slate-600 fill-none" stroke-width="1.5" />
+              </g>
+              <!-- STEP 3: Color alternating rows -->
+              <g class="step-group" data-step="3">
+                <!-- Color block fills -->
+                <rect x="50" y="80" width="20" height="30" class="fill-purple-600/30" />
+                <rect x="130" y="80" width="20" height="30" class="fill-purple-600/30" />
+                <rect x="210" y="80" width="20" height="30" class="fill-purple-600/30" />
+                
+                <rect x="80" y="110" width="20" height="30" class="fill-indigo-650/40" />
+                <rect x="160" y="110" width="20" height="30" class="fill-indigo-650/40" />
+                <rect x="240" y="110" width="20" height="30" class="fill-indigo-650/40" />
+
+                <rect x="50" y="140" width="20" height="30" class="fill-purple-600/30" />
+                <rect x="130" y="140" width="20" height="30" class="fill-purple-600/30" />
+                <rect x="210" y="140" width="20" height="30" class="fill-purple-600/30" />
+              </g>
+              <!-- STEP 4: Grey borders / alignment offsets -->
+              <g class="step-group" data-step="4">
+                <path d="M 30,80 H 270 M 30,110 H 270 M 30,140 H 270" class="stroke-slate-450 fill-none" stroke-width="3" />
+              </g>
+              <!-- STEP 5: Wobbly finished effect -->
+              <g class="step-group" data-step="5">
+                <path d="M 30,95 Q 150,105 270,95 M 30,125 Q 150,115 270,125 M 30,155 Q 150,165 270,155" class="stroke-purple-400/20 fill-none" stroke-width="4" />
+              </g>
+            </svg>
+          </div>
+
+          <!-- Step navigation -->
+          <div class="space-y-4">
+            <div class="flex items-center justify-between text-xs">
+              <span class="step-counter font-bold text-purple-400">Step 1 of 5</span>
+              <span class="text-slate-500">Materials: pencil, colored markers</span>
+            </div>
+            <div class="bg-slate-950/60 border border-slate-800 rounded-xl p-3 min-h-[64px] flex items-center">
+              <p class="step-instruction text-xs text-slate-350 leading-relaxed"></p>
+            </div>
+            <div class="flex gap-2">
+              <button class="prev-btn flex-1 py-2 rounded-xl bg-slate-800 hover:bg-slate-750 disabled:opacity-30 text-xs font-bold text-white transition-colors">← Previous</button>
+              <button class="next-btn flex-1 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 disabled:opacity-30 text-xs font-bold text-white transition-colors">Next →</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="border-t border-slate-850 mt-6 pt-4 flex items-center justify-between">
+          <button class="print-tutorial-btn text-[11px] font-bold text-slate-400 hover:text-white flex items-center gap-1">
+            🖨️ Print Tutorial
+          </button>
+          <button class="share-tutorial-btn text-[11px] font-bold text-purple-400 hover:text-purple-300 flex items-center gap-1">
+            📤 Share Drawing
+          </button>
+        </div>
+      </div>
+
+      <!-- ==================== TUTORIAL 7 ==================== -->
+      <div class="tutorial-card bg-slate-900/60 border border-purple-500/20 rounded-3xl p-6 flex flex-col justify-between hover:translate-y-[-4px] hover:shadow-2xl transition-all duration-300 relative" 
+           data-difficulty="intermediate" 
+           data-id="7"
+           data-instructions='[
+             "Step 1: Sketch a simple 3D shape, like a cube or sphere, slightly above the center of the page.",
+             "Step 2: Draw a soft, horizontally stretched oval shadow directly below the object.",
+             "Step 3: LEAVE A CLEAR GAP of blank paper between the bottom of the object and the top of the shadow.",
+             "Step 4: Shade the object based on a top-left light source, building up a highlight and a core dark side.",
+             "Step 5: Blend the shadow edges until they are soft and blurry. The object will instantly appear to float in mid-air!"
+           ]'>
+        <div class="space-y-4">
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-bold px-2 py-0.5 rounded-md bg-yellow-500/10 text-yellow-400 border border-yellow-500/20">🟡 Intermediate</span>
+            <span class="text-xs text-slate-400">⏱️ 15 mins</span>
+          </div>
+          <div>
+            <h2 class="text-xl font-bold text-white mb-1">7. The Floating Object</h2>
+            <p class="text-xs text-slate-400">Learn to separate an object from its shadow to create a levitation effect.</p>
+          </div>
+
+          <!-- Drawing Canvas -->
+          <div class="flex items-center justify-center bg-slate-950/50 rounded-2xl p-4 border border-slate-800 aspect-square relative overflow-hidden">
+            <svg class="w-full h-full max-h-[220px]" viewBox="0 0 300 300">
+              <defs>
+                <radialGradient id="shadow-gradient" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="#020617" />
+                  <stop offset="50%" stop-color="#312e81" stop-opacity="0.6" />
+                  <stop offset="100%" stop-color="#020617" stop-opacity="0" />
+                </radialGradient>
+                <radialGradient id="sphere-light" cx="30%" cy="30%" r="70%">
+                  <stop offset="0%" stop-color="#ffffff" />
+                  <stop offset="50%" stop-color="#818cf8" />
+                  <stop offset="100%" stop-color="#1e1b4b" />
+                </radialGradient>
+              </defs>
+              <!-- STEP 1: Object Outline (Sphere) -->
+              <g class="step-group" data-step="1">
+                <circle cx="150" cy="110" r="50" class="stroke-indigo-400 fill-none" stroke-width="2.5" />
+              </g>
+              <!-- STEP 2: Shadow Outline -->
+              <g class="step-group" data-step="2">
+                <ellipse cx="150" cy="220" rx="45" ry="12" class="stroke-slate-650 fill-none" stroke-dasharray="4,4" stroke-width="1.5" />
+              </g>
+              <!-- STEP 3: Gap Highlight -->
+              <g class="step-group" data-step="3">
+                <!-- Highlight gap between bottom of sphere (160px) and top of shadow (208px) -->
+                <line x1="150" y1="160" x2="150" y2="208" class="stroke-purple-400/40" stroke-width="2" stroke-dasharray="3,3" />
+                <text x="157" y="188" fill="#a78bfa" font-size="10" font-weight="bold">Keep Gap Empty!</text>
+              </g>
+              <!-- STEP 4: Sphere Shading -->
+              <g class="step-group" data-step="4">
+                <circle cx="150" cy="110" r="50" fill="url(#sphere-light)" />
+              </g>
+              <!-- STEP 5: Soft Shadow Blending -->
+              <g class="step-group" data-step="5">
+                <ellipse cx="150" cy="220" rx="55" ry="15" fill="url(#shadow-gradient)" />
+              </g>
+            </svg>
+          </div>
+
+          <!-- Step navigation -->
+          <div class="space-y-4">
+            <div class="flex items-center justify-between text-xs">
+              <span class="step-counter font-bold text-purple-400">Step 1 of 5</span>
+              <span class="text-slate-500">Materials: pencil, blending stump</span>
+            </div>
+            <div class="bg-slate-950/60 border border-slate-800 rounded-xl p-3 min-h-[64px] flex items-center">
+              <p class="step-instruction text-xs text-slate-350 leading-relaxed"></p>
+            </div>
+            <div class="flex gap-2">
+              <button class="prev-btn flex-1 py-2 rounded-xl bg-slate-800 hover:bg-slate-750 disabled:opacity-30 text-xs font-bold text-white transition-colors">← Previous</button>
+              <button class="next-btn flex-1 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 disabled:opacity-30 text-xs font-bold text-white transition-colors">Next →</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="border-t border-slate-850 mt-6 pt-4 flex items-center justify-between">
+          <button class="print-tutorial-btn text-[11px] font-bold text-slate-400 hover:text-white flex items-center gap-1">
+            🖨️ Print Tutorial
+          </button>
+          <button class="share-tutorial-btn text-[11px] font-bold text-purple-400 hover:text-purple-300 flex items-center gap-1">
+            📤 Share Drawing
+          </button>
+        </div>
+      </div>
+
+      <!-- ==================== TUTORIAL 8 ==================== -->
+      <div class="tutorial-card bg-slate-900/60 border border-purple-500/20 rounded-3xl p-6 flex flex-col justify-between hover:translate-y-[-4px] hover:shadow-2xl transition-all duration-300 relative" 
+           data-difficulty="advanced" 
+           data-id="8"
+           data-instructions='[
+             "Step 1: Sketch four concentric, perfect circles using guide lines.",
+             "Step 2: Draw small diagonal tick marks (dashes) along the circumference of each circle.",
+             "Step 3: Alternate the diagonal angle direction in each quadrant to confuse your visual alignment cells.",
+             "Step 4: Fill background rings with alternating dark and light colored segments.",
+             "Step 5: Step back and look. Your brain synthesizes the diagonal hash offsets into a spiral, though the lines are circles!"
+           ]'>
+        <div class="space-y-4">
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-bold px-2 py-0.5 rounded-md bg-rose-500/10 text-rose-400 border border-rose-500/20">🔴 Advanced</span>
+            <span class="text-xs text-slate-400">⏱️ 25 mins</span>
+          </div>
+          <div>
+            <h2 class="text-xl font-bold text-white mb-1">8. The Spiral That Isn&apos;t</h2>
+            <p class="text-xs text-slate-400">Draw concentric circles that look like a continuous spiral.</p>
+          </div>
+
+          <!-- Drawing Canvas -->
+          <div class="flex items-center justify-center bg-slate-950/50 rounded-2xl p-4 border border-slate-800 aspect-square relative overflow-hidden">
+            <svg class="w-full h-full max-h-[220px]" viewBox="0 0 300 300">
+              <!-- STEP 1: Concentric circles -->
+              <g class="step-group" data-step="1">
+                <circle cx="150" cy="150" r="30" class="stroke-indigo-400 fill-none" stroke-width="2" />
+                <circle cx="150" cy="150" r="55" class="stroke-indigo-400 fill-none" stroke-width="2" />
+                <circle cx="150" cy="150" r="80" class="stroke-indigo-400 fill-none" stroke-width="2" />
+                <circle cx="150" cy="150" r="105" class="stroke-indigo-400 fill-none" stroke-width="2" />
+              </g>
+              <!-- STEP 2: Diagonal hash ticks -->
+              <g class="step-group" data-step="2">
+                <!-- Ring 2 ticks -->
+                <path d="M 150,95 L 140,85 M 195,150 L 205,140 M 150,205 L 160,215 M 105,150 L 95,160" class="stroke-purple-400 fill-none" stroke-width="2" />
+                <path d="M 182,118 L 190,110 M 182,182 L 190,190 M 118,182 L 110,190 M 118,118 L 110,110" class="stroke-purple-400 fill-none" stroke-width="2" />
+              </g>
+              <!-- STEP 3: Alternate direction in quadrants -->
+              <g class="step-group" data-step="3">
+                <!-- Ring 3 ticks slanted opposite direction in Q2/Q4 -->
+                <path d="M 150,70 L 160,60 M 230,150 L 220,140 M 150,230 L 140,240 M 70,150 L 80,160" class="stroke-indigo-350 fill-none" stroke-width="2" />
+              </g>
+              <!-- STEP 4: Color bands -->
+              <g class="step-group" data-step="4">
+                <circle cx="150" cy="150" r="80" class="stroke-purple-650/30 fill-none" stroke-width="8" />
+                <circle cx="150" cy="150" r="105" class="stroke-indigo-900/40 fill-none" stroke-width="10" />
+              </g>
+              <!-- STEP 5: Final spiral illusion -->
+              <g class="step-group" data-step="5">
+                <!-- Overlay a faint actual spiral to show the visual distortion -->
+                <path d="M 150,150 A 30,30 0 0,1 180,150 A 60,60 0 0,1 120,150 A 90,90 0 0,1 240,150" class="stroke-purple-400/25 fill-none" stroke-width="2" stroke-dasharray="3,3" />
+              </g>
+            </svg>
+          </div>
+
+          <!-- Step navigation -->
+          <div class="space-y-4">
+            <div class="flex items-center justify-between text-xs">
+              <span class="step-counter font-bold text-purple-400">Step 1 of 5</span>
+              <span class="text-slate-500">Materials: pencil, paper template</span>
+            </div>
+            <div class="bg-slate-950/60 border border-slate-800 rounded-xl p-3 min-h-[64px] flex items-center">
+              <p class="step-instruction text-xs text-slate-350 leading-relaxed"></p>
+            </div>
+            <div class="flex gap-2">
+              <button class="prev-btn flex-1 py-2 rounded-xl bg-slate-800 hover:bg-slate-750 disabled:opacity-30 text-xs font-bold text-white transition-colors">← Previous</button>
+              <button class="next-btn flex-1 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 disabled:opacity-30 text-xs font-bold text-white transition-colors">Next →</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="border-t border-slate-850 mt-6 pt-4 flex items-center justify-between">
+          <button class="print-tutorial-btn text-[11px] font-bold text-slate-400 hover:text-white flex items-center gap-1">
+            🖨️ Print Tutorial
+          </button>
+          <button class="share-tutorial-btn text-[11px] font-bold text-purple-400 hover:text-purple-300 flex items-center gap-1">
+            📤 Share Drawing
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Video Waitlist Form and PDF Download Area -->
+  <section class="py-16 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto no-print">
+    <div class="bg-gradient-to-r from-purple-900/30 to-indigo-900/30 border border-purple-500/20 rounded-3xl p-8 sm:p-12 text-center space-y-6">
+      <h3 class="text-2xl sm:text-3xl font-extrabold text-white">Want Video Drawing Tutorials? 🎬</h3>
+      <p class="text-slate-300 max-w-xl mx-auto text-sm sm:text-base">
+        We are building step-by-step video guides showing you exactly how to sketch angles, shadows, and alignment lines in real-time. Join the list to be notified the moment they launch!
+      </p>
+      
+      <div class="flex flex-col sm:flex-row justify-center items-center gap-3 max-w-md mx-auto">
+        <input 
+          type="email" 
+          id="video-waitlist-email" 
+          placeholder="Enter your email address" 
+          class="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder-slate-500 focus:outline-none focus:border-purple-500 text-sm"
+        />
+        <button id="video-waitlist-btn" class="w-full sm:w-auto shrink-0 rounded-xl bg-purple-600 hover:bg-purple-500 px-6 py-3 text-sm font-bold text-white transition-colors">
+          Subscribe Now
+        </button>
+      </div>
+      <p class="text-xs text-slate-400">
+        Current waitlist: <span id="waitlist-display-large" class="font-bold text-purple-300">12,450</span> subscriber artists.
+      </p>
+    </div>
+  </section>
+
+  <!-- Printable Container (Hidden on Screen, visible on Print) -->
+  <div id="print-container" class="hidden print:block text-black bg-white p-8">
+    <!-- Filled dynamically by JavaScript before printing -->
+  </div>
+
+  <!-- SEO Content Article -->
+  <section class="py-16 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto border-t border-indigo-500/10 no-print">
+    <article class="prose prose-invert max-w-none space-y-6 text-slate-300 text-sm sm:text-base leading-relaxed">
+      <h2 class="font-display text-2xl sm:text-3xl font-bold text-white">The Art & Neuroscience of Optical Illusion Sketching</h2>
+      <p>
+        Drawing is essentially the art of tricking the human brain. Since paper is a flat, two-dimensional coordinate space, every line we lay down is a code that the visual cortex must translate into three dimensions. By mastering <strong>how to draw optical illusions step by step</strong>, you are learning how to exploit the biological processing assumptions of your own eyes.
+      </p>
+      <p>
+        The visual brain relies on specific shortcut rules. For instance, when you sketch <strong>easy optical illusions to draw</strong> like the Necker Cube, your brain struggles with a lack of depth cues. Because all angles are parallel, the brain alternates between two equally valid 3D hypotheses. This phenomenon, known as bistable perception, occurs in the early stages of visual parsing (V1 and V2 regions of the occipital lobe).
+      </p>
+      <p>
+        When working on <strong>optical illusions drawings</strong> that involve motion (such as Tutorial 6), the trick lies in contrasting high-frequency borders. By placing alternating diagonal dashes between straight lines, the orientation-selective cells (simple and complex cells in primary visual cortex) are misdirected. They miscalculate the slope, causing straight lines to appear tilted.
+      </p>
+      <p>
+        Similarly, learning <strong>how to draw moving optical illusions</strong> like the Fraser Spiral uses diagonal alignment angles. Each circle is independent, but because the dashes lean inwards, the eye integrates the local vectors globally, interpreting a spiral shape that does not actually exist.
+      </p>
+    </article>
+  </section>
+
+  <!-- FAQ Section Accordion -->
+  <section class="py-16 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto border-t border-indigo-500/10 no-print">
+    <h2 class="font-display text-2xl sm:text-3xl font-bold text-white text-center mb-8">Frequently Asked Questions</h2>
+    <div class="space-y-4">
+      
+      <!-- FAQ 1 -->
+      <div class="border border-slate-800 rounded-2xl overflow-hidden bg-slate-900/40">
+        <button class="faq-toggle w-full p-5 text-left font-bold text-white flex justify-between items-center hover:bg-slate-900 transition-colors">
+          <span>How do you draw optical illusions step by step?</span>
+          <span class="faq-icon text-purple-400 transition-transform">▼</span>
+        </button>
+        <div class="faq-content hidden p-5 text-sm text-slate-350 border-t border-slate-850 bg-slate-950/20 leading-relaxed">
+          To draw optical illusions step by step, start by mapping out a light pencil grid or basic outline. Guide lines allow you to establish proper isometric angles and perspective depth. Once the geometric scaffold is in place, you add secondary parallel structures, establish overlapping joints, and apply precise gradients or contrasting color bands.
+        </div>
+      </div>
+
+      <!-- FAQ 2 -->
+      <div class="border border-slate-800 rounded-2xl overflow-hidden bg-slate-900/40">
+        <button class="faq-toggle w-full p-5 text-left font-bold text-white flex justify-between items-center hover:bg-slate-900 transition-colors">
+          <span>What is the easiest optical illusion to draw?</span>
+          <span class="faq-icon text-purple-400 transition-transform">▼</span>
+        </button>
+        <div class="faq-content hidden p-5 text-sm text-slate-350 border-t border-slate-850 bg-slate-950/20 leading-relaxed">
+          The Necker Cube and the Impossible Triangle are the easiest optical illusions to draw for beginners. They require only basic lines, a ruler, and standard grid points. By connecting overlapping joints or offsetting simple squares, you can quickly achieve a 3D illusion on flat paper in less than five minutes.
+        </div>
+      </div>
+
+      <!-- FAQ 3 -->
+      <div class="border border-slate-800 rounded-2xl overflow-hidden bg-slate-900/40">
+        <button class="faq-toggle w-full p-5 text-left font-bold text-white flex justify-between items-center hover:bg-slate-900 transition-colors">
+          <span>How to draw moving optical illusions?</span>
+          <span class="faq-icon text-purple-400 transition-transform">▼</span>
+        </button>
+        <div class="faq-content hidden p-5 text-sm text-slate-350 border-t border-slate-850 bg-slate-950/20 leading-relaxed">
+          Drawing moving optical illusions involves creating high-frequency contrast borders and alternating angled hash patterns. By placing dark and light blocks with offset borders (like in the Cafe Wall or wobbly line illusion), the motion-detecting neurons in your visual cortex (V5/MT regions) get confused, causing static lines to appear to bend and sway.
+        </div>
+      </div>
+
+      <!-- FAQ 4 -->
+      <div class="border border-slate-800 rounded-2xl overflow-hidden bg-slate-900/40">
+        <button class="faq-toggle w-full p-5 text-left font-bold text-white flex justify-between items-center hover:bg-slate-900 transition-colors">
+          <span>How do you make optical illusions on paper?</span>
+          <span class="faq-icon text-purple-400 transition-transform">▼</span>
+        </button>
+        <div class="faq-content hidden p-5 text-sm text-slate-350 border-t border-slate-850 bg-slate-950/20 leading-relaxed">
+          Making optical illusions on paper requires leveraging perspective projection, shading gradients, and geometry. By leaving gaps between shapes and shadows, or by curving flat lines over a circle (Op Art), you can force the human eye to construct spatial representations that differ from the physical lines drawn.
+        </div>
+      </div>
+
+      <!-- FAQ 5 -->
+      <div class="border border-slate-800 rounded-2xl overflow-hidden bg-slate-900/40">
+        <button class="faq-toggle w-full p-5 text-left font-bold text-white flex justify-between items-center hover:bg-slate-900 transition-colors">
+          <span>What materials do you need to draw optical illusions?</span>
+          <span class="faq-icon text-purple-400 transition-transform">▼</span>
+        </button>
+        <div class="faq-content hidden p-5 text-sm text-slate-350 border-t border-slate-850 bg-slate-950/20 leading-relaxed">
+          You only need basic materials: a standard graphite pencil (preferably H for guidelines and B for dark shadows), a ruler for straight lines, a compass for circular illusions, a soft eraser, and thick paper. Colored markers or fine-liners are helpful for high-contrast op-art designs.
+        </div>
+      </div>
+
+      <!-- FAQ 6 -->
+      <div class="border border-slate-800 rounded-2xl overflow-hidden bg-slate-900/40">
+        <button class="faq-toggle w-full p-5 text-left font-bold text-white flex justify-between items-center hover:bg-slate-900 transition-colors">
+          <span>How to draw a 3D optical illusion for beginners?</span>
+          <span class="faq-icon text-purple-400 transition-transform">▼</span>
+        </button>
+        <div class="faq-content hidden p-5 text-sm text-slate-350 border-t border-slate-850 bg-slate-950/20 leading-relaxed">
+          Beginners should start with shading-based illusions like the Floating Object or the 3D Hole. These rely on gradient blends rather than complex geometry. By drawing simple boundaries, creating a shadow gap, or shading darker toward the center, you can produce stunning 3D effects with minimal practice.
+        </div>
+      </div>
+
+      <!-- FAQ 7 -->
+      <div class="border border-slate-800 rounded-2xl overflow-hidden bg-slate-900/40">
+        <button class="faq-toggle w-full p-5 text-left font-bold text-white flex justify-between items-center hover:bg-slate-900 transition-colors">
+          <span>Can kids draw optical illusions?</span>
+          <span class="faq-icon text-purple-400 transition-transform">▼</span>
+        </button>
+        <div class="faq-content hidden p-5 text-sm text-slate-350 border-t border-slate-850 bg-slate-950/20 leading-relaxed">
+          Absolutely! Drawing optical illusions is a fantastic STEM activity for kids. It combines geometry, coordination, and brain science. Starting with the Necker Cube or 3D Hole helps children learn spatial concepts, motor control, and visual patterns in a fun, rewarding way.
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- JavaScript logic -->
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+      
+      // 1. Interactive Step-by-Step Navigation
+      const cards = document.querySelectorAll('.tutorial-card');
+      
+      cards.forEach(card => {
+        const id = card.dataset.id;
+        const steps = card.querySelectorAll('.step-group');
+        const prevBtn = card.querySelector('.prev-btn');
+        const nextBtn = card.querySelector('.next-btn');
+        const counterEl = card.querySelector('.step-counter');
+        const instructionEl = card.querySelector('.step-instruction');
+        const instructions = JSON.parse(card.dataset.instructions || '[]');
+        
+        let currentStep = 1;
+        const totalSteps = steps.length;
+        
+        function updateStep() {
+          steps.forEach((group, idx) => {
+            const stepNum = idx + 1;
+            if (stepNum <= currentStep) {
+              group.style.display = 'block';
+              
+              // Animate paths inside the newly selected step
+              if (stepNum === currentStep) {
+                const paths = group.querySelectorAll('path, line, circle, ellipse, rect, polygon, polyline');
+                paths.forEach(path => {
+                  const length = path.getTotalLength ? path.getTotalLength() : 600;
+                  path.style.strokeDasharray = length;
+                  path.style.strokeDashoffset = length;
+                  path.getBoundingClientRect(); // reflow
+                  path.style.transition = 'stroke-dashoffset 1.2s ease-in-out';
+                  path.style.strokeDashoffset = '0';
+                });
+              } else {
+                // Keep older steps solid/drawn
+                const paths = group.querySelectorAll('path, line, circle, ellipse, rect, polygon, polyline');
+                paths.forEach(path => {
+                  path.style.strokeDasharray = '';
+                  path.style.strokeDashoffset = '';
+                  path.style.transition = '';
+                });
+              }
+            } else {
+              group.style.display = 'none';
+            }
+          });
+          
+          if (instructionEl && instructions[currentStep - 1]) {
+            instructionEl.textContent = instructions[currentStep - 1];
+          }
+          if (counterEl) {
+            counterEl.textContent = `Step ${currentStep} of ${totalSteps}`;
+          }
+          
+          prevBtn.disabled = currentStep === 1;
+          nextBtn.disabled = currentStep === totalSteps;
+        }
+        
+        prevBtn.addEventListener('click', () => {
+          if (currentStep > 1) {
+            currentStep--;
+            updateStep();
+          }
+        });
+        
+        nextBtn.addEventListener('click', () => {
+          if (currentStep < totalSteps) {
+            currentStep++;
+            updateStep();
+          }
+        });
+        
+        // Init
+        updateStep();
+      });
+
+      // 2. Difficulty Filter Logic
+      const filterButtons = document.querySelectorAll('#filter-buttons button');
+      const tutorialCards = document.querySelectorAll('.tutorial-card');
+      
+      filterButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const diff = btn.dataset.difficulty;
+          
+          // Toggle active visual states
+          filterButtons.forEach(b => {
+            b.classList.remove('active', 'bg-purple-600', 'text-white');
+            b.classList.add('bg-slate-800', 'text-slate-300');
+          });
+          btn.classList.add('active', 'bg-purple-600', 'text-white');
+          btn.classList.remove('bg-slate-800', 'text-slate-300');
+          
+          // Hide/Show cards
+          tutorialCards.forEach(card => {
+            if (diff === 'all' || card.dataset.difficulty === diff) {
+              card.style.display = 'flex';
+            } else {
+              card.style.display = 'none';
+            }
+          });
+        });
+      });
+
+      // 3. Print Tutorial Functionality (Clipped Print Booklet Layout)
+      function printSingleTutorial(cardEl) {
+        const title = cardEl.querySelector('h2').textContent;
+        const steps = cardEl.querySelectorAll('.step-group');
+        const instructions = JSON.parse(cardEl.dataset.instructions || '[]');
+        const svgElement = cardEl.querySelector('svg');
+        const printContainer = document.getElementById('print-container');
+        
+        let html = `
+          <div style="font-family: sans-serif; padding: 20px; max-width: 800px; margin: 0 auto; color: black; background: white;">
+            <h1 style="font-size: 24px; font-weight: bold; border-bottom: 2px solid #000; padding-bottom: 8px; margin-bottom: 20px;">
+              How to Draw: ${title} — Step-by-Step Drawing Guide
+            </h1>
+            <p style="font-size: 13px; margin-bottom: 24px;">Follow each step sequentially. Use a light pencil for guidelines, then darken outer borders and apply shading.</p>
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px;">
+        `;
+        
+        steps.forEach((step, idx) => {
+          const svgClone = svgElement.cloneNode(true);
+          // Set black stroke for clean visibility on paper
+          svgClone.style.color = '#000000';
+          const paths = svgClone.querySelectorAll('path, line, circle, ellipse, rect, polygon, polyline');
+          paths.forEach(p => {
+            p.style.stroke = '#000000';
+            p.style.strokeWidth = p.style.strokeWidth || '2px';
+            if (p.classList.contains('fill-none') === false && p.getAttribute('fill') !== 'none') {
+              p.style.fill = p.getAttribute('fill') ? p.getAttribute('fill').replace('indigo-400/20', '#cccccc').replace('purple-500/30', '#aaaaaa').replace('indigo-900/60', '#555555') : '#cccccc';
+            }
+          });
+          
+          // Make sure step-groups are shown appropriately in the printed clones
+          const clonedGroups = svgClone.querySelectorAll('.step-group');
+          clonedGroups.forEach((g, gIdx) => {
+            if (gIdx <= idx) {
+              g.style.display = 'block';
+            } else {
+              g.style.display = 'none';
+            }
+          });
+          
+          html += `
+            <div style="border: 1px solid #ddd; padding: 15px; border-radius: 8px; display: flex; flex-direction: column; align-items: center; background: #fff;">
+              <h3 style="margin-top: 0; margin-bottom: 10px; font-size: 16px; border-bottom: 1px solid #eee; width: 100%; text-align: center; padding-bottom: 4px;">Step ${idx + 1}</h3>
+              <div style="width: 180px; height: 180px; display: flex; items-center: center; justify-content: center; margin-bottom: 10px;">
+                ${svgClone.outerHTML}
+              </div>
+              <p style="font-size: 12px; line-height: 1.4; text-align: center; margin: 0;">${instructions[idx] || ''}</p>
+            </div>
+          `;
+        });
+        
+        html += `
+            </div>
+            <div style="margin-top: 40px; font-size: 10px; text-align: center; color: #666; border-top: 1px solid #eee; padding-top: 10px;">
+              Printed from Optical Illusion Lab — Your guide to visual brain science.
+            </div>
+          </div>
+        `;
+        
+        printContainer.innerHTML = html;
+        window.print();
+      }
+
+      // Hook print buttons
+      document.querySelectorAll('.print-tutorial-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const card = e.target.closest('.tutorial-card');
+          printSingleTutorial(card);
+        });
+      });
+
+      // Print ALL button
+      document.getElementById('download-all-pdf').addEventListener('click', () => {
+        const printContainer = document.getElementById('print-container');
+        let html = `
+          <div style="font-family: sans-serif; padding: 20px; color: black; background: white;">
+            <h1 style="font-size: 28px; font-weight: bold; border-bottom: 3px solid #000; padding-bottom: 10px; text-align: center; margin-bottom: 30px;">
+              Optical Illusion Drawing Booklet — Step-by-Step
+            </h1>
+            <p style="text-align: center; font-size: 14px; margin-bottom: 40px;">Learn to sketch 8 mind-bending illusions. Complete grid systems and depth guides inside.</p>
+        `;
+        
+        document.querySelectorAll('.tutorial-card').forEach((card, cIdx) => {
+          const title = card.querySelector('h2').textContent;
+          const steps = card.querySelectorAll('.step-group');
+          const instructions = JSON.parse(card.dataset.instructions || '[]');
+          const svgElement = card.querySelector('svg');
+          
+          html += `
+            <div style="page-break-after: always; margin-bottom: 50px;">
+              <h2 style="font-size: 20px; border-bottom: 1.5px solid #333; padding-bottom: 6px; margin-bottom: 16px;">
+                ${title}
+              </h2>
+              <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
+          `;
+          
+          steps.forEach((step, idx) => {
+            const svgClone = svgElement.cloneNode(true);
+            svgClone.style.color = '#000000';
+            const paths = svgClone.querySelectorAll('path, line, circle, ellipse, rect, polygon, polyline');
+            paths.forEach(p => {
+              p.style.stroke = '#000000';
+              p.style.strokeWidth = p.style.strokeWidth || '2px';
+              if (p.classList.contains('fill-none') === false && p.getAttribute('fill') !== 'none') {
+                p.style.fill = p.getAttribute('fill') ? p.getAttribute('fill').replace('indigo-400/20', '#cccccc').replace('purple-500/30', '#aaaaaa').replace('indigo-900/60', '#555555') : '#cccccc';
+              }
+            });
+            
+            const clonedGroups = svgClone.querySelectorAll('.step-group');
+            clonedGroups.forEach((g, gIdx) => {
+              if (gIdx <= idx) {
+                g.style.display = 'block';
+              } else {
+                g.style.display = 'none';
+              }
+            });
+            
+            html += `
+              <div style="border: 1px solid #ddd; padding: 12px; border-radius: 6px; display: flex; flex-direction: column; align-items: center; background: #fff;">
+                <h4 style="margin-top: 0; margin-bottom: 6px; font-size: 13px;">Step ${idx + 1}</h4>
+                <div style="width: 140px; height: 140px; display: flex; items-center: center; justify-content: center; margin-bottom: 6px;">
+                  ${svgClone.outerHTML}
+                </div>
+                <p style="font-size: 11px; line-height: 1.3; text-align: center; margin: 0;">${instructions[idx] || ''}</p>
+              </div>
+            `;
+          });
+          
+          html += `
+              </div>
+            </div>
+          `;
+        });
+        
+        html += `
+            <div style="text-align: center; font-size: 10px; color: #888; border-top: 1px solid #ddd; padding-top: 20px;">
+              Optical Illusion Lab Booklet. Use Ctrl+P / Cmd+P to save as PDF.
+            </div>
+          </div>
+        `;
+        
+        printContainer.innerHTML = html;
+        window.print();
+      });
+
+      // 4. Waitlist subscription forms
+      function initWaitlist() {
+        const seedValue = localStorage.getItem('drawings_waitlist_count');
+        let currentCount = seedValue ? parseInt(seedValue) : 12450;
+        
+        const displays = [
+          document.getElementById('waitlist-counter-display'),
+          document.getElementById('waitlist-display-large')
+        ];
+        
+        function updateWaitlistCount() {
+          displays.forEach(d => {
+            if (d) d.textContent = currentCount.toLocaleString();
+          });
+        }
+        
+        updateWaitlistCount();
+        
+        const form1 = document.getElementById('waitlist-form');
+        const form2 = document.getElementById('video-waitlist-btn')?.closest('div');
+        const emailInput2 = document.getElementById('video-waitlist-email');
+        
+        function handleSubscribe(email) {
+          if (!email) return;
+          
+          // Save to list
+          const existing = JSON.parse(localStorage.getItem('drawings_waitlist_emails') || '[]');
+          if (!existing.includes(email)) {
+            existing.push(email);
+            localStorage.setItem('drawings_waitlist_emails', JSON.stringify(existing));
+            
+            // Increment subscriber count
+            currentCount++;
+            localStorage.setItem('drawings_waitlist_count', currentCount.toString());
+            updateWaitlistCount();
+          }
+          
+          // Toast or Alert
+          alert('🚀 Thank you! You have been successfully added to the optical drawings video waitlist.');
+        }
+        
+        if (form1) {
+          form1.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const input = form1.querySelector('input');
+            handleSubscribe(input.value);
+            input.value = '';
+          });
+        }
+        
+        if (form2 && emailInput2) {
+          document.getElementById('video-waitlist-btn').addEventListener('click', () => {
+            if (emailInput2.reportValidity()) {
+              handleSubscribe(emailInput2.value);
+              emailInput2.value = '';
+            }
+          });
+        }
+      }
+      
+      initWaitlist();
+
+      // 5. Share Drawing link copy
+      document.querySelectorAll('.share-tutorial-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const card = e.target.closest('.tutorial-card');
+          const title = card.querySelector('h2').textContent;
+          const url = `${window.location.origin}${window.location.pathname}#tutorials-section`;
+          
+          navigator.clipboard.writeText(`Check out how to draw "${title}" step-by-step at: ${url}`).then(() => {
+            alert(`🔗 Share link for "${title}" copied to clipboard!`);
+          }).catch(err => {
+            console.error('Failed to copy', err);
+          });
+        });
+      });
+
+      // 6. FAQ Accordion Toggle
+      const faqToggles = document.querySelectorAll('.faq-toggle');
+      faqToggles.forEach(toggle => {
+        toggle.addEventListener('click', () => {
+          const content = toggle.nextElementSibling;
+          const icon = toggle.querySelector('.faq-icon');
+          
+          content.classList.toggle('hidden');
+          if (content.classList.contains('hidden')) {
+            icon.style.transform = 'rotate(0deg)';
+          } else {
+            icon.style.transform = 'rotate(180deg)';
+          }
+        });
+      });
+
+    });
+  </script>
+
+  <!-- Styled Custom Styles for Page & Printing -->
+  <style>
+    /* Add print overrides */
+    @media print {
+      body {
+        background: white !important;
+        color: black !important;
+      }
+      .no-print {
+        display: none !important;
+      }
+      #print-container {
+        display: block !important;
+      }
+      body > *:not(#print-container) {
+        display: none !important;
+      }
+    }
+  </style>
+
+</Layout>

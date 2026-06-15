@@ -1,0 +1,312 @@
+---
+// src/pages/illusions/kanizsa-triangle.astro
+import Layout from '../../layouts/Layout.astro';
+
+// Math Helper: draws an SVG wedge from (cx, cy) out to radius r
+function getWedgePath(cx: number, cy: number, r: number, startAngle: number, endAngle: number) {
+  const rad = Math.PI / 180;
+  const x1 = cx + r * Math.cos(startAngle * rad);
+  const y1 = cy + r * Math.sin(startAngle * rad);
+  const x2 = cx + r * Math.cos(endAngle * rad);
+  const y2 = cy + r * Math.sin(endAngle * rad);
+  const largeArcFlag = endAngle - startAngle <= 180 ? 0 : 1;
+  return `M ${cx},${cy} L ${x1},${y1} A ${r},${r} 0 ${largeArcFlag},1 ${x2},${y2} Z`;
+}
+---
+
+<Layout 
+  title="Kanizsa Triangle — Optical Illusion Lab" 
+  description="A white triangle appears to float in the center, yet not a single triangle boundary is actually drawn."
+>
+  <div class="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-12">
+    
+    <!-- Breadcrumb back navigation to Section -->
+    <nav class="flex text-xs font-black uppercase tracking-wider text-slate-400 space-x-2 pb-2 border-b border-indigo-500/10">
+      <a href="/" class="hover:text-white transition-colors">Home</a>
+      <span>/</span>
+      <a href="/famous" class="hover:text-white transition-colors">Famous Illusions</a>
+      <span>/</span>
+      <span class="text-purple-400">Kanizsa Triangle</span>
+    </nav>
+
+    <!-- Hero Header Section -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6">
+      <div class="space-y-3">
+        <div class="flex items-center space-x-2">
+          <span class="text-xs font-black px-2.5 py-0.5 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 uppercase tracking-wider">Illusory Contours</span>
+          <span class="text-xs font-black px-2.5 py-0.5 rounded-full bg-purple-500/10 text-purple-400 border border-purple-500/20 uppercase tracking-wider">🟡 Medium</span>
+        </div>
+        <h1 class="font-display text-4xl sm:text-5xl font-black tracking-tight text-slate-900 dark:text-white">
+          Kanizsa Triangle
+        </h1>
+        <p class="text-slate-600 dark:text-slate-350 text-base max-w-2xl font-medium">
+          A white triangle appears to float in the center, yet not a single triangle boundary is actually drawn.
+        </p>
+      </div>
+
+      <!-- Share Button -->
+      <button 
+        id="share-illusion-page-btn"
+        class="relative shrink-0 flex items-center space-x-2 rounded-2xl bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-600 hover:scale-105 text-white font-black text-sm px-6 py-3.5 transition-all shadow-lg shadow-purple-500/10"
+      >
+        <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M15 8a3 3 0 1 0-2.977-2.63l-4.94 2.47a3 3 0 1 0 0 4.319l4.94 2.47a3 3 0 1 0 .895-1.789l-4.94-2.47a3.027 3.027 0 0 0 0-.74l4.94-2.47C13.456 7.68 14.19 8 15 8Z"/></svg>
+        <span>Share Page</span>
+        <span id="page-share-toast" class="absolute bottom-full right-1/2 translate-x-1/2 mb-2 px-2.5 py-1 text-[10px] font-bold text-white bg-purple-650 rounded-lg shadow-md opacity-0 pointer-events-none transition-opacity duration-200 whitespace-nowrap">Link Copied! ✓</span>
+      </button>
+    </div>
+
+    <!-- LARGE INTERACTIVE DEMO (600px wide, centered) -->
+    <div class="flex flex-col items-center justify-center py-6 border-b border-indigo-500/10">
+      <div class="w-full max-w-[600px] mx-auto space-y-4">
+        <div id="kanizsa-illusion" class="relative flex flex-col items-center justify-center h-96 w-full bg-slate-100 dark:bg-slate-950/40 rounded-xl overflow-hidden border border-indigo-500/10">
+          <svg class="w-full h-80 p-6 select-none" viewBox="0 0 200 200">
+            <!-- Background outline triangle (pointing up) -->
+            <polygon points="100,35 40,140 160,140" fill="none" stroke="currentColor" stroke-width="2" class="text-slate-800 dark:text-slate-400" />
+            
+            <!-- Pac-Man shapes (Rotatable) -->
+            <g class="kanizsa-pacman origin-center transition-transform duration-300" style="transform-origin: 40px 50px;">
+              <path d="M 40,50 L 60,60 A 20,20 0 1,1 60,40 Z" fill="#0f172a" class="dark:fill-slate-100" />
+            </g>
+            <g class="kanizsa-pacman origin-center transition-transform duration-300" style="transform-origin: 160px 50px;">
+              <path d="M 160,50 L 140,40 A 20,20 0 1,1 140,60 Z" fill="#0f172a" class="dark:fill-slate-100" />
+            </g>
+            <g class="kanizsa-pacman origin-center transition-transform duration-300" style="transform-origin: 100px 155px;">
+              <path d="M 100,155 L 115,130 A 20,20 0 1,1 85,130 Z" fill="#0f172a" class="dark:fill-slate-100" />
+            </g>
+            
+            <!-- Illusory Triangle Guides -->
+            <polygon class="kanizsa-guide opacity-0 transition-opacity duration-300" points="100,155 40,50 160,50" fill="none" stroke="#a855f7" stroke-width="1.5" stroke-dasharray="3,3" />
+          </svg>
+          <div class="absolute bottom-4 w-11/12 px-6 flex flex-col space-y-2 bg-white/80 dark:bg-slate-900/80 p-3 rounded-2xl backdrop-blur border border-slate-200 dark:border-white/5">
+            <div class="flex items-center justify-between text-xs text-slate-500 font-bold uppercase">
+              <span>Pacman Rotation</span>
+              <button class="toggle-kanizsa-outline text-xs text-purple-400 border border-purple-500/20 bg-purple-500/5 px-2 py-0.5 rounded hover:bg-purple-500/10">Show Outline</button>
+            </div>
+            <input type="range" min="0" max="60" value="0" class="kanizsa-slider w-full h-1 bg-slate-200 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-purple-600 focus:outline-none" />
+          </div>
+        </div>
+    
+        <div class="text-center text-xs text-slate-500 dark:text-slate-400 italic">
+          Use the controllers inside the display card to interact with the visual triggers.
+        </div>
+        <div class="text-center text-xs text-slate-500 dark:text-slate-400 italic font-semibold">
+          Use the controllers inside the display card to interact with the visual triggers.
+        </div>
+      </div>
+    </div>
+
+    <!-- Content Split Layout -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 pt-4">
+      
+      <!-- Left 2-Columns: Science and Prompt -->
+      <div class="lg:col-span-2 space-y-10">
+        <!-- EXPERIENCE IT FIRST prompt -->
+        <section class="space-y-4">
+          <h2 class="font-display text-2xl font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">🎮</span>
+            <span>EXPERIENCE IT FIRST</span>
+          </h2>
+          <div class="bg-indigo-950/20 border-2 border-indigo-500/15 rounded-3xl p-6 text-slate-700 dark:text-slate-300">
+            <p class="font-bold text-sm sm:text-base text-slate-200">Before reading the neuroscience explanation below, take a moment to interact with the demo above:</p>
+            <ul class="list-disc pl-5 mt-3 space-y-2 text-xs sm:text-sm font-medium">
+              <li>How does the visual change when you move your eyes or look at different parts of the screen?</li>
+              <li>Use the slider or toggle buttons to reveal the actual geometric layout. Did it match what your eyes predicted?</li>
+              <li>Pay attention to whether you can consciously force your brain to switch between interpretations.</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- THE SCIENCE (400 words) -->
+        <section class="space-y-4">
+          <h2 class="font-display text-2xl font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">🧠</span>
+            <span>THE SCIENCE</span>
+          </h2>
+          <div class="prose prose-indigo dark:prose-invert text-slate-700 dark:text-slate-300 leading-relaxed space-y-4 text-xs sm:text-sm font-semibold text-justify">
+            <p>The Kanizsa Triangle illustrates Gestalt grouping rules and the cortical generation of **illusory contours**. Three Pac-Man shapes and three V-shaped lines are aligned on a white background. When you look at the image, your brain perceives a bright white equilateral triangle floating in the foreground, though no triangle is actually drawn.
+    
+    The colinear alignment of the Pac-Man mouths stimulates orientation-sensitive cells in the primary visual cortex (V1) and V2. Because the brain assumes visual completeness (Gestalt Gestalt grouping rules), it constructs a foreground object (the white triangle) to explain the aligned cuts. This creates "illusory contours" along the gaps. Additionally, the brain enhances the brightness inside the illusory triangle, making it look whiter than the surrounding background. Rotating the Pac-Men breaks this alignment, causing the triangle to disappear.</p>
+          </div>
+        </section>
+      </div>
+
+      <!-- Right Column: Fun Facts and Try This -->
+      <div class="space-y-8">
+        <!-- FUN FACTS -->
+        <section class="rounded-3xl border border-indigo-950/20 bg-slate-900/60 p-6 space-y-4 shadow-xl">
+          <h3 class="font-display text-lg font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">💡</span>
+            <span>FUN FACTS</span>
+          </h3>
+          <ul class="space-y-4 text-xs sm:text-sm text-slate-600 dark:text-slate-300 font-semibold">
+            
+              <li class="flex items-start space-x-2">
+                <span class="text-purple-500 font-black">•</span>
+                <span>Published by Italian psychologist Gaetano Kanizsa in 1955 to demonstrate cognitive Gestalt grouping rules.</span>
+              </li>
+            
+              <li class="flex items-start space-x-2">
+                <span class="text-purple-500 font-black">•</span>
+                <span>The area inside the illusory triangle actually appears brighter than the background, a phenomenon called brightness enhancement.</span>
+              </li>
+            
+              <li class="flex items-start space-x-2">
+                <span class="text-purple-500 font-black">•</span>
+                <span>Infants as young as 3 months old have been shown to perceive the Kanizsa triangle, showing it is an innate brain reflex.</span>
+              </li>
+            
+              <li class="flex items-start space-x-2">
+                <span class="text-purple-500 font-black">•</span>
+                <span>Rotating the Pac-Man shapes breaks the colinear alignment, causing the illusory triangle to dissolve instantly.</span>
+              </li>
+            
+          </ul>
+        </section>
+
+        <!-- TRY THIS AT HOME -->
+        <section class="rounded-3xl border border-indigo-950/20 bg-slate-900/60 p-6 space-y-4 shadow-xl">
+          <h3 class="font-display text-lg font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">🧪</span>
+            <span>TRY THIS AT HOME</span>
+          </h3>
+          <p class="text-xs sm:text-sm text-slate-650 dark:text-slate-300 leading-relaxed font-semibold">
+            Draw three Pac-Man circles facing inward on a sheet of paper. Place a ruler along their mouths. You will see your brain draw a ghostly white edge between the circles, showing how easily V1/V2 construct contours!
+          </p>
+        </section>
+
+        <!-- WHO DISCOVERED IT -->
+        <section class="rounded-3xl border border-indigo-950/20 bg-slate-900/60 p-6 space-y-4 shadow-xl">
+          <h3 class="font-display text-lg font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">📜</span>
+            <span>WHO DISCOVERED IT</span>
+          </h3>
+          <div class="text-xs sm:text-sm text-slate-650 dark:text-slate-300 leading-relaxed font-semibold space-y-2">
+            <p><strong>Discoverer:</strong> Gaetano Kanizsa (1955)</p>
+            <p>Gaetano Kanizsa, a professor of psychology at the University of Trieste, was studying how the mind fills in missing visual details. He designed the Pac-Man wedges to show that colinear borders automatically force the visual cortex to construct a foreground shapes, developing Gestalt contour theory.</p>
+          </div>
+        </section>
+      </div>
+
+    </div>
+
+    <!-- SEO content: 300 words naturally written -->
+    <section class="border-t border-indigo-500/10 pt-12 space-y-4 max-w-4xl mx-auto">
+      <h3 class="font-display text-lg font-black text-white uppercase tracking-wider text-center">Educational Resources & History</h3>
+      <p class="text-xs sm:text-sm text-slate-350 leading-relaxed text-justify font-semibold">
+        Kanizsa Triangle illusory contours optical illusion explanation. Explore Gaetano Kanizsa's 1955 Gestalt experiment, V1/V2 contour construction, and test our interactive Pac-Man rotation SVG.
+      </p>
+    </section>
+
+    <!-- RELATED ILLUSIONS -->
+    <section class="border-t border-indigo-500/10 pt-12 space-y-6">
+      <h2 class="font-display text-2xl font-black text-slate-900 dark:text-white text-center">Related Illusions</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+      <a 
+        href="/illusions/hermann-grid" 
+        class="group rounded-xl border border-indigo-950/20 bg-white dark:bg-slate-900/60 p-5 shadow-lg hover:border-purple-500/40 hover:-translate-y-1 hover:shadow-purple-500/10 transition-all duration-300"
+      >
+        <div class="text-[10px] font-bold text-purple-400 uppercase tracking-wide">Related Illusion</div>
+        <h4 class="font-display text-base font-bold text-slate-900 dark:text-white mt-1 group-hover:text-purple-400 transition-colors">
+          Hermann Grid &rarr;
+        </h4>
+      </a>
+    
+
+      <a 
+        href="/illusions/fraser-spiral" 
+        class="group rounded-xl border border-indigo-950/20 bg-white dark:bg-slate-900/60 p-5 shadow-lg hover:border-purple-500/40 hover:-translate-y-1 hover:shadow-purple-500/10 transition-all duration-300"
+      >
+        <div class="text-[10px] font-bold text-purple-400 uppercase tracking-wide">Related Illusion</div>
+        <h4 class="font-display text-base font-bold text-slate-900 dark:text-white mt-1 group-hover:text-purple-400 transition-colors">
+          Fraser Spiral &rarr;
+        </h4>
+      </a>
+    
+
+      <a 
+        href="/illusions/ebbinghaus" 
+        class="group rounded-xl border border-indigo-950/20 bg-white dark:bg-slate-900/60 p-5 shadow-lg hover:border-purple-500/40 hover:-translate-y-1 hover:shadow-purple-500/10 transition-all duration-300"
+      >
+        <div class="text-[10px] font-bold text-purple-400 uppercase tracking-wide">Related Illusion</div>
+        <h4 class="font-display text-base font-bold text-slate-900 dark:text-white mt-1 group-hover:text-purple-400 transition-colors">
+          Ebbinghaus &rarr;
+        </h4>
+      </a>
+    
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    // Share Page URL
+    const sharePageBtn = document.getElementById('share-illusion-page-btn');
+    const pageToast = document.getElementById('page-share-toast');
+
+    sharePageBtn?.addEventListener('click', () => {
+      const pageUrl = window.location.href;
+      navigator.clipboard.writeText(pageUrl).then(() => {
+        if (pageToast) {
+          pageToast.classList.remove('opacity-0');
+          pageToast.classList.add('opacity-100');
+          setTimeout(() => {
+            pageToast.classList.remove('opacity-100');
+            pageToast.classList.add('opacity-0');
+          }, 2000);
+        }
+      });
+    });
+
+    // Handle Global Speed Mult
+    const checkSpeed = () => {
+      const level = localStorage.getItem('speed-multiplier-level') || '5';
+      let multiplier = 1.0;
+      const parsed = parseInt(level);
+      if (parsed <= 5) {
+        multiplier = 0.2 + (parsed - 1) * 0.2;
+      } else {
+        multiplier = 1.0 + (parsed - 5) * 0.4;
+      }
+      document.documentElement.style.setProperty('--speed-multiplier', multiplier.toString());
+    };
+    checkSpeed();
+    window.addEventListener('storage', checkSpeed);
+
+    // Prevent propagation on inner interactive controllers so we don't trigger parent clicks (if wrapped)
+    const innerControls = document.querySelectorAll('.interactive-demo-card button, .interactive-demo-card input, .interactive-demo-card select');
+    innerControls.forEach(ctrl => {
+      ctrl.addEventListener('click', (e) => e.stopPropagation());
+    });
+
+    // Local script logic from original file
+    const kanizsaContainer = document.getElementById('kanizsa-illusion');
+      const kanizsaSlider = kanizsaContainer?.querySelector('.kanizsa-slider') as HTMLInputElement;
+      const toggleOutlineBtn = kanizsaContainer?.querySelector('.toggle-kanizsa-outline');
+      const pacmen = kanizsaContainer?.querySelectorAll('.kanizsa-pacman');
+      const guides = kanizsaContainer?.querySelectorAll('.kanizsa-guide');
+      
+      let outlineShown = false;
+
+      kanizsaSlider?.addEventListener('input', (e) => {
+        const val = (e.target as HTMLInputElement).value;
+        pacmen?.forEach((pac) => {
+          (pac as HTMLElement).style.transform = `rotate(${val}deg)`;
+        });
+      });
+
+      toggleOutlineBtn?.addEventListener('click', () => {
+        outlineShown = !outlineShown;
+        guides?.forEach(guide => {
+          if (outlineShown) {
+            guide.classList.remove('opacity-0');
+            guide.classList.add('opacity-100');
+          } else {
+            guide.classList.remove('opacity-100');
+            guide.classList.add('opacity-0');
+          }
+        });
+        if (toggleOutlineBtn) toggleOutlineBtn.textContent = outlineShown ? 'Hide Outline' : 'Show Outline';
+      });
+  </script>
+</Layout>

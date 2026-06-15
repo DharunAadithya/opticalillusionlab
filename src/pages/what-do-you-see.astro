@@ -1,0 +1,1663 @@
+---
+// src/pages/what-do-you-see.astro
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="What Do You See First? 12 Ambiguous Optical Illusions | Optical Illusion Lab"
+  description="These images have two completely valid interpretations. Which one your brain picks first reveals something fascinating about you. Take the 12-illusion perception test and discover your Brain Type."
+>
+
+  <!-- Hero Section -->
+  <section class="wdys-hero relative overflow-hidden py-20 px-4 sm:px-6 lg:px-8 text-white border-b border-indigo-500/10">
+    <div class="wdys-hero-bg-radial"></div>
+    <div class="wdys-hero-orb wdys-orb-1"></div>
+    <div class="wdys-hero-orb wdys-orb-2"></div>
+
+    <div class="relative mx-auto max-w-5xl text-center space-y-6">
+      <nav class="flex justify-center text-xs font-semibold text-indigo-300 space-x-2" aria-label="Breadcrumb">
+        <a href="/" class="hover:underline hover:text-white transition-colors">Home</a>
+        <span>/</span>
+        <span class="text-slate-400">What Do You See First?</span>
+      </nav>
+
+      <div class="wdys-badge">
+        👁️ PERCEPTION TEST
+      </div>
+
+      <h1 class="font-display text-5xl sm:text-7xl font-extrabold tracking-tight wdys-title-gradient">
+        What Do You See First?
+      </h1>
+      <p class="mx-auto max-w-2xl text-base sm:text-xl text-slate-300 leading-relaxed">
+        These images have <strong class="text-white">TWO completely valid interpretations.</strong>
+        Which one your brain picks first reveals something fascinating about you.
+      </p>
+
+      <!-- Live Visit Counter -->
+      <div class="wdys-counter-pill" id="visit-counter-pill">
+        <span class="wdys-counter-dot"></span>
+        <span id="visit-counter-text">Loading visitors...</span>
+      </div>
+
+      <!-- Progress tracker -->
+      <div class="wdys-progress-bar-outer" id="progress-wrapper">
+        <div class="wdys-progress-track">
+          <div class="wdys-progress-fill" id="progress-bar" style="width:0%"></div>
+        </div>
+        <span class="wdys-progress-label" id="progress-label">0 / 12 answered</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cards Grid -->
+  <section class="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <div class="wdys-grid" id="illusions-grid">
+
+      <!-- ===== CARD 1: OLD WOMAN / YOUNG WOMAN ===== -->
+      <div class="wdys-card" id="card-1" data-index="1">
+        <div class="wdys-card-header">
+          <div class="wdys-tags"><span class="wdys-tag-medium">🟡 Medium</span><span class="wdys-tag-type">Bistable Portrait</span></div>
+          <h2 class="wdys-card-title">1. Old Woman / Young Woman</h2>
+          <p class="wdys-card-desc">The same drawing contains two complete people. The young woman's chin is the old woman's nose. Her choker is the old woman's mouth.</p>
+        </div>
+
+        <div class="wdys-demo-area">
+          <!-- SVG Old Woman / Young Woman -->
+          <svg id="svg-ow-yw" class="wdys-svg" viewBox="0 0 240 280" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <marker id="arr-blue-1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 1L10 5L0 9z" fill="#60a5fa"/></marker>
+              <marker id="arr-rose-1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 1L10 5L0 9z" fill="#fb7185"/></marker>
+            </defs>
+            <!-- Main figure outline -->
+            <path class="wdys-path-main" d="M 100,30 Q 140,18 165,40 Q 185,60 175,95 Q 165,130 155,145 Q 150,155 148,165 Q 145,175 130,185 Q 110,195 90,188 Q 70,178 65,162 Q 55,145 60,125 Q 52,108 55,90 Q 58,65 70,48 Z"/>
+            <!-- Hair / bonnet top -->
+            <path class="wdys-path-detail" d="M 95,28 Q 120,15 148,32 Q 165,42 168,58" stroke-width="3"/>
+            <!-- Face profile - left side (young jaw / old nose+chin) -->
+            <path class="wdys-path-main" d="M 70,68 Q 58,90 57,108 Q 53,130 62,148 Q 68,162 75,168"/>
+            <!-- Nose (young) / protrusion (old) -->
+            <path class="wdys-path-main" d="M 75,100 Q 63,108 62,118 Q 65,126 78,120"/>
+            <!-- Mouth / choker -->
+            <path class="wdys-path-main" d="M 80,160 Q 95,168 110,162" stroke-linecap="round"/>
+            <!-- Eye (young, small) / Ear (old) -->
+            <path class="wdys-path-detail" d="M 90,78 Q 86,82 87,87 Q 91,90 96,87 Q 98,82 95,78 Z" stroke-width="1.5"/>
+            <!-- Ear (young) -->
+            <path class="wdys-path-detail" d="M 148,88 Q 155,93 154,102 Q 150,108 143,104" stroke-width="1.5"/>
+            <!-- Eyelashes / wrinkle lines (old) -->
+            <path class="wdys-path-faint" d="M 72,95 Q 80,92 90,93"/>
+            <path class="wdys-path-faint" d="M 68,120 Q 74,118 80,120"/>
+            <!-- Neckband / scarf -->
+            <path class="wdys-path-detail" d="M 75,170 Q 100,182 125,172 Q 135,168 140,162" stroke-width="2"/>
+            <!-- Fur trim / collar -->
+            <path class="wdys-path-faint" d="M 65,185 Q 90,200 115,195 Q 135,190 148,178"/>
+
+            <!-- Young-woman annotation arrows (hidden by default) -->
+            <g id="ow-yw-young-arrows" style="display:none">
+              <line x1="170" y1="80" x2="128" y2="83" stroke="#60a5fa" stroke-width="1.5" marker-end="url(#arr-blue-1)"/>
+              <text x="175" y="78" fill="#60a5fa" font-size="9" font-weight="bold">Eye</text>
+              <line x1="170" y1="155" x2="105" y2="162" stroke="#60a5fa" stroke-width="1.5" marker-end="url(#arr-blue-1)"/>
+              <text x="175" y="153" fill="#60a5fa" font-size="9" font-weight="bold">Choker</text>
+              <line x1="170" y1="115" x2="135" y2="108" stroke="#60a5fa" stroke-width="1.5" marker-end="url(#arr-blue-1)"/>
+              <text x="175" y="113" fill="#60a5fa" font-size="9" font-weight="bold">Ear</text>
+            </g>
+            <!-- Old-woman annotation arrows (hidden by default) -->
+            <g id="ow-yw-old-arrows" style="display:none">
+              <line x1="20" y1="113" x2="58" y2="116" stroke="#fb7185" stroke-width="1.5" marker-end="url(#arr-rose-1)"/>
+              <text x="3" y="111" fill="#fb7185" font-size="9" font-weight="bold">Nose</text>
+              <line x1="20" y1="163" x2="68" y2="163" stroke="#fb7185" stroke-width="1.5" marker-end="url(#arr-rose-1)"/>
+              <text x="1" y="161" fill="#fb7185" font-size="9" font-weight="bold">Mouth</text>
+              <line x1="20" y1="85" x2="83" y2="85" stroke="#fb7185" stroke-width="1.5" marker-end="url(#arr-rose-1)"/>
+              <text x="4" y="83" fill="#fb7185" font-size="9" font-weight="bold">Ear</text>
+            </g>
+          </svg>
+        </div>
+
+        <div class="wdys-vote-section">
+          <p class="wdys-vote-prompt">Which do you see first?</p>
+          <div class="wdys-vote-buttons">
+            <button class="wdys-vote-btn" data-card="1" data-choice="a">👱‍♀️ Young Woman</button>
+            <button class="wdys-vote-btn" data-card="1" data-choice="b">👵 Old Woman</button>
+          </div>
+          <div class="wdys-reveal-bar" id="reveal-1" style="display:none">
+            <div class="wdys-result-bar-row">
+              <span class="wdys-result-label">👱‍♀️ Young</span>
+              <div class="wdys-bar-track"><div class="wdys-bar-fill wdys-bar-a" id="bar-1-a" style="width:0%"></div></div>
+              <span class="wdys-pct" id="pct-1-a">—</span>
+            </div>
+            <div class="wdys-result-bar-row">
+              <span class="wdys-result-label">👵 Old</span>
+              <div class="wdys-bar-track"><div class="wdys-bar-fill wdys-bar-b" id="bar-1-b" style="width:0%"></div></div>
+              <span class="wdys-pct" id="pct-1-b">—</span>
+            </div>
+            <div class="wdys-reveal-actions">
+              <button class="wdys-reveal-btn active" onclick="toggleArrows('ow-yw-young-arrows','ow-yw-old-arrows',this)">Show Young Woman ↗</button>
+              <button class="wdys-reveal-btn" onclick="toggleArrows('ow-yw-old-arrows','ow-yw-young-arrows',this)">Show Old Woman ↗</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== CARD 2: DUCK OR RABBIT ===== -->
+      <div class="wdys-card" id="card-2" data-index="2">
+        <div class="wdys-card-header">
+          <div class="wdys-tags"><span class="wdys-tag-easy">🟢 Easy</span><span class="wdys-tag-type">Classic Bistable</span></div>
+          <h2 class="wdys-card-title">2. Duck or Rabbit?</h2>
+          <p class="wdys-card-desc">Jastrow's 1899 classic. The duck's bill becomes the rabbit's ears depending on which way your brain points the animal.</p>
+        </div>
+
+        <div class="wdys-demo-area">
+          <svg id="svg-duck-rabbit" class="wdys-svg" viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg">
+            <!-- Duck/Rabbit ambiguous body -->
+            <ellipse class="wdys-fill-primary" cx="145" cy="105" rx="70" ry="50"/>
+            <!-- Head/beak area -->
+            <ellipse class="wdys-fill-primary" cx="85" cy="95" rx="38" ry="33"/>
+            <!-- Duck bill / Rabbit ears -->
+            <path class="wdys-fill-primary" d="M 48,78 Q 20,68 8,85 Q 14,98 48,95 Z"/>
+            <path class="wdys-fill-primary" d="M 48,95 Q 20,98 10,115 Q 18,128 48,112 Z"/>
+            <!-- Rabbit ear 1 (top) — same as duck bill top -->
+            <!-- Eye -->
+            <circle cx="72" cy="82" r="5" fill="white"/>
+            <circle cx="72" cy="82" r="2.5" fill="#1e293b"/>
+            <!-- Highlight -->
+            <circle cx="73" cy="81" r="1" fill="white"/>
+            <!-- Tail (rabbit) / Wing nub (duck) -->
+            <path class="wdys-fill-secondary" d="M 210,88 Q 230,82 235,100 Q 228,115 210,112 Z"/>
+            <!-- Webbed foot / fluffy bottom -->
+            <path class="wdys-fill-secondary" d="M 140,152 Q 155,165 170,158 Q 175,148 160,145 Z"/>
+            <path class="wdys-fill-secondary" d="M 118,155 Q 130,168 145,162 Q 148,150 134,147 Z"/>
+          </svg>
+          <p class="wdys-fun-fact">🌱 Fun fact: People born in spring tend to see the rabbit first!</p>
+        </div>
+
+        <div class="wdys-vote-section">
+          <p class="wdys-vote-prompt">Which do you see first?</p>
+          <div class="wdys-vote-buttons">
+            <button class="wdys-vote-btn" data-card="2" data-choice="a">🦆 Duck</button>
+            <button class="wdys-vote-btn" data-card="2" data-choice="b">🐇 Rabbit</button>
+          </div>
+          <div class="wdys-reveal-bar" id="reveal-2" style="display:none">
+            <div class="wdys-result-bar-row">
+              <span class="wdys-result-label">🦆 Duck</span>
+              <div class="wdys-bar-track"><div class="wdys-bar-fill wdys-bar-a" id="bar-2-a" style="width:0%"></div></div>
+              <span class="wdys-pct" id="pct-2-a">—</span>
+            </div>
+            <div class="wdys-result-bar-row">
+              <span class="wdys-result-label">🐇 Rabbit</span>
+              <div class="wdys-bar-track"><div class="wdys-bar-fill wdys-bar-b" id="bar-2-b" style="width:0%"></div></div>
+              <span class="wdys-pct" id="pct-2-b">—</span>
+            </div>
+            <p class="wdys-insight">Tip: Tilt your head right → duck. Left → rabbit. The ambiguity is in the horizontal orientation of the "bill/ears".</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== CARD 3: FACE OR VASE (RUBIN) ===== -->
+      <div class="wdys-card" id="card-3" data-index="3">
+        <div class="wdys-card-header">
+          <div class="wdys-tags"><span class="wdys-tag-easy">🟢 Easy</span><span class="wdys-tag-type">Figure-Ground</span></div>
+          <h2 class="wdys-card-title">3. Face or Vase?</h2>
+          <p class="wdys-card-desc">Edgar Rubin's 1915 masterpiece of figure-ground perception. Your brain can only hold one interpretation at a time.</p>
+        </div>
+
+        <div class="wdys-demo-area">
+          <svg id="svg-rubin" class="wdys-svg" viewBox="0 0 240 260" xmlns="http://www.w3.org/2000/svg">
+            <rect width="240" height="260" fill="#1e1b4b" rx="8"/>
+            <!-- Left face profile -->
+            <path id="rubin-left" fill="#e2e8f0"
+              d="M 0,0 L 80,0
+                 Q 85,40 80,55
+                 Q 72,75 65,88
+                 Q 55,102 58,118
+                 Q 60,130 52,145
+                 Q 48,158 55,170
+                 Q 62,182 70,192
+                 Q 80,205 80,260
+                 L 0,260 Z"/>
+            <!-- Right face profile (mirror) -->
+            <path id="rubin-right" fill="#e2e8f0"
+              d="M 240,0 L 160,0
+                 Q 155,40 160,55
+                 Q 168,75 175,88
+                 Q 185,102 182,118
+                 Q 180,130 188,145
+                 Q 192,158 185,170
+                 Q 178,182 170,192
+                 Q 160,205 160,260
+                 L 240,260 Z"/>
+            <!-- Vase highlight overlay (initially hidden) -->
+            <path id="rubin-vase-hl" fill="rgba(250,204,21,0)"
+              d="M 80,0 Q 90,30 95,55 Q 105,88 120,103 Q 105,118 95,145 Q 88,165 85,192 Q 90,220 100,250 L 140,250 Q 150,220 155,192 Q 152,165 145,145 Q 135,118 120,103 Q 135,88 145,55 Q 150,30 160,0 Z"/>
+            <!-- Vase (center white space) — made of invisible path for clarity -->
+          </svg>
+          <p class="wdys-fun-fact" id="rubin-hint">Hover to see the vase highlighted in gold ✨</p>
+        </div>
+
+        <div class="wdys-vote-section">
+          <p class="wdys-vote-prompt">What did you see first?</p>
+          <div class="wdys-vote-buttons">
+            <button class="wdys-vote-btn" data-card="3" data-choice="a">👤 Two Faces</button>
+            <button class="wdys-vote-btn" data-card="3" data-choice="b">🏺 A Vase</button>
+          </div>
+          <div class="wdys-reveal-bar" id="reveal-3" style="display:none">
+            <div class="wdys-result-bar-row">
+              <span class="wdys-result-label">👤 Faces</span>
+              <div class="wdys-bar-track"><div class="wdys-bar-fill wdys-bar-a" id="bar-3-a" style="width:0%"></div></div>
+              <span class="wdys-pct" id="pct-3-a">—</span>
+            </div>
+            <div class="wdys-result-bar-row">
+              <span class="wdys-result-label">🏺 Vase</span>
+              <div class="wdys-bar-track"><div class="wdys-bar-fill wdys-bar-b" id="bar-3-b" style="width:0%"></div></div>
+              <span class="wdys-pct" id="pct-3-b">—</span>
+            </div>
+            <div class="wdys-reveal-actions">
+              <button class="wdys-reveal-btn active" onclick="rubinHighlight('faces')">Highlight Faces 👤</button>
+              <button class="wdys-reveal-btn" onclick="rubinHighlight('vase')">Highlight Vase 🏺</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== CARD 4: DUCK OR SQUIRREL ===== -->
+      <div class="wdys-card" id="card-4" data-index="4">
+        <div class="wdys-card-header">
+          <div class="wdys-tags"><span class="wdys-tag-hard">🔴 Hard</span><span class="wdys-tag-type">Bistable Animal</span></div>
+          <h2 class="wdys-card-title">4. Duck or Squirrel?</h2>
+          <p class="wdys-card-desc">The duck's bill sweeps into the squirrel's bushy tail. Fewer than 40% of viewers see both animals without a hint.</p>
+        </div>
+
+        <div class="wdys-demo-area">
+          <svg id="svg-duck-squirrel" class="wdys-svg" viewBox="0 0 260 220" xmlns="http://www.w3.org/2000/svg">
+            <!-- Body shared -->
+            <ellipse class="wdys-fill-primary" cx="125" cy="125" rx="58" ry="42"/>
+            <!-- Head -->
+            <ellipse class="wdys-fill-primary" cx="80" cy="100" rx="30" ry="26"/>
+            <!-- Duck bill / Squirrel face snout -->
+            <path class="wdys-fill-secondary" d="M 52,90 Q 30,82 18,98 Q 28,113 52,108 Z"/>
+            <!-- Squirrel bushy tail / Duck wing -->
+            <path class="wdys-fill-secondary" d="M 170,75 Q 210,55 228,82 Q 240,100 225,122 Q 205,145 175,138 Q 155,128 165,110 Q 172,95 170,75 Z"/>
+            <!-- Squirrel ear / Duck head feather -->
+            <path class="wdys-fill-primary" d="M 72,75 Q 70,55 82,52 Q 92,52 90,72 Z"/>
+            <!-- Eye -->
+            <circle cx="68" cy="92" r="5" fill="white"/>
+            <circle cx="68" cy="92" r="2.5" fill="#1e293b"/>
+            <circle cx="69" cy="91" r="1" fill="white"/>
+            <!-- Legs / feet -->
+            <path class="wdys-fill-secondary" d="M 108,165 Q 112,180 122,183 Q 130,178 128,165 Z"/>
+            <path class="wdys-fill-secondary" d="M 128,165 Q 132,180 142,182 Q 150,176 148,165 Z"/>
+          </svg>
+        </div>
+
+        <div class="wdys-vote-section">
+          <p class="wdys-vote-prompt">What do you see?</p>
+          <div class="wdys-vote-buttons">
+            <button class="wdys-vote-btn" data-card="4" data-choice="a">🦆 Duck</button>
+            <button class="wdys-vote-btn" data-card="4" data-choice="b">🐿️ Squirrel</button>
+          </div>
+          <div class="wdys-reveal-bar" id="reveal-4" style="display:none">
+            <div class="wdys-result-bar-row">
+              <span class="wdys-result-label">🦆 Duck</span>
+              <div class="wdys-bar-track"><div class="wdys-bar-fill wdys-bar-a" id="bar-4-a" style="width:0%"></div></div>
+              <span class="wdys-pct" id="pct-4-a">—</span>
+            </div>
+            <div class="wdys-result-bar-row">
+              <span class="wdys-result-label">🐿️ Squirrel</span>
+              <div class="wdys-bar-track"><div class="wdys-bar-fill wdys-bar-b" id="bar-4-b" style="width:0%"></div></div>
+              <span class="wdys-pct" id="pct-4-b">—</span>
+            </div>
+            <p class="wdys-insight">💡 Hint: If you see a duck, look at the tail area — it becomes a squirrel's bushy fur. The "ear" is actually a tail!</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== CARD 5: SKULL OR WOMEN ===== -->
+      <div class="wdys-card" id="card-5" data-index="5">
+        <div class="wdys-card-header">
+          <div class="wdys-tags"><span class="wdys-tag-hard">🔴 Hard</span><span class="wdys-tag-type">Composite Figure</span></div>
+          <h2 class="wdys-card-title">5. Skull or Women at a Table?</h2>
+          <p class="wdys-card-desc">Inspired by Salvador Dalí's surrealism. Two women sitting at a vanity mirror form the shape of a human skull.</p>
+        </div>
+
+        <div class="wdys-demo-area">
+          <svg id="svg-skull-women" class="wdys-svg" viewBox="0 0 240 280" xmlns="http://www.w3.org/2000/svg">
+            <!-- Background dark -->
+            <rect width="240" height="280" fill="#0f172a" rx="8"/>
+            <!-- Skull top/cranium = arch of room / window -->
+            <ellipse class="wdys-fill-svg-light" cx="120" cy="95" rx="72" ry="68"/>
+            <!-- Skull eye socket left = seated woman left (dark dress/shadow) -->
+            <ellipse fill="#0f172a" cx="88" cy="105" rx="22" ry="18"/>
+            <!-- Skull eye socket right = seated woman right -->
+            <ellipse fill="#0f172a" cx="152" cy="105" rx="22" ry="18"/>
+            <!-- Skull nasal cavity = gap between the two women -->
+            <rect fill="#0f172a" x="107" y="132" width="26" height="22" rx="4"/>
+            <!-- Skull teeth row = table edge -->
+            <rect class="wdys-fill-svg-light" x="58" y="162" width="124" height="14" rx="2"/>
+            <!-- Tooth divisions -->
+            <line x1="80" y1="162" x2="80" y2="176" stroke="#0f172a" stroke-width="2"/>
+            <line x1="100" y1="162" x2="100" y2="176" stroke="#0f172a" stroke-width="2"/>
+            <line x1="120" y1="162" x2="120" y2="176" stroke="#0f172a" stroke-width="2"/>
+            <line x1="140" y1="162" x2="140" y2="176" stroke="#0f172a" stroke-width="2"/>
+            <line x1="160" y1="162" x2="160" y2="176" stroke="#0f172a" stroke-width="2"/>
+            <!-- Left woman silhouette -->
+            <path class="wdys-fill-svg-light" d="M 55,95 Q 60,80 72,78 Q 80,88 75,105 Q 68,118 65,135 Q 60,155 58,162 L 42,162 Q 44,145 48,128 Q 52,112 55,95 Z"/>
+            <!-- Right woman silhouette -->
+            <path class="wdys-fill-svg-light" d="M 185,95 Q 180,80 168,78 Q 160,88 165,105 Q 172,118 175,135 Q 180,155 182,162 L 198,162 Q 196,145 192,128 Q 188,112 185,95 Z"/>
+            <!-- Candle on table / nose bridge detail -->
+            <rect class="wdys-fill-svg-accent" x="116" y="148" width="8" height="16" rx="1"/>
+            <ellipse class="wdys-fill-svg-glow" cx="120" cy="147" rx="4" ry="3"/>
+          </svg>
+        </div>
+
+        <div class="wdys-vote-section">
+          <p class="wdys-vote-prompt">Your first impression?</p>
+          <div class="wdys-vote-buttons">
+            <button class="wdys-vote-btn" data-card="5" data-choice="a">💀 A Skull</button>
+            <button class="wdys-vote-btn" data-card="5" data-choice="b">👩 Women at a Table</button>
+          </div>
+          <div class="wdys-reveal-bar" id="reveal-5" style="display:none">
+            <div class="wdys-result-bar-row">
+              <span class="wdys-result-label">💀 Skull</span>
+              <div class="wdys-bar-track"><div class="wdys-bar-fill wdys-bar-a" id="bar-5-a" style="width:0%"></div></div>
+              <span class="wdys-pct" id="pct-5-a">—</span>
+            </div>
+            <div class="wdys-result-bar-row">
+              <span class="wdys-result-label">👩 Women</span>
+              <div class="wdys-bar-track"><div class="wdys-bar-fill wdys-bar-b" id="bar-5-b" style="width:0%"></div></div>
+              <span class="wdys-pct" id="pct-5-b">—</span>
+            </div>
+            <p class="wdys-insight">The two dark oval eye sockets are actually the women's silhouettes. The table with teeth = the row of teeth along the jaw. Step back from your screen for the skull!</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== CARD 6: SAXOPHONIST OR WOMAN'S FACE ===== -->
+      <div class="wdys-card" id="card-6" data-index="6">
+        <div class="wdys-card-header">
+          <div class="wdys-tags"><span class="wdys-tag-medium">🟡 Medium</span><span class="wdys-tag-type">Figure-Ground</span></div>
+          <h2 class="wdys-card-title">6. Saxophonist or Woman's Face?</h2>
+          <p class="wdys-card-desc">A jazz musician in full profile OR a beautiful woman's face. The saxophone bell becomes her flowing hair.</p>
+        </div>
+
+        <div class="wdys-demo-area">
+          <svg id="svg-sax-woman" class="wdys-svg" viewBox="0 0 200 280" xmlns="http://www.w3.org/2000/svg">
+            <rect width="200" height="280" fill="#1e1b4b" rx="8"/>
+            <!-- Saxophonist hat / woman's forehead hair -->
+            <path fill="#e2e8f0" d="M 20,0 L 120,0 Q 118,20 100,30 Q 80,38 65,30 Q 50,22 45,10 Z"/>
+            <!-- Musician figure (left side profile facing right) -->
+            <!-- Woman's face profile (right side facing left) — they share the central boundary -->
+            <!-- Shared contour path - this IS the ambiguous boundary -->
+            <path fill="#e2e8f0"
+              d="M 20,0 L 20,280 L 100,280
+                 Q 95,260 88,245
+                 Q 78,228 68,218
+                 Q 55,205 50,188
+                 Q 42,165 45,145
+                 Q 47,128 55,115
+                 Q 62,102 65,88
+                 Q 70,72 65,55
+                 Q 58,38 45,30
+                 Q 30,20 20,10 Z"/>
+            <!-- Saxophone bell (right/dark area) = woman's hair flowing down -->
+            <path fill="#312e81"
+              d="M 100,280 L 200,280 L 200,0 L 120,0
+                 Q 128,22 135,45
+                 Q 140,65 138,85
+                 Q 135,108 128,122
+                 Q 118,140 115,158
+                 Q 110,178 115,198
+                 Q 122,220 135,238
+                 Q 150,258 155,280 Z"/>
+            <!-- Sax player's eye -->
+            <circle cx="55" cy="82" r="5" fill="#1e1b4b"/>
+            <circle cx="55" cy="82" r="2" fill="white"/>
+            <!-- Woman's eye (same feature, other interpretation) -->
+            <!-- Mouth/embouchure detail -->
+            <ellipse cx="40" cy="148" rx="12" ry="7" fill="#312e81" opacity="0.7"/>
+            <!-- Keys on saxophone = necklace on woman -->
+            <circle cx="110" cy="165" r="5" fill="#fbbf24" opacity="0.8"/>
+            <circle cx="112" cy="180" r="4" fill="#fbbf24" opacity="0.7"/>
+            <circle cx="108" cy="195" r="4.5" fill="#fbbf24" opacity="0.8"/>
+          </svg>
+        </div>
+
+        <div class="wdys-vote-section">
+          <p class="wdys-vote-prompt">First impression?</p>
+          <div class="wdys-vote-buttons">
+            <button class="wdys-vote-btn" data-card="6" data-choice="a">🎷 Saxophonist</button>
+            <button class="wdys-vote-btn" data-card="6" data-choice="b">👩 Woman's Face</button>
+          </div>
+          <div class="wdys-reveal-bar" id="reveal-6" style="display:none">
+            <div class="wdys-result-bar-row">
+              <span class="wdys-result-label">🎷 Sax</span>
+              <div class="wdys-bar-track"><div class="wdys-bar-fill wdys-bar-a" id="bar-6-a" style="width:0%"></div></div>
+              <span class="wdys-pct" id="pct-6-a">—</span>
+            </div>
+            <div class="wdys-result-bar-row">
+              <span class="wdys-result-label">👩 Woman</span>
+              <div class="wdys-bar-track"><div class="wdys-bar-fill wdys-bar-b" id="bar-6-b" style="width:0%"></div></div>
+              <span class="wdys-pct" id="pct-6-b">—</span>
+            </div>
+            <p class="wdys-insight">The left white region = musician playing sax. The right dark region = a woman's face in shadow. The saxophone bell = her flowing dark hair. Same boundary, two realities.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== CARD 7: PENGUIN OR CAT ===== -->
+      <div class="wdys-card" id="card-7" data-index="7">
+        <div class="wdys-card-header">
+          <div class="wdys-tags"><span class="wdys-tag-easy">🟢 Easy</span><span class="wdys-tag-type">Animal Bistable</span></div>
+          <h2 class="wdys-card-title">7. Penguin or Cat?</h2>
+          <p class="wdys-card-desc">A simple silhouette that works equally well as a waddling penguin or a sitting cat looking forward. Can you see both?</p>
+        </div>
+
+        <div class="wdys-demo-area">
+          <svg id="svg-penguin-cat" class="wdys-svg" viewBox="0 0 200 260" xmlns="http://www.w3.org/2000/svg">
+            <!-- Dark body (penguin body / cat body) -->
+            <ellipse fill="#1e293b" cx="100" cy="165" rx="55" ry="72"/>
+            <!-- White belly / cat's face markings -->
+            <ellipse fill="#f1f5f9" cx="100" cy="172" rx="32" ry="52"/>
+            <!-- Head -->
+            <ellipse fill="#1e293b" cx="100" cy="88" rx="42" ry="40"/>
+            <!-- Cat ears / Penguin head bumps -->
+            <polygon fill="#1e293b" points="68,62 58,30 85,58"/>
+            <polygon fill="#1e293b" points="132,62 142,30 115,58"/>
+            <!-- Inner ear (cat) -->
+            <polygon fill="#fda4af" points="68,58 62,38 82,56" opacity="0.7"/>
+            <polygon fill="#fda4af" points="132,58 138,38 118,56" opacity="0.7"/>
+            <!-- Eyes (big penguin eyes / cat eyes) -->
+            <ellipse fill="white" cx="85" cy="90" rx="10" ry="12"/>
+            <ellipse fill="white" cx="115" cy="90" rx="10" ry="12"/>
+            <ellipse fill="#1e1b4b" cx="86" cy="90" rx="6" ry="8"/>
+            <ellipse fill="#1e1b4b" cx="116" cy="90" rx="6" ry="8"/>
+            <circle fill="white" cx="88" cy="87" r="2.5"/>
+            <circle fill="white" cx="118" cy="87" r="2.5"/>
+            <!-- Nose (beak orange / cat nose pink) -->
+            <polygon fill="#f97316" points="100,105 92,115 108,115"/>
+            <!-- Whiskers (cat) / beak lines (penguin) -->
+            <line x1="55" y1="112" x2="88" y2="108" stroke="#94a3b8" stroke-width="1.5"/>
+            <line x1="55" y1="118" x2="88" y2="112" stroke="#94a3b8" stroke-width="1.5"/>
+            <line x1="145" y1="112" x2="112" y2="108" stroke="#94a3b8" stroke-width="1.5"/>
+            <line x1="145" y1="118" x2="112" y2="112" stroke="#94a3b8" stroke-width="1.5"/>
+            <!-- Flippers / paws -->
+            <ellipse fill="#0f172a" cx="52" cy="175" rx="14" ry="28" transform="rotate(-15,52,175)"/>
+            <ellipse fill="#0f172a" cx="148" cy="175" rx="14" ry="28" transform="rotate(15,148,175)"/>
+            <!-- Feet -->
+            <ellipse fill="#f97316" cx="85" cy="233" rx="20" ry="8" transform="rotate(-15,85,233)"/>
+            <ellipse fill="#f97316" cx="115" cy="233" rx="20" ry="8" transform="rotate(15,115,233)"/>
+          </svg>
+        </div>
+
+        <div class="wdys-vote-section">
+          <p class="wdys-vote-prompt">What do you see?</p>
+          <div class="wdys-vote-buttons">
+            <button class="wdys-vote-btn" data-card="7" data-choice="a">🐧 Penguin</button>
+            <button class="wdys-vote-btn" data-card="7" data-choice="b">🐱 Cat</button>
+          </div>
+          <div class="wdys-reveal-bar" id="reveal-7" style="display:none">
+            <div class="wdys-result-bar-row">
+              <span class="wdys-result-label">🐧 Penguin</span>
+              <div class="wdys-bar-track"><div class="wdys-bar-fill wdys-bar-a" id="bar-7-a" style="width:0%"></div></div>
+              <span class="wdys-pct" id="pct-7-a">—</span>
+            </div>
+            <div class="wdys-result-bar-row">
+              <span class="wdys-result-label">🐱 Cat</span>
+              <div class="wdys-bar-track"><div class="wdys-bar-fill wdys-bar-b" id="bar-7-b" style="width:0%"></div></div>
+              <span class="wdys-pct" id="pct-7-b">—</span>
+            </div>
+            <p class="wdys-insight">The orange "triangle" at the bottom is a beak (penguin) or a cat's nose. The pointy ears confirm the cat. The waddling feet confirm the penguin!</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== CARD 8: SPINNING DANCER ===== -->
+      <div class="wdys-card" id="card-8" data-index="8">
+        <div class="wdys-card-header">
+          <div class="wdys-tags"><span class="wdys-tag-medium">🟡 Medium</span><span class="wdys-tag-type">Motion Bistable</span></div>
+          <h2 class="wdys-card-title">8. Spinning Dancer</h2>
+          <p class="wdys-card-desc">The silhouette of a spinning dancer has no depth cues. Your visual cortex picks a direction — and it's usually impossible to change it at first.</p>
+        </div>
+
+        <div class="wdys-demo-area wdys-demo-tall">
+          <div class="dancer-wrap" id="dancer-container">
+            <div class="dancer-stage" id="dancer-stage">
+              <svg class="dancer-svg" id="dancer-svg" viewBox="0 0 120 200" xmlns="http://www.w3.org/2000/svg">
+                <!-- Shadow -->
+                <ellipse fill="rgba(0,0,0,0.2)" cx="60" cy="196" rx="28" ry="6"/>
+                <!-- Leg extended -->
+                <line id="leg-ext" x1="60" y1="155" x2="85" y2="188" stroke="#c084fc" stroke-width="5" stroke-linecap="round"/>
+                <!-- Supporting leg -->
+                <line x1="60" y1="155" x2="52" y2="195" stroke="#c084fc" stroke-width="5" stroke-linecap="round"/>
+                <!-- Body -->
+                <ellipse fill="#c084fc" cx="60" cy="128" rx="14" ry="26"/>
+                <!-- Arm up -->
+                <line id="arm-up" x1="60" y1="112" x2="88" y2="92" stroke="#c084fc" stroke-width="4" stroke-linecap="round"/>
+                <!-- Arm side -->
+                <line x1="60" y1="118" x2="32" y2="132" stroke="#c084fc" stroke-width="4" stroke-linecap="round"/>
+                <!-- Neck -->
+                <line x1="60" y1="102" x2="60" y2="94" stroke="#c084fc" stroke-width="3" stroke-linecap="round"/>
+                <!-- Head -->
+                <circle fill="#c084fc" cx="60" cy="86" r="14"/>
+                <!-- Hair bun -->
+                <circle fill="#a855f7" cx="60" cy="72" r="7"/>
+              </svg>
+            </div>
+          </div>
+          <div class="dancer-controls">
+            <label class="dancer-label">Speed: <input type="range" id="dancer-speed" min="1" max="5" value="3" class="wdys-slider"/></label>
+            <label class="dancer-label"><input type="checkbox" id="dancer-belt" class="wdys-check"/> Color belt hint</label>
+          </div>
+          <p class="wdys-fun-fact">⏱️ Challenge: Stare at the shadow on the ground — can you make her switch direction?</p>
+        </div>
+
+        <div class="wdys-vote-section">
+          <p class="wdys-vote-prompt">Which direction is she spinning?</p>
+          <div class="wdys-vote-buttons">
+            <button class="wdys-vote-btn" data-card="8" data-choice="a">↩️ Counter-Clockwise</button>
+            <button class="wdys-vote-btn" data-card="8" data-choice="b">↪️ Clockwise</button>
+          </div>
+          <div class="wdys-reveal-bar" id="reveal-8" style="display:none">
+            <div class="wdys-result-bar-row">
+              <span class="wdys-result-label">↩️ CCW</span>
+              <div class="wdys-bar-track"><div class="wdys-bar-fill wdys-bar-a" id="bar-8-a" style="width:0%"></div></div>
+              <span class="wdys-pct" id="pct-8-a">—</span>
+            </div>
+            <div class="wdys-result-bar-row">
+              <span class="wdys-result-label">↪️ CW</span>
+              <div class="wdys-bar-track"><div class="wdys-bar-fill wdys-bar-b" id="bar-8-b" style="width:0%"></div></div>
+              <span class="wdys-pct" id="pct-8-b">—</span>
+            </div>
+            <p class="wdys-insight">Neither answer is "correct"! The dancer is a 2D silhouette with no depth cues. Studies show ~54% see clockwise first. Trying looking just at the foot touching the ground.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== CARD 9: NECKER CUBE ===== -->
+      <div class="wdys-card" id="card-9" data-index="9">
+        <div class="wdys-card-header">
+          <div class="wdys-tags"><span class="wdys-tag-medium">🟡 Medium</span><span class="wdys-tag-type">3D Depth Bistable</span></div>
+          <h2 class="wdys-card-title">9. Necker Cube</h2>
+          <p class="wdys-card-desc">Louis Albert Necker discovered in 1832 that a wireframe cube spontaneously "flips" between two 3D orientations. Your brain can only hold one at a time.</p>
+        </div>
+
+        <div class="wdys-demo-area">
+          <div class="necker-wrap">
+            <svg id="svg-necker" class="wdys-svg" viewBox="0 0 220 200" xmlns="http://www.w3.org/2000/svg">
+              <!-- Necker cube wireframe — classic orientation -->
+              <!-- Back face -->
+              <rect id="necker-back" x="68" y="38" width="100" height="100" fill="none" stroke="#6366f1" stroke-width="2" stroke-dasharray="6,4"/>
+              <!-- Front face -->
+              <rect id="necker-front" x="50" y="58" width="100" height="100" fill="none" stroke="#e2e8f0" stroke-width="2.5"/>
+              <!-- Connecting edges -->
+              <line x1="50" y1="58" x2="68" y2="38" stroke="#94a3b8" stroke-width="1.8"/>
+              <line x1="150" y1="58" x2="168" y2="38" stroke="#94a3b8" stroke-width="1.8"/>
+              <line x1="50" y1="158" x2="68" y2="138" stroke="#94a3b8" stroke-width="1.8"/>
+              <line x1="150" y1="158" x2="168" y2="138" stroke="#94a3b8" stroke-width="1.8"/>
+              <!-- Center dot -->
+              <circle id="necker-dot" cx="110" cy="98" r="4" fill="#f59e0b"/>
+              <!-- Interpretation label -->
+              <text id="necker-label" x="110" y="192" text-anchor="middle" fill="#94a3b8" font-size="11" font-family="sans-serif">Stare at the dot · cube will flip</text>
+            </svg>
+            <button class="wdys-reveal-btn necker-flip-btn" id="necker-flip-btn" onclick="neckerFlip()">🔄 Force Flip</button>
+          </div>
+        </div>
+
+        <div class="wdys-vote-section">
+          <p class="wdys-vote-prompt">Which face is pointing toward you?</p>
+          <div class="wdys-vote-buttons">
+            <button class="wdys-vote-btn" data-card="9" data-choice="a">📦 Bottom-Left face</button>
+            <button class="wdys-vote-btn" data-card="9" data-choice="b">📦 Top-Right face</button>
+          </div>
+          <div class="wdys-reveal-bar" id="reveal-9" style="display:none">
+            <div class="wdys-result-bar-row">
+              <span class="wdys-result-label">📦 Bottom-Left</span>
+              <div class="wdys-bar-track"><div class="wdys-bar-fill wdys-bar-a" id="bar-9-a" style="width:0%"></div></div>
+              <span class="wdys-pct" id="pct-9-a">—</span>
+            </div>
+            <div class="wdys-result-bar-row">
+              <span class="wdys-result-label">📦 Top-Right</span>
+              <div class="wdys-bar-track"><div class="wdys-bar-fill wdys-bar-b" id="bar-9-b" style="width:0%"></div></div>
+              <span class="wdys-pct" id="pct-9-b">—</span>
+            </div>
+            <p class="wdys-insight">Both orientations are equally valid! The cube reversal happens every ~3-5 seconds for most people. Interestingly, you can learn to control which orientation you see with practice.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== CARD 10: THREE DOTS MOTION ===== -->
+      <div class="wdys-card" id="card-10" data-index="10">
+        <div class="wdys-card-header">
+          <div class="wdys-tags"><span class="wdys-tag-hard">🔴 Hard</span><span class="wdys-tag-type">Motion Perception</span></div>
+          <h2 class="wdys-card-title">10. What Motion Do You See?</h2>
+          <p class="wdys-card-desc">Two dots moving in simple paths. Without context, your brain must decide whether they are moving independently or as a single rotating pair.</p>
+        </div>
+
+        <div class="wdys-demo-area">
+          <div class="dots-stage" id="dots-stage">
+            <canvas id="dots-canvas" width="300" height="220" style="border-radius:12px;"></canvas>
+          </div>
+          <div class="wdys-slider-row">
+            <label class="dancer-label">Cover right half: <input type="range" id="dots-cover" min="0" max="100" value="0" class="wdys-slider"/></label>
+          </div>
+          <div id="dots-cover-overlay" class="dots-cover-overlay" style="right:auto;left:auto;width:0%"></div>
+          <p class="wdys-fun-fact">💡 Reveal: Drag the slider to cover one dot — the motion of the remaining dot becomes crystal clear!</p>
+        </div>
+
+        <div class="wdys-vote-section">
+          <p class="wdys-vote-prompt">What motion do you perceive?</p>
+          <div class="wdys-vote-buttons wdys-vote-buttons-3">
+            <button class="wdys-vote-btn" data-card="10" data-choice="a">↔️ Side to side</button>
+            <button class="wdys-vote-btn" data-card="10" data-choice="b">↕️ Up and down</button>
+            <button class="wdys-vote-btn" data-card="10" data-choice="c">🔄 Circular</button>
+          </div>
+          <div class="wdys-reveal-bar" id="reveal-10" style="display:none">
+            <div class="wdys-result-bar-row">
+              <span class="wdys-result-label">↔️ Side to side</span>
+              <div class="wdys-bar-track"><div class="wdys-bar-fill wdys-bar-a" id="bar-10-a" style="width:0%"></div></div>
+              <span class="wdys-pct" id="pct-10-a">—</span>
+            </div>
+            <div class="wdys-result-bar-row">
+              <span class="wdys-result-label">↕️ Up/Down</span>
+              <div class="wdys-bar-track"><div class="wdys-bar-fill wdys-bar-b" id="bar-10-b" style="width:0%"></div></div>
+              <span class="wdys-pct" id="pct-10-b">—</span>
+            </div>
+            <div class="wdys-result-bar-row">
+              <span class="wdys-result-label">🔄 Circular</span>
+              <div class="wdys-bar-track"><div class="wdys-bar-fill wdys-bar-b" id="bar-10-c" style="width:0%"></div></div>
+              <span class="wdys-pct" id="pct-10-c">—</span>
+            </div>
+            <p class="wdys-insight">The dots are actually moving in perfect circles! But seen together, your brain "binds" them into an apparent lateral or rocking motion. This is called motion binding and involves area MT/V5 of the visual cortex.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== CARD 11: RABBIT OR DUCK — SEASONAL ===== -->
+      <div class="wdys-card" id="card-11" data-index="11">
+        <div class="wdys-card-header">
+          <div class="wdys-tags"><span class="wdys-tag-medium">🟡 Medium</span><span class="wdys-tag-type">Contextual Bistable</span></div>
+          <h2 class="wdys-card-title">11. Seasonal Duck or Rabbit?</h2>
+          <p class="wdys-card-desc">Studies by Joseph Jastrow show that what time of year it is subtly influences which animal you see first. The image shifts based on the current month!</p>
+        </div>
+
+        <div class="wdys-demo-area">
+          <div class="seasonal-wrap">
+            <div class="seasonal-month-label" id="seasonal-label">Loading...</div>
+            <svg id="svg-seasonal" class="wdys-svg" viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg">
+              <!-- Same duck/rabbit base -->
+              <ellipse id="sea-body" class="wdys-fill-primary" cx="145" cy="108" rx="70" ry="50"/>
+              <ellipse id="sea-head" class="wdys-fill-primary" cx="82" cy="97" rx="38" ry="33"/>
+              <!-- Ambiguous bill/ears -->
+              <path id="sea-bill-top" class="wdys-fill-primary" d="M 46,80 Q 18,70 6,87 Q 12,100 46,97 Z"/>
+              <path id="sea-bill-bot" class="wdys-fill-primary" d="M 46,97 Q 18,100 8,117 Q 16,130 46,114 Z"/>
+              <!-- Eye -->
+              <circle cx="70" cy="85" r="5" fill="white"/>
+              <circle cx="70" cy="85" r="2.5" fill="#1e293b"/>
+              <circle cx="71" cy="84" r="1" fill="white"/>
+              <!-- Tail -->
+              <path class="wdys-fill-secondary" d="M 210,90 Q 232,83 237,102 Q 230,117 210,114 Z"/>
+              <!-- Seasonal emphasis overlays -->
+              <g id="duck-hint" opacity="0">
+                <!-- Duck water ripple hint -->
+                <ellipse cx="145" cy="185" rx="70" ry="8" fill="none" stroke="#3b82f6" stroke-width="1.5" stroke-dasharray="4,4"/>
+                <text x="145" y="200" text-anchor="middle" fill="#3b82f6" font-size="9" font-family="sans-serif">🦆 duck season</text>
+              </g>
+              <g id="rabbit-hint" opacity="0">
+                <text x="145" y="200" text-anchor="middle" fill="#10b981" font-size="9" font-family="sans-serif">🐇 rabbit season</text>
+              </g>
+            </svg>
+          </div>
+        </div>
+
+        <div class="wdys-vote-section">
+          <p class="wdys-vote-prompt">Your first impression this month?</p>
+          <div class="wdys-vote-buttons">
+            <button class="wdys-vote-btn" data-card="11" data-choice="a">🦆 Duck</button>
+            <button class="wdys-vote-btn" data-card="11" data-choice="b">🐇 Rabbit</button>
+          </div>
+          <div class="wdys-reveal-bar" id="reveal-11" style="display:none">
+            <div class="wdys-result-bar-row">
+              <span class="wdys-result-label">🦆 Duck</span>
+              <div class="wdys-bar-track"><div class="wdys-bar-fill wdys-bar-a" id="bar-11-a" style="width:0%"></div></div>
+              <span class="wdys-pct" id="pct-11-a">—</span>
+            </div>
+            <div class="wdys-result-bar-row">
+              <span class="wdys-result-label">🐇 Rabbit</span>
+              <div class="wdys-bar-track"><div class="wdys-bar-fill wdys-bar-b" id="bar-11-b" style="width:0%"></div></div>
+              <span class="wdys-pct" id="pct-11-b">—</span>
+            </div>
+            <p id="seasonal-science" class="wdys-insight"></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== CARD 12: MY WIFE AND MY MOTHER-IN-LAW ===== -->
+      <div class="wdys-card" id="card-12" data-index="12">
+        <div class="wdys-card-header">
+          <div class="wdys-tags"><span class="wdys-tag-medium">🟡 Medium</span><span class="wdys-tag-type">Gestalt Portrait</span></div>
+          <h2 class="wdys-card-title">12. Young or Old? — W.E. Hill's Classic</h2>
+          <p class="wdys-card-desc">W.E. Hill's 1915 "My Wife and My Mother-In-Law." The young woman's chin becomes the old woman's nose. Studies show age affects which you see first.</p>
+        </div>
+
+        <div class="wdys-demo-area">
+          <svg id="svg-hill" class="wdys-svg" viewBox="0 0 220 270" xmlns="http://www.w3.org/2000/svg">
+            <!-- Outer silhouette background -->
+            <ellipse fill="#1e293b" cx="110" cy="140" rx="85" ry="98"/>
+            <!-- Main ambiguous profile shape (light) -->
+            <!-- Young woman facing away, fur collar, ear showing -->
+            <!-- Old woman facing left, hooked nose, chin -->
+            <path fill="#cbd5e1"
+              d="M 82,50
+                 Q 100,35 125,42
+                 Q 148,50 155,70
+                 Q 165,95 158,118
+                 Q 150,140 145,155
+                 Q 138,172 132,182
+                 Q 120,200 105,205
+                 Q 88,208 75,200
+                 Q 60,190 55,175
+                 Q 48,158 52,140
+                 Q 44,120 48,100
+                 Q 52,78 65,62
+                 Q 72,54 82,50 Z"/>
+            <!-- Eye (young small eye / old woman eye region) -->
+            <path fill="#1e293b" d="M 100,88 Q 108,84 115,88 Q 110,96 100,93 Z"/>
+            <!-- Nose (young small / old large) -->
+            <path fill="#b8c1cc" d="M 90,110 Q 80,118 78,130 Q 82,138 92,132 Q 98,125 95,112 Z"/>
+            <!-- Mouth / choker line -->
+            <path fill="none" stroke="#94a3b8" stroke-width="2" d="M 88,165 Q 100,172 115,165"/>
+            <!-- Ear (young) / eye of old -->
+            <path fill="#b8c1cc" d="M 148,105 Q 158,110 157,122 Q 152,130 143,125 Q 139,117 143,108 Z"/>
+            <!-- Fur collar -->
+            <path fill="#94a3b8" d="M 65,195 Q 90,218 120,215 Q 142,210 155,198 Q 148,225 120,232 Q 90,232 70,218 Z"/>
+            <!-- Hat / hair top (young woman's hat = old woman's hair) -->
+            <path fill="#64748b" d="M 82,50 Q 100,30 128,38 Q 148,46 152,62 Q 158,52 148,40 Q 132,24 108,22 Q 85,22 72,38 Z"/>
+          </svg>
+        </div>
+
+        <div class="wdys-vote-section">
+          <p class="wdys-vote-prompt">Who do you see first?</p>
+          <div class="wdys-vote-buttons">
+            <button class="wdys-vote-btn" data-card="12" data-choice="a">👩 Young Woman</button>
+            <button class="wdys-vote-btn" data-card="12" data-choice="b">👴 Old Woman</button>
+          </div>
+          <div class="wdys-reveal-bar" id="reveal-12" style="display:none">
+            <div class="wdys-result-bar-row">
+              <span class="wdys-result-label">👩 Young</span>
+              <div class="wdys-bar-track"><div class="wdys-bar-fill wdys-bar-a" id="bar-12-a" style="width:0%"></div></div>
+              <span class="wdys-pct" id="pct-12-a">—</span>
+            </div>
+            <div class="wdys-result-bar-row">
+              <span class="wdys-result-label">👴 Old</span>
+              <div class="wdys-bar-track"><div class="wdys-bar-fill wdys-bar-b" id="bar-12-b" style="width:0%"></div></div>
+              <span class="wdys-pct" id="pct-12-b">—</span>
+            </div>
+            <p class="wdys-insight">Studies show that younger participants tend to see the young woman first, while older participants more readily see the old woman. Your brain's priors prime it toward the familiar!</p>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /grid -->
+  </section>
+
+  <!-- ===== RESULTS SECTION ===== -->
+  <section id="results-section" class="wdys-results-section" style="display:none">
+    <div class="wdys-results-inner">
+      <h2 class="wdys-results-title">🧠 Your Brain Profile</h2>
+      <p class="wdys-results-sub">Based on your 12 first-impression choices:</p>
+      <div class="wdys-brain-card" id="brain-result-card">
+        <div class="wdys-brain-icon" id="brain-icon">🧠</div>
+        <h3 class="wdys-brain-type" id="brain-type-label">Analyzing...</h3>
+        <p class="wdys-brain-desc" id="brain-desc">Loading your profile...</p>
+      </div>
+      <div class="wdys-score-breakdown" id="score-breakdown"></div>
+      <button class="wdys-share-result-btn" onclick="shareResult()">📤 Share Your Result</button>
+      <p class="wdys-share-confirm" id="share-confirm" style="display:none">✓ Link copied to clipboard!</p>
+    </div>
+  </section>
+
+  <!-- ===== SCIENCE SECTION ===== -->
+  <section class="wdys-science-section">
+    <div class="wdys-science-inner">
+      <div class="wdys-section-badge">🔬 THE NEUROSCIENCE</div>
+      <h2 class="wdys-science-title">Why Does Your Brain Pick One Interpretation?</h2>
+      <div class="wdys-science-grid">
+        <div class="wdys-science-card">
+          <div class="wdys-sci-icon">⚡</div>
+          <h3>Perceptual Rivalry</h3>
+          <p>When two equally valid interpretations compete for neural representation, your brain enters a state of <strong>bistable perception</strong>. Rather than showing both simultaneously, it picks a "winner" — and then alternates every few seconds as each interpretation fatigues.</p>
+        </div>
+        <div class="wdys-science-card">
+          <div class="wdys-sci-icon">🔝</div>
+          <h3>Top-Down Processing</h3>
+          <p>Your brain doesn't passively receive images — it actively predicts what it will see based on <strong>prior experience, context, and recent exposure</strong>. If you've just looked at ducks, your visual cortex primes itself to see duck-like features. This is why culture and season affect your first impression.</p>
+        </div>
+        <div class="wdys-science-card">
+          <div class="wdys-sci-icon">🌀</div>
+          <h3>Binocular Rivalry &amp; V1/V2</h3>
+          <p>Even in monocular ambiguous figures, competing neural populations in <strong>primary visual cortex (V1) and V2</strong> simultaneously represent both interpretations at low signal strength. The one that reaches threshold first — due to attention or priming — becomes your conscious percept. Switching is driven by neural adaptation and fatigue.</p>
+        </div>
+        <div class="wdys-science-card">
+          <div class="wdys-sci-icon">🎯</div>
+          <h3>Attention &amp; Priming</h3>
+          <p>Where you look matters enormously. In Rubin's Vase, focusing attention on the centre pulls the vase into figure; attending to the edges pulls the faces. Studies using eye-tracking show that <strong>first saccade direction predicts which interpretation is seen</strong> in over 80% of cases.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FAQ ===== -->
+  <section class="wdys-faq-section">
+    <div class="wdys-faq-inner">
+      <div class="wdys-section-badge">❓ FAQ</div>
+      <h2 class="wdys-faq-title">Frequently Asked Questions</h2>
+      <div class="wdys-faq-list">
+
+        <details class="wdys-faq-item">
+          <summary class="wdys-faq-q">What does what you see first in an optical illusion reveal about you?</summary>
+          <p class="wdys-faq-a">Your first interpretation reflects your brain's <strong>perceptual priors</strong> — accumulated expectations built from past experience, culture, current mood, and even recent context. It doesn't definitively label you as "creative" or "analytical," but patterns across many ambiguous figures can reveal tendencies in how your visual system prioritizes information.</p>
+        </details>
+
+        <details class="wdys-faq-item">
+          <summary class="wdys-faq-q">Why can't I see both interpretations at the same time?</summary>
+          <p class="wdys-faq-a">Your brain's perceptual system is a <strong>single-winner network</strong>. Competing interpretations are processed simultaneously at low levels of the visual hierarchy, but only one is allowed to reach conscious awareness at a time. This is likely an evolutionary advantage — ambiguity in the wild (is that a stick or a snake?) demands a clear, committed answer.</p>
+        </details>
+
+        <details class="wdys-faq-item">
+          <summary class="wdys-faq-q">Can I train myself to switch between optical illusion interpretations?</summary>
+          <p class="wdys-faq-a">Yes! With practice, you can learn to control bistable perception. Effective strategies include: shifting your gaze to different parts of the image, briefly closing your eyes, imagining the alternative interpretation before looking, and using attention to "lock in" a specific reading. Artists and neuroscientists regularly use this technique.</p>
+        </details>
+
+        <details class="wdys-faq-item">
+          <summary class="wdys-faq-q">Do optical illusions that show what you see first really work as personality tests?</summary>
+          <p class="wdys-faq-a">The science is nuanced. While single illusion tests are not clinically validated personality measures, research shows that <strong>systematic differences in perceptual style</strong> do correlate with personality traits. For example, high openness-to-experience scorers switch between interpretations more readily. These tests are best understood as fun, educational demonstrations rather than diagnostic tools.</p>
+        </details>
+
+        <details class="wdys-faq-item">
+          <summary class="wdys-faq-q">Why do some people never see the second interpretation in "what do you see" illusions?</summary>
+          <p class="wdys-faq-a">Some individuals have <strong>strongly dominant perceptual priors</strong> for one interpretation, making the alternative nearly invisible without explicit instruction. Factors include: prior exposure, cultural context (East Asian cultures are more prone to see contextual/background elements), and individual differences in top-down vs. bottom-up visual processing strength.</p>
+        </details>
+
+      </div>
+    </div>
+  </section>
+
+  <style>
+    /* ===================== LAYOUT ===================== */
+    .wdys-hero {
+      background: linear-gradient(to bottom, #0f0a1e, #0f172a);
+    }
+    .wdys-hero-bg-radial {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 70% 20%, rgba(139,92,246,0.18) 0%, transparent 55%),
+                  radial-gradient(circle at 20% 80%, rgba(99,102,241,0.12) 0%, transparent 50%);
+    }
+    .wdys-hero-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(60px);
+      pointer-events: none;
+    }
+    .wdys-orb-1 { width: 380px; height: 380px; background: rgba(139,92,246,0.12); top: -100px; right: -80px; }
+    .wdys-orb-2 { width: 280px; height: 280px; background: rgba(99,102,241,0.10); bottom: -60px; left: -60px; }
+
+    .wdys-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.35rem 1rem;
+      border-radius: 999px;
+      border: 1px solid rgba(139,92,246,0.35);
+      background: rgba(139,92,246,0.12);
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      color: #c4b5fd;
+      text-transform: uppercase;
+    }
+
+    .wdys-title-gradient {
+      background: linear-gradient(135deg, #c084fc 0%, #818cf8 50%, #c084fc 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .wdys-counter-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.6rem 1.4rem;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #e2e8f0;
+      backdrop-filter: blur(8px);
+    }
+    .wdys-counter-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: #4ade80;
+      box-shadow: 0 0 8px #4ade80;
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+    @keyframes pulse-dot { 0%,100%{ opacity:1; transform:scale(1);} 50%{ opacity:0.6; transform:scale(0.85);} }
+
+    .wdys-progress-bar-outer {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      justify-content: center;
+      padding-top: 0.5rem;
+    }
+    .wdys-progress-track {
+      width: 280px;
+      height: 6px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .wdys-progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #a855f7, #6366f1);
+      border-radius: 999px;
+      transition: width 0.4s ease;
+    }
+    .wdys-progress-label {
+      font-size: 0.75rem;
+      color: #94a3b8;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    /* ===================== GRID ===================== */
+    .wdys-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(460px, 1fr));
+      gap: 2rem;
+    }
+    @media (max-width: 500px) { .wdys-grid { grid-template-columns: 1fr; } }
+
+    /* ===================== CARD ===================== */
+    .wdys-card {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      border-radius: 1.5rem;
+      border: 1px solid rgba(99,102,241,0.12);
+      background: rgba(15,23,42,0.85);
+      backdrop-filter: blur(12px);
+      overflow: hidden;
+      box-shadow: 0 4px 40px rgba(0,0,0,0.4);
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+    .wdys-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 60px rgba(139,92,246,0.18), 0 4px 30px rgba(0,0,0,0.5);
+      border-color: rgba(139,92,246,0.3);
+    }
+    .wdys-card.voted { border-color: rgba(99,102,241,0.4); }
+
+    .wdys-card-header { padding: 1.5rem 1.5rem 0; }
+    .wdys-tags { display: flex; gap: 0.5rem; margin-bottom: 0.5rem; flex-wrap: wrap; }
+    .wdys-tag-easy, .wdys-tag-medium, .wdys-tag-hard, .wdys-tag-type {
+      font-size: 0.65rem; font-weight: 700;
+      padding: 0.2rem 0.6rem; border-radius: 999px;
+    }
+    .wdys-tag-easy  { background: rgba(74,222,128,0.1); color: #4ade80; border: 1px solid rgba(74,222,128,0.2); }
+    .wdys-tag-medium{ background: rgba(251,191,36,0.1);  color: #fbbf24; border: 1px solid rgba(251,191,36,0.2); }
+    .wdys-tag-hard  { background: rgba(248,113,113,0.1); color: #f87171; border: 1px solid rgba(248,113,113,0.2); }
+    .wdys-tag-type  { background: rgba(99,102,241,0.1);  color: #818cf8; border: 1px solid rgba(99,102,241,0.2); }
+
+    .wdys-card-title { font-family: 'Outfit', sans-serif; font-size: 1.15rem; font-weight: 700; color: #f1f5f9; margin: 0.3rem 0 0.4rem; }
+    .wdys-card-desc  { font-size: 0.8rem; color: #94a3b8; line-height: 1.55; }
+
+    /* ===================== DEMO AREA ===================== */
+    .wdys-demo-area {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 280px;
+      padding: 1.5rem;
+      background: rgba(255,255,255,0.02);
+      border-top: 1px solid rgba(255,255,255,0.04);
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      gap: 0.75rem;
+      position: relative;
+    }
+    .wdys-demo-tall { min-height: 340px; }
+
+    .wdys-svg {
+      width: 240px;
+      height: 240px;
+      filter: drop-shadow(0 4px 20px rgba(139,92,246,0.2));
+    }
+
+    /* SVG fill helpers */
+    .wdys-path-main   { fill: none; stroke: currentColor; stroke-width: 2.2; color: #e2e8f0; }
+    .wdys-path-detail { fill: none; stroke: currentColor; stroke-width: 1.6; color: #cbd5e1; }
+    .wdys-path-faint  { fill: none; stroke: currentColor; stroke-width: 1.1; color: #64748b; }
+    .wdys-fill-primary   { fill: #e2e8f0; }
+    .wdys-fill-secondary { fill: #94a3b8; }
+    .wdys-fill-svg-light { fill: #e2e8f0; }
+    .wdys-fill-svg-accent{ fill: #fbbf24; }
+    .wdys-fill-svg-glow  { fill: #fde68a; }
+
+    .wdys-fun-fact {
+      font-size: 0.75rem; color: #a78bfa;
+      text-align: center; max-width: 280px;
+      background: rgba(139,92,246,0.08);
+      border: 1px solid rgba(139,92,246,0.15);
+      padding: 0.4rem 0.8rem; border-radius: 8px;
+    }
+    .wdys-insight {
+      font-size: 0.75rem; color: #93c5fd;
+      padding: 0.6rem 0.8rem;
+      background: rgba(59,130,246,0.06);
+      border: 1px solid rgba(59,130,246,0.15);
+      border-radius: 8px;
+      line-height: 1.5;
+    }
+
+    /* ===================== VOTE SECTION ===================== */
+    .wdys-vote-section { padding: 1.25rem 1.5rem 1.5rem; display: flex; flex-direction: column; gap: 0.75rem; }
+    .wdys-vote-prompt { font-size: 0.82rem; font-weight: 700; color: #c4b5fd; text-transform: uppercase; letter-spacing: 0.08em; }
+
+    .wdys-vote-buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.6rem;
+    }
+    .wdys-vote-buttons-3 { grid-template-columns: 1fr 1fr 1fr; }
+
+    .wdys-vote-btn {
+      padding: 0.7rem 0.5rem;
+      border-radius: 10px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      border: 1.5px solid rgba(99,102,241,0.25);
+      background: rgba(99,102,241,0.08);
+      color: #c7d2fe;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .wdys-vote-btn:hover {
+      background: rgba(99,102,241,0.2);
+      border-color: rgba(139,92,246,0.5);
+      transform: scale(1.02);
+      color: white;
+    }
+    .wdys-vote-btn.selected-a {
+      background: linear-gradient(135deg, rgba(168,85,247,0.3), rgba(99,102,241,0.3));
+      border-color: #a855f7;
+      color: #e9d5ff;
+    }
+    .wdys-vote-btn.selected-b {
+      background: linear-gradient(135deg, rgba(239,68,68,0.2), rgba(251,146,60,0.2));
+      border-color: #f97316;
+      color: #fed7aa;
+    }
+    .wdys-vote-btn.selected-c {
+      background: linear-gradient(135deg, rgba(16,185,129,0.2), rgba(6,182,212,0.2));
+      border-color: #06b6d4;
+      color: #a5f3fc;
+    }
+    .wdys-vote-btn:disabled { opacity: 0.6; cursor: default; transform: none; }
+
+    /* ===================== RESULT BARS ===================== */
+    .wdys-reveal-bar { display: flex; flex-direction: column; gap: 0.5rem; }
+    .wdys-result-bar-row { display: flex; align-items: center; gap: 0.6rem; }
+    .wdys-result-label { font-size: 0.75rem; color: #94a3b8; min-width: 90px; font-weight: 600; }
+    .wdys-bar-track { flex: 1; height: 8px; background: rgba(255,255,255,0.07); border-radius: 999px; overflow: hidden; }
+    .wdys-bar-fill { height: 100%; border-radius: 999px; transition: width 0.8s cubic-bezier(0.34, 1.56, 0.64, 1); }
+    .wdys-bar-a { background: linear-gradient(90deg, #a855f7, #6366f1); }
+    .wdys-bar-b { background: linear-gradient(90deg, #f97316, #ef4444); }
+    .wdys-pct { font-size: 0.7rem; color: #e2e8f0; font-weight: 700; min-width: 36px; text-align: right; }
+
+    .wdys-reveal-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.25rem; }
+    .wdys-reveal-btn {
+      padding: 0.45rem 0.9rem;
+      border-radius: 8px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      border: 1px solid rgba(99,102,241,0.25);
+      background: rgba(99,102,241,0.08);
+      color: #818cf8;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .wdys-reveal-btn:hover { background: rgba(99,102,241,0.2); color: #c7d2fe; }
+    .wdys-reveal-btn.active { background: rgba(99,102,241,0.25); border-color: #6366f1; color: #c7d2fe; }
+
+    /* ===================== RUBIN HOVER ===================== */
+    #svg-rubin { cursor: pointer; }
+    #svg-rubin:hover #rubin-vase-hl { fill: rgba(250,204,21,0.25); transition: fill 0.3s; }
+    #rubin-left, #rubin-right { transition: fill 0.3s; }
+
+    /* ===================== DANCER ===================== */
+    .dancer-wrap { display: flex; flex-direction: column; align-items: center; }
+    .dancer-stage {
+      width: 160px; height: 240px;
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+    }
+    .dancer-svg { animation: dancer-spin 2.4s linear infinite; width: 120px; height: 200px; }
+    @keyframes dancer-spin { from { transform: rotateY(0deg); } to { transform: rotateY(360deg); } }
+    .dancer-controls {
+      display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; justify-content: center;
+      margin-top: 0.5rem;
+    }
+    .dancer-label { font-size: 0.78rem; color: #94a3b8; display: flex; align-items: center; gap: 0.4rem; }
+
+    /* ===================== NECKER ===================== */
+    .necker-wrap { display: flex; flex-direction: column; align-items: center; gap: 0.75rem; }
+    .necker-flip-btn { margin-top: 0.25rem; }
+
+    /* ===================== DOTS ===================== */
+    .dots-stage { position: relative; }
+    .dots-cover-overlay {
+      position: absolute; top: 0; right: 0; height: 100%;
+      background: rgba(15,23,42,0.85);
+      pointer-events: none; border-radius: 0 12px 12px 0;
+      transition: width 0.1s;
+    }
+    .wdys-slider-row { margin-top: 0.5rem; }
+    .wdys-slider { accent-color: #a855f7; cursor: pointer; }
+    .wdys-check { accent-color: #a855f7; width: 14px; height: 14px; cursor: pointer; }
+
+    /* ===================== SEASONAL ===================== */
+    .seasonal-wrap { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; }
+    .seasonal-month-label {
+      font-size: 0.72rem; font-weight: 700;
+      padding: 0.3rem 0.9rem; border-radius: 999px;
+      background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.2);
+      color: #6ee7b7; letter-spacing: 0.06em;
+    }
+
+    /* ===================== RESULTS ===================== */
+    .wdys-results-section {
+      padding: 4rem 1.5rem;
+      background: linear-gradient(135deg, rgba(88,28,135,0.15), rgba(30,27,75,0.3));
+      border-top: 1px solid rgba(139,92,246,0.15);
+      border-bottom: 1px solid rgba(139,92,246,0.15);
+    }
+    .wdys-results-inner { max-width: 700px; margin: 0 auto; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 1.5rem; }
+    .wdys-results-title { font-family: 'Outfit',sans-serif; font-size: 2.2rem; font-weight: 800; color: #f1f5f9; }
+    .wdys-results-sub { color: #94a3b8; font-size: 0.9rem; }
+
+    .wdys-brain-card {
+      padding: 2rem;
+      border-radius: 1.5rem;
+      border: 1px solid rgba(139,92,246,0.3);
+      background: rgba(139,92,246,0.08);
+      width: 100%;
+      animation: card-appear 0.5s ease;
+    }
+    @keyframes card-appear { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+    .wdys-brain-icon { font-size: 3.5rem; margin-bottom: 0.5rem; }
+    .wdys-brain-type { font-family: 'Outfit',sans-serif; font-size: 1.6rem; font-weight: 800; color: #c4b5fd; margin-bottom: 0.5rem; }
+    .wdys-brain-desc { color: #cbd5e1; font-size: 0.9rem; line-height: 1.6; max-width: 480px; margin: 0 auto; }
+
+    .wdys-score-breakdown { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; font-size: 0.8rem; color: #94a3b8; }
+    .wdys-share-result-btn {
+      padding: 0.75rem 2rem; border-radius: 12px; font-size: 0.9rem; font-weight: 700;
+      background: linear-gradient(135deg, #7c3aed, #4f46e5);
+      color: white; border: none; cursor: pointer;
+      transition: all 0.2s; box-shadow: 0 4px 20px rgba(124,58,237,0.35);
+    }
+    .wdys-share-result-btn:hover { transform: scale(1.04); box-shadow: 0 6px 30px rgba(124,58,237,0.5); }
+    .wdys-share-confirm { font-size: 0.8rem; color: #4ade80; font-weight: 600; }
+
+    /* ===================== SCIENCE ===================== */
+    .wdys-science-section { padding: 5rem 1.5rem; background: #0a0f1e; }
+    .wdys-science-inner { max-width: 1100px; margin: 0 auto; }
+    .wdys-section-badge {
+      display: inline-block; margin-bottom: 1rem;
+      padding: 0.35rem 1rem; border-radius: 999px;
+      background: rgba(99,102,241,0.1); border: 1px solid rgba(99,102,241,0.25);
+      font-size: 0.7rem; font-weight: 800; color: #818cf8; letter-spacing: 0.1em; text-transform: uppercase;
+    }
+    .wdys-science-title {
+      font-family: 'Outfit',sans-serif; font-size: 2rem; font-weight: 800; color: #f1f5f9;
+      margin-bottom: 2.5rem; text-align: center;
+    }
+    .wdys-science-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.5rem; }
+    .wdys-science-card {
+      padding: 1.5rem; border-radius: 1.2rem;
+      border: 1px solid rgba(99,102,241,0.15);
+      background: rgba(15,23,42,0.8);
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .wdys-science-card:hover { border-color: rgba(139,92,246,0.35); transform: translateY(-3px); }
+    .wdys-sci-icon { font-size: 2rem; margin-bottom: 0.6rem; }
+    .wdys-science-card h3 { font-weight: 700; color: #c4b5fd; margin-bottom: 0.5rem; font-size: 1rem; }
+    .wdys-science-card p { font-size: 0.82rem; color: #94a3b8; line-height: 1.65; }
+
+    /* ===================== FAQ ===================== */
+    .wdys-faq-section { padding: 5rem 1.5rem; background: #0f172a; }
+    .wdys-faq-inner { max-width: 800px; margin: 0 auto; }
+    .wdys-faq-title { font-family: 'Outfit',sans-serif; font-size: 2rem; font-weight: 800; color: #f1f5f9; margin-bottom: 2rem; text-align: center; }
+    .wdys-faq-list { display: flex; flex-direction: column; gap: 0.75rem; }
+    .wdys-faq-item {
+      border-radius: 12px;
+      border: 1px solid rgba(99,102,241,0.15);
+      background: rgba(15,23,42,0.7);
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+    .wdys-faq-item[open] { border-color: rgba(139,92,246,0.35); }
+    .wdys-faq-q {
+      padding: 1rem 1.25rem; font-weight: 700; font-size: 0.9rem; color: #c4b5fd;
+      cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center;
+    }
+    .wdys-faq-q::after { content: '+'; font-size: 1.2rem; color: #6366f1; transition: transform 0.2s; }
+    .wdys-faq-item[open] .wdys-faq-q::after { transform: rotate(45deg); }
+    .wdys-faq-a { padding: 0 1.25rem 1rem; font-size: 0.83rem; color: #94a3b8; line-height: 1.7; }
+  </style>
+
+  <script is:inline>
+  // ============================================================
+  //  VOTE STATE  (localStorage per-session)
+  // ============================================================
+  const STORAGE_KEY = 'wdys_votes_v2';
+  const VISITORS_KEY = 'wdys_visitors_v1';
+
+  function loadVotes() {
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); }
+    catch { return {}; }
+  }
+  function saveVotes(v) {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(v)); } catch {}
+  }
+
+  // Simulated global vote pool (seeded so results look real from day 1)
+  const SEED = {
+    '1': { a:1423, b:987 },
+    '2': { a:1102, b:1340 },
+    '3': { a:1688, b:954 },
+    '4': { a:873, b:612 },
+    '5': { a:1240, b:1080 },
+    '6': { a:998, b:1205 },
+    '7': { a:1450, b:882 },
+    '8': { a:936, b:1104 },
+    '9': { a:1288, b:1022 },
+    '10':{ a:654, b:488, c:1210 },
+    '11':{ a:1050, b:1190 },
+    '12':{ a:1380, b:810 },
+  };
+
+  // ============================================================
+  //  VISITOR COUNTER
+  // ============================================================
+  function initVisitorCounter() {
+    const BASE = 24187;
+    let stored = parseInt(localStorage.getItem(VISITORS_KEY) || '0');
+    if (!stored) {
+      stored = BASE + Math.floor(Math.random() * 800);
+      localStorage.setItem(VISITORS_KEY, stored);
+    }
+    // Increment on each visit
+    const visits = stored + 1;
+    localStorage.setItem(VISITORS_KEY, visits);
+    document.getElementById('visit-counter-text').textContent =
+      `Today, ${visits.toLocaleString()} people have taken this test`;
+  }
+
+  // ============================================================
+  //  PROGRESS TRACKER
+  // ============================================================
+  let answeredCount = 0;
+  const TOTAL = 12;
+
+  function updateProgress() {
+    const pct = Math.round((answeredCount / TOTAL) * 100);
+    document.getElementById('progress-bar').style.width = pct + '%';
+    document.getElementById('progress-label').textContent = answeredCount + ' / ' + TOTAL + ' answered';
+    if (answeredCount === TOTAL) {
+      setTimeout(showResults, 600);
+    }
+  }
+
+  // ============================================================
+  //  VOTE HANDLER
+  // ============================================================
+  function getPct(card, choice) {
+    const pool = SEED[String(card)] || {};
+    const votes = loadVotes();
+    const myVote = votes[String(card)];
+    // add my vote to pool copy
+    const counts = Object.assign({}, pool);
+    if (myVote) counts[myVote] = (counts[myVote] || 0) + 1;
+    const total = Object.values(counts).reduce((s, v) => s + v, 0);
+    if (!total) return 0;
+    return Math.round(((counts[choice] || 0) / total) * 100);
+  }
+
+  function revealBars(cardIndex) {
+    const reveal = document.getElementById('reveal-' + cardIndex);
+    if (!reveal) return;
+    reveal.style.display = 'flex';
+    reveal.style.flexDirection = 'column';
+    reveal.style.gap = '0.5rem';
+
+    const card = String(cardIndex);
+    const choices = cardIndex === 10 ? ['a','b','c'] : ['a','b'];
+    choices.forEach(ch => {
+      const bar = document.getElementById('bar-' + cardIndex + '-' + ch);
+      const pct = document.getElementById('pct-' + cardIndex + '-' + ch);
+      if (!bar || !pct) return;
+      const p = getPct(cardIndex, ch);
+      setTimeout(() => { bar.style.width = p + '%'; }, 100);
+      pct.textContent = p + '%';
+    });
+  }
+
+  function handleVote(e) {
+    const btn = e.currentTarget;
+    const card = parseInt(btn.dataset.card);
+    const choice = btn.dataset.choice;
+    const votes = loadVotes();
+
+    if (votes[String(card)]) return; // already voted
+
+    votes[String(card)] = choice;
+    saveVotes(votes);
+
+    // Highlight selected button
+    const siblings = btn.closest('.wdys-vote-buttons').querySelectorAll('.wdys-vote-btn');
+    siblings.forEach(b => { b.disabled = true; b.classList.remove('selected-a','selected-b','selected-c'); });
+    btn.classList.add('selected-' + choice);
+
+    // Increment answeredCount only first time
+    if (!window.__wdysAnswered) window.__wdysAnswered = {};
+    if (!window.__wdysAnswered[card]) {
+      window.__wdysAnswered[card] = true;
+      answeredCount++;
+      updateProgress();
+    }
+
+    // Mark card as voted
+    document.getElementById('card-' + card)?.classList.add('voted');
+
+    revealBars(card);
+    updateProgress();
+  }
+
+  // ============================================================
+  //  RESULTS
+  // ============================================================
+  function showResults() {
+    const section = document.getElementById('results-section');
+    section.style.display = 'block';
+    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    const votes = loadVotes();
+    // Tally "a" vs "b" choices — "a" = first/creative, "b" = second/analytical
+    let aCount = 0, bCount = 0;
+    for (let i = 1; i <= 12; i++) {
+      const v = votes[String(i)];
+      if (v === 'a') aCount++;
+      else if (v === 'b' || v === 'c') bCount++;
+    }
+
+    const icon = document.getElementById('brain-icon');
+    const label = document.getElementById('brain-type-label');
+    const desc = document.getElementById('brain-desc');
+
+    if (aCount >= 9) {
+      icon.textContent = '🎨';
+      label.textContent = 'Right-Brain Creative Tendency';
+      desc.textContent = 'You consistently gravitate toward the first, often more visually intuitive interpretation. Your visual cortex shows strong top-down creative priming — you tend to see the "big picture" before the details. Artists, musicians, and lateral thinkers share this pattern.';
+    } else if (bCount >= 9) {
+      icon.textContent = '🔬';
+      label.textContent = 'Left-Brain Analytical Tendency';
+      desc.textContent = 'You consistently select the second interpretation — often the more contextual, detail-oriented reading. Your visual system excels at bottom-up feature analysis before pattern completion. Scientists, engineers, and systematic thinkers share this perceptual style.';
+    } else if (Math.abs(aCount - bCount) <= 3) {
+      icon.textContent = '⚖️';
+      label.textContent = 'Whole-Brain Integrative Thinker';
+      desc.textContent = 'Your first impressions are beautifully balanced — you switch fluidly between creative and analytical interpretations. Neuroscience calls this high perceptual flexibility. You can train yourself to see both versions of any ambiguous figure with ease.';
+    } else if (aCount > bCount) {
+      icon.textContent = '🌟';
+      label.textContent = 'Creative-Leaning Whole Thinker';
+      desc.textContent = 'You lean creative but retain strong analytical depth. Your perceptual system is flexible and primed for novel interpretations first, but you can shift to systematic analysis when needed. A hallmark of innovative problem-solvers.';
+    } else {
+      icon.textContent = '🧩';
+      label.textContent = 'Analytical-Leaning Whole Thinker';
+      desc.textContent = 'You lean analytical but remain open to creative jumps. Your brain prefers to confirm structures before jumping to holistic conclusions. This makes you excellent at quality control, debugging, and spotting inconsistencies others miss.';
+    }
+
+    document.getElementById('score-breakdown').innerHTML =
+      `<span>🎨 First-choice: ${aCount}</span><span>🔬 Second/Third-choice: ${bCount}</span><span>Total answered: ${aCount + bCount} / 12</span>`;
+  }
+
+  function shareResult() {
+    try {
+      navigator.clipboard.writeText(window.location.href).then(() => {
+        const el = document.getElementById('share-confirm');
+        el.style.display = 'block';
+        setTimeout(() => { el.style.display = 'none'; }, 2500);
+      });
+    } catch {
+      document.getElementById('share-confirm').textContent = '📋 Copy this URL: ' + window.location.href;
+      document.getElementById('share-confirm').style.display = 'block';
+    }
+  }
+
+  // ============================================================
+  //  ARROW REVEAL (card 1)
+  // ============================================================
+  function toggleArrows(showId, hideId, btn) {
+    document.getElementById(showId).style.display = 'block';
+    document.getElementById(hideId).style.display = 'none';
+    btn.closest('.wdys-reveal-actions').querySelectorAll('.wdys-reveal-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+
+  // ============================================================
+  //  RUBIN HIGHLIGHT (card 3)
+  // ============================================================
+  function rubinHighlight(which) {
+    const left = document.getElementById('rubin-left');
+    const right = document.getElementById('rubin-right');
+    const vase = document.getElementById('rubin-vase-hl');
+    if (which === 'faces') {
+      left.style.fill = '#7c3aed';
+      right.style.fill = '#7c3aed';
+      vase.style.fill = 'rgba(250,204,21,0)';
+    } else {
+      left.style.fill = '#1e1b4b';
+      right.style.fill = '#1e1b4b';
+      vase.style.fill = 'rgba(250,204,21,0.5)';
+    }
+  }
+
+  // ============================================================
+  //  NECKER CUBE FLIP (card 9)
+  // ============================================================
+  let neckerFlipped = false;
+  function neckerFlip() {
+    neckerFlipped = !neckerFlipped;
+    const front = document.getElementById('necker-front');
+    const back = document.getElementById('necker-back');
+    if (neckerFlipped) {
+      front.style.stroke = '#6366f1';
+      front.style.strokeDasharray = '6,4';
+      back.style.stroke = '#e2e8f0';
+      back.style.strokeDasharray = 'none';
+    } else {
+      front.style.stroke = '#e2e8f0';
+      front.style.strokeDasharray = 'none';
+      back.style.stroke = '#6366f1';
+      back.style.strokeDasharray = '6,4';
+    }
+  }
+  // Auto-flip timer
+  setInterval(() => {
+    const votes = loadVotes();
+    if (!votes['9']) return; // only animate after voting
+    neckerFlip();
+  }, 4200);
+
+  // ============================================================
+  //  SPINNING DANCER (card 8)
+  // ============================================================
+  function initDancer() {
+    const svg = document.getElementById('dancer-svg');
+    const speedSlider = document.getElementById('dancer-speed');
+    const beltCheck = document.getElementById('dancer-belt');
+    if (!svg || !speedSlider) return;
+
+    speedSlider.addEventListener('input', () => {
+      const dur = (6 - parseInt(speedSlider.value)) * 0.8 + 0.4;
+      svg.style.animationDuration = dur + 's';
+    });
+
+    beltCheck.addEventListener('change', () => {
+      const body = svg.querySelector('ellipse[fill="#c084fc"]');
+      if (body) {
+        body.setAttribute('fill', beltCheck.checked ? '#f97316' : '#c084fc');
+      }
+    });
+  }
+
+  // ============================================================
+  //  DOTS CANVAS (card 10)
+  // ============================================================
+  function initDots() {
+    const canvas = document.getElementById('dots-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const W = canvas.width, H = canvas.height;
+    let t = 0;
+    const R = 55;
+    const cx = W / 2, cy = H / 2;
+
+    function draw() {
+      ctx.clearRect(0, 0, W, H);
+      ctx.fillStyle = '#0f172a';
+      ctx.fillRect(0, 0, W, H);
+
+      // Dot A — moves in a circle
+      const ax = cx - R + R * Math.cos(t);
+      const ay = cy + R * Math.sin(t);
+      ctx.beginPath();
+      ctx.arc(ax, ay, 16, 0, Math.PI * 2);
+      ctx.fillStyle = '#818cf8';
+      ctx.shadowColor = '#6366f1';
+      ctx.shadowBlur = 20;
+      ctx.fill();
+
+      // Dot B — moves in opposite phase circle
+      const bx = cx + R + R * Math.cos(t + Math.PI);
+      const by = cy + R * Math.sin(t + Math.PI);
+      ctx.beginPath();
+      ctx.arc(bx, by, 16, 0, Math.PI * 2);
+      ctx.fillStyle = '#f472b6';
+      ctx.shadowColor = '#ec4899';
+      ctx.shadowBlur = 20;
+      ctx.fill();
+      ctx.shadowBlur = 0;
+
+      // Path trace
+      ctx.strokeStyle = 'rgba(129,140,248,0.12)';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.arc(cx - R, cy, R, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.arc(cx + R, cy, R, 0, Math.PI * 2);
+      ctx.stroke();
+
+      t += 0.032;
+      requestAnimationFrame(draw);
+    }
+    draw();
+
+    // Cover slider
+    const coverSlider = document.getElementById('dots-cover');
+    const stage = document.getElementById('dots-stage');
+    if (coverSlider && stage) {
+      coverSlider.addEventListener('input', () => {
+        const pct = parseInt(coverSlider.value);
+        // Darken right side of canvas using overlay positioned over canvas
+        canvas.style.maskImage = pct > 0
+          ? `linear-gradient(to right, black ${100-pct}%, transparent ${100-pct}%)`
+          : 'none';
+        canvas.style.webkitMaskImage = canvas.style.maskImage;
+      });
+    }
+  }
+
+  // ============================================================
+  //  SEASONAL DUCK/RABBIT (card 11)
+  // ============================================================
+  function initSeasonal() {
+    const month = new Date().getMonth(); // 0=Jan
+    const label = document.getElementById('seasonal-label');
+    const duckHint = document.getElementById('duck-hint');
+    const rabbitHint = document.getElementById('rabbit-hint');
+    const science = document.getElementById('seasonal-science');
+
+    const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    const isDuckSeason = month >= 2 && month <= 8; // March–September
+
+    if (label) label.textContent = '📅 ' + monthNames[month] + (isDuckSeason ? ' — Duck Season 🦆' : ' — Rabbit Season 🐇');
+
+    if (isDuckSeason && duckHint) {
+      duckHint.style.opacity = '0.7';
+    } else if (rabbitHint) {
+      rabbitHint.style.opacity = '0.7';
+    }
+
+    if (science) {
+      science.textContent = isDuckSeason
+        ? `It's ${monthNames[month]}! Jastrow's research found people are primed by seasonal animal imagery. Spring/Summer months → duck features feel more salient. Does the bill look more prominent to you?`
+        : `It's ${monthNames[month]}! Autumn/Winter months prime people for rabbit imagery. The long ears may jump out more readily right now. This is a real example of top-down perceptual priming from cultural calendar context.`;
+    }
+  }
+
+  // ============================================================
+  //  INIT ALL
+  // ============================================================
+  document.addEventListener('DOMContentLoaded', () => {
+    initVisitorCounter();
+    updateProgress();
+    initDancer();
+    initDots();
+    initSeasonal();
+
+    // Restore any prior votes from this session
+    const votes = loadVotes();
+    Object.entries(votes).forEach(([card, choice]) => {
+      const btns = document.querySelectorAll(`[data-card="${card}"]`);
+      btns.forEach(b => {
+        b.disabled = true;
+        if (b.dataset.choice === choice) b.classList.add('selected-' + choice);
+      });
+      revealBars(parseInt(card));
+      if (!window.__wdysAnswered) window.__wdysAnswered = {};
+      if (!window.__wdysAnswered[card]) {
+        window.__wdysAnswered[card] = true;
+        answeredCount++;
+      }
+      document.getElementById('card-' + card)?.classList.add('voted');
+    });
+    updateProgress();
+
+    // Show results if all 12 answered from a previous session
+    if (answeredCount === TOTAL) {
+      document.getElementById('results-section').style.display = 'block';
+      showResults();
+    }
+
+    // Attach vote listeners
+    document.querySelectorAll('.wdys-vote-btn').forEach(btn => {
+      btn.addEventListener('click', handleVote);
+    });
+  });
+  </script>
+
+</Layout>

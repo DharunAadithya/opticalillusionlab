@@ -1,0 +1,901 @@
+---
+// src/pages/moving.astro
+import Layout from '../layouts/Layout.astro';
+
+// Math Helper: draws an SVG wedge from (cx, cy) out to radius r
+function getWedgePath(cx: number, cy: number, r: number, startAngle: number, endAngle: number) {
+  const rad = Math.PI / 180;
+  const x1 = cx + r * Math.cos(startAngle * rad);
+  const y1 = cy + r * Math.sin(startAngle * rad);
+  const x2 = cx + r * Math.cos(endAngle * rad);
+  const y2 = cy + r * Math.sin(endAngle * rad);
+  const largeArcFlag = endAngle - startAngle <= 180 ? 0 : 1;
+  return `M ${cx},${cy} L ${x1},${y1} A ${r},${r} 0 ${largeArcFlag},1 ${x2},${y2} Z`;
+}
+
+// Generate concentric ring sectors for Moving Snakes & Peripheral Drift
+function generateRingSectors(cx: number, cy: number, r: number, count: number, reversed: boolean) {
+  const sectors = [];
+  const colors = [
+    'fill-slate-950 dark:fill-slate-900',          // Black
+    'fill-indigo-600 dark:fill-indigo-500',       // Blue
+    'fill-white dark:fill-slate-100',              // White
+    'fill-yellow-400 dark:fill-yellow-300'         // Yellow
+  ];
+  if (reversed) {
+    colors.reverse();
+  }
+  for (let i = 0; i < count; i++) {
+    const baseAngle = (i * 360) / count;
+    const step = 360 / count / 4;
+    for (let c = 0; c < 4; c++) {
+      sectors.push({
+        path: getWedgePath(cx, cy, r, baseAngle + c * step, baseAngle + (c + 1) * step),
+        color: colors[c]
+      });
+    }
+  }
+  return sectors;
+}
+
+// Helper to generate Archimedean Spiral coordinates for Motion Aftereffect
+function getSpiralPath(cx: number, cy: number, turns: number, maxR: number) {
+  const points = [];
+  const steps = 200;
+  for (let i = 0; i <= steps; i++) {
+    const theta = (i / steps) * turns * 2 * Math.PI;
+    const r = (i / steps) * maxR;
+    const x = cx + r * Math.cos(theta);
+    const y = cy + r * Math.sin(theta);
+    points.push(`${i === 0 ? 'M' : 'L'} ${x.toFixed(1)},${y.toFixed(1)}`);
+  }
+  return points.join(' ');
+}
+
+const spiralPath = getSpiralPath(100, 100, 6, 80);
+
+// Pre-render sectors for Peripheral Drift Wheels
+const driftOuter = generateRingSectors(100, 100, 90, 24, false);
+const driftInner = generateRingSectors(100, 100, 55, 16, true);
+
+// Pre-render grid coordinates for Pulsing Grid
+const gridSize = 5;
+const gridCoords = [];
+for (let i = 0; i < gridSize; i++) {
+  gridCoords.push(30 + i * 35);
+}
+
+// Pre-render radiating ray coordinates for Enigma
+const enigmaRays = [];
+const rayCount = 72;
+for (let i = 0; i < rayCount; i++) {
+  const angle = (i * 360) / rayCount;
+  const rad = Math.PI / 180;
+  const x2 = 100 + 120 * Math.cos(angle * rad);
+  const y2 = 100 + 120 * Math.sin(angle * rad);
+  enigmaRays.push(`M 100,100 L ${x2.toFixed(1)},${y2.toFixed(1)}`);
+}
+---
+
+<Layout 
+  title="Moving Optical Illusions — 10 Mind-Bending Visual Tricks (No GIFs) | Optical Illusion Lab" 
+  description="Explore 10 interactive moving optical illusions. Experience animations of expanding holes and peripheral drifts using pure CSS (no GIFs) with speed controls."
+>
+
+  <!-- Hero Section -->
+  <section class="relative overflow-hidden py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-slate-900 to-slate-950 text-white dark:from-slate-950 dark:to-slate-900 border-b border-indigo-500/10">
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(99,102,241,0.15),transparent_45%)]"></div>
+    <div class="absolute -top-40 -left-40 h-80 w-80 rounded-full bg-purple-600/10 blur-3xl"></div>
+    
+    <div class="relative mx-auto max-w-4xl text-center space-y-6">
+      <!-- Breadcrumbs -->
+      <nav class="flex justify-center text-xs font-semibold text-indigo-300 space-x-2" aria-label="Breadcrumb">
+        <a href="/" class="hover:underline hover:text-white transition-colors">Home</a>
+        <span>/</span>
+        <span class="text-slate-400">Moving Optical Illusions</span>
+      </nav>
+      
+      <h1 class="font-display text-4xl sm:text-6xl font-extrabold tracking-tight bg-gradient-to-r from-purple-400 via-indigo-300 to-purple-400 bg-clip-text text-transparent">
+        Moving Optical Illusions
+      </h1>
+      <p class="mx-auto max-w-2xl text-base sm:text-lg text-slate-300 leading-relaxed">
+        Welcome to the Moving Optical Illusions laboratory. Every dynamic visual puzzle on this page is rendered in real-time using modern vector graphics (SVGs) and custom CSS stylesheets. Unlike pre-rendered animated GIF files or videos, no pre-made motion assets are being loaded. Instead, these designs utilize high-contrast lines, alternating color patterns, and spatial perspective layout tricks to directly trigger the motion-sensitive neurons in your eyes and brain. As you interact with these 10 visual experiments, your own visual processing system is creating all the movement you perceive.
+      </p>
+
+      <!-- All animations notice -->
+      <div class="inline-flex items-center space-x-2 rounded-xl border border-purple-500/30 bg-purple-950/40 px-5 py-3 text-xs font-bold text-purple-300 shadow-lg shadow-purple-900/10 max-w-xl mx-auto backdrop-blur-sm">
+        💡 Notice: All animations are pure CSS — no GIFs, no videos. Your browser creates all motion.
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Grid Section -->
+  <section id="moving-gallery" class="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-12">
+      
+      <!-- Card 1: Rotating Snakes -->
+      <a href="/illusions/rotating-snakes" id="moving-snakes" class="illusion-card flex flex-col justify-between rounded-2xl border border-indigo-100/10 bg-white dark:bg-slate-900/60 backdrop-blur-sm p-6 shadow-xl relative block hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(168,85,247,0.35)] hover:border-purple-500/40 cursor-pointer transition-all duration-300 group">
+        <button class="share-btn absolute top-6 right-6 p-2 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-400 hover:text-slate-200 border border-slate-500/10 transition-colors" aria-label="Share this illusion">
+          <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M15 8a3 3 0 1 0-2.977-2.63l-4.94 2.47a3 3 0 1 0 0 4.319l4.94 2.47a3 3 0 1 0 .895-1.789l-4.94-2.47a3.027 3.027 0 0 0 0-.74l4.94-2.47C13.456 7.68 14.19 8 15 8Z"/></svg>
+          <span class="share-toast absolute bottom-full right-0 mb-2 px-2.5 py-1 text-[10px] font-bold text-white bg-purple-600 rounded-lg shadow-md opacity-0 pointer-events-none transition-opacity duration-200 whitespace-nowrap">Link Copied! ✓</span>
+        </button>
+        <div class="space-y-1 pr-10 mb-4">
+          <div class="flex items-center space-x-2">
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-rose-500/10 text-rose-500 border border-rose-500/20">🔴 Hard</span>
+            <span class="text-[10px] font-bold text-indigo-400 uppercase tracking-wide">Peripheral Drift</span>
+          </div>
+          <h3 class="font-display text-xl font-bold text-slate-900 dark:text-white">1. Rotating Snakes</h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400">Coils of contrasting colored segments appear to spin continuously when viewed in your periphery.</p>
+        </div>
+        <div class="demo-area relative flex flex-col items-center justify-center h-80 w-full bg-slate-100 dark:bg-slate-950/40 rounded-xl overflow-hidden border border-indigo-500/5">
+          <div class="grid grid-cols-2 gap-4 max-w-[200px] select-none pointer-events-none">
+            {Array.from({ length: 4 }).map((_, idx) => {
+              const isClockwise = idx % 2 === 0;
+              const oRing = generateRingSectors(100, 100, 80, 12, isClockwise);
+              const iRing = generateRingSectors(100, 100, 50, 8, !isClockwise);
+              return (
+                <svg 
+                  class="w-20 h-20 origin-center transition-transform select-none" 
+                  viewBox="0 0 200 200"
+                  style={`animation: ${isClockwise ? 'spin-clockwise' : 'spin-counter'} calc(15s / var(--card-speed, 1)) var(--card-play-state, running) linear infinite;`}
+                >
+                  <g class="outer-snakes">
+                    {oRing.map(sect => (
+                      <path d={sect.path} class={sect.color} stroke="none" />
+                    ))}
+                  </g>
+                  <g class="inner-snakes">
+                    {iRing.map(sect => (
+                      <path d={sect.path} class={sect.color} stroke="none" />
+                    ))}
+                  </g>
+                  <circle cx="100" cy="100" r="22" class="fill-slate-100 dark:fill-slate-950 transition-colors" />
+                </svg>
+              )
+            })}
+          </div>
+        </div>
+        <div class="mt-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-t border-slate-500/10 pt-4">
+          <button class="play-pause-btn text-xs font-bold px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white shadow-md transition-colors flex items-center justify-center space-x-1 shrink-0">
+            <span>Pause</span>
+          </button>
+          <div class="flex items-center space-x-3 w-full sm:max-w-xs">
+            <span class="text-[10px] text-slate-500 font-bold uppercase shrink-0">Speed: <span class="speed-val text-purple-400 font-mono">1.0x</span></span>
+            <input type="range" min="0.5" max="3" step="0.1" value="1.0" class="speed-slider flex-1 h-1 bg-slate-200 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-purple-600 focus:outline-none" />
+          </div>
+        </div>
+        <details class="mt-4 border-t border-slate-500/10 pt-3 text-xs text-slate-600 dark:text-slate-400">
+          <summary class="font-bold cursor-pointer hover:text-purple-500 dark:hover:text-purple-400 transition-colors select-none">🔬 Why it moves</summary>
+          <p class="mt-2 leading-relaxed font-normal">
+            The Rotating Snakes illusion is a peripheral drift effect where static patterns of concentric circles appear to spin. This occurs because the visual cortex processes colors and contrasts at slightly different speeds. High-contrast transitions (like black against white) stimulate retinal cells faster than low-contrast transitions (like blue against yellow). When you scan your eyes across the grid, the slight processing latency lag is interpreted by direction-selective neurons in visual area MT/V5 as real physical motion. Pausing the animation shows how the effect persists in your periphery even when the drawing is completely static.
+          </p>
+        </details>
+      
+        <div class="mt-5 flex items-center justify-between text-xs font-black text-purple-600 dark:text-purple-400 group-hover:text-purple-300 transition-colors border-t border-slate-500/10 pt-4">
+          <span>View Full Science & Facts</span>
+          <span>Explore &rarr;</span>
+        </div>
+      </a>
+
+      <!-- Card 2: Peripheral Drift Wheels -->
+      <a href="/illusions/pinna-brelstaff" id="drift-wheels" class="illusion-card flex flex-col justify-between rounded-2xl border border-indigo-100/10 bg-white dark:bg-slate-900/60 backdrop-blur-sm p-6 shadow-xl relative block hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(168,85,247,0.35)] hover:border-purple-500/40 cursor-pointer transition-all duration-300 group">
+        <button class="share-btn absolute top-6 right-6 p-2 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-400 hover:text-slate-200 border border-slate-500/10 transition-colors" aria-label="Share this illusion">
+          <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M15 8a3 3 0 1 0-2.977-2.63l-4.94 2.47a3 3 0 1 0 0 4.319l4.94 2.47a3 3 0 1 0 .895-1.789l-4.94-2.47a3.027 3.027 0 0 0 0-.74l4.94-2.47C13.456 7.68 14.19 8 15 8Z"/></svg>
+          <span class="share-toast absolute bottom-full right-0 mb-2 px-2.5 py-1 text-[10px] font-bold text-white bg-purple-600 rounded-lg shadow-md opacity-0 pointer-events-none transition-opacity duration-200 whitespace-nowrap">Link Copied! ✓</span>
+        </button>
+        <div class="space-y-1 pr-10 mb-4">
+          <div class="flex items-center space-x-2">
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-rose-500/10 text-rose-500 border border-rose-500/20">🔴 Hard</span>
+            <span class="text-[10px] font-bold text-indigo-400 uppercase tracking-wide">Peripheral Drift</span>
+          </div>
+          <h3 class="font-display text-xl font-bold text-slate-900 dark:text-white">2. Peripheral Drift Wheels</h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400">Alternating contrast wedges rotating in opposite directions warp your visual system's orientation maps.</p>
+        </div>
+        <div class="demo-area relative flex flex-col items-center justify-center h-80 w-full bg-slate-100 dark:bg-slate-950/40 rounded-xl overflow-hidden border border-indigo-500/5">
+          <svg class="w-64 h-64 select-none overflow-visible" viewBox="0 0 200 200">
+            <g class="origin-center" style="transform-origin: 100px 100px; animation: spin-clockwise calc(12s / var(--card-speed, 1)) var(--card-play-state, running) linear infinite;">
+              {driftOuter.map(sect => (
+                <path d={sect.path} class={sect.color} stroke="none" />
+              ))}
+            </g>
+            <g class="origin-center" style="transform-origin: 100px 100px; animation: spin-counter calc(12s / var(--card-speed, 1)) var(--card-play-state, running) linear infinite;">
+              {driftInner.map(sect => (
+                <path d={sect.path} class={sect.color} stroke="none" />
+              ))}
+            </g>
+            <circle cx="100" cy="100" r="25" class="fill-slate-100 dark:fill-slate-950 transition-colors" />
+          </svg>
+        </div>
+        <div class="mt-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-t border-slate-500/10 pt-4">
+          <button class="play-pause-btn text-xs font-bold px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white shadow-md transition-colors flex items-center justify-center space-x-1 shrink-0">
+            <span>Pause</span>
+          </button>
+          <div class="flex items-center space-x-3 w-full sm:max-w-xs">
+            <span class="text-[10px] text-slate-500 font-bold uppercase shrink-0">Speed: <span class="speed-val text-purple-400 font-mono">1.0x</span></span>
+            <input type="range" min="0.5" max="3" step="0.1" value="1.0" class="speed-slider flex-1 h-1 bg-slate-200 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-purple-600 focus:outline-none" />
+          </div>
+        </div>
+        <details class="mt-4 border-t border-slate-500/10 pt-3 text-xs text-slate-600 dark:text-slate-400">
+          <summary class="font-bold cursor-pointer hover:text-purple-500 dark:hover:text-purple-400 transition-colors select-none">🔬 Why it moves</summary>
+          <p class="mt-2 leading-relaxed font-normal">
+            Peripheral Drift Wheels utilize radial wedge shapes with alternating gradients of black, white, and colored segments. The brain's motion-sensing pathways are activated by the asymmetric arrangement of light and dark borders. As light intensity varies across your retina due to micro-saccades (tiny involuntary eye movements), orientation and direction columns in the visual cortex detect a directional bias in the contrast change. This mimics the signals generated by actual circular motion. Slowing down the speed helps demonstrate how the visual system integrates these local contrast cues to construct a global spinning wheel percept that seems completely real.
+          </p>
+        </details>
+      
+        <div class="mt-5 flex items-center justify-between text-xs font-black text-purple-600 dark:text-purple-400 group-hover:text-purple-300 transition-colors border-t border-slate-500/10 pt-4">
+          <span>View Full Science & Facts</span>
+          <span>Explore &rarr;</span>
+        </div>
+      </a>
+
+      <!-- Card 3: Pulsing Grid -->
+      <a href="/illusions/moving-circles" id="pulsing-grid" class="illusion-card flex flex-col justify-between rounded-2xl border border-indigo-100/10 bg-white dark:bg-slate-900/60 backdrop-blur-sm p-6 shadow-xl relative block hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(168,85,247,0.35)] hover:border-purple-500/40 cursor-pointer transition-all duration-300 group">
+        <button class="share-btn absolute top-6 right-6 p-2 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-400 hover:text-slate-200 border border-slate-500/10 transition-colors" aria-label="Share this illusion">
+          <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M15 8a3 3 0 1 0-2.977-2.63l-4.94 2.47a3 3 0 1 0 0 4.319l4.94 2.47a3 3 0 1 0 .895-1.789l-4.94-2.47a3.027 3.027 0 0 0 0-.74l4.94-2.47C13.456 7.68 14.19 8 15 8Z"/></svg>
+          <span class="share-toast absolute bottom-full right-0 mb-2 px-2.5 py-1 text-[10px] font-bold text-white bg-purple-600 rounded-lg shadow-md opacity-0 pointer-events-none transition-opacity duration-200 whitespace-nowrap">Link Copied! ✓</span>
+        </button>
+        <div class="space-y-1 pr-10 mb-4">
+          <div class="flex items-center space-x-2">
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-500/10 text-amber-500 border border-amber-500/20">🟡 Medium</span>
+            <span class="text-[10px] font-bold text-indigo-400 uppercase tracking-wide">Lateral Inhibition</span>
+          </div>
+          <h3 class="font-display text-xl font-bold text-slate-900 dark:text-white">3. Pulsing Grid</h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400">A high-contrast grid where intersections appear to breathe and pulse continuously.</p>
+        </div>
+        <div class="demo-area relative flex flex-col items-center justify-center h-80 w-full bg-slate-950 rounded-xl overflow-hidden border border-indigo-500/5">
+          <svg class="w-64 h-64 select-none" viewBox="0 0 200 200">
+            {gridCoords.map(coord => (
+              <>
+                <line x1={coord} y1="15" x2={coord} y2="185" stroke="#475569" stroke-width="2.5" />
+                <line x1="15" y1={coord} x2="185" y2={coord} stroke="#475569" stroke-width="2.5" />
+              </>
+            ))}
+            {gridCoords.map(x => 
+              gridCoords.map(y => (
+                <circle 
+                  cx={x} 
+                  cy={y} 
+                  r="5" 
+                  fill="#facc15" 
+                  class="origin-center" 
+                  style={`transform-origin: ${x}px ${y}px; animation: pulse-dot calc(3s / var(--card-speed, 1)) var(--card-play-state, running) ease-in-out infinite;`}
+                />
+              ))
+            )}
+          </svg>
+        </div>
+        <div class="mt-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-t border-slate-500/10 pt-4">
+          <button class="play-pause-btn text-xs font-bold px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white shadow-md transition-colors flex items-center justify-center space-x-1 shrink-0">
+            <span>Pause</span>
+          </button>
+          <div class="flex items-center space-x-3 w-full sm:max-w-xs">
+            <span class="text-[10px] text-slate-500 font-bold uppercase shrink-0">Speed: <span class="speed-val text-purple-400 font-mono">1.0x</span></span>
+            <input type="range" min="0.5" max="3" step="0.1" value="1.0" class="speed-slider flex-1 h-1 bg-slate-200 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-purple-600 focus:outline-none" />
+          </div>
+        </div>
+        <details class="mt-4 border-t border-slate-500/10 pt-3 text-xs text-slate-600 dark:text-slate-400">
+          <summary class="font-bold cursor-pointer hover:text-purple-500 dark:hover:text-purple-400 transition-colors select-none">🔬 Why it works</summary>
+          <p class="mt-2 leading-relaxed font-normal">
+            The Pulsing Grid illusion creates a strong sensation of expansion, contraction, and breathing. The grid is drawn with intersecting lines and circular markers that cycle in size and contrast. This stimulates the receptive fields of retinal ganglion cells through lateral inhibition. The intersections of the grid appear to glow, dim, and pulse as they compete with neighboring patterns for neural dominance. The brain tries to resolve these rapid changes in contrast and size by perceiving them as depth-based expansion and contraction, which makes the static elements appear to breathe in sync with your breathing patterns.
+          </p>
+        </details>
+      
+        <div class="mt-5 flex items-center justify-between text-xs font-black text-purple-600 dark:text-purple-400 group-hover:text-purple-300 transition-colors border-t border-slate-500/10 pt-4">
+          <span>View Full Science & Facts</span>
+          <span>Explore &rarr;</span>
+        </div>
+      </a>
+
+      <!-- Card 4: Waterfall Effect -->
+      <a href="/illusions/reverse-spoke" id="waterfall-illusion" class="illusion-card flex flex-col justify-between rounded-2xl border border-indigo-100/10 bg-white dark:bg-slate-900/60 backdrop-blur-sm p-6 shadow-xl relative block hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(168,85,247,0.35)] hover:border-purple-500/40 cursor-pointer transition-all duration-300 group">
+        <button class="share-btn absolute top-6 right-6 p-2 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-400 hover:text-slate-200 border border-slate-500/10 transition-colors" aria-label="Share this illusion">
+          <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M15 8a3 3 0 1 0-2.977-2.63l-4.94 2.47a3 3 0 1 0 0 4.319l4.94 2.47a3 3 0 1 0 .895-1.789l-4.94-2.47a3.027 3.027 0 0 0 0-.74l4.94-2.47C13.456 7.68 14.19 8 15 8Z"/></svg>
+          <span class="share-toast absolute bottom-full right-0 mb-2 px-2.5 py-1 text-[10px] font-bold text-white bg-purple-600 rounded-lg shadow-md opacity-0 pointer-events-none transition-opacity duration-200 whitespace-nowrap">Link Copied! ✓</span>
+        </button>
+        <div class="space-y-1 pr-10 mb-4">
+          <div class="flex items-center space-x-2">
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">🟢 Easy</span>
+            <span class="text-[10px] font-bold text-indigo-400 uppercase tracking-wide">Motion Adaptation</span>
+          </div>
+          <h3 class="font-display text-xl font-bold text-slate-900 dark:text-white">4. Waterfall Effect</h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400">Stare at the red dot in the center for 30 seconds, then click pause to see the stripes slide upward.</p>
+        </div>
+        <div class="demo-area relative flex flex-col items-center justify-center h-80 w-full bg-slate-100 dark:bg-slate-950/40 rounded-xl overflow-hidden border border-indigo-500/5">
+          <svg class="w-64 h-64 select-none rounded-xl bg-white dark:bg-slate-900 border border-slate-500/20" viewBox="0 0 200 200">
+            <defs>
+              <clipPath id="waterfall-clip-famous">
+                <rect x="10" y="10" width="180" height="180" rx="10" />
+              </clipPath>
+            </defs>
+            <g clip-path="url(#waterfall-clip-famous)">
+              <g class="waterfall-stripes" style="animation: scroll-down calc(4s / var(--card-speed, 1)) var(--card-play-state, running) linear infinite;">
+                {Array.from({ length: 8 }).map((_, i) => (
+                  <rect x="0" y={i * 40 - 40} width="200" height="20" fill="currentColor" class="text-slate-950 dark:text-slate-100" />
+                ))}
+              </g>
+            </g>
+            <circle cx="100" cy="100" r="6" fill="#ef4444" stroke="#ffffff" stroke-width="2" />
+          </svg>
+        </div>
+        <div class="mt-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-t border-slate-500/10 pt-4">
+          <button class="play-pause-btn text-xs font-bold px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white shadow-md transition-colors flex items-center justify-center space-x-1 shrink-0">
+            <span>Pause</span>
+          </button>
+          <div class="flex items-center space-x-3 w-full sm:max-w-xs">
+            <span class="text-[10px] text-slate-500 font-bold uppercase shrink-0">Speed: <span class="speed-val text-purple-400 font-mono">1.0x</span></span>
+            <input type="range" min="0.5" max="3" step="0.1" value="1.0" class="speed-slider flex-1 h-1 bg-slate-200 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-purple-600 focus:outline-none" />
+          </div>
+        </div>
+        <details class="mt-4 border-t border-slate-500/10 pt-3 text-xs text-slate-600 dark:text-slate-400">
+          <summary class="font-bold cursor-pointer hover:text-purple-500 dark:hover:text-purple-400 transition-colors select-none">🔬 Why it moves</summary>
+          <p class="mt-2 leading-relaxed font-normal">
+            The Waterfall Effect is a classic demonstration of motion adaptation and the motion aftereffect. When you stare at the central red dot while the stripes scroll downward, neurons in your visual cortex (area MT/V5) that detect downward motion become fatigued and adapt to the stimulus. When you pause the animation, these downward-detecting neurons fire below their baseline rate. Meanwhile, the upward-detecting neurons, which are rested, continue firing at their normal baseline rate. This creates a neural imbalance, leading your brain to perceive that the static pattern is drifting upward, demonstrating the adaptation of direction-selective neurons.
+          </p>
+        </details>
+      
+        <div class="mt-5 flex items-center justify-between text-xs font-black text-purple-600 dark:text-purple-400 group-hover:text-purple-300 transition-colors border-t border-slate-500/10 pt-4">
+          <span>View Full Science & Facts</span>
+          <span>Explore &rarr;</span>
+        </div>
+      </a>
+
+      <!-- Card 5: Expanding Hole -->
+      <a href="/illusions/expanding-hole" id="expanding-hole" class="illusion-card flex flex-col justify-between rounded-2xl border border-indigo-100/10 bg-white dark:bg-slate-900/60 backdrop-blur-sm p-6 shadow-xl relative block hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(168,85,247,0.35)] hover:border-purple-500/40 cursor-pointer transition-all duration-300 group">
+        <button class="share-btn absolute top-6 right-6 p-2 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-400 hover:text-slate-200 border border-slate-500/10 transition-colors" aria-label="Share this illusion">
+          <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M15 8a3 3 0 1 0-2.977-2.63l-4.94 2.47a3 3 0 1 0 0 4.319l4.94 2.47a3 3 0 1 0 .895-1.789l-4.94-2.47a3.027 3.027 0 0 0 0-.74l4.94-2.47C13.456 7.68 14.19 8 15 8Z"/></svg>
+          <span class="share-toast absolute bottom-full right-0 mb-2 px-2.5 py-1 text-[10px] font-bold text-white bg-purple-600 rounded-lg shadow-md opacity-0 pointer-events-none transition-opacity duration-200 whitespace-nowrap">Link Copied! ✓</span>
+        </button>
+        <div class="space-y-1 pr-10 mb-4">
+          <div class="flex items-center space-x-2">
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">🟢 Easy</span>
+            <span class="text-[10px] font-bold text-indigo-400 uppercase tracking-wide">Locomotion Prior</span>
+          </div>
+          <h3 class="font-display text-xl font-bold text-slate-900 dark:text-white">5. Expanding Hole</h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400">The central dark area appears to swallow the screen, tricking your brain into expecting forward movement.</p>
+        </div>
+        <div class="demo-area relative flex flex-col items-center justify-center h-80 w-full bg-slate-200 dark:bg-slate-900 rounded-xl overflow-hidden border border-indigo-500/5">
+          <svg class="w-64 h-64 select-none rounded-xl" viewBox="0 0 200 200">
+            <defs>
+              <radialGradient id="hole-grad-famous" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#020617" />
+                <stop offset="60%" stop-color="#020617" stop-opacity="0.8" />
+                <stop offset="100%" stop-color="#020617" stop-opacity="0" />
+              </radialGradient>
+              <pattern id="dot-pattern-famous" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+                <circle cx="10" cy="10" r="3.5" fill="#64748b" />
+              </pattern>
+            </defs>
+            <rect width="200" height="200" fill="url(#dot-pattern-famous)" />
+            <circle 
+              cx="100" 
+              cy="100" 
+              r="65" 
+              fill="url(#hole-grad-famous)" 
+              class="origin-center" 
+              style="transform-origin: 100px 100px; animation: expand-hole calc(6s / var(--card-speed, 1)) var(--card-play-state, running) ease-in-out infinite;" 
+            />
+          </svg>
+        </div>
+        <div class="mt-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-t border-slate-500/10 pt-4">
+          <button class="play-pause-btn text-xs font-bold px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white shadow-md transition-colors flex items-center justify-center space-x-1 shrink-0">
+            <span>Pause</span>
+          </button>
+          <div class="flex items-center space-x-3 w-full sm:max-w-xs">
+            <span class="text-[10px] text-slate-500 font-bold uppercase shrink-0">Speed: <span class="speed-val text-purple-400 font-mono">1.0x</span></span>
+            <input type="range" min="0.5" max="3" step="0.1" value="1.0" class="speed-slider flex-1 h-1 bg-slate-200 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-purple-600 focus:outline-none" />
+          </div>
+        </div>
+        <details class="mt-4 border-t border-slate-500/10 pt-3 text-xs text-slate-600 dark:text-slate-400">
+          <summary class="font-bold cursor-pointer hover:text-purple-500 dark:hover:text-purple-400 transition-colors select-none">🔬 Why it works</summary>
+          <p class="mt-2 leading-relaxed font-normal">
+            The Expanding Hole illusion presents a dark central gradient circle that appears to expand as if you are moving into a dark tunnel. This illusion triggers a physiological reaction in your pupils, which constrict or dilate based on the expected brightness of the scene. The visual cortex interprets the radial gradient and the expanding outer pattern as forward locomotion or an encroaching shadow. To prepare for entering a dark space, the brain adjusts visual sensitivity, making the central dark area appear to swallow the screen. Play-pause controls show how the expanding sensation fades when the animation is static.
+          </p>
+        </details>
+      
+        <div class="mt-5 flex items-center justify-between text-xs font-black text-purple-600 dark:text-purple-400 group-hover:text-purple-300 transition-colors border-t border-slate-500/10 pt-4">
+          <span>View Full Science & Facts</span>
+          <span>Explore &rarr;</span>
+        </div>
+      </a>
+
+      <!-- Card 6: Tilted House -->
+      <a href="/illusions/zoellner-illusion" id="tilted-house" class="illusion-card flex flex-col justify-between rounded-2xl border border-indigo-100/10 bg-white dark:bg-slate-900/60 backdrop-blur-sm p-6 shadow-xl relative block hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(168,85,247,0.35)] hover:border-purple-500/40 cursor-pointer transition-all duration-300 group">
+        <button class="share-btn absolute top-6 right-6 p-2 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-400 hover:text-slate-200 border border-slate-500/10 transition-colors" aria-label="Share this illusion">
+          <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M15 8a3 3 0 1 0-2.977-2.63l-4.94 2.47a3 3 0 1 0 0 4.319l4.94 2.47a3 3 0 1 0 .895-1.789l-4.94-2.47a3.027 3.027 0 0 0 0-.74l4.94-2.47C13.456 7.68 14.19 8 15 8Z"/></svg>
+          <span class="share-toast absolute bottom-full right-0 mb-2 px-2.5 py-1 text-[10px] font-bold text-white bg-purple-600 rounded-lg shadow-md opacity-0 pointer-events-none transition-opacity duration-200 whitespace-nowrap">Link Copied! ✓</span>
+        </button>
+        <div class="space-y-1 pr-10 mb-4">
+          <div class="flex items-center space-x-2">
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-500/10 text-amber-500 border border-amber-500/20">🟡 Medium</span>
+            <span class="text-[10px] font-bold text-indigo-400 uppercase tracking-wide">Reference Frames</span>
+          </div>
+          <h3 class="font-display text-xl font-bold text-slate-900 dark:text-white">6. Tilted House</h3>
+          <p class="text-xs text-slate-600 dark:text-slate-400">The house remains static, but skewing background vertical lines make the house wobble and tilt.</p>
+        </div>
+        <div class="demo-area relative flex flex-col items-center justify-center h-80 w-full bg-slate-900 rounded-xl overflow-hidden border border-indigo-500/5">
+          <svg class="w-64 h-64 select-none overflow-visible" viewBox="0 0 200 200">
+            <g class="origin-center" style="transform-origin: 100px 100px; animation: slant-lines calc(8s / var(--card-speed, 1)) var(--card-play-state, running) ease-in-out infinite;">
+              {Array.from({ length: 9 }).map((_, i) => (
+                <line x1={20 + i * 20} y1="10" x2={20 + i * 20} y2="190" stroke="#334155" stroke-dasharray="3,3" stroke-width="1.5" />
+              ))}
+            </g>
+            <g stroke="#ffffff" stroke-width="3" fill="none" stroke-linejoin="round">
+              <line x1="30" y1="150" x2="170" y2="150" />
+              <rect x="50" y="90" width="100" height="60" />
+              <polygon points="50,90 100,50 150,90" />
+              <rect x="88" y="115" width="24" height="35" />
+              <rect x="65" y="105" width="16" height="16" />
+              <rect x="119" y="105" width="16" height="16" />
+            </g>
+          </svg>
+        </div>
+        <div class="mt-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-t border-slate-500/10 pt-4">
+          <button class="play-pause-btn text-xs font-bold px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white shadow-md transition-colors flex items-center justify-center space-x-1 shrink-0">
+            <span>Pause</span>
+          </button>
+          <div class="flex items-center space-x-3 w-full sm:max-w-xs">
+            <span class="text-[10px] text-slate-500 font-bold uppercase shrink-0">Speed: <span class="speed-val text-purple-400 font-mono">1.0x</span></span>
+            <input type="range" min="0.5" max="3" step="0.1" value="1.0" class="speed-slider flex-1 h-1 bg-slate-200 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-purple-600 focus:outline-none" />
+          </div>
+        </div>
+        <details class="mt-4 border-t border-slate-500/10 pt-3 text-xs text-slate-600 dark:text-slate-400">
+          <summary class="font-bold cursor-pointer hover:text-purple-500 dark:hover:text-purple-400 transition-colors select-none">🔬 Why it works</summary>
+          <p class="mt-2 leading-relaxed font-normal">
+            The Tilted House illusion exploits visual reference frames and gravity cues. The house drawing remains stationary, but the vertical guidelines and background lines slant back and forth. The brain uses the surrounding lines as a frame of reference to determine what is 'straight' or vertical. When the grid tilts, the visual system attempts to align the house with this skewed reference frame, making the house appear to lean in the opposite direction. This highlights the top-down cognitive integration of spatial orientation, showing how our perception of verticality is highly dependent on visual context.
+          </p>
+        </details>
+      
+        <div class="mt-5 flex items-center justify-between text-xs font-black text-purple-600 dark:text-purple-400 group-hover:text-purple-300 transition-colors border-t border-slate-500/10 pt-4">
+          <span>View Full Science & Facts</span>
+          <span>Explore &rarr;</span>
+        </div>
+      </a>
+
+      <!-- Card 7: Motion Aftereffect -->
+      <a href="/illusions/reverse-spoke" id="motion-aftereffect" class="illusion-card flex flex-col justify-between rounded-2xl border border-indigo-100/10 bg-white dark:bg-slate-900/60 backdrop-blur-sm p-6 shadow-xl relative block hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(168,85,247,0.35)] hover:border-purple-500/40 cursor-pointer transition-all duration-300 group">
+        <button class="share-btn absolute top-6 right-6 p-2 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-400 hover:text-slate-200 border border-slate-500/10 transition-colors" aria-label="Share this illusion">
+          <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M15 8a3 3 0 1 0-2.977-2.63l-4.94 2.47a3 3 0 1 0 0 4.319l4.94 2.47a3 3 0 1 0 .895-1.789l-4.94-2.47a3.027 3.027 0 0 0 0-.74l4.94-2.47C13.456 7.68 14.19 8 15 8Z"/></svg>
+          <span class="share-toast absolute bottom-full right-0 mb-2 px-2.5 py-1 text-[10px] font-bold text-white bg-purple-600 rounded-lg shadow-md opacity-0 pointer-events-none transition-opacity duration-200 whitespace-nowrap">Link Copied! ✓</span>
+        </button>
+        <div class="space-y-1 pr-10 mb-4">
+          <div class="flex items-center space-x-2">
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-500/10 text-amber-500 border border-amber-500/20">🟡 Medium</span>
+            <span class="text-[10px] font-bold text-indigo-400 uppercase tracking-wide">Motion Aftereffect</span>
+          </div>
+          <h3 class="font-display text-xl font-bold text-slate-900 dark:text-white">7. Motion Aftereffect</h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400">Stare at the spinning spiral center for 20 seconds, then pause it. The static spiral will seem to expand.</p>
+        </div>
+        <div class="demo-area relative flex flex-col items-center justify-center h-80 w-full bg-white rounded-xl overflow-hidden border border-indigo-500/5">
+          <svg class="w-64 h-64 select-none" viewBox="0 0 200 200">
+            <path 
+              d={spiralPath} 
+              fill="none" 
+              stroke="#0f172a" 
+              stroke-width="5" 
+              stroke-linecap="round" 
+              class="origin-center" 
+              style="transform-origin: 100px 100px; animation: spin-clockwise calc(4s / var(--card-speed, 1)) var(--card-play-state, running) linear infinite;" 
+            />
+            <circle cx="100" cy="100" r="5" fill="#ef4444" />
+          </svg>
+        </div>
+        <div class="mt-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-t border-slate-500/10 pt-4">
+          <button class="play-pause-btn text-xs font-bold px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white shadow-md transition-colors flex items-center justify-center space-x-1 shrink-0">
+            <span>Pause</span>
+          </button>
+          <div class="flex items-center space-x-3 w-full sm:max-w-xs">
+            <span class="text-[10px] text-slate-500 font-bold uppercase shrink-0">Speed: <span class="speed-val text-purple-400 font-mono">1.0x</span></span>
+            <input type="range" min="0.5" max="3" step="0.1" value="1.0" class="speed-slider flex-1 h-1 bg-slate-200 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-purple-600 focus:outline-none" />
+          </div>
+        </div>
+        <details class="mt-4 border-t border-slate-500/10 pt-3 text-xs text-slate-600 dark:text-slate-400">
+          <summary class="font-bold cursor-pointer hover:text-purple-500 dark:hover:text-purple-400 transition-colors select-none">🔬 Why it works</summary>
+          <p class="mt-2 leading-relaxed font-normal">
+            The Motion Aftereffect spiral is a vivid display of neural adaptation. Staring at the center of a rapidly spinning spiral causes direction-sensitive neurons in visual area MT/V5 to adapt to the inward or outward motion. When the spiral is suddenly paused, the adapted neurons fall silent while the opposing neurons maintain their baseline activity. This neural asymmetry causes the static spiral to appear to bulge, shrink, or expand in the opposite direction of the initial rotation. This demonstrates that our perception of motion is a balanced equilibrium between opposing direction-tuned channels in the brain.
+          </p>
+        </details>
+      
+        <div class="mt-5 flex items-center justify-between text-xs font-black text-purple-600 dark:text-purple-400 group-hover:text-purple-300 transition-colors border-t border-slate-500/10 pt-4">
+          <span>View Full Science & Facts</span>
+          <span>Explore &rarr;</span>
+        </div>
+      </a>
+
+      <!-- Card 8: Ouchi Illusion -->
+      <a href="/illusions/rotating-snakes" id="ouchi-illusion" class="illusion-card flex flex-col justify-between rounded-2xl border border-indigo-100/10 bg-white dark:bg-slate-900/60 backdrop-blur-sm p-6 shadow-xl relative block hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(168,85,247,0.35)] hover:border-purple-500/40 cursor-pointer transition-all duration-300 group">
+        <button class="share-btn absolute top-6 right-6 p-2 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-400 hover:text-slate-200 border border-slate-500/10 transition-colors" aria-label="Share this illusion">
+          <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M15 8a3 3 0 1 0-2.977-2.63l-4.94 2.47a3 3 0 1 0 0 4.319l4.94 2.47a3 3 0 1 0 .895-1.789l-4.94-2.47a3.027 3.027 0 0 0 0-.74l4.94-2.47C13.456 7.68 14.19 8 15 8Z"/></svg>
+          <span class="share-toast absolute bottom-full right-0 mb-2 px-2.5 py-1 text-[10px] font-bold text-white bg-purple-600 rounded-lg shadow-md opacity-0 pointer-events-none transition-opacity duration-200 whitespace-nowrap">Link Copied! ✓</span>
+        </button>
+        <div class="space-y-1 pr-10 mb-4">
+          <div class="flex items-center space-x-2">
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-rose-500/10 text-rose-500 border border-rose-500/20">🔴 Hard</span>
+            <span class="text-[10px] font-bold text-indigo-400 uppercase tracking-wide">Depth Separation</span>
+          </div>
+          <h3 class="font-display text-xl font-bold text-slate-900 dark:text-white">8. Ouchi Illusion</h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400">The center circular disc appears to float and slide independently above the background checker grid.</p>
+        </div>
+        <div class="demo-area relative flex flex-col items-center justify-center h-80 w-full bg-slate-300 rounded-xl overflow-hidden border border-indigo-500/5">
+          <svg class="w-64 h-64 select-none" viewBox="0 0 200 200">
+            <defs>
+              <pattern id="ouchi-bg-famous" width="16" height="32" patternUnits="userSpaceOnUse">
+                <rect x="0" y="0" width="8" height="16" fill="#000000" />
+                <rect x="8" y="0" width="8" height="16" fill="#ffffff" />
+                <rect x="0" y="16" width="8" height="16" fill="#ffffff" />
+                <rect x="8" y="16" width="8" height="16" fill="#000000" />
+              </pattern>
+              <pattern id="ouchi-fg-famous" width="32" height="16" patternUnits="userSpaceOnUse">
+                <rect x="0" y="0" width="16" height="8" fill="#000000" />
+                <rect x="16" y="0" width="16" height="8" fill="#ffffff" />
+                <rect x="0" y="8" width="16" height="8" fill="#ffffff" />
+                <rect x="16" y="8" width="16" height="8" fill="#000000" />
+              </pattern>
+            </defs>
+            <rect x="0" y="0" width="200" height="200" fill="url(#ouchi-bg-famous)" />
+            <g class="origin-center" style="transform-origin: 100px 100px; animation: oscillate-circle calc(2.5s / var(--card-speed, 1)) var(--card-play-state, running) ease-in-out infinite;">
+              <circle cx="100" cy="100" r="50" fill="url(#ouchi-fg-famous)" stroke="#000000" stroke-width="1" />
+            </g>
+          </svg>
+        </div>
+        <div class="mt-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-t border-slate-500/10 pt-4">
+          <button class="play-pause-btn text-xs font-bold px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white shadow-md transition-colors flex items-center justify-center space-x-1 shrink-0">
+            <span>Pause</span>
+          </button>
+          <div class="flex items-center space-x-3 w-full sm:max-w-xs">
+            <span class="text-[10px] text-slate-500 font-bold uppercase shrink-0">Speed: <span class="speed-val text-purple-400 font-mono">1.0x</span></span>
+            <input type="range" min="0.5" max="3" step="0.1" value="1.0" class="speed-slider flex-1 h-1 bg-slate-200 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-purple-600 focus:outline-none" />
+          </div>
+        </div>
+        <details class="mt-4 border-t border-slate-500/10 pt-3 text-xs text-slate-600 dark:text-slate-400">
+          <summary class="font-bold cursor-pointer hover:text-purple-500 dark:hover:text-purple-400 transition-colors select-none">🔬 Why it works</summary>
+          <p class="mt-2 leading-relaxed font-normal">
+            The Ouchi Illusion is a pattern of perpendicular rectangular checkers. When the central circular disc oscillates, it creates a powerful depth separation effect. The brain has difficulty integrating perpendicular patterns that move in relation to one another. Micro-saccades (tiny, involuntary eye movements) cause the horizontal and vertical lines to stimulate the retina at different frequencies. The visual system resolves this discrepancy by separating the center circle from the background, perceiving it as a floating object moving independently in 3D space. Slowing down the speed control makes this separation of depth cues easier to study.
+          </p>
+        </details>
+      
+        <div class="mt-5 flex items-center justify-between text-xs font-black text-purple-600 dark:text-purple-400 group-hover:text-purple-300 transition-colors border-t border-slate-500/10 pt-4">
+          <span>View Full Science & Facts</span>
+          <span>Explore &rarr;</span>
+        </div>
+      </a>
+
+      <!-- Card 9: Enigma -->
+      <a href="/illusions/motion-binding" id="enigma-illusion" class="illusion-card flex flex-col justify-between rounded-2xl border border-indigo-100/10 bg-white dark:bg-slate-900/60 backdrop-blur-sm p-6 shadow-xl relative block hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(168,85,247,0.35)] hover:border-purple-500/40 cursor-pointer transition-all duration-300 group">
+        <button class="share-btn absolute top-6 right-6 p-2 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-400 hover:text-slate-200 border border-slate-500/10 transition-colors" aria-label="Share this illusion">
+          <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M15 8a3 3 0 1 0-2.977-2.63l-4.94 2.47a3 3 0 1 0 0 4.319l4.94 2.47a3 3 0 1 0 .895-1.789l-4.94-2.47a3.027 3.027 0 0 0 0-.74l4.94-2.47C13.456 7.68 14.19 8 15 8Z"/></svg>
+          <span class="share-toast absolute bottom-full right-0 mb-2 px-2.5 py-1 text-[10px] font-bold text-white bg-purple-600 rounded-lg shadow-md opacity-0 pointer-events-none transition-opacity duration-200 whitespace-nowrap">Link Copied! ✓</span>
+        </button>
+        <div class="space-y-1 pr-10 mb-4">
+          <div class="flex items-center space-x-2">
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-violet-500/15 text-violet-400 border border-violet-500/20">💀 Expert</span>
+            <span class="text-[10px] font-bold text-indigo-400 uppercase tracking-wide">Flicker Flow</span>
+          </div>
+          <h3 class="font-display text-xl font-bold text-slate-900 dark:text-white">9. Enigma</h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400">Radiating black and white rays make the colored rings appear to flow like a moving liquid.</p>
+        </div>
+        <div class="demo-area relative flex flex-col items-center justify-center h-80 w-full bg-slate-950 rounded-xl overflow-hidden border border-indigo-500/5">
+          <svg class="w-64 h-64 select-none" viewBox="0 0 200 200">
+            <g stroke="#ffffff" stroke-width="1" opacity="0.6">
+              {enigmaRays.map(d => (
+                <path d={d} />
+              ))}
+            </g>
+            <circle cx="100" cy="100" r="60" fill="none" stroke="#a855f7" stroke-width="12" class="origin-center" style="animation: enigma-flow calc(2s / var(--card-speed, 1)) var(--card-play-state, running) linear infinite;" />
+            <circle cx="100" cy="100" r="35" fill="none" stroke="#3b82f6" stroke-width="8" class="origin-center" style="animation: enigma-flow calc(1.5s / var(--card-speed, 1)) var(--card-play-state, running) linear infinite;" />
+            <circle cx="100" cy="100" r="15" fill="#020617" />
+          </svg>
+        </div>
+        <div class="mt-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-t border-slate-500/10 pt-4">
+          <button class="play-pause-btn text-xs font-bold px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white shadow-md transition-colors flex items-center justify-center space-x-1 shrink-0">
+            <span>Pause</span>
+          </button>
+          <div class="flex items-center space-x-3 w-full sm:max-w-xs">
+            <span class="text-[10px] text-slate-500 font-bold uppercase shrink-0">Speed: <span class="speed-val text-purple-400 font-mono">1.0x</span></span>
+            <input type="range" min="0.5" max="3" step="0.1" value="1.0" class="speed-slider flex-1 h-1 bg-slate-200 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-purple-600 focus:outline-none" />
+          </div>
+        </div>
+        <details class="mt-4 border-t border-slate-500/10 pt-3 text-xs text-slate-600 dark:text-slate-400">
+          <summary class="font-bold cursor-pointer hover:text-purple-500 dark:hover:text-purple-400 transition-colors select-none">🔬 Why it works</summary>
+          <p class="mt-2 leading-relaxed font-normal">
+            The Enigma illusion consists of radiating sunburst lines intersected by colored concentric rings. When playing, the rays appear to flow rapidly through the rings. This flow is a result of rapid micro-saccadic eye movements shifting the high-contrast lines across the retina. This creates a flicker effect that stimulates direction-selective neurons. The brain interprets this flicker as a steady flow of light or fluid running through the rings. Pausing the animation stops the rapid rendering updates, but you can still catch a glimpse of the flow in your periphery as long as your eyes move.
+          </p>
+        </details>
+      
+        <div class="mt-5 flex items-center justify-between text-xs font-black text-purple-600 dark:text-purple-400 group-hover:text-purple-300 transition-colors border-t border-slate-500/10 pt-4">
+          <span>View Full Science & Facts</span>
+          <span>Explore &rarr;</span>
+        </div>
+      </a>
+
+      <!-- Card 10: Levitating Ball -->
+      <a href="/illusions/breathing-square" id="levitating-ball" class="illusion-card flex flex-col justify-between rounded-2xl border border-indigo-100/10 bg-white dark:bg-slate-900/60 backdrop-blur-sm p-6 shadow-xl relative block hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(168,85,247,0.35)] hover:border-purple-500/40 cursor-pointer transition-all duration-300 group">
+        <button class="share-btn absolute top-6 right-6 p-2 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-400 hover:text-slate-200 border border-slate-500/10 transition-colors" aria-label="Share this illusion">
+          <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M15 8a3 3 0 1 0-2.977-2.63l-4.94 2.47a3 3 0 1 0 0 4.319l4.94 2.47a3 3 0 1 0 .895-1.789l-4.94-2.47a3.027 3.027 0 0 0 0-.74l4.94-2.47C13.456 7.68 14.19 8 15 8Z"/></svg>
+          <span class="share-toast absolute bottom-full right-0 mb-2 px-2.5 py-1 text-[10px] font-bold text-white bg-purple-600 rounded-lg shadow-md opacity-0 pointer-events-none transition-opacity duration-200 whitespace-nowrap">Link Copied! ✓</span>
+        </button>
+        <div class="space-y-1 pr-10 mb-4">
+          <div class="flex items-center space-x-2">
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-rose-500/10 text-rose-500 border border-rose-500/20">🔴 Hard</span>
+            <span class="text-[10px] font-bold text-indigo-400 uppercase tracking-wide">Motion Parallax</span>
+          </div>
+          <h3 class="font-display text-xl font-bold text-slate-900 dark:text-white">10. Levitating Ball</h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400">A shaded ball appears to float in 3D depth over a shifting and scrolling geometric mesh background.</p>
+        </div>
+        <div class="demo-area relative flex flex-col items-center justify-center h-80 w-full bg-slate-900 rounded-xl overflow-hidden border border-indigo-500/5">
+          <svg class="w-64 h-64 select-none overflow-hidden" viewBox="0 0 200 200">
+            <defs>
+              <radialGradient id="ball-gradient-famous" cx="35%" cy="35%" r="65%">
+                <stop offset="0%" stop-color="#ec4899" />
+                <stop offset="40%" stop-color="#db2777" />
+                <stop offset="100%" stop-color="#4c0519" />
+              </radialGradient>
+            </defs>
+            <g class="origin-center text-indigo-950 dark:text-indigo-900/40" style="transform-origin: 100px 100px; animation: float-bg calc(10s / var(--card-speed, 1)) var(--card-play-state, running) ease-in-out infinite;">
+              {Array.from({ length: 15 }).map((_, i) => (
+                <>
+                  <line x1={-50 + i * 20} y1="-50" x2={50 + i * 20} y2="250" stroke="currentColor" stroke-width="1.5" />
+                  <line x1={250 - i * 20} y1="-50" x2={150 - i * 20} y2="250" stroke="currentColor" stroke-width="1.5" />
+                </>
+              ))}
+            </g>
+            <ellipse cx="100" cy="155" rx="20" ry="6" fill="#000000" opacity="0.4" class="origin-center" style="transform-origin: 100px 155px; animation: float-ball calc(5s / var(--card-speed, 1)) var(--card-play-state, running) ease-in-out infinite;" />
+            <g class="origin-center" style="transform-origin: 100px 100px; animation: float-ball calc(5s / var(--card-speed, 1)) var(--card-play-state, running) ease-in-out infinite;">
+              <circle cx="100" cy="90" r="25" fill="url(#ball-gradient-famous)" filter="drop-shadow(0 10px 15px rgba(0,0,0,0.5))" />
+            </g>
+          </svg>
+        </div>
+        <div class="mt-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-t border-slate-500/10 pt-4">
+          <button class="play-pause-btn text-xs font-bold px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white shadow-md transition-colors flex items-center justify-center space-x-1 shrink-0">
+            <span>Pause</span>
+          </button>
+          <div class="flex items-center space-x-3 w-full sm:max-w-xs">
+            <span class="text-[10px] text-slate-500 font-bold uppercase shrink-0">Speed: <span class="speed-val text-purple-400 font-mono">1.0x</span></span>
+            <input type="range" min="0.5" max="3" step="0.1" value="1.0" class="speed-slider flex-1 h-1 bg-slate-200 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-purple-600 focus:outline-none" />
+          </div>
+        </div>
+        <details class="mt-4 border-t border-slate-500/10 pt-3 text-xs text-slate-600 dark:text-slate-400">
+          <summary class="font-bold cursor-pointer hover:text-purple-500 dark:hover:text-purple-400 transition-colors select-none">🔬 Why it moves</summary>
+          <p class="mt-2 leading-relaxed font-normal">
+            The Levitating Ball illusion uses relative motion and shadow cues to create depth. A shaded sphere is drawn over a geometric mesh background. When the grid scrolls or shifts back and forth, the relative displacement between the ball and the grid lines triggers the brain's depth processing pathways. The visual system assumes the ball is floating above the grid, interpreting the relative motion as parallax. By adjusting the speed slider, you can see how faster movement intensifies the floating effect, demonstrating how the brain computes 3D coordinates based on relative speed and shadow changes.
+          </p>
+        </details>
+      
+        <div class="mt-5 flex items-center justify-between text-xs font-black text-purple-600 dark:text-purple-400 group-hover:text-purple-300 transition-colors border-t border-slate-500/10 pt-4">
+          <span>View Full Science & Facts</span>
+          <span>Explore &rarr;</span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- FAQ Section Accordion -->
+  <section class="py-16 px-4 sm:px-6 lg:px-8 border-t border-indigo-100/10 bg-slate-50/50 dark:bg-slate-900/10">
+    <div class="mx-auto max-w-4xl space-y-8">
+      <div class="text-center space-y-3">
+        <h2 class="font-display text-3xl font-bold tracking-tight text-slate-900 dark:text-white">
+          Frequently Asked Questions (FAQ)
+        </h2>
+        <p class="text-xs text-slate-600 dark:text-slate-400">Common questions about visual motion science and CSS illusions.</p>
+        <div class="mx-auto h-1 w-24 rounded-full bg-gradient-to-r from-purple-500 to-indigo-500"></div>
+      </div>
+      
+      <div class="space-y-4">
+        <details class="group border border-indigo-500/10 bg-white dark:bg-slate-900/40 rounded-xl p-5 shadow-sm transition-all duration-300">
+          <summary class="font-display text-base font-bold text-slate-950 dark:text-slate-100 cursor-pointer list-none flex justify-between items-center select-none">
+            <span>Are these visual animations actually GIFs or videos?</span>
+            <span class="text-purple-500 transition-transform duration-300 group-open:rotate-180">&#9662;</span>
+          </summary>
+          <p class="mt-3 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+            No, absolutely not. All of the optical illusions on this page are rendered using real-time vector graphics (SVGs) and animated using CSS transitions and keyframes. No GIF images or video clips are loaded. Your browser is executing the rendering math in real-time, meaning your own visual processing system is creating the sensation of motion.
+          </p>
+        </details>
+
+        <details class="group border border-indigo-500/10 bg-white dark:bg-slate-900/40 rounded-xl p-5 shadow-sm transition-all duration-300">
+          <summary class="font-display text-base font-bold text-slate-950 dark:text-slate-100 cursor-pointer list-none flex justify-between items-center select-none">
+            <span>What is "peripheral drift" and how does it trick the eye?</span>
+            <span class="text-purple-500 transition-transform duration-300 group-open:rotate-180">&#9662;</span>
+          </summary>
+          <p class="mt-3 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+            Peripheral drift is a physiological optical illusion where static patterns of specific color and contrast sequences (such as black, blue, white, and yellow) appear to move when viewed in your peripheral vision. Visual neurons process high-contrast zones faster than low-contrast zones. When your eyes scan the page, this slight delay is interpreted by the motion-sensitive neurons in your brain as physical rotation or movement.
+          </p>
+        </details>
+
+        <details class="group border border-indigo-500/10 bg-white dark:bg-slate-900/40 rounded-xl p-5 shadow-sm transition-all duration-300">
+          <summary class="font-display text-base font-bold text-slate-950 dark:text-slate-100 cursor-pointer list-none flex justify-between items-center select-none">
+            <span>What is the "Motion Aftereffect" (Waterfall Illusion)?</span>
+            <span class="text-purple-500 transition-transform duration-300 group-open:rotate-180">&#9662;</span>
+          </summary>
+          <p class="mt-3 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+            The motion aftereffect is a sensory phenomenon that occurs after staring at a moving visual pattern for several seconds. When you focus on a moving stimulus, the direction-specific neurons in your visual cortex adapt to the motion and become fatigued. When the stimulus stops (or is paused), those fatigued neurons fall below their baseline firing rate, while opposing direction neurons remain active, creating the illusion of motion in the opposite direction.
+          </p>
+        </details>
+
+        <details class="group border border-indigo-500/10 bg-white dark:bg-slate-900/40 rounded-xl p-5 shadow-sm transition-all duration-300">
+          <summary class="font-display text-base font-bold text-slate-950 dark:text-slate-100 cursor-pointer list-none flex justify-between items-center select-none">
+            <span>Why does the central circle in the Ouchi Illusion appear to float?</span>
+            <span class="text-purple-500 transition-transform duration-300 group-open:rotate-180">&#9662;</span>
+          </summary>
+          <p class="mt-3 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+            The Ouchi Illusion is caused by the combination of perpendicular grid lines and micro-saccades (tiny, involuntary eye movements). Because the checkers in the center circle are oriented at a 90-degree angle to the background checkers, your eyes scan them at different frequencies. The brain struggle to integrate these two perpendicular frequencies, resolving the discrepancy by separating them into different depth planes, which makes the center circle appear to hover independently.
+          </p>
+        </details>
+
+        <details class="group border border-indigo-500/10 bg-white dark:bg-slate-900/40 rounded-xl p-5 shadow-sm transition-all duration-300">
+          <summary class="font-display text-base font-bold text-slate-950 dark:text-slate-100 cursor-pointer list-none flex justify-between items-center select-none">
+            <span>How does the speed slider affect the underlying code?</span>
+            <span class="text-purple-500 transition-transform duration-300 group-open:rotate-180">&#9662;</span>
+          </summary>
+          <p class="mt-3 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+            Each card in our grid is controlled by local CSS Custom Properties (variables) called `--card-speed` and `--card-play-state`. When you drag the slider, JavaScript updates the value of `--card-speed` on that specific card container. The CSS keyframe animations use this variable (e.g. `animation-duration: calc(5s / var(--card-speed))`) to dynamically accelerate or slow down the rendering speed in real-time.
+          </p>
+        </details>
+      
+        <div class="mt-5 flex items-center justify-between text-xs font-black text-purple-600 dark:text-purple-400 group-hover:text-purple-300 transition-colors border-t border-slate-500/10 pt-4">
+          <span>View Full Science & Facts</span>
+          <span>Explore &rarr;</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- Expanded SEO Content Section -->
+  <section id="moving-how-it-works" class="py-16 px-4 sm:px-6 lg:px-8 border-t border-indigo-100/10 bg-slate-100/30 dark:bg-slate-950/20">
+    <div class="mx-auto max-w-4xl space-y-8">
+      <div class="text-center">
+        <h2 class="font-display text-3xl font-bold tracking-tight text-slate-900 dark:text-white">
+          Understanding Visual Motion & Brain Processing
+        </h2>
+        <div class="mx-auto mt-2 h-1 w-24 rounded-full bg-gradient-to-r from-purple-500 to-indigo-500"></div>
+      </div>
+      
+      <div class="prose prose-indigo dark:prose-invert max-w-none text-slate-700 dark:text-slate-300 leading-relaxed text-sm sm:text-base space-y-6">
+        <p>
+          Moving optical illusions offer a fascinating window into how the human visual system processes movement and tracks dynamic changes. Unlike static geometric drawings, these motion anomalies directly stimulate the direction-selective cells in our brain. When we look at the world, our eyes gather raw data that is sent to the primary visual cortex (V1) at the back of the brain. From there, motion signals travel along the dorsal stream to visual area MT (also known as area V5), which specializes in integrating speed and direction vectors to construct our perception of movement.
+        </p>
+        <p>
+          Many interactive illusions on this page exploit physiological latencies in the retina and early cortical stages. For example, in the **Rotating Snakes** and **Peripheral Drift Wheels**, the brain is fooled because neurons process transitions from high contrast to low contrast at slightly different times. This processing offset mimics the neural firing patterns triggered by real movement, leading area MT/V5 to perceive rotation where none exists. By providing a "Pause" control on each card, you can observe how this peripheral motion persists even when the image is completely static, proving that your brain is actively fabricating the motion in real-time.
+        </p>
+        <p>
+          Another primary mechanism explored here is neural adaptation, famously demonstrated by the **Waterfall Effect** and **Motion Aftereffect** spirals. Staring at a constant downward or spinning motion forces specific direction-tuned neural populations to fire continuously. Over time, these neurons become fatigued and adapt to the stimulus. When the motion is suddenly paused, the resting baseline of the opposing direction channels dominates, creating the sensation of movement in the opposite direction. This visual aftereffect serves as direct evidence of the opponent-process mechanisms used by the human brain to maintain visual equilibrium.
+        </p>
+        <p>
+          Traditionally, websites loaded pre-rendered `.gif` files to showcase these tricks, but digital GIFs lack the mathematical precision needed for visual research. By building these animations using pure vector graphics (SVGs) and modern CSS variables, the Optical Illusion Lab allows for smooth, infinite scaling and real-time interactive adjustments. Users can increase speed to intensify the visual scramble or slow the rendering down to examine the underlying geometry. This interactive laboratory environment demonstrates that what we perceive as motion is not a simple recording of our surroundings, but a complex cognitive reconstruction formed by the visual cortex.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Keyframe and Helper Animations -->
+  <style>
+    :root {
+      --card-speed: 1.0;
+      --card-play-state: running;
+    }
+
+    @keyframes spin-clockwise {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @keyframes spin-counter {
+      0% { transform: rotate(360deg); }
+      100% { transform: rotate(0deg); }
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { transform: scale(1); opacity: 0.3; }
+      50% { transform: scale(1.6); opacity: 1; }
+    }
+
+    @keyframes scroll-down {
+      0% { transform: translateY(-40px); }
+      100% { transform: translateY(0); }
+    }
+
+    @keyframes expand-hole {
+      0%, 100% { transform: scale(0.8); opacity: 0.9; filter: blur(4px); }
+      50% { transform: scale(1.35); opacity: 1; filter: blur(0px); }
+    }
+
+    @keyframes slant-lines {
+      0%, 100% { transform: skewX(-5deg); }
+      50% { transform: skewX(5deg); }
+    }
+
+    @keyframes oscillate-circle {
+      0%, 100% { transform: translate(-3px, -3px); }
+      50% { transform: translate(3px, 3px); }
+    }
+
+    @keyframes enigma-flow {
+      0% { filter: hue-rotate(0deg) saturate(1); }
+      100% { filter: hue-rotate(360deg) saturate(1.2); }
+    }
+
+    @keyframes float-bg {
+      0%, 100% { transform: translate(-10px, -5px) skewX(-2deg); }
+      50% { transform: translate(10px, 5px) skewX(2deg); }
+    }
+
+    @keyframes float-ball {
+      0%, 100% { transform: translateY(-5px); }
+      50% { transform: translateY(15px); }
+    }
+  </style>
+
+  <!-- Script for Card Interactivity -->
+  <script>
+    // ----------------------------------------------------
+    // CARD LEVEL PLAY/PAUSE AND SPEED CONTROLS
+    // ----------------------------------------------------
+    const cards = document.querySelectorAll('.illusion-card');
+    cards.forEach(card => {
+      const playPauseBtn = card.querySelector('.play-pause-btn');
+      const playPauseText = playPauseBtn?.querySelector('span');
+      const speedSlider = card.querySelector('.speed-slider') as HTMLInputElement;
+      const speedValBadge = card.querySelector('.speed-val');
+      const shareBtn = card.querySelector('.share-btn');
+
+      let isPlaying = true;
+
+      // Stop event propagation on inner details, summary, buttons, and inputs to prevent navigation
+      card.querySelectorAll('button, input, select, details, summary, label, a').forEach(el => {
+        el.addEventListener('click', (e) => e.stopPropagation());
+        el.addEventListener('mousedown', (e) => e.stopPropagation());
+        el.addEventListener('touchstart', (e) => e.stopPropagation());
+      });
+  
+
+      // Play/Pause toggle
+      playPauseBtn?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        e.preventDefault();
+        isPlaying = !isPlaying;
+        (card as HTMLElement).style.setProperty('--card-play-state', isPlaying ? 'running' : 'paused');
+        if (playPauseText) {
+          playPauseText.textContent = isPlaying ? 'Pause' : 'Play';
+        }
+        if (playPauseBtn) {
+          if (isPlaying) {
+            playPauseBtn.classList.remove('bg-emerald-600', 'hover:bg-emerald-500');
+            playPauseBtn.classList.add('bg-purple-600', 'hover:bg-purple-500');
+          } else {
+            playPauseBtn.classList.remove('bg-purple-600', 'hover:bg-purple-500');
+            playPauseBtn.classList.add('bg-emerald-600', 'hover:bg-emerald-500');
+          }
+        }
+      });
+
+      // Speed Slider adjustment
+      speedSlider?.addEventListener('input', (e) => {
+        e.stopPropagation();
+        const val = (e.target as HTMLInputElement).value;
+        (card as HTMLElement).style.setProperty('--card-speed', val);
+        if (speedValBadge) {
+          speedValBadge.textContent = `${parseFloat(val).toFixed(1)}x`;
+        }
+      });
+
+      // Share button clipboard functionality
+      shareBtn?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        e.preventDefault();
+        const cardId = card.id;
+        const shareUrl = `${window.location.origin}${window.location.pathname}#${cardId}`;
+        navigator.clipboard.writeText(shareUrl).then(() => {
+          const toast = shareBtn.querySelector('.share-toast');
+          if (toast) {
+            toast.classList.remove('opacity-0');
+            toast.classList.add('opacity-100');
+            setTimeout(() => {
+              toast.classList.remove('opacity-100');
+              toast.classList.add('opacity-0');
+            }, 2000);
+          }
+        });
+      });
+    });
+  </script>
+
+</Layout>

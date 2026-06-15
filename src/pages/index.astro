@@ -1,11 +1,1195 @@
 ---
-import Welcome from '../components/Welcome.astro';
+// src/pages/index.astro
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
 
-<Layout>
-	<Welcome />
+<Layout 
+  title="Optical Illusion Lab — Mind-Bending Interactive Visual Tricks" 
+  description="Explore the ultimate interactive gallery of 12 upgraded optical illusions. Test your brain with Adelson's Checkerboard, Troxler Fading, Curvature Blindness, Poggendorff, and more."
+>
+  
+  <!-- Hero Section -->
+  <section class="relative overflow-hidden py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-slate-900 to-slate-950 text-white dark:from-slate-950 dark:to-slate-900 border-b border-indigo-500/10">
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(99,102,241,0.15),transparent_45%)]"></div>
+    <div class="absolute -top-40 -left-40 h-80 w-80 rounded-full bg-purple-600/10 blur-3xl"></div>
+    
+    <div class="relative mx-auto max-w-4xl text-center space-y-6">
+      <div class="inline-flex items-center space-x-2 rounded-full border border-indigo-500/30 bg-indigo-500/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-indigo-300 backdrop-blur-sm">
+        ✨ Interactive Brain Playground
+      </div>
+      <h1 class="font-display text-4xl sm:text-6xl font-extrabold tracking-tight bg-gradient-to-r from-purple-400 via-indigo-300 to-purple-400 bg-clip-text text-transparent animate-pulse-slow">
+        Optical Illusions — Trick Your Brain
+      </h1>
+      <p class="mx-auto max-w-2xl text-base sm:text-xl text-slate-300 font-medium">
+        Welcome to the <span class="text-white font-bold">Optical Illusion Lab</span>. Explore our interactive library of visual anomalies, challenge your spatial perception, and discover the fascinating science of how your mind constructs reality.
+      </p>
+      <div class="flex justify-center space-x-4">
+        <a href="#illusion-gallery" class="rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-purple-500/20 hover:scale-102 hover:shadow-purple-500/30 active:scale-98 transition-all duration-200">
+          Explore Illusions
+        </a>
+        <a href="#how-it-works" class="rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 px-6 py-3 text-sm font-semibold text-slate-200 hover:text-white transition-all duration-200">
+          Learn the Science
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Illusion of the Day Banner Section -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12">
+    <div id="illusion-of-the-day" class="relative rounded-2xl border border-purple-500/30 bg-gradient-to-r from-indigo-950/40 via-purple-950/40 to-indigo-950/40 backdrop-blur p-6 shadow-[0_0_25px_rgba(168,85,247,0.15)] flex flex-col md:flex-row items-center justify-between gap-6 transition-all duration-300">
+      <div class="space-y-2 text-center md:text-left">
+        <div class="inline-flex items-center space-x-2 rounded-md bg-purple-500/20 px-2.5 py-0.5 text-xs font-bold uppercase tracking-wide text-purple-300 border border-purple-500/30">
+          🔥 Illusion of the Day
+        </div>
+        <h3 class="today-illusion-name font-display text-2xl font-black text-white">Loading...</h3>
+        <p class="today-illusion-tease text-slate-300 text-sm max-w-xl">Find out how your visual processing handles this visual trickery.</p>
+      </div>
+      <button id="view-today-btn" class="shrink-0 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-sm px-6 py-3 transition-colors shadow-lg shadow-purple-500/10 active:scale-98">
+        View Today's Illusion →
+      </button>
+    </div>
+  </section>
+
+  <!-- Gallery Control / Speed Slider Section -->
+  <section id="illusion-gallery" class="pt-16 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    
+    <!-- Intensity Slider Banner -->
+    <div class="mb-12 rounded-2xl border border-indigo-500/10 bg-slate-50 dark:bg-slate-900/40 p-6 flex flex-col md:flex-row items-center justify-between gap-6 backdrop-blur">
+      <div class="space-y-1 text-center md:text-left">
+        <h3 class="font-display text-lg font-bold text-slate-900 dark:text-white">Brain Scramble Level (Speed Control)</h3>
+        <p class="text-xs text-slate-600 dark:text-slate-400">Scale visual movement in real-time. Slow down to analyze the science, or speed up to warp your vision.</p>
+      </div>
+      <div class="w-full md:w-80 flex flex-col space-y-1">
+        <div class="flex items-center justify-between text-xs font-bold uppercase text-slate-500">
+          <span>Level</span>
+          <span id="speed-level-badge" class="text-purple-500 dark:text-purple-400 font-mono">5 (Normal)</span>
+        </div>
+        <input 
+          id="global-speed-slider" 
+          type="range" 
+          min="1" 
+          max="10" 
+          value="5" 
+          class="w-full h-2 bg-slate-200 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-purple-600 focus:outline-none" 
+        />
+        <div class="flex items-center justify-between text-[10px] text-slate-400">
+          <span>1 (0.2x Slow)</span>
+          <span>10 (3.0x Scrambled)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Gallery Headline -->
+    <div class="text-center mb-16 space-y-4">
+      <h2 class="font-display text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-4xl">
+        Visual Laboratory Grid
+      </h2>
+      <p class="text-slate-600 dark:text-slate-400 max-w-xl mx-auto text-sm sm:text-base">
+        Click on any card to visit its dedicated page, or interact with its visual parameters directly inside the grid cards.
+      </p>
+    </div>
+
+    <!-- The 12 Illusion Cards Grid (Anchors linking to sub-pages) -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      
+      <!-- Illusion 1: Poggendorff Illusion -->
+      <a href="/illusions/poggendorff" id="poggendorff-illusion" class="illusion-card flex flex-col justify-between rounded-2xl border border-indigo-100/10 bg-white dark:bg-slate-900/60 backdrop-blur-sm p-6 shadow-xl hover:-translate-y-1.5 hover:shadow-2xl hover:border-purple-500/40 cursor-pointer transition-all duration-300 relative group">
+        <!-- Share button -->
+        <button class="share-btn absolute top-6 right-6 p-2 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-400 hover:text-slate-200 border border-slate-500/10 transition-colors z-20" aria-label="Share this illusion">
+          <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M15 8a3 3 0 1 0-2.977-2.63l-4.94 2.47a3 3 0 1 0 0 4.319l4.94 2.47a3 3 0 1 0 .895-1.789l-4.94-2.47a3.027 3.027 0 0 0 0-.74l4.94-2.47C13.456 7.68 14.19 8 15 8Z"/></svg>
+          <span class="share-toast absolute bottom-full right-0 mb-2 px-2.5 py-1 text-[10px] font-bold text-white bg-purple-600 rounded-lg shadow-md opacity-0 pointer-events-none transition-opacity duration-200 whitespace-nowrap">Link Copied! ✓</span>
+        </button>
+        
+        <div>
+          <h3 class="font-display text-xl font-bold text-slate-900 dark:text-white mb-2 flex flex-col xs:flex-row xs:items-center gap-2 pr-10">
+            <span>Poggendorff Illusion</span>
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-500/10 text-amber-500 dark:text-amber-400 border border-amber-500/20 w-fit">🟡 Medium</span>
+          </h3>
+          <p class="text-sm text-slate-600 dark:text-slate-400 mb-6">
+            Diagonal line segments interrupted by a thick vertical rectangle look misaligned, but are actually continuous.
+          </p>
+        </div>
+
+        <div class="demo-area relative flex flex-col items-center justify-center h-64 w-full bg-slate-100 dark:bg-slate-950/40 rounded-xl overflow-hidden border border-indigo-500/5">
+          <svg class="w-44 h-44 select-none overflow-visible" viewBox="0 0 200 200">
+            <!-- Diagonal Line (aligned) -->
+            <line class="pogg-line stroke-rose-500 stroke-[3.5]" x1="20" y1="50" x2="85" y2="115" />
+            <line class="pogg-line stroke-rose-500 stroke-[3.5]" x1="115" y1="145" x2="180" y2="210" />
+            
+            <!-- Intercepting Rectangle -->
+            <rect class="pogg-rect fill-slate-800 dark:fill-slate-200 transition-opacity duration-300" x="85" y="10" width="30" height="180" rx="3" />
+          </svg>
+          <div class="absolute bottom-3">
+            <button class="toggle-pogg text-xs font-semibold px-3 py-1.5 rounded-lg bg-purple-600 hover:bg-purple-500 text-white shadow-md transition-colors">Hide Rectangle</button>
+          </div>
+        </div>
+        <div class="mt-5 flex items-center justify-between text-xs font-bold text-purple-600 dark:text-purple-400 group-hover:text-purple-500 transition-colors">
+          <span>Interactive Details</span>
+          <span>Explore &rarr;</span>
+        </div>
+      </a>
+
+      <!-- Illusion 2: Adelson Checkerboard -->
+      <a href="/illusions/adelsons-checkerboard" id="adelson-illusion" class="illusion-card flex flex-col justify-between rounded-2xl border border-indigo-100/10 bg-white dark:bg-slate-900/60 backdrop-blur-sm p-6 shadow-xl hover:-translate-y-1.5 hover:shadow-2xl hover:border-purple-500/40 cursor-pointer transition-all duration-300 relative group">
+        <button class="share-btn absolute top-6 right-6 p-2 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-400 hover:text-slate-200 border border-slate-500/10 transition-colors z-20" aria-label="Share this illusion">
+          <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M15 8a3 3 0 1 0-2.977-2.63l-4.94 2.47a3 3 0 1 0 0 4.319l4.94 2.47a3 3 0 1 0 .895-1.789l-4.94-2.47a3.027 3.027 0 0 0 0-.74l4.94-2.47C13.456 7.68 14.19 8 15 8Z"/></svg>
+          <span class="share-toast absolute bottom-full right-0 mb-2 px-2.5 py-1 text-[10px] font-bold text-white bg-purple-600 rounded-lg shadow-md opacity-0 pointer-events-none transition-opacity duration-200 whitespace-nowrap">Link Copied! ✓</span>
+        </button>
+
+        <div>
+          <h3 class="font-display text-xl font-bold text-slate-900 dark:text-white mb-2 flex flex-col xs:flex-row xs:items-center gap-2 pr-10">
+            <span>Adelson Checkerboard</span>
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-rose-500/10 text-rose-500 border border-rose-500/20 w-fit">🔴 Hard</span>
+          </h3>
+          <p class="text-sm text-slate-600 dark:text-slate-400 mb-6">
+            Tile A in the light and Tile B in the cylinder shadow are identical gray colors, though your brain insists B is much lighter.
+          </p>
+        </div>
+
+        <div class="demo-area relative flex flex-col items-center justify-center h-64 w-full bg-slate-100 dark:bg-slate-950/40 rounded-xl overflow-hidden border border-indigo-500/5">
+          <svg class="w-44 h-44 select-none overflow-visible" viewBox="0 0 200 200">
+            <!-- Checkerboard grid (dark and light checkers) -->
+            <g class="checker-grid">
+              <!-- Row 0 -->
+              <rect x="20" y="20" width="32" height="32" fill="#7e7e7e" />
+              <rect x="20" y="52" width="32" height="32" fill="#cacaca" />
+              <rect x="20" y="84" width="32" height="32" fill="#7e7e7e" />
+              <rect x="20" y="116" width="32" height="32" fill="#cacaca" />
+              <!-- Row 1 -->
+              <rect x="52" y="20" width="32" height="32" fill="#cacaca" />
+              <rect x="52" y="52" width="32" height="32" fill="#7e7e7e" id="tile-a" />
+              <rect x="52" y="84" width="32" height="32" fill="#cacaca" />
+              <rect x="52" y="116" width="32" height="32" fill="#7e7e7e" />
+              <!-- Row 2 -->
+              <rect x="84" y="20" width="32" height="32" fill="#7e7e7e" />
+              <rect x="84" y="52" width="32" height="32" fill="#cacaca" />
+              <rect x="84" y="84" width="32" height="32" fill="#7e7e7e" />
+              <rect x="84" y="116" width="32" height="32" fill="#cacaca" id="tile-b" />
+              <!-- Row 3 -->
+              <rect x="116" y="20" width="32" height="32" fill="#cacaca" />
+              <rect x="116" y="52" width="32" height="32" fill="#7e7e7e" />
+              <rect x="116" y="84" width="32" height="32" fill="#cacaca" />
+              <rect x="116" y="116" width="32" height="32" fill="#7e7e7e" />
+            </g>
+            <!-- Cylinder casting shadow -->
+            <g class="cylinder-shadow transition-opacity duration-300">
+              <path d="M 80,80 Q 140,140 180,180" fill="none" stroke="#000000" stroke-width="60" opacity="0.375" stroke-linecap="round" />
+            </g>
+            <!-- Cylinder -->
+            <g class="cylinder">
+              <ellipse cx="140" cy="80" rx="15" ry="8" fill="#22c55e" stroke="#16a34a" stroke-width="1.5" />
+              <path d="M 125,80 L 125,140 A 15,8 0 0,0 155,140 L 155,80 Z" fill="#22c55e" stroke="#16a34a" stroke-width="1.5" />
+            </g>
+            <!-- Labels A and B -->
+            <text x="68" y="42" font-size="12" font-weight="black" fill="#ffffff" text-anchor="middle">A</text>
+            <text x="100" y="106" font-size="12" font-weight="black" fill="#ffffff" text-anchor="middle">B</text>
+            <!-- Grey Bridge connector -->
+            <path class="checker-bridge stroke-[#7e7e7e] stroke-[10] fill-none opacity-0 transition-opacity duration-300" d="M 68,36 L 100,100" />
+          </svg>
+          <div class="absolute bottom-3 flex space-x-1.5 bg-slate-900/90 border border-white/10 rounded-lg p-0.5 z-10">
+            <button class="toggle-bridge text-[10px] font-bold px-2 py-1 rounded text-slate-400 hover:text-white transition-all">Reveal Truth</button>
+            <button class="toggle-shadow text-[10px] font-bold px-2 py-1 rounded text-slate-400 hover:text-white transition-all">Remove Shadow</button>
+          </div>
+        </div>
+        <div class="mt-5 flex items-center justify-between text-xs font-bold text-purple-600 dark:text-purple-400 group-hover:text-purple-500 transition-colors">
+          <span>Interactive Details</span>
+          <span>Explore &rarr;</span>
+        </div>
+      </a>
+
+      <!-- Illusion 3: Color Spheres Illusion -->
+      <a href="/illusions/color-spheres" id="spheres-illusion" class="illusion-card flex flex-col justify-between rounded-2xl border border-indigo-100/10 bg-white dark:bg-slate-900/60 backdrop-blur-sm p-6 shadow-xl hover:-translate-y-1.5 hover:shadow-2xl hover:border-purple-500/40 cursor-pointer transition-all duration-300 relative group">
+        <button class="share-btn absolute top-6 right-6 p-2 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-400 hover:text-slate-200 border border-slate-500/10 transition-colors z-20" aria-label="Share this illusion">
+          <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M15 8a3 3 0 1 0-2.977-2.63l-4.94 2.47a3 3 0 1 0 0 4.319l4.94 2.47a3 3 0 1 0 .895-1.789l-4.94-2.47a3.027 3.027 0 0 0 0-.74l4.94-2.47C13.456 7.68 14.19 8 15 8Z"/></svg>
+          <span class="share-toast absolute bottom-full right-0 mb-2 px-2.5 py-1 text-[10px] font-bold text-white bg-purple-600 rounded-lg shadow-md opacity-0 pointer-events-none transition-opacity duration-200 whitespace-nowrap">Link Copied! ✓</span>
+        </button>
+
+        <div>
+          <h3 class="font-display text-xl font-bold text-slate-900 dark:text-white mb-2 flex flex-col xs:flex-row xs:items-center gap-2 pr-10">
+            <span>Color Spheres Illusion</span>
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-violet-500/15 text-violet-400 border border-violet-500/20 w-fit">💀 Expert</span>
+          </h3>
+          <p class="text-sm text-slate-600 dark:text-slate-400 mb-6">
+            Nine spheres appear red, blue, and green, but all are actually identical grey. Overlapping colored lines create the color.
+          </p>
+        </div>
+
+        <div class="demo-area relative flex flex-col items-center justify-center h-64 w-full bg-slate-900 rounded-xl overflow-hidden border border-indigo-500/5 p-4">
+          <svg class="w-44 h-44 select-none overflow-visible" viewBox="0 0 200 200">
+            <!-- 9 identical Gray spheres in a 3x3 grid -->
+            <g class="spheres">
+              <circle cx="50" cy="50" r="16" fill="#8a8a8a" />
+              <circle cx="100" cy="50" r="16" fill="#8a8a8a" />
+              <circle cx="150" cy="50" r="16" fill="#8a8a8a" />
+              <circle cx="50" cy="100" r="16" fill="#8a8a8a" />
+              <circle cx="100" cy="100" r="16" fill="#8a8a8a" />
+              <circle cx="150" cy="100" r="16" fill="#8a8a8a" />
+              <circle cx="50" cy="150" r="16" fill="#8a8a8a" />
+              <circle cx="100" cy="150" r="16" fill="#8a8a8a" />
+              <circle cx="150" cy="150" r="16" fill="#8a8a8a" />
+            </g>
+            <!-- Colored stripes overlaying -->
+            <g class="spheres-stripes transition-opacity duration-300">
+              <!-- Row 1: Red stripes pass OVER (looks red) -->
+              <line x1="10" y1="34" x2="190" y2="34" stroke="#ef4444" stroke-width="2.5" />
+              <line x1="10" y1="42" x2="190" y2="42" stroke="#ef4444" stroke-width="2.5" />
+              <line x1="10" y1="50" x2="190" y2="50" stroke="#ef4444" stroke-width="2.5" />
+              <line x1="10" y1="58" x2="190" y2="58" stroke="#ef4444" stroke-width="2.5" />
+              <line x1="10" y1="66" x2="190" y2="66" stroke="#ef4444" stroke-width="2.5" />
+              <!-- Row 2: Green stripes pass OVER (looks green) -->
+              <line x1="10" y1="84" x2="190" y2="84" stroke="#22c55e" stroke-width="2.5" />
+              <line x1="10" y1="92" x2="190" y2="92" stroke="#22c55e" stroke-width="2.5" />
+              <line x1="10" y1="100" x2="190" y2="100" stroke="#22c55e" stroke-width="2.5" />
+              <line x1="10" y1="108" x2="190" y2="108" stroke="#22c55e" stroke-width="2.5" />
+              <line x1="10" y1="116" x2="190" y2="116" stroke="#22c55e" stroke-width="2.5" />
+              <!-- Row 3: Blue stripes pass OVER (looks blue) -->
+              <line x1="10" y1="134" x2="190" y2="134" stroke="#3b82f6" stroke-width="2.5" />
+              <line x1="10" y1="142" x2="190" y2="142" stroke="#3b82f6" stroke-width="2.5" />
+              <line x1="10" y1="150" x2="190" y2="150" stroke="#3b82f6" stroke-width="2.5" />
+              <line x1="10" y1="158" x2="190" y2="158" stroke="#3b82f6" stroke-width="2.5" />
+              <line x1="10" y1="166" x2="190" y2="166" stroke="#3b82f6" stroke-width="2.5" />
+            </g>
+          </svg>
+          <div class="absolute bottom-3 text-[10px] font-bold text-slate-400 bg-slate-950/80 px-2.5 py-1 rounded-lg backdrop-blur">
+            Hover to hide colored stripes
+          </div>
+        </div>
+        <div class="mt-5 flex items-center justify-between text-xs font-bold text-purple-600 dark:text-purple-400 group-hover:text-purple-500 transition-colors">
+          <span>Interactive Details</span>
+          <span>Explore &rarr;</span>
+        </div>
+      </a>
+
+      <!-- Illusion 4: Curvature Blindness -->
+      <a href="/illusions/curvature-blindness" id="curvature-illusion" class="illusion-card flex flex-col justify-between rounded-2xl border border-indigo-100/10 bg-white dark:bg-slate-900/60 backdrop-blur-sm p-6 shadow-xl hover:-translate-y-1.5 hover:shadow-2xl hover:border-purple-500/40 cursor-pointer transition-all duration-300 relative group">
+        <button class="share-btn absolute top-6 right-6 p-2 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-400 hover:text-slate-200 border border-slate-500/10 transition-colors z-20" aria-label="Share this illusion">
+          <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M15 8a3 3 0 1 0-2.977-2.63l-4.94 2.47a3 3 0 1 0 0 4.319l4.94 2.47a3 3 0 1 0 .895-1.789l-4.94-2.47a3.027 3.027 0 0 0 0-.74l4.94-2.47C13.456 7.68 14.19 8 15 8Z"/></svg>
+          <span class="share-toast absolute bottom-full right-0 mb-2 px-2.5 py-1 text-[10px] font-bold text-white bg-purple-600 rounded-lg shadow-md opacity-0 pointer-events-none transition-opacity duration-200 whitespace-nowrap">Link Copied! ✓</span>
+        </button>
+
+        <div>
+          <h3 class="font-display text-xl font-bold text-slate-900 dark:text-white mb-2 flex flex-col xs:flex-row xs:items-center gap-2 pr-10">
+            <span>Curvature Blindness</span>
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-500/10 text-amber-500 dark:text-amber-400 border border-amber-500/20 w-fit">🟡 Medium</span>
+          </h3>
+          <p class="text-sm text-slate-600 dark:text-slate-400 mb-6">
+            Identical wavy lines appear as sharp zig-zags or smooth curves depending entirely on where the color changes.
+          </p>
+        </div>
+
+        <div class="demo-area relative flex flex-col items-center justify-center h-64 w-full bg-[#7f7f7f] rounded-xl overflow-hidden border border-indigo-500/5 p-4">
+          <svg class="w-full h-36 select-none overflow-visible" viewBox="0 0 300 150">
+            <!-- Peaks coloring (looks zig-zag) -->
+            <g class="peaks-coloring transition-opacity duration-300">
+              <path d="M 20,40 Q 40,20 60,40 Q 80,60 100,40 Q 120,20 140,40 Q 160,60 180,40 Q 200,20 220,40 Q 240,60 260,40" stroke="#000000" fill="none" stroke-width="3" stroke-dasharray="20,20" />
+              <path d="M 20,40 Q 40,20 60,40 Q 80,60 100,40 Q 120,20 140,40 Q 160,60 180,40 Q 200,20 220,40 Q 240,60 260,40" stroke="#ffffff" fill="none" stroke-width="3" stroke-dasharray="20,20" stroke-dashoffset="20" />
+              
+              <path d="M 20,60 Q 40,40 60,60 Q 80,80 100,60 Q 120,40 140,60 Q 160,80 180,60 Q 200,40 220,60 Q 240,80 260,60" stroke="#000000" fill="none" stroke-width="3" stroke-dasharray="20,20" />
+              <path d="M 20,60 Q 40,40 60,60 Q 80,80 100,60 Q 120,40 140,60 Q 160,80 180,60 Q 200,40 220,60 Q 240,80 260,60" stroke="#ffffff" fill="none" stroke-width="3" stroke-dasharray="20,20" stroke-dashoffset="20" />
+            </g>
+            <!-- Inflections coloring (looks curved) -->
+            <g class="inflections-coloring opacity-0 transition-opacity duration-300">
+              <path d="M 20,100 Q 40,80 60,100 Q 80,120 100,100 Q 120,80 140,100 Q 160,120 180,100 Q 200,80 220,100 Q 240,120 260,100" stroke="#000000" fill="none" stroke-width="3" stroke-dasharray="10,10" />
+              <path d="M 20,100 Q 40,80 60,100 Q 80,120 100,100 Q 120,80 140,100 Q 160,120 180,100 Q 200,80 220,100 Q 240,120 260,100" stroke="#ffffff" fill="none" stroke-width="3" stroke-dasharray="10,10" stroke-dashoffset="10" />
+
+              <path d="M 20,120 Q 40,100 60,120 Q 80,140 100,120 Q 120,100 140,120 Q 160,140 180,120 Q 200,100 220,120 Q 240,140 260,120" stroke="#000000" fill="none" stroke-width="3" stroke-dasharray="10,10" />
+              <path d="M 20,120 Q 40,100 60,120 Q 80,140 100,120 Q 120,100 140,120 Q 160,140 180,120 Q 200,100 220,120 Q 240,140 260,120" stroke="#ffffff" fill="none" stroke-width="3" stroke-dasharray="10,10" stroke-dashoffset="10" />
+            </g>
+          </svg>
+          <div class="absolute bottom-2 w-11/12 px-4 flex flex-col space-y-1 bg-white/80 dark:bg-slate-900/80 p-2 rounded-xl backdrop-blur border border-slate-200 dark:border-white/5">
+            <div class="flex items-center justify-between text-[9px] text-slate-500 font-bold uppercase">
+              <span>Coloring Pattern</span>
+              <span class="color-mode-text text-purple-400 font-mono text-[9px]">Peak-colored (Zig-zag)</span>
+            </div>
+            <input type="range" min="0" max="1" step="1" value="0" class="curve-slider w-full h-1 bg-slate-200 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-purple-600 focus:outline-none" />
+          </div>
+        </div>
+        <div class="mt-5 flex items-center justify-between text-xs font-bold text-purple-600 dark:text-purple-400 group-hover:text-purple-500 transition-colors">
+          <span>Interactive Details</span>
+          <span>Explore &rarr;</span>
+        </div>
+      </a>
+
+      <!-- Illusion 5: Kanizsa Triangle -->
+      <a href="/illusions/kanizsa-triangle" id="kanizsa-illusion" class="illusion-card flex flex-col justify-between rounded-2xl border border-indigo-100/10 bg-white dark:bg-slate-900/60 backdrop-blur-sm p-6 shadow-xl hover:-translate-y-1.5 hover:shadow-2xl hover:border-purple-500/40 cursor-pointer transition-all duration-300 relative group">
+        <button class="share-btn absolute top-6 right-6 p-2 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-400 hover:text-slate-200 border border-slate-500/10 transition-colors z-20" aria-label="Share this illusion">
+          <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M15 8a3 3 0 1 0-2.977-2.63l-4.94 2.47a3 3 0 1 0 0 4.319l4.94 2.47a3 3 0 1 0 .895-1.789l-4.94-2.47a3.027 3.027 0 0 0 0-.74l4.94-2.47C13.456 7.68 14.19 8 15 8Z"/></svg>
+          <span class="share-toast absolute bottom-full right-0 mb-2 px-2.5 py-1 text-[10px] font-bold text-white bg-purple-600 rounded-lg shadow-md opacity-0 pointer-events-none transition-opacity duration-200 whitespace-nowrap">Link Copied! ✓</span>
+        </button>
+
+        <div>
+          <h3 class="font-display text-xl font-bold text-slate-900 dark:text-white mb-2 flex flex-col xs:flex-row xs:items-center gap-2 pr-10">
+            <span>Kanizsa Triangle</span>
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 w-fit">🟢 Easy</span>
+          </h3>
+          <p class="text-sm text-slate-600 dark:text-slate-400 mb-6">
+            A white triangle appears to float in the center, yet not a single triangle boundary is actually drawn.
+          </p>
+        </div>
+
+        <div class="demo-area relative flex flex-col items-center justify-center h-64 w-full bg-slate-100 dark:bg-slate-950/40 rounded-xl overflow-hidden border border-indigo-500/5">
+          <svg class="w-full h-44 p-4 select-none" viewBox="0 0 200 200">
+            <!-- Background outline triangle (pointing up) -->
+            <polygon points="100,35 40,140 160,140" fill="none" stroke="currentColor" stroke-width="2" class="text-slate-800 dark:text-slate-400" />
+            
+            <!-- Pac-Man shapes (Rotatable) -->
+            <g class="kanizsa-pacman origin-center transition-transform duration-300" style="transform-origin: 40px 50px;">
+              <path d="M 40,50 L 60,60 A 20,20 0 1,1 60,40 Z" fill="#0f172a" class="dark:fill-slate-100" />
+            </g>
+            <g class="kanizsa-pacman origin-center transition-transform duration-300" style="transform-origin: 160px 50px;">
+              <path d="M 160,50 L 140,40 A 20,20 0 1,1 140,60 Z" fill="#0f172a" class="dark:fill-slate-100" />
+            </g>
+            <g class="kanizsa-pacman origin-center transition-transform duration-300" style="transform-origin: 100px 155px;">
+              <path d="M 100,155 L 115,130 A 20,20 0 1,1 85,130 Z" fill="#0f172a" class="dark:fill-slate-100" />
+            </g>
+            
+            <!-- Illusory Triangle Guides -->
+            <polygon class="kanizsa-guide opacity-0 transition-opacity duration-300" points="100,155 40,50 160,50" fill="none" stroke="#a855f7" stroke-width="1.5" stroke-dasharray="3,3" />
+          </svg>
+          <div class="absolute bottom-2 w-11/12 px-4 flex flex-col space-y-1.5 bg-white/80 dark:bg-slate-900/80 p-2 rounded-xl backdrop-blur border border-slate-200 dark:border-white/5">
+            <div class="flex items-center justify-between text-[9px] text-slate-500 font-bold uppercase">
+              <span>Pacman Rotation</span>
+              <button class="toggle-kanizsa-outline text-[9px] text-purple-400 border border-purple-500/20 bg-purple-500/5 px-2 py-0.5 rounded hover:bg-purple-500/10">Show Outline</button>
+            </div>
+            <input type="range" min="0" max="60" value="0" class="kanizsa-slider w-full h-1 bg-slate-200 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-purple-600 focus:outline-none" />
+          </div>
+        </div>
+        <div class="mt-5 flex items-center justify-between text-xs font-bold text-purple-600 dark:text-purple-400 group-hover:text-purple-500 transition-colors">
+          <span>Interactive Details</span>
+          <span>Explore &rarr;</span>
+        </div>
+      </a>
+
+      <!-- Illusion 6: Troxler Fading -->
+      <a href="/illusions/troxler-fading" id="troxler-illusion" class="illusion-card flex flex-col justify-between rounded-2xl border border-indigo-100/10 bg-white dark:bg-slate-900/60 backdrop-blur-sm p-6 shadow-xl hover:-translate-y-1.5 hover:shadow-2xl hover:border-purple-500/40 cursor-pointer transition-all duration-300 relative group">
+        <button class="share-btn absolute top-6 right-6 p-2 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-400 hover:text-slate-200 border border-slate-500/10 transition-colors z-20" aria-label="Share this illusion">
+          <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M15 8a3 3 0 1 0-2.977-2.63l-4.94 2.47a3 3 0 1 0 0 4.319l4.94 2.47a3 3 0 1 0 .895-1.789l-4.94-2.47a3.027 3.027 0 0 0 0-.74l4.94-2.47C13.456 7.68 14.19 8 15 8Z"/></svg>
+          <span class="share-toast absolute bottom-full right-0 mb-2 px-2.5 py-1 text-[10px] font-bold text-white bg-purple-600 rounded-lg shadow-md opacity-0 pointer-events-none transition-opacity duration-200 whitespace-nowrap">Link Copied! ✓</span>
+        </button>
+
+        <div>
+          <h3 class="font-display text-xl font-bold text-slate-900 dark:text-white mb-2 flex flex-col xs:flex-row xs:items-center gap-2 pr-10">
+            <span>Troxler Fading</span>
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-rose-500/10 text-rose-500 border border-rose-500/20 w-fit">🔴 Hard</span>
+          </h3>
+          <p class="text-sm text-slate-600 dark:text-slate-400 mb-6">
+            Stare at the central cross for 20 seconds. The pink dots will disappear, replaced by a non-existent green dot.
+          </p>
+        </div>
+
+        <div class="demo-area relative flex flex-col items-center justify-center h-64 w-full bg-slate-900 rounded-xl overflow-hidden border border-indigo-500/5 p-4">
+          <svg class="w-44 h-44 select-none overflow-visible" viewBox="0 0 200 200">
+            <!-- Center black cross -->
+            <line x1="95" y1="100" x2="105" y2="100" stroke="#ffffff" stroke-width="2" />
+            <line x1="100" y1="95" x2="100" y2="105" stroke="#ffffff" stroke-width="2" />
+            
+            <!-- Circle of 12 Lilac/Pink dots -->
+            <g class="troxler-dots">
+              <circle cx="160" cy="100" r="8" fill="#db2777" class="troxler-dot transition-opacity duration-150" />
+              <circle cx="151.96" cy="130" r="8" fill="#db2777" class="troxler-dot transition-opacity duration-150" />
+              <circle cx="130" cy="151.96" r="8" fill="#db2777" class="troxler-dot transition-opacity duration-150" />
+              <circle cx="100" cy="160" r="8" fill="#db2777" class="troxler-dot transition-opacity duration-150" />
+              <circle cx="70" cy="151.96" r="8" fill="#db2777" class="troxler-dot transition-opacity duration-150" />
+              <circle cx="48.04" cy="130" r="8" fill="#db2777" class="troxler-dot transition-opacity duration-150" />
+              <circle cx="40" cy="100" r="8" fill="#db2777" class="troxler-dot transition-opacity duration-150" />
+              <circle cx="48.04" cy="70" r="8" fill="#db2777" class="troxler-dot transition-opacity duration-150" />
+              <circle cx="70" cy="48.04" r="8" fill="#db2777" class="troxler-dot transition-opacity duration-150" />
+              <circle cx="100" cy="40" r="8" fill="#db2777" class="troxler-dot transition-opacity duration-150" />
+              <circle cx="130" cy="48.04" r="8" fill="#db2777" class="troxler-dot transition-opacity duration-150" />
+              <circle cx="151.96" cy="70" r="8" fill="#db2777" class="troxler-dot transition-opacity duration-150" />
+            </g>
+          </svg>
+          <div class="absolute bottom-3 flex flex-col items-center bg-slate-950/80 px-3 py-1 rounded-lg backdrop-blur border border-white/10">
+            <div class="flex items-center space-x-2">
+              <button class="start-troxler text-[10px] font-bold px-2 py-1 rounded bg-purple-600 hover:bg-purple-500 text-white transition-all">Start Timer</button>
+              <span class="troxler-time font-mono text-[10px] text-purple-400">20.0s</span>
+            </div>
+          </div>
+        </div>
+        <div class="mt-5 flex items-center justify-between text-xs font-bold text-purple-600 dark:text-purple-400 group-hover:text-purple-500 transition-colors">
+          <span>Interactive Details</span>
+          <span>Explore &rarr;</span>
+        </div>
+      </a>
+
+      <!-- Illusion 7: Expanding Hole -->
+      <a href="/illusions/expanding-hole" id="hole-illusion" class="illusion-card flex flex-col justify-between rounded-2xl border border-indigo-100/10 bg-white dark:bg-slate-900/60 backdrop-blur-sm p-6 shadow-xl hover:-translate-y-1.5 hover:shadow-2xl hover:border-purple-500/40 cursor-pointer transition-all duration-300 relative group">
+        <button class="share-btn absolute top-6 right-6 p-2 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-400 hover:text-slate-200 border border-slate-500/10 transition-colors z-20" aria-label="Share this illusion">
+          <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M15 8a3 3 0 1 0-2.977-2.63l-4.94 2.47a3 3 0 1 0 0 4.319l4.94 2.47a3 3 0 1 0 .895-1.789l-4.94-2.47a3.027 3.027 0 0 0 0-.74l4.94-2.47C13.456 7.68 14.19 8 15 8Z"/></svg>
+          <span class="share-toast absolute bottom-full right-0 mb-2 px-2.5 py-1 text-[10px] font-bold text-white bg-purple-600 rounded-lg shadow-md opacity-0 pointer-events-none transition-opacity duration-200 whitespace-nowrap">Link Copied! ✓</span>
+        </button>
+
+        <div>
+          <h3 class="font-display text-xl font-bold text-slate-900 dark:text-white mb-2 flex flex-col xs:flex-row xs:items-center gap-2 pr-10">
+            <span>Expanding Hole</span>
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-rose-500/10 text-rose-500 border border-rose-500/20 w-fit">🔴 Hard</span>
+          </h3>
+          <p class="text-sm text-slate-600 dark:text-slate-400 mb-6">
+            A completely static radial gradient black hole that appears to expand toward you as you stare at it.
+          </p>
+        </div>
+
+        <div class="demo-area relative flex flex-col items-center justify-center h-64 w-full bg-slate-200 dark:bg-slate-900 rounded-xl overflow-hidden border border-indigo-500/5">
+          <svg class="w-44 h-44 select-none" viewBox="0 0 200 200">
+            <defs>
+              <radialGradient id="hole-grad-static-home" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#020617" />
+                <stop offset="55%" stop-color="#020617" stop-opacity="0.9" />
+                <stop offset="85%" stop-color="#020617" stop-opacity="0.4" />
+                <stop offset="100%" stop-color="#020617" stop-opacity="0" />
+              </radialGradient>
+              <pattern id="dot-pattern-static-home" x="0" y="0" width="16" height="16" patternUnits="userSpaceOnUse">
+                <circle cx="8" cy="8" r="2.5" fill="#64748b" />
+              </pattern>
+            </defs>
+            <rect width="200" height="200" fill="url(#dot-pattern-static-home)" />
+            <circle cx="100" cy="100" r="75" fill="url(#hole-grad-static-home)" />
+          </svg>
+          <div class="absolute bottom-3 text-center">
+            <button class="toggle-static text-[10px] font-bold px-2 py-1.5 rounded bg-purple-600 hover:bg-purple-500 text-white transition-colors">Toggle Pause (Static Proof)</button>
+          </div>
+        </div>
+        <div class="mt-5 flex items-center justify-between text-xs font-bold text-purple-600 dark:text-purple-400 group-hover:text-purple-500 transition-colors">
+          <span>Interactive Details</span>
+          <span>Explore &rarr;</span>
+        </div>
+      </a>
+
+      <!-- Illusion 8: Breathing Square -->
+      <a href="/illusions/breathing-square" id="breathing-square-illusion" class="illusion-card flex flex-col justify-between rounded-2xl border border-indigo-100/10 bg-white dark:bg-slate-900/60 backdrop-blur-sm p-6 shadow-xl hover:-translate-y-1.5 hover:shadow-2xl hover:border-purple-500/40 cursor-pointer transition-all duration-300 relative group">
+        <button class="share-btn absolute top-6 right-6 p-2 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-400 hover:text-slate-200 border border-slate-500/10 transition-colors z-20" aria-label="Share this illusion">
+          <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M15 8a3 3 0 1 0-2.977-2.63l-4.94 2.47a3 3 0 1 0 0 4.319l4.94 2.47a3 3 0 1 0 .895-1.789l-4.94-2.47a3.027 3.027 0 0 0 0-.74l4.94-2.47C13.456 7.68 14.19 8 15 8Z"/></svg>
+          <span class="share-toast absolute bottom-full right-0 mb-2 px-2.5 py-1 text-[10px] font-bold text-white bg-purple-600 rounded-lg shadow-md opacity-0 pointer-events-none transition-opacity duration-200 whitespace-nowrap">Link Copied! ✓</span>
+        </button>
+
+        <div>
+          <h3 class="font-display text-xl font-bold text-slate-900 dark:text-white mb-2 flex flex-col xs:flex-row xs:items-center gap-2 pr-10">
+            <span>Breathing Square</span>
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-500/10 text-amber-500 dark:text-amber-400 border border-amber-500/20 w-fit">🟡 Medium</span>
+          </h3>
+          <p class="text-sm text-slate-600 dark:text-slate-400 mb-6">
+            A blue square appears to pulse and breathe, but is actually rotating at a completely constant size.
+          </p>
+        </div>
+
+        <div class="demo-area relative flex flex-col items-center justify-center h-64 w-full bg-slate-900 rounded-xl overflow-hidden border border-indigo-500/5">
+          <svg class="w-44 h-44 select-none overflow-visible" viewBox="0 0 200 200">
+            <!-- Rotating Blue Square -->
+            <rect class="blue-square fill-blue-500 origin-center" x="65" y="65" width="70" height="70" style="transform-origin: 100px 100px; animation: spin-clockwise calc(6s / var(--speed-multiplier, 1)) linear infinite;" />
+
+            <!-- Overlaying green squares that create breathing outline -->
+            <g class="breathing-occluders transition-opacity duration-300 fill-emerald-500">
+              <rect x="15" y="15" width="40" height="40" />
+              <rect x="145" y="15" width="40" height="40" />
+              <rect x="15" y="145" width="40" height="40" />
+              <rect x="145" y="145" width="40" height="40" />
+            </g>
+          </svg>
+          <div class="absolute bottom-3">
+            <button class="toggle-occluders text-xs font-semibold px-3 py-1.5 rounded-lg bg-purple-600 text-white hover:bg-purple-500 transition-colors shadow-md">Hide Green Occluders</button>
+          </div>
+        </div>
+        <div class="mt-5 flex items-center justify-between text-xs font-bold text-purple-600 dark:text-purple-400 group-hover:text-purple-500 transition-colors">
+          <span>Interactive Details</span>
+          <span>Explore &rarr;</span>
+        </div>
+      </a>
+
+      <!-- Illusion 9: Reverse Spoke Illusion -->
+      <a href="/illusions/reverse-spoke" id="spoke-illusion" class="illusion-card flex flex-col justify-between rounded-2xl border border-indigo-100/10 bg-white dark:bg-slate-900/60 backdrop-blur-sm p-6 shadow-xl hover:-translate-y-1.5 hover:shadow-2xl hover:border-purple-500/40 cursor-pointer transition-all duration-300 relative group">
+        <button class="share-btn absolute top-6 right-6 p-2 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-400 hover:text-slate-200 border border-slate-500/10 transition-colors z-20" aria-label="Share this illusion">
+          <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M15 8a3 3 0 1 0-2.977-2.63l-4.94 2.47a3 3 0 1 0 0 4.319l4.94 2.47a3 3 0 1 0 .895-1.789l-4.94-2.47a3.027 3.027 0 0 0 0-.74l4.94-2.47C13.456 7.68 14.19 8 15 8Z"/></svg>
+          <span class="share-toast absolute bottom-full right-0 mb-2 px-2.5 py-1 text-[10px] font-bold text-white bg-purple-600 rounded-lg shadow-md opacity-0 pointer-events-none transition-opacity duration-200 whitespace-nowrap">Link Copied! ✓</span>
+        </button>
+
+        <div>
+          <h3 class="font-display text-xl font-bold text-slate-900 dark:text-white mb-2 flex flex-col xs:flex-row xs:items-center gap-2 pr-10">
+            <span>Reverse Spoke Illusion</span>
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-rose-500/10 text-rose-500 border border-rose-500/20 w-fit">🔴 Hard</span>
+          </h3>
+          <p class="text-sm text-slate-600 dark:text-slate-400 mb-6">
+            A spinning colorful backdrop makes fixed black spokes appear to rotate in the opposite direction.
+          </p>
+        </div>
+
+        <div class="demo-area relative flex flex-col items-center justify-center h-64 w-full bg-slate-950 rounded-xl overflow-hidden border border-indigo-500/5">
+          <!-- Rotating colorful background wheel -->
+          <div class="absolute inset-0 flex items-center justify-center">
+            <svg class="spoke-bg-wheel w-44 h-44 origin-center" viewBox="0 0 200 200" style="animation: spin-clockwise calc(10s / var(--speed-multiplier, 1)) linear infinite;">
+              <path d="M 100,100 L 100,0 A 100,100 0 0,1 186.6,50 Z" fill="#f43f5e" />
+              <path d="M 100,100 L 186.6,50 A 100,100 0 0,1 200,100 Z" fill="#3b82f6" />
+              <path d="M 100,100 L 200,100 A 100,100 0 0,1 186.6,150 Z" fill="#10b981" />
+              <path d="M 100,100 L 186.6,150 A 100,100 0 0,1 100,200 Z" fill="#eab308" />
+              <path d="M 100,100 L 100,200 A 100,100 0 0,1 13.4,150 Z" fill="#8b5cf6" />
+              <path d="M 100,100 L 13.4,150 A 100,100 0 0,1 0,100 Z" fill="#ec4899" />
+              <path d="M 100,100 L 0,100 A 100,100 0 0,1 13.4,50 Z" fill="#f43f5e" />
+              <path d="M 100,100 L 13.4,50 A 100,100 0 0,1 100,0 Z" fill="#3b82f6" />
+            </svg>
+          </div>
+          <!-- Fixed spoke overlay grid (completely stationary) -->
+          <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <svg class="w-44 h-44 overflow-visible" viewBox="0 0 200 200">
+              <g stroke="#000000" stroke-width="4.5" opacity="0.9">
+                <line x1="100" y1="100" x2="100" y2="10" /><line x1="100" y1="100" x2="125" y2="15" /><line x1="100" y1="100" x2="150" y2="30" /><line x1="100" y1="100" x2="170" y2="50" /><line x1="100" y1="100" x2="185" y2="75" /><line x1="100" y1="100" x2="190" y2="100" />
+                <line x1="100" y1="100" x2="185" y2="125" /><line x1="100" y1="100" x2="170" y2="150" /><line x1="100" y1="100" x2="150" y2="170" /><line x1="100" y1="100" x2="125" y2="185" /><line x1="100" y1="100" x2="100" y2="190" />
+                <line x1="100" y1="100" x2="75" y2="185" /><line x1="100" y1="100" x2="50" y2="170" /><line x1="100" y1="100" x2="30" y2="150" /><line x1="100" y1="100" x2="15" y2="125" /><line x1="100" y1="100" x2="10" y2="100" />
+                <line x1="100" y1="100" x2="15" y2="75" /><line x1="100" y1="100" x2="30" y2="50" /><line x1="100" y1="100" x2="50" y2="30" /><line x1="100" y1="100" x2="75" y2="15" />
+              </g>
+              <circle cx="100" cy="100" r="45" fill="none" stroke="#000000" stroke-width="6" />
+              <circle cx="100" cy="100" r="10" fill="#000000" />
+            </svg>
+          </div>
+          <div class="absolute bottom-3 z-10">
+            <button class="toggle-spoke-spin text-xs font-semibold px-3 py-1.5 rounded-lg bg-purple-600 text-white transition-colors">Pause</button>
+          </div>
+        </div>
+        <div class="mt-5 flex items-center justify-between text-xs font-bold text-purple-600 dark:text-purple-400 group-hover:text-purple-500 transition-colors">
+          <span>Interactive Details</span>
+          <span>Explore &rarr;</span>
+        </div>
+      </a>
+
+      <!-- Illusion 10: Motion Binding -->
+      <a href="/illusions/motion-binding" id="binding-illusion" class="illusion-card flex flex-col justify-between rounded-2xl border border-indigo-100/10 bg-white dark:bg-slate-900/60 backdrop-blur-sm p-6 shadow-xl hover:-translate-y-1.5 hover:shadow-2xl hover:border-purple-500/40 cursor-pointer transition-all duration-300 relative group">
+        <button class="share-btn absolute top-6 right-6 p-2 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-400 hover:text-slate-200 border border-slate-500/10 transition-colors z-20" aria-label="Share this illusion">
+          <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M15 8a3 3 0 1 0-2.977-2.63l-4.94 2.47a3 3 0 1 0 0 4.319l4.94 2.47a3 3 0 1 0 .895-1.789l-4.94-2.47a3.027 3.027 0 0 0 0-.74l4.94-2.47C13.456 7.68 14.19 8 15 8Z"/></svg>
+          <span class="share-toast absolute bottom-full right-0 mb-2 px-2.5 py-1 text-[10px] font-bold text-white bg-purple-600 rounded-lg shadow-md opacity-0 pointer-events-none transition-opacity duration-200 whitespace-nowrap">Link Copied! ✓</span>
+        </button>
+
+        <div>
+          <h3 class="font-display text-xl font-bold text-slate-900 dark:text-white mb-2 flex flex-col xs:flex-row xs:items-center gap-2 pr-10">
+            <span>Motion Binding</span>
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-violet-500/15 text-violet-400 border border-violet-500/20 w-fit">💀 Expert</span>
+          </h3>
+          <p class="text-sm text-slate-600 dark:text-slate-400 mb-6">
+            Four lines moving in translation look like independent vertical and horizontal bars until you remove the occluders.
+          </p>
+        </div>
+
+        <div class="demo-area relative flex flex-col items-center justify-center h-64 w-full bg-slate-950 rounded-xl overflow-hidden border border-indigo-500/5">
+          <svg class="w-44 h-44 select-none overflow-visible" viewBox="0 0 200 200">
+            <!-- Central moving square outline -->
+            <g class="moving-shape" style="animation: spin-clockwise calc(4s / var(--speed-multiplier, 1)) linear infinite;">
+              <g transform="translate(100, 100)">
+                <line x1="-30" y1="-30" x2="30" y2="-30" stroke="#ffffff" stroke-width="3" />
+                <line x1="30" y1="-30" x2="30" y2="30" stroke="#ffffff" stroke-width="3" />
+                <line x1="30" y1="30" x2="-30" y2="30" stroke="#ffffff" stroke-width="3" />
+                <line x1="-30" y1="30" x2="-30" y2="-30" stroke="#ffffff" stroke-width="3" />
+              </g>
+            </g>
+            <!-- Occluders (Diamonds) that block the corners of the square -->
+            <g class="motion-occluders transition-opacity duration-300 fill-slate-800">
+              <polygon points="60,60 80,40 100,60 80,80" />
+              <polygon points="100,60 120,40 140,60 120,80" />
+              <polygon points="60,140 80,120 100,140 80,160" />
+              <polygon points="100,140 120,120 140,140 120,160" />
+            </g>
+          </svg>
+          <div class="absolute bottom-3 text-[10px] font-bold text-slate-400 bg-slate-950/80 px-2 py-1 rounded-lg backdrop-blur">
+            Hover to hide occluders
+          </div>
+        </div>
+        <div class="mt-5 flex items-center justify-between text-xs font-bold text-purple-600 dark:text-purple-400 group-hover:text-purple-500 transition-colors">
+          <span>Interactive Details</span>
+          <span>Explore &rarr;</span>
+        </div>
+      </a>
+
+      <!-- Illusion 11: Wertheimer-Koffka Ring -->
+      <a href="/illusions/wertheimer-koffka" id="koffka-illusion" class="illusion-card flex flex-col justify-between rounded-2xl border border-indigo-100/10 bg-white dark:bg-slate-900/60 backdrop-blur-sm p-6 shadow-xl hover:-translate-y-1.5 hover:shadow-2xl hover:border-purple-500/40 cursor-pointer transition-all duration-300 relative group">
+        <button class="share-btn absolute top-6 right-6 p-2 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-400 hover:text-slate-200 border border-slate-500/10 transition-colors z-20" aria-label="Share this illusion">
+          <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M15 8a3 3 0 1 0-2.977-2.63l-4.94 2.47a3 3 0 1 0 0 4.319l4.94 2.47a3 3 0 1 0 .895-1.789l-4.94-2.47a3.027 3.027 0 0 0 0-.74l4.94-2.47C13.456 7.68 14.19 8 15 8Z"/></svg>
+          <span class="share-toast absolute bottom-full right-0 mb-2 px-2.5 py-1 text-[10px] font-bold text-white bg-purple-600 rounded-lg shadow-md opacity-0 pointer-events-none transition-opacity duration-200 whitespace-nowrap">Link Copied! ✓</span>
+        </button>
+
+        <div>
+          <h3 class="font-display text-xl font-bold text-slate-900 dark:text-white mb-2 flex flex-col xs:flex-row xs:items-center gap-2 pr-10">
+            <span>Wertheimer-Koffka Ring</span>
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 w-fit">🟢 Easy</span>
+          </h3>
+          <p class="text-sm text-slate-600 dark:text-slate-400 mb-6">
+            A uniform gray ring appears light gray on one side and dark gray on the other due to background contrast.
+          </p>
+        </div>
+
+        <div class="demo-area relative flex flex-col items-center justify-center h-64 w-full bg-slate-400 rounded-xl overflow-hidden border border-indigo-500/5">
+          <div class="absolute inset-0 flex">
+            <div class="w-1/2 h-full bg-white"></div>
+            <div class="w-1/2 h-full bg-slate-950"></div>
+          </div>
+          <svg class="w-44 h-44 select-none overflow-visible z-10" viewBox="0 0 200 200">
+            <path class="koffka-ring-left fill-[#888888] transition-transform duration-300" d="M 100,60 A 40,40 0 0,0 100,140 L 100,120 A 20,20 0 0,1 100,80 Z" />
+            <path class="koffka-ring-right fill-[#888888] transition-transform duration-300" d="M 100,60 A 40,40 0 0,1 100,140 L 100,120 A 20,20 0 0,0 100,80 Z" />
+            <line class="koffka-divider stroke-rose-500 stroke-[4] transition-opacity duration-300" x1="100" y1="20" x2="100" y2="180" />
+          </svg>
+          <div class="absolute bottom-2 w-11/12 px-4 flex flex-col space-y-1 bg-white/80 dark:bg-slate-900/80 p-2 rounded-xl backdrop-blur-sm border border-slate-200 dark:border-white/5 z-20">
+            <div class="flex items-center justify-between text-[9px] text-slate-500 font-bold uppercase">
+              <span>Ring Split Distance</span>
+              <span class="koffka-val text-purple-400 font-mono text-[9px]">0px</span>
+            </div>
+            <input type="range" min="0" max="40" value="0" class="koffka-slider w-full h-1 bg-slate-200 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-purple-600 focus:outline-none" />
+          </div>
+        </div>
+        <div class="mt-5 flex items-center justify-between text-xs font-bold text-purple-600 dark:text-purple-400 group-hover:text-purple-500 transition-colors">
+          <span>Interactive Details</span>
+          <span>Explore &rarr;</span>
+        </div>
+      </a>
+
+      <!-- Illusion 12: Pinna-Brelstaff Illusion -->
+      <a href="/illusions/pinna-brelstaff" id="pinna-illusion" class="illusion-card flex flex-col justify-between rounded-2xl border border-indigo-100/10 bg-white dark:bg-slate-900/60 backdrop-blur-sm p-6 shadow-xl hover:-translate-y-1.5 hover:shadow-2xl hover:border-purple-500/40 cursor-pointer transition-all duration-300 relative group">
+        <button class="share-btn absolute top-6 right-6 p-2 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-400 hover:text-slate-200 border border-slate-500/10 transition-colors z-20" aria-label="Share this illusion">
+          <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M15 8a3 3 0 1 0-2.977-2.63l-4.94 2.47a3 3 0 1 0 0 4.319l4.94 2.47a3 3 0 1 0 .895-1.789l-4.94-2.47a3.027 3.027 0 0 0 0-.74l4.94-2.47C13.456 7.68 14.19 8 15 8Z"/></svg>
+          <span class="share-toast absolute bottom-full right-0 mb-2 px-2.5 py-1 text-[10px] font-bold text-white bg-purple-600 rounded-lg shadow-md opacity-0 pointer-events-none transition-opacity duration-200 whitespace-nowrap">Link Copied! ✓</span>
+        </button>
+
+        <div>
+          <h3 class="font-display text-xl font-bold text-slate-900 dark:text-white mb-2 flex flex-col xs:flex-row xs:items-center gap-2 pr-10">
+            <span>Pinna-Brelstaff Illusion</span>
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-violet-500/15 text-violet-400 border border-violet-500/20 w-fit">💀 Expert</span>
+          </h3>
+          <p class="text-sm text-slate-600 dark:text-slate-400 mb-6">
+            Moving your eyes around the image causes these concentric rings of tilted tiles to rotate, though it is 100% static.
+          </p>
+        </div>
+
+        <div class="demo-area relative flex flex-col items-center justify-center h-64 w-full bg-slate-100 dark:bg-slate-950/40 rounded-xl overflow-hidden border border-indigo-500/5 p-4">
+          <svg class="pinna-svg w-44 h-44 select-none overflow-visible" viewBox="0 0 200 200">
+            <circle cx="100" cy="100" r="3" fill="currentColor" />
+            <!-- Inner Ring (16 chevrons tilted counter-clockwise) -->
+            <g class="pinna-ring-1 origin-center" style="transform-origin: 100px 100px;">
+              <g transform="translate(145, 100) rotate(0)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#ffffff" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#000000" /></g>
+              <g transform="translate(141.5, 117.2) rotate(22.5)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#ffffff" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#000000" /></g>
+              <g transform="translate(131.8, 131.8) rotate(45)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#ffffff" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#000000" /></g>
+              <g transform="translate(117.2, 141.5) rotate(67.5)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#ffffff" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#000000" /></g>
+              <g transform="translate(100, 145) rotate(90)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#ffffff" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#000000" /></g>
+              <g transform="translate(82.8, 141.5) rotate(112.5)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#ffffff" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#000000" /></g>
+              <g transform="translate(68.2, 131.8) rotate(135)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#ffffff" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#000000" /></g>
+              <g transform="translate(58.5, 117.2) rotate(157.5)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#ffffff" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#000000" /></g>
+              <g transform="translate(55, 100) rotate(180)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#ffffff" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#000000" /></g>
+              <g transform="translate(58.5, 82.8) rotate(202.5)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#ffffff" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#000000" /></g>
+              <g transform="translate(68.2, 68.2) rotate(225)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#ffffff" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#000000" /></g>
+              <g transform="translate(82.8, 58.5) rotate(247.5)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#ffffff" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#000000" /></g>
+              <g transform="translate(100, 55) rotate(270)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#ffffff" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#000000" /></g>
+              <g transform="translate(117.2, 58.5) rotate(292.5)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#ffffff" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#000000" /></g>
+              <g transform="translate(131.8, 68.2) rotate(315)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#ffffff" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#000000" /></g>
+              <g transform="translate(141.5, 82.8) rotate(337.5)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#ffffff" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#000000" /></g>
+            </g>
+            <!-- Outer Ring (24 chevrons tilted clockwise) -->
+            <g class="pinna-ring-2 origin-center" style="transform-origin: 100px 100px;">
+              <g transform="translate(175, 100) rotate(0)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#000000" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#ffffff" /></g>
+              <g transform="translate(172.4, 119.4) rotate(15)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#000000" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#ffffff" /></g>
+              <g transform="translate(164.9, 137.5) rotate(30)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#000000" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#ffffff" /></g>
+              <g transform="translate(153, 153) rotate(45)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#000000" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#ffffff" /></g>
+              <g transform="translate(137.5, 164.9) rotate(60)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#000000" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#ffffff" /></g>
+              <g transform="translate(119.4, 172.4) rotate(75)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#000000" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#ffffff" /></g>
+              <g transform="translate(100, 175) rotate(90)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#000000" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#ffffff" /></g>
+              <g transform="translate(80.6, 172.4) rotate(105)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#000000" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#ffffff" /></g>
+              <g transform="translate(62.5, 164.9) rotate(120)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#000000" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#ffffff" /></g>
+              <g transform="translate(47, 153) rotate(135)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#000000" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#ffffff" /></g>
+              <g transform="translate(35.1, 137.5) rotate(150)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#000000" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#ffffff" /></g>
+              <g transform="translate(27.6, 119.4) rotate(165)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#000000" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#ffffff" /></g>
+              <g transform="translate(25, 100) rotate(180)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#000000" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#ffffff" /></g>
+              <g transform="translate(27.6, 80.6) rotate(195)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#000000" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#ffffff" /></g>
+              <g transform="translate(35.1, 62.5) rotate(210)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#000000" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#ffffff" /></g>
+              <g transform="translate(47, 47) rotate(225)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#000000" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#ffffff" /></g>
+              <g transform="translate(62.5, 35.1) rotate(240)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#000000" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#ffffff" /></g>
+              <g transform="translate(80.6, 27.6) rotate(255)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#000000" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#ffffff" /></g>
+              <g transform="translate(100, 25) rotate(270)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#000000" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#ffffff" /></g>
+              <g transform="translate(119.4, 27.6) rotate(285)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#000000" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#ffffff" /></g>
+              <g transform="translate(137.5, 35.1) rotate(300)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#000000" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#ffffff" /></g>
+              <g transform="translate(153, 47) rotate(315)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#000000" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#ffffff" /></g>
+              <g transform="translate(164.9, 62.5) rotate(330)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#000000" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#ffffff" /></g>
+              <g transform="translate(172.4, 80.6) rotate(345)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#000000" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#ffffff" /></g>
+            </g>
+          </svg>
+          <div class="absolute bottom-3 text-center">
+            <button class="toggle-pinna-spin text-[10px] font-bold px-2 py-1.5 rounded bg-purple-600 hover:bg-purple-500 text-white transition-colors">Start Spin (Prove static same)</button>
+          </div>
+        </div>
+        <div class="mt-5 flex items-center justify-between text-xs font-bold text-purple-600 dark:text-purple-400 group-hover:text-purple-500 transition-colors">
+          <span>Interactive Details</span>
+          <span>Explore &rarr;</span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- Expanded SEO Content Section -->
+  <section id="how-it-works" class="py-20 px-4 sm:px-6 lg:px-8 border-t border-indigo-100/10 bg-slate-100/50 dark:bg-slate-950/20">
+    <div class="mx-auto max-w-4xl space-y-12">
+      <div class="text-center space-y-4">
+        <h2 class="font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
+          The Science Behind Optical Illusions
+        </h2>
+        <div class="mx-auto h-1 w-24 rounded-full bg-gradient-to-r from-purple-500 to-indigo-500"></div>
+      </div>
+
+      <article class="prose prose-indigo dark:prose-invert max-w-none space-y-8 text-slate-700 dark:text-slate-300 leading-relaxed text-sm sm:text-base">
+        <div>
+          <h3 class="font-display text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mb-3">
+            What is an Optical Illusion?
+          </h3>
+          <p>
+            An optical illusion (also called a visual illusion) is characterized by visually perceived images that differ from objective reality. The information gathered by the eye is processed in the brain to give a percept that does not tally with a physical measurement of the stimulus source. In simpler terms, optical illusions occur because our brains try to interpret the complex visual stimuli surrounding us by taking cognitive shortcuts. Every split second, your eyes capture millions of data points—light, angles, colors, and shadows—and feed them to the visual cortex. To keep you from being overwhelmed, the brain makes unconscious assumptions, reconstructing what it <em>expects</em> to see rather than what is actually there. When a visual layout is specifically designed to exploit these assumptions, an illusion is born.
+          </p>
+        </div>
+
+        <div>
+          <h3 class="font-display text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mb-3">
+            How Our Brain Processes Visual Data
+          </h3>
+          <p>
+            The human visual system is incredibly sophisticated, but it is not a camera. When light hits the retina, photoreceptors convert it into electrical impulses that travel along the optic nerve. The primary visual cortex (V1) at the back of the brain analyzes basic features like orientations, edges, and movement. Higher-level areas then assemble these properties into faces, objects, and spatial depths. 
+          </p>
+          <p>
+            Many illusions work at the foundational level of edge and contrast detection. For instance, in the **Poggendorff Illusion**, the slanted appearance is triggered by the brain's visual cortex processing orientation and depth sequentially. When the vertical rectangle blocks the diagonal line, our orientation-sensitive simple cells overestimate the acute angle, making the exit path look misaligned. Toggling the rectangle away instantly proves that the segments are collinear.
+          </p>
+          <p>
+            In **Adelson's Checkerboard**, the brain resolves brightness not by measuring absolute luminance, but by evaluating shadows. The brain knows that shadows dim surfaces, so it automatically scales up the perceived brightness of Tile B inside the shadow, making it look much whiter than Tile A, even though their RGB values are identical. Similarly, in the **Wertheimer-Koffka Ring**, a uniform gray ring on a split background appears split in brightness due to relative contrast.
+          </p>
+          <p>
+            Peripheral drift illusions, like the **Pinna-Brelstaff** or the **Reverse Spoke** illusion, exploit latency differences and opponent processing in the visual cortex. When you scan your eyes, the tilt of segments or the moving colorful backdrop triggers orientation-selective cells in area MT/V5, creating a powerful sensation of movement.
+          </p>
+        </div>
+
+        <div>
+          <h3 class="font-display text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mb-3">
+            The Historical Significance & Classifications
+          </h3>
+          <p>
+            Visual anomalies have been studied since antiquity. The ancient Greeks noticed that columns on buildings like the Parthenon needed to be slightly wider in the middle (a technique called <em>entasis</em>) to prevent them from looking concave or curved from a distance. In the 19th and 20th-century, psychologists used geometrical illusions to study spatial reasoning, defining three major classifications:
+          </p>
+          <ul class="list-disc pl-5 space-y-2">
+            <li>
+              <strong>Literal Illusions:</strong> These create images that are entirely different from the objects that make them. They are simple physical effects that happen before light even hits your eyes.
+            </li>
+            <li>
+              <strong>Physiological Illusions:</strong> Visual effects caused by excessive stimulation of a specific type (e.g., brightness, tilt, color, or movement), such as the glowing grid afterimages or the peripheral drift rotating snakes.
+            </li>
+            <li>
+              <strong>Cognitive Illusions:</strong> The most complex category, where the eye and brain make unconscious inferences. These include ambiguous figures (where the brain fluctuates between two competing shapes), impossible objects (which violate the laws of 3D geometry), and distorting illusions.
+            </li>
+          </ul>
+          <p>
+            By interacting with these visual anomalies at the Optical Illusion Lab, you are not just viewing cool tricks—you are directly observing the inner mechanisms of human consciousness. These illusions prove that what we see as "the world" is actually a highly filtered, processed, and reconstructed simulation generated inside our own minds.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- Keyframe and Helper Animations -->
+  <style>
+    :root {
+      --speed-multiplier: 1.0;
+    }
+
+    @keyframes spin-clockwise {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @keyframes spin-counter {
+      0% { transform: rotate(360deg); }
+      100% { transform: rotate(0deg); }
+    }
+
+    .animate-pulse-slow {
+      animation: pulse 8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: .85; }
+    }
+  </style>
+
+  <!-- Interactive JavaScript Scripts -->
+  <script>
+    // ----------------------------------------------------
+    // GLOBAL SPEED MULTIPLIER / INTENSITY SLIDER
+    // ----------------------------------------------------
+    const speedSlider = document.getElementById('global-speed-slider') as HTMLInputElement;
+    const speedLevelBadge = document.getElementById('speed-level-badge');
+
+    const updateGlobalSpeed = () => {
+      if (!speedSlider) return;
+      const level = parseInt(speedSlider.value);
+      let multiplier = 1.0;
+
+      if (level <= 5) {
+        multiplier = 0.2 + (level - 1) * 0.2;
+      } else {
+        multiplier = 1.0 + (level - 5) * 0.4;
+      }
+
+      // Set CSS custom property
+      document.documentElement.style.setProperty('--speed-multiplier', multiplier.toString());
+      
+      // Save to localStorage for sub-pages
+      localStorage.setItem('speed-multiplier-level', level.toString());
+
+      let desc = 'Normal';
+      if (level <= 2) desc = 'Slow Speed';
+      else if (level <= 4) desc = 'Relaxed';
+      else if (level === 5) desc = 'Normal';
+      else if (level <= 7) desc = 'Scrambling';
+      else if (level <= 9) desc = 'Warp Speed';
+      else desc = 'MAX SCRAMBLE 💀';
+
+      if (speedLevelBadge) {
+        speedLevelBadge.textContent = `${level} (${desc} — ${multiplier.toFixed(1)}x)`;
+      }
+    };
+
+    speedSlider?.addEventListener('input', updateGlobalSpeed);
+    updateGlobalSpeed();
+
+
+    // ----------------------------------------------------
+    // PREVENT CARD CLICK NAVIGATION ON CONTROLS CLICK
+    // ----------------------------------------------------
+    const stopPropagationHandler = (e: Event) => {
+      e.stopPropagation();
+    };
+
+    const interactiveWidgets = document.querySelectorAll(
+      '.illusion-card button, .illusion-card input, .illusion-card label, .illusion-card select'
+    );
+    interactiveWidgets.forEach(widget => {
+      widget.addEventListener('click', stopPropagationHandler);
+      widget.addEventListener('mousedown', stopPropagationHandler);
+      widget.addEventListener('touchstart', stopPropagationHandler);
+    });
+
+
+    // ----------------------------------------------------
+    // ILLUSION OF THE DAY BANNER ROTATION
+    // ----------------------------------------------------
+    const illusions = [
+      { id: 'poggendorff-illusion', name: 'Poggendorff Illusion', tease: 'Diagonal line segments interrupted by a thick vertical rectangle look misaligned, but are actually continuous.' },
+      { id: 'adelson-illusion', name: 'Adelson Checkerboard', tease: 'Tile A in the light and Tile B in the cylinder shadow are identical gray colors, though your brain insists B is much lighter.' },
+      { id: 'spheres-illusion', name: 'Color Spheres Illusion', tease: 'Nine spheres appear red, blue, and green, but all are actually identical grey. Overlapping colored lines create the color.' },
+      { id: 'curvature-illusion', name: 'Curvature Blindness', tease: 'Identical wavy lines appear as sharp zig-zags or smooth curves depending entirely on where the color changes.' },
+      { id: 'kanizsa-illusion', name: 'Kanizsa Triangle', tease: 'A white triangle appears to float in the center, yet not a single triangle boundary is actually drawn.' },
+      { id: 'troxler-illusion', name: 'Troxler Fading', tease: 'Stare at the central cross for 20 seconds. The pink dots will disappear, replaced by a non-existent green dot.' },
+      { id: 'hole-illusion', name: 'Expanding Hole', tease: 'A completely static radial gradient black hole that appears to expand toward you as you stare at it.' }
+    ];
+
+    const todayIndex = new Date().getDay() % illusions.length;
+    const todayIllusion = illusions[todayIndex];
+
+    const bannerNameEl = document.querySelector('.today-illusion-name');
+    const bannerTeaseEl = document.querySelector('.today-illusion-tease');
+    const bannerBtn = document.getElementById('view-today-btn');
+
+    if (bannerNameEl && bannerTeaseEl && bannerBtn) {
+      bannerNameEl.textContent = todayIllusion.name;
+      bannerTeaseEl.textContent = todayIllusion.tease;
+      bannerBtn.addEventListener('click', () => {
+        document.getElementById(todayIllusion.id)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      });
+    }
+
+
+    // ----------------------------------------------------
+    // SHARE LINK TO CLIPBOARD FUNCTIONALITY
+    // ----------------------------------------------------
+    const shareBtns = document.querySelectorAll('.share-btn');
+    shareBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        e.preventDefault();
+
+        const card = (e.currentTarget as HTMLElement).closest('.illusion-card');
+        if (!card) return;
+        
+        const cardId = card.id;
+        const shareUrl = `${window.location.origin}${window.location.pathname}#${cardId}`;
+        
+        navigator.clipboard.writeText(shareUrl).then(() => {
+          const toast = btn.querySelector('.share-toast');
+          if (toast) {
+            toast.classList.remove('opacity-0');
+            toast.classList.add('opacity-100');
+            
+            setTimeout(() => {
+              toast.classList.remove('opacity-100');
+              toast.classList.add('opacity-0');
+            }, 2000);
+          }
+        });
+      });
+    });
+
+
+    // ----------------------------------------------------
+    // ILLUSION INTERACTIVITY LOGIC
+    // ----------------------------------------------------
+
+    // 1. Poggendorff
+    const poggContainer = document.getElementById('poggendorff-illusion');
+    const poggRect = poggContainer?.querySelector('.pogg-rect') as HTMLElement;
+    const poggBtn = poggContainer?.querySelector('.toggle-pogg');
+    let poggShown = true;
+    poggBtn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      poggShown = !poggShown;
+      if (poggRect) poggRect.style.opacity = poggShown ? '1' : '0';
+      if (poggBtn) poggBtn.textContent = poggShown ? 'Hide Rectangle' : 'Show Rectangle';
+    });
+
+    // 2. Adelson's Checkerboard
+    const adelsonContainer = document.getElementById('adelson-illusion');
+    const adelsonBridge = adelsonContainer?.querySelector('.checker-bridge') as HTMLElement;
+    const adelsonShadow = adelsonContainer?.querySelector('.cylinder-shadow') as HTMLElement;
+    const adelsonBridgeBtn = adelsonContainer?.querySelector('.toggle-bridge');
+    const adelsonShadowBtn = adelsonContainer?.querySelector('.toggle-shadow');
+
+    let adelsonBridgeShown = false;
+    let adelsonShadowShown = true;
+
+    adelsonBridgeBtn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      adelsonBridgeShown = !adelsonBridgeShown;
+      if (adelsonBridge) adelsonBridge.style.opacity = adelsonBridgeShown ? '1' : '0';
+      if (adelsonBridgeBtn) {
+        adelsonBridgeBtn.textContent = adelsonBridgeShown ? 'Hide Bridge' : 'Reveal Truth';
+        if (adelsonBridgeShown) {
+          adelsonBridgeBtn.classList.add('bg-purple-600', 'text-white');
+        } else {
+          adelsonBridgeBtn.classList.remove('bg-purple-600', 'text-white');
+        }
+      }
+    });
+
+    adelsonShadowBtn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      adelsonShadowShown = !adelsonShadowShown;
+      if (adelsonShadow) adelsonShadow.style.opacity = adelsonShadowShown ? '1' : '0';
+      if (adelsonShadowBtn) {
+        adelsonShadowBtn.textContent = adelsonShadowShown ? 'Remove Shadow' : 'Restore Shadow';
+        if (!adelsonShadowShown) {
+          adelsonShadowBtn.classList.add('bg-purple-600', 'text-white');
+        } else {
+          adelsonShadowBtn.classList.remove('bg-purple-600', 'text-white');
+        }
+      }
+    });
+
+    // 3. Color Spheres
+    const spheresContainer = document.getElementById('spheres-illusion');
+    const spheresStripes = spheresContainer?.querySelector('.spheres-stripes') as HTMLElement;
+    spheresContainer?.addEventListener('mouseenter', () => {
+      if (spheresStripes) spheresStripes.style.opacity = '0';
+    });
+    spheresContainer?.addEventListener('mouseleave', () => {
+      if (spheresStripes) spheresStripes.style.opacity = '1';
+    });
+    spheresContainer?.addEventListener('touchstart', () => {
+      if (spheresStripes) spheresStripes.style.opacity = '0';
+    });
+    spheresContainer?.addEventListener('touchend', () => {
+      if (spheresStripes) spheresStripes.style.opacity = '1';
+    });
+
+    // 4. Curvature Blindness
+    const curveContainer = document.getElementById('curvature-illusion');
+    const curveSlider = curveContainer?.querySelector('.curve-slider') as HTMLInputElement;
+    const curvePeaks = curveContainer?.querySelector('.peaks-coloring') as HTMLElement;
+    const curveInflections = curveContainer?.querySelector('.inflections-coloring') as HTMLElement;
+    const curveModeText = curveContainer?.querySelector('.color-mode-text');
+
+    curveSlider?.addEventListener('input', (e) => {
+      e.stopPropagation();
+      const val = (e.target as HTMLInputElement).value;
+      if (val === '0') {
+        if (curvePeaks) curvePeaks.style.opacity = '1';
+        if (curveInflections) curveInflections.style.opacity = '0';
+        if (curveModeText) curveModeText.textContent = 'Peak-colored (Zig-zag)';
+      } else {
+        if (curvePeaks) curvePeaks.style.opacity = '0';
+        if (curveInflections) curveInflections.style.opacity = '1';
+        if (curveModeText) curveModeText.textContent = 'Inflection-colored (Curved)';
+      }
+    });
+
+    // 5. Kanizsa Triangle
+    const kanizsaContainer = document.getElementById('kanizsa-illusion');
+    const kanizsaSlider = kanizsaContainer?.querySelector('.kanizsa-slider') as HTMLInputElement;
+    const kanizsaBtn = kanizsaContainer?.querySelector('.toggle-kanizsa-outline');
+    const kanizsaPacmen = kanizsaContainer?.querySelectorAll('.kanizsa-pacman');
+    const kanizsaGuides = kanizsaContainer?.querySelectorAll('.kanizsa-guide');
+    
+    let kanizsaOutlineShown = false;
+
+    kanizsaSlider?.addEventListener('input', (e) => {
+      e.stopPropagation();
+      const val = (e.target as HTMLInputElement).value;
+      kanizsaPacmen?.forEach((pac) => {
+        (pac as HTMLElement).style.transform = `rotate(${val}deg)`;
+      });
+    });
+
+    kanizsaBtn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      kanizsaOutlineShown = !kanizsaOutlineShown;
+      kanizsaGuides?.forEach(guide => {
+        if (kanizsaOutlineShown) {
+          guide.classList.remove('opacity-0');
+          guide.classList.add('opacity-100');
+        } else {
+          guide.classList.remove('opacity-100');
+          guide.classList.add('opacity-0');
+        }
+      });
+      if (kanizsaBtn) kanizsaBtn.textContent = kanizsaOutlineShown ? 'Hide Outline' : 'Show Outline';
+    });
+
+    // 6. Troxler Fading
+    const troxlerContainer = document.getElementById('troxler-illusion');
+    const troxlerDots = troxlerContainer?.querySelectorAll('.troxler-dot');
+    const troxlerStartBtn = troxlerContainer?.querySelector('.start-troxler');
+    const troxlerTime = troxlerContainer?.querySelector('.troxler-time');
+    
+    let troxlerDotsInterval: any = null;
+    let troxlerTimerInterval: any = null;
+    let troxlerCurrentMissing = 0;
+    let troxlerSecondsLeft = 20.0;
+    let troxlerIsRunning = false;
+
+    const runTroxler = () => {
+      troxlerDotsInterval = setInterval(() => {
+        troxlerDots?.forEach((dot, idx) => {
+          if (idx === troxlerCurrentMissing) {
+            (dot as HTMLElement).style.opacity = '0';
+          } else {
+            (dot as HTMLElement).style.opacity = '1';
+          }
+        });
+        troxlerCurrentMissing = (troxlerCurrentMissing + 1) % 12;
+      }, 150);
+    };
+
+    troxlerStartBtn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (troxlerIsRunning) {
+        clearInterval(troxlerDotsInterval);
+        clearInterval(troxlerTimerInterval);
+        troxlerDots?.forEach(dot => (dot as HTMLElement).style.opacity = '1');
+        troxlerSecondsLeft = 20.0;
+        if (troxlerTime) troxlerTime.textContent = '20.0s';
+        if (troxlerStartBtn) troxlerStartBtn.textContent = 'Start Timer';
+        troxlerIsRunning = false;
+        return;
+      }
+
+      troxlerIsRunning = true;
+      if (troxlerStartBtn) troxlerStartBtn.textContent = 'Reset';
+      runTroxler();
+
+      const startTime = Date.now();
+      troxlerTimerInterval = setInterval(() => {
+        const elapsed = (Date.now() - startTime) / 1000;
+        troxlerSecondsLeft = 20.0 - elapsed;
+        if (troxlerSecondsLeft <= 0) {
+          troxlerSecondsLeft = 0;
+          clearInterval(troxlerTimerInterval);
+        }
+        if (troxlerTime) troxlerTime.textContent = `${troxlerSecondsLeft.toFixed(1)}s`;
+      }, 100);
+    });
+
+    // 7. Expanding Hole
+    const holeContainer = document.getElementById('hole-illusion');
+    const holeBtn = holeContainer?.querySelector('.toggle-static');
+    holeBtn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      alert("Nothing changed, because this image is already 100% static! The expanding motion is completely fabricated inside your brain.");
+    });
+
+    // 8. Breathing Square
+    const breathingContainer = document.getElementById('breathing-square-illusion');
+    const breathingOccluders = breathingContainer?.querySelector('.breathing-occluders') as HTMLElement;
+    const breathingBtn = breathingContainer?.querySelector('.toggle-occluders');
+    let breathingShown = true;
+    breathingBtn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      breathingShown = !breathingShown;
+      if (breathingOccluders) breathingOccluders.style.opacity = breathingShown ? '1' : '0';
+      if (breathingBtn) breathingBtn.textContent = breathingShown ? 'Hide Green Occluders' : 'Show Green Occluders';
+    });
+
+    // 9. Reverse Spoke
+    const spokeContainer = document.getElementById('spoke-illusion');
+    const spokeBgWheel = spokeContainer?.querySelector('.spoke-bg-wheel') as SVGElement;
+    const spokeBtn = spokeContainer?.querySelector('.toggle-spoke-spin');
+    let spokeSpinning = true;
+    spokeBtn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      spokeSpinning = !spokeSpinning;
+      if (spokeBgWheel) {
+        spokeBgWheel.style.animationPlayState = spokeSpinning ? 'running' : 'paused';
+      }
+      if (spokeBtn) spokeBtn.textContent = spokeSpinning ? 'Pause' : 'Play';
+    });
+
+    // 10. Motion Binding
+    const bindingContainer = document.getElementById('binding-illusion');
+    const bindingOccluders = bindingContainer?.querySelector('.motion-occluders') as HTMLElement;
+    bindingContainer?.addEventListener('mouseenter', () => {
+      if (bindingOccluders) bindingOccluders.style.opacity = '0';
+    });
+    bindingContainer?.addEventListener('mouseleave', () => {
+      if (bindingOccluders) bindingOccluders.style.opacity = '1';
+    });
+    bindingContainer?.addEventListener('touchstart', () => {
+      if (bindingOccluders) bindingOccluders.style.opacity = '0';
+    });
+    bindingContainer?.addEventListener('touchend', () => {
+      if (bindingOccluders) bindingOccluders.style.opacity = '1';
+    });
+
+    // 11. Wertheimer-Koffka Ring
+    const koffkaContainer = document.getElementById('koffka-illusion');
+    const koffkaSlider = koffkaContainer?.querySelector('.koffka-slider') as HTMLInputElement;
+    const koffkaLeftRing = koffkaContainer?.querySelector('.koffka-ring-left') as SVGElement;
+    const koffkaRightRing = koffkaContainer?.querySelector('.koffka-ring-right') as SVGElement;
+    const koffkaDivider = koffkaContainer?.querySelector('.koffka-divider') as SVGElement;
+    const koffkaValText = koffkaContainer?.querySelector('.koffka-val');
+
+    koffkaSlider?.addEventListener('input', (e) => {
+      e.stopPropagation();
+      const val = parseInt((e.target as HTMLInputElement).value);
+      if (koffkaValText) koffkaValText.textContent = `${val}px`;
+      if (koffkaLeftRing) koffkaLeftRing.style.transform = `translateX(${-val/2}px)`;
+      if (koffkaRightRing) koffkaRightRing.style.transform = `translateX(${val/2}px)`;
+      if (koffkaDivider) koffkaDivider.style.opacity = val > 0 ? '0' : '1';
+    });
+
+    // 12. Pinna-Brelstaff
+    const pinnaContainer = document.getElementById('pinna-illusion');
+    const pinnaRing1 = pinnaContainer?.querySelector('.pinna-ring-1') as SVGElement;
+    const pinnaRing2 = pinnaContainer?.querySelector('.pinna-ring-2') as SVGElement;
+    const pinnaBtn = pinnaContainer?.querySelector('.toggle-pinna-spin');
+    let pinnaSpinning = false;
+
+    pinnaBtn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      pinnaSpinning = !pinnaSpinning;
+      if (pinnaRing1 && pinnaRing2) {
+        if (pinnaSpinning) {
+          pinnaRing1.style.animation = 'spin-clockwise calc(20s / var(--speed-multiplier, 1)) linear infinite';
+          pinnaRing2.style.animation = 'spin-counter calc(25s / var(--speed-multiplier, 1)) linear infinite';
+          if (pinnaBtn) pinnaBtn.textContent = 'Stop Spin';
+        } else {
+          pinnaRing1.style.animation = '';
+          pinnaRing2.style.animation = '';
+          if (pinnaBtn) pinnaBtn.textContent = 'Start Spin (Prove static same)';
+        }
+      }
+    });
+  </script>
 </Layout>

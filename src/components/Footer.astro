@@ -1,0 +1,57 @@
+---
+// src/components/Footer.astro
+const today = new Date();
+---
+
+<footer class="w-full border-t border-indigo-100/10 bg-slate-950 text-slate-400 py-12 transition-colors duration-300">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+      <!-- About / Info Column -->
+      <div class="md:col-span-2 space-y-4">
+        <div class="flex items-center space-x-2">
+          <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-tr from-purple-600 to-indigo-600 font-display text-sm font-black text-white shadow-md">
+            OIL
+          </div>
+          <span class="font-display text-lg font-bold text-white">
+            Optical Illusion Lab
+          </span>
+        </div>
+        <p class="text-sm text-slate-400 max-w-sm">
+          Explore mind-bending optical illusions, dynamic visual tricks, and educational explanations of how the human brain processes complex visual stimuli.
+        </p>
+        <p class="text-xs text-slate-500 italic max-w-sm">
+          Disclaimer: Visual animations may cause temporary eye fatigue or mild disorientation for some viewers. Please take breaks if you experience discomfort.
+        </p>
+      </div>
+
+      <!-- Categories Column -->
+      <div>
+        <h3 class="text-sm font-semibold text-slate-200 uppercase tracking-wider mb-4">Illusion Types</h3>
+        <ul class="space-y-2.5 text-sm">
+          <li><a href="/famous" class="hover:text-purple-400 transition-colors">Famous Illusions</a></li>
+          <li><a href="/moving" class="hover:text-purple-400 transition-colors">Moving Illusions</a></li>
+          <li><a href="/hidden" class="hover:text-purple-400 transition-colors">Hidden Details</a></li>
+          <li><a href="/color" class="hover:text-purple-400 transition-colors">Color & Contrast</a></li>
+          <li><a href="/for-kids" class="hover:text-purple-400 transition-colors">For Kids</a></li>
+        </ul>
+      </div>
+
+      <!-- Legal / Contact Column -->
+      <div>
+        <h3 class="text-sm font-semibold text-slate-200 uppercase tracking-wider mb-4">Information</h3>
+        <ul class="space-y-2.5 text-sm">
+          <li><a href="/about" class="hover:text-purple-400 transition-colors">About Us</a></li>
+          <li><a href="/contact" class="hover:text-purple-400 transition-colors">Contact</a></li>
+          <li><a href="/privacy-policy" class="hover:text-purple-400 transition-colors">Privacy Policy</a></li>
+          <li><a href="/terms" class="hover:text-purple-400 transition-colors">Terms of Service</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Bottom Section -->
+    <div class="border-t border-indigo-100/10 mt-10 pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500">
+      <p>&copy; {today.getFullYear()} Optical Illusion Lab. All rights reserved.</p>
+      <p class="mt-2 sm:mt-0">Built with 💜 for curious minds.</p>
+    </div>
+  </div>
+</footer>

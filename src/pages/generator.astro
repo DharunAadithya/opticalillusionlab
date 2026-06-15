@@ -1,0 +1,1118 @@
+---
+// src/pages/generator.astro
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout 
+  title="Optical Illusion Maker Online Free — Create Custom Illusions | Optical Illusion Lab" 
+  description="Free optical illusion generator online. Create custom café wall, Hermann grid, and rotating ring illusions. Download as PNG. No account needed."
+>
+
+  <!-- Hero Section -->
+  <section class="relative overflow-hidden py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-slate-900 via-purple-950 to-slate-950 text-white border-b border-indigo-500/10">
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(168,85,247,0.15),transparent_50%)]"></div>
+    
+    <div class="relative mx-auto max-w-4xl text-center space-y-6">
+      <div class="inline-flex items-center space-x-2 rounded-full border border-purple-500/30 bg-purple-500/15 px-4 py-1.5 text-xs font-black uppercase tracking-wider text-purple-300 backdrop-blur-sm">
+        🌀 Interactive Visual Sandbox 🌀
+      </div>
+      <h1 class="font-display text-4xl sm:text-6xl font-black tracking-tight bg-gradient-to-r from-pink-400 via-purple-400 to-indigo-400 bg-clip-text text-transparent">
+        Optical Illusion Generator — Create Your Own
+      </h1>
+      <p class="mx-auto max-w-2xl text-lg sm:text-xl text-slate-200 font-medium leading-relaxed">
+        Design and download custom optical illusions for free. No account needed.
+      </p>
+    </div>
+  </section>
+
+  <!-- Main Generator Workspace -->
+  <section class="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-8">
+    
+    <!-- Tab Switcher -->
+    <div class="flex justify-center border-b border-slate-800">
+      <div class="flex flex-wrap -mb-px space-x-2 sm:space-x-4" id="generator-tabs">
+        <button class="tab-btn active inline-block p-4 border-b-2 border-purple-500 text-purple-400 text-sm sm:text-base font-black uppercase tracking-wider focus:outline-none" data-tab="cafe">
+          🧱 Café Wall
+        </button>
+        <button class="tab-btn inline-block p-4 border-b-2 border-transparent text-slate-400 hover:text-white text-sm sm:text-base font-black uppercase tracking-wider focus:outline-none" data-tab="hermann">
+          👻 Hermann Grid
+        </button>
+        <button class="tab-btn inline-block p-4 border-b-2 border-transparent text-slate-400 hover:text-white text-sm sm:text-base font-black uppercase tracking-wider focus:outline-none" data-tab="rings">
+          🌀 Rotating Rings
+        </button>
+        <button class="tab-btn inline-block p-4 border-b-2 border-transparent text-slate-400 hover:text-white text-sm sm:text-base font-black uppercase tracking-wider focus:outline-none" data-tab="stripes">
+          ↗️ Stripes
+        </button>
+      </div>
+    </div>
+
+    <!-- Workspace Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      
+      <!-- Left Panel: Controls (lg:col-span-5) -->
+      <div class="lg:col-span-5 bg-slate-900/60 border border-purple-500/20 rounded-3xl p-6 sm:p-8 shadow-2xl space-y-6">
+        <h2 class="text-xl font-bold text-white flex items-center gap-2 border-b border-slate-850 pb-4">
+          🔧 Configuration Settings
+        </h2>
+        
+        <!-- ==================== CONTROLS: CAFÉ WALL ==================== -->
+        <div class="generator-controls space-y-4" data-tab="cafe">
+          <div class="space-y-2">
+            <div class="flex justify-between text-xs font-bold text-slate-300">
+              <label for="cafe-rows">Rows Count</label>
+              <span id="cafe-rows-val" class="text-purple-400">10</span>
+            </div>
+            <input type="range" id="cafe-rows" min="4" max="20" value="10" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-purple-500" />
+          </div>
+
+          <div class="space-y-2">
+            <div class="flex justify-between text-xs font-bold text-slate-300">
+              <label for="cafe-cols">Columns Count</label>
+              <span id="cafe-cols-val" class="text-purple-400">10</span>
+            </div>
+            <input type="range" id="cafe-cols" min="4" max="20" value="10" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-purple-500" />
+          </div>
+
+          <div class="space-y-2">
+            <div class="flex justify-between text-xs font-bold text-slate-300">
+              <label for="cafe-offset">Row Offset (%)</label>
+              <span id="cafe-offset-val" class="text-purple-400">50%</span>
+            </div>
+            <input type="range" id="cafe-offset" min="0" max="100" value="50" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-purple-500" />
+          </div>
+
+          <div class="space-y-2">
+            <div class="flex justify-between text-xs font-bold text-slate-300">
+              <label for="cafe-thickness">Grout Thickness (px)</label>
+              <span id="cafe-thickness-val" class="text-purple-400">3px</span>
+            </div>
+            <input type="range" id="cafe-thickness" min="1" max="8" value="3" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-purple-500" />
+          </div>
+
+          <div class="space-y-2">
+            <div class="flex justify-between text-xs font-bold text-slate-300">
+              <label for="cafe-height">Row Height (px)</label>
+              <span id="cafe-height-val" class="text-purple-400">30px</span>
+            </div>
+            <input type="range" id="cafe-height" min="15" max="60" value="30" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-purple-500" />
+          </div>
+
+          <div class="grid grid-cols-3 gap-3 pt-2">
+            <div class="space-y-1">
+              <label for="cafe-color1" class="text-[11px] font-bold text-slate-400 block">Tile Color 1</label>
+              <input type="color" id="cafe-color1" value="#000000" class="w-full h-10 bg-transparent border border-slate-850 rounded cursor-pointer" />
+            </div>
+            <div class="space-y-1">
+              <label for="cafe-color2" class="text-[11px] font-bold text-slate-400 block">Tile Color 2</label>
+              <input type="color" id="cafe-color2" value="#ffffff" class="w-full h-10 bg-transparent border border-slate-850 rounded cursor-pointer" />
+            </div>
+            <div class="space-y-1">
+              <label for="cafe-grout" class="text-[11px] font-bold text-slate-400 block">Grout Color</label>
+              <input type="color" id="cafe-grout" value="#808080" class="w-full h-10 bg-transparent border border-slate-850 rounded cursor-pointer" />
+            </div>
+          </div>
+        </div>
+
+        <!-- ==================== CONTROLS: HERMANN GRID ==================== -->
+        <div class="generator-controls space-y-4 hidden" data-tab="hermann">
+          <div class="space-y-2">
+            <div class="flex justify-between text-xs font-bold text-slate-300">
+              <label for="hermann-grid">Grid Size</label>
+              <span id="hermann-grid-val" class="text-purple-400">8 x 8</span>
+            </div>
+            <input type="range" id="hermann-grid" min="4" max="20" value="8" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-purple-500" />
+          </div>
+
+          <div class="space-y-2">
+            <div class="flex justify-between text-xs font-bold text-slate-300">
+              <label for="hermann-size">Square Size (px)</label>
+              <span id="hermann-size-val" class="text-purple-400">38px</span>
+            </div>
+            <input type="range" id="hermann-size" min="20" max="80" value="38" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-purple-500" />
+          </div>
+
+          <div class="space-y-2">
+            <div class="flex justify-between text-xs font-bold text-slate-300">
+              <label for="hermann-gap">Gap Size (px)</label>
+              <span id="hermann-gap-val" class="text-purple-400">8px</span>
+            </div>
+            <input type="range" id="hermann-gap" min="2" max="20" value="8" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-purple-500" />
+          </div>
+
+          <div class="grid grid-cols-2 gap-4 pt-2">
+            <div class="space-y-1">
+              <label for="hermann-color" class="text-[11px] font-bold text-slate-400 block">Square Color</label>
+              <input type="color" id="hermann-color" value="#000000" class="w-full h-10 bg-transparent border border-slate-850 rounded cursor-pointer" />
+            </div>
+            <div class="space-y-1">
+              <label for="hermann-bg" class="text-[11px] font-bold text-slate-400 block">Background Color</label>
+              <input type="color" id="hermann-bg" value="#ffffff" class="w-full h-10 bg-transparent border border-slate-850 rounded cursor-pointer" />
+            </div>
+          </div>
+
+          <div class="flex items-center gap-3 pt-2">
+            <input type="checkbox" id="hermann-colored" class="h-4 w-4 rounded border-slate-800 text-purple-600 focus:ring-purple-500 bg-slate-950" />
+            <label for="hermann-colored" class="text-xs font-bold text-slate-300">Enable Colored Mode (weakens illusion)</label>
+          </div>
+        </div>
+
+        <!-- ==================== CONTROLS: ROTATING RINGS ==================== -->
+        <div class="generator-controls space-y-4 hidden" data-tab="rings">
+          <div class="space-y-2">
+            <div class="flex justify-between text-xs font-bold text-slate-300">
+              <label for="rings-count">Number of Rings</label>
+              <span id="rings-count-val" class="text-purple-400">4</span>
+            </div>
+            <input type="range" id="rings-count" min="2" max="8" value="4" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-purple-500" />
+          </div>
+
+          <div class="space-y-2">
+            <div class="flex justify-between text-xs font-bold text-slate-300">
+              <label for="rings-segments">Segments per Ring</label>
+              <span id="rings-segments-val" class="text-purple-400">16</span>
+            </div>
+            <input type="range" id="rings-segments" min="8" max="32" value="16" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-purple-500" />
+          </div>
+
+          <div class="space-y-2">
+            <div class="flex justify-between text-xs font-bold text-slate-300">
+              <label for="rings-spacing">Ring Spacing (px)</label>
+              <span id="rings-spacing-val" class="text-purple-400">20px</span>
+            </div>
+            <input type="range" id="rings-spacing" min="5" max="30" value="20" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-purple-500" />
+          </div>
+
+          <div class="space-y-2">
+            <div class="flex justify-between text-xs font-bold text-slate-300">
+              <label for="rings-angle">Chevron Angle (deg)</label>
+              <span id="rings-angle-val" class="text-purple-400">30°</span>
+            </div>
+            <input type="range" id="rings-angle" min="0" max="90" value="30" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-purple-500" />
+          </div>
+
+          <div class="space-y-2">
+            <div class="flex justify-between text-xs font-bold text-slate-300">
+              <label for="rings-speed">Rotation Speed</label>
+              <span id="rings-speed-val" class="text-purple-400">0 (Static)</span>
+            </div>
+            <input type="range" id="rings-speed" min="0" max="3" step="0.2" value="0" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-purple-500" />
+          </div>
+
+          <div class="grid grid-cols-2 gap-4 pt-2">
+            <div class="space-y-1">
+              <label for="rings-colorA" class="text-[11px] font-bold text-slate-400 block">Color A</label>
+              <input type="color" id="rings-colorA" value="#eab308" class="w-full h-10 bg-transparent border border-slate-850 rounded cursor-pointer" />
+            </div>
+            <div class="space-y-1">
+              <label for="rings-colorB" class="text-[11px] font-bold text-slate-400 block">Color B</label>
+              <input type="color" id="rings-colorB" value="#06b6d4" class="w-full h-10 bg-transparent border border-slate-850 rounded cursor-pointer" />
+            </div>
+          </div>
+        </div>
+
+        <!-- ==================== CONTROLS: STRIPES ==================== -->
+        <div class="generator-controls space-y-4 hidden" data-tab="stripes">
+          <div class="space-y-2">
+            <div class="flex justify-between text-xs font-bold text-slate-300">
+              <label for="stripes-count">Horizontal Lines</label>
+              <span id="stripes-count-val" class="text-purple-400">10</span>
+            </div>
+            <input type="range" id="stripes-count" min="5" max="30" value="10" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-purple-500" />
+          </div>
+
+          <div class="space-y-2">
+            <div class="flex justify-between text-xs font-bold text-slate-300">
+              <label for="stripes-pattern">Dashes Frequency</label>
+              <span id="stripes-pattern-val" class="text-purple-400">12</span>
+            </div>
+            <input type="range" id="stripes-pattern" min="2" max="40" value="12" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-purple-500" />
+          </div>
+
+          <div class="space-y-2">
+            <div class="flex justify-between text-xs font-bold text-slate-300">
+              <label for="stripes-angle">Dash Angle (deg)</label>
+              <span id="stripes-angle-val" class="text-purple-400">30°</span>
+            </div>
+            <input type="range" id="stripes-angle" min="0" max="90" value="30" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-purple-500" />
+          </div>
+
+          <div class="space-y-2">
+            <div class="flex justify-between text-xs font-bold text-slate-300">
+              <label for="stripes-thickness">Line Thickness (px)</label>
+              <span id="stripes-thickness-val" class="text-purple-400">3px</span>
+            </div>
+            <input type="range" id="stripes-thickness" min="1" max="5" value="3" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-purple-500" />
+          </div>
+
+          <div class="grid grid-cols-2 gap-4 pt-2">
+            <div class="space-y-1">
+              <label for="stripes-lineColor" class="text-[11px] font-bold text-slate-400 block">Line Color</label>
+              <input type="color" id="stripes-lineColor" value="#ec4899" class="w-full h-10 bg-transparent border border-slate-850 rounded cursor-pointer" />
+            </div>
+            <div class="space-y-1">
+              <label for="stripes-bg" class="text-[11px] font-bold text-slate-400 block">Background Color</label>
+              <input type="color" id="stripes-bg" value="#0f172a" class="w-full h-10 bg-transparent border border-slate-850 rounded cursor-pointer" />
+            </div>
+          </div>
+
+          <div class="flex items-center gap-3 pt-2">
+            <input type="checkbox" id="stripes-alternating" checked class="h-4 w-4 rounded border-slate-800 text-purple-600 focus:ring-purple-500 bg-slate-950" />
+            <label for="stripes-alternating" class="text-xs font-bold text-slate-300">Alternating Dash Direction (creates tilt)</label>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right Panel: Live SVG Preview (lg:col-span-7) -->
+      <div class="lg:col-span-7 flex flex-col items-center justify-center space-y-6">
+        
+        <!-- Live Preview Canvas -->
+        <div id="preview-canvas-wrapper" class="w-full max-w-[400px] aspect-square relative bg-slate-950 rounded-3xl border border-indigo-500/20 p-2 shadow-2xl flex items-center justify-center">
+          <svg id="generator-svg" width="100%" height="100%" viewBox="0 0 400 400" class="w-full h-full bg-slate-950 rounded-2xl overflow-visible">
+            <!-- Dynamically populated via JS -->
+          </svg>
+        </div>
+
+        <!-- Actions -->
+        <div class="flex flex-wrap gap-3 w-full justify-center">
+          <button id="download-png-btn" class="rounded-xl bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-600 px-5 py-3 text-xs font-black text-white shadow-lg flex items-center gap-1.5 hover:scale-102 transition-transform">
+            📥 Download PNG
+          </button>
+          <button id="share-link-btn" class="rounded-xl border border-indigo-500/20 bg-slate-900/60 hover:bg-slate-800 px-5 py-3 text-xs font-bold text-slate-200 hover:text-white flex items-center gap-1.5 transition-colors">
+            🔗 Share Creation
+          </button>
+          <button id="reset-btn" class="rounded-xl border border-slate-850 bg-slate-950 hover:bg-slate-900 px-5 py-3 text-xs font-bold text-slate-400 hover:text-slate-350 flex items-center gap-1.5 transition-colors">
+            🔄 Reset Defaults
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- Gallery Section -->
+  <section class="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-slate-800">
+    <div class="text-center space-y-2 mb-12">
+      <h3 class="font-display text-3xl font-bold text-white">Community Creations</h3>
+      <p class="text-slate-450 text-sm max-w-md mx-auto">Load one of these verified optical illusion presets directly into the generator.</p>
+    </div>
+    
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+      
+      <!-- Preset 1 -->
+      <button class="preset-card bg-slate-900/40 border border-slate-800 hover:border-purple-500/30 hover:bg-slate-900 p-4 rounded-2xl text-center space-y-3 flex flex-col justify-between transition-all group" data-preset="classic-cafe">
+        <div class="w-full aspect-square bg-slate-950 rounded-xl overflow-hidden flex items-center justify-center p-1 border border-slate-850">
+          <svg viewBox="0 0 100 100" class="w-full h-full opacity-60 group-hover:opacity-100 transition-opacity">
+            <rect x="0" y="0" width="100" height="100" fill="#808080" />
+            <rect x="5" y="10" width="20" height="20" fill="#000" />
+            <rect x="25" y="10" width="20" height="20" fill="#fff" />
+            <rect x="45" y="10" width="20" height="20" fill="#000" />
+            <rect x="65" y="10" width="20" height="20" fill="#fff" />
+            <rect x="15" y="40" width="20" height="20" fill="#000" />
+            <rect x="35" y="40" width="20" height="20" fill="#fff" />
+            <rect x="55" y="40" width="20" height="20" fill="#000" />
+            <rect x="75" y="40" width="20" height="20" fill="#fff" />
+          </svg>
+        </div>
+        <span class="text-xs font-bold text-white block">The Classic Café</span>
+      </button>
+
+      <!-- Preset 2 -->
+      <button class="preset-card bg-slate-900/40 border border-slate-800 hover:border-purple-500/30 hover:bg-slate-900 p-4 rounded-2xl text-center space-y-3 flex flex-col justify-between transition-all group" data-preset="ghost-grid">
+        <div class="w-full aspect-square bg-slate-950 rounded-xl overflow-hidden flex items-center justify-center p-1 border border-slate-850">
+          <svg viewBox="0 0 100 100" class="w-full h-full opacity-60 group-hover:opacity-100 transition-opacity">
+            <rect x="0" y="0" width="100" height="100" fill="#fff" />
+            <rect x="10" y="10" width="20" height="20" fill="#000" />
+            <rect x="40" y="10" width="20" height="20" fill="#000" />
+            <rect x="70" y="10" width="20" height="20" fill="#000" />
+            <rect x="10" y="40" width="20" height="20" fill="#000" />
+            <rect x="40" y="40" width="20" height="20" fill="#000" />
+            <rect x="70" y="40" width="20" height="20" fill="#000" />
+          </svg>
+        </div>
+        <span class="text-xs font-bold text-white block">Ghost Intersection</span>
+      </button>
+
+      <!-- Preset 3 -->
+      <button class="preset-card bg-slate-900/40 border border-slate-800 hover:border-purple-500/30 hover:bg-slate-900 p-4 rounded-2xl text-center space-y-3 flex flex-col justify-between transition-all group" data-preset="subtle-spin">
+        <div class="w-full aspect-square bg-slate-950 rounded-xl overflow-hidden flex items-center justify-center p-1 border border-slate-850">
+          <svg viewBox="0 0 100 100" class="w-full h-full opacity-60 group-hover:opacity-100 transition-opacity">
+            <circle cx="50" cy="50" r="40" stroke="#eab308" stroke-width="4" stroke-dasharray="4,4" fill="none" />
+            <circle cx="50" cy="50" r="25" stroke="#06b6d4" stroke-width="4" stroke-dasharray="4,4" fill="none" />
+          </svg>
+        </div>
+        <span class="text-xs font-bold text-white block">Subtle Spin</span>
+      </button>
+
+      <!-- Preset 4 -->
+      <button class="preset-card bg-slate-900/40 border border-slate-800 hover:border-purple-500/30 hover:bg-slate-900 p-4 rounded-2xl text-center space-y-3 flex flex-col justify-between transition-all group" data-preset="zoellner-maze">
+        <div class="w-full aspect-square bg-slate-950 rounded-xl overflow-hidden flex items-center justify-center p-1 border border-slate-850">
+          <svg viewBox="0 0 100 100" class="w-full h-full opacity-60 group-hover:opacity-100 transition-opacity" fill="none" stroke="#ec4899">
+            <line x1="10" y1="20" x2="90" y2="20" stroke-width="2" />
+            <line x1="10" y1="50" x2="90" y2="50" stroke-width="2" />
+            <!-- dashes -->
+            <line x1="30" y1="10" x2="40" y2="30" stroke-width="1.5" />
+            <line x1="60" y1="10" x2="70" y2="30" stroke-width="1.5" />
+            <line x1="30" y1="60" x2="20" y2="40" stroke-width="1.5" />
+            <line x1="60" y1="60" x2="50" y2="40" stroke-width="1.5" />
+          </svg>
+        </div>
+        <span class="text-xs font-bold text-white block">Zöllner&apos;s Maze</span>
+      </button>
+
+      <!-- Preset 5 -->
+      <button class="preset-card bg-slate-900/40 border border-slate-800 hover:border-purple-500/30 hover:bg-slate-900 p-4 rounded-2xl text-center space-y-3 flex flex-col justify-between transition-all group" data-preset="rainbow-grid">
+        <div class="w-full aspect-square bg-slate-950 rounded-xl overflow-hidden flex items-center justify-center p-1 border border-slate-850">
+          <svg viewBox="0 0 100 100" class="w-full h-full opacity-60 group-hover:opacity-100 transition-opacity">
+            <rect x="10" y="10" width="20" height="20" fill="#f87171" />
+            <rect x="40" y="10" width="20" height="20" fill="#facc15" />
+            <rect x="70" y="10" width="20" height="20" fill="#60a5fa" />
+            <rect x="10" y="40" width="20" height="20" fill="#c084fc" />
+            <rect x="40" y="40" width="20" height="20" fill="#fb923c" />
+            <rect x="70" y="40" width="20" height="20" fill="#4ade80" />
+          </svg>
+        </div>
+        <span class="text-xs font-bold text-white block">Rainbow Grid</span>
+      </button>
+
+      <!-- Preset 6 -->
+      <button class="preset-card bg-slate-900/40 border border-slate-800 hover:border-purple-500/30 hover:bg-slate-900 p-4 rounded-2xl text-center space-y-3 flex flex-col justify-between transition-all group" data-preset="max-confusion">
+        <div class="w-full aspect-square bg-slate-950 rounded-xl overflow-hidden flex items-center justify-center p-1 border border-slate-850">
+          <svg viewBox="0 0 100 100" class="w-full h-full opacity-60 group-hover:opacity-100 transition-opacity">
+            <circle cx="50" cy="50" r="42" stroke="#a855f7" stroke-width="4" stroke-dasharray="2,2" fill="none" />
+            <circle cx="50" cy="50" r="32" stroke="#10b981" stroke-width="4" stroke-dasharray="2,2" fill="none" />
+            <circle cx="50" cy="50" r="22" stroke="#a855f7" stroke-width="4" stroke-dasharray="2,2" fill="none" />
+          </svg>
+        </div>
+        <span class="text-xs font-bold text-white block">Max Confusion</span>
+      </button>
+
+    </div>
+  </section>
+
+  <!-- How to Use Section -->
+  <section class="py-16 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto border-t border-slate-800 text-center space-y-8">
+    <h3 class="font-display text-2xl sm:text-3xl font-bold text-white">How to Create Optical Illusions Online</h3>
+    
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
+      <div class="bg-slate-950/40 border border-slate-850 rounded-2xl p-6 space-y-3">
+        <div class="h-10 w-10 rounded-xl bg-purple-600/20 text-purple-400 flex items-center justify-center font-black">1</div>
+        <h4 class="font-bold text-white">Choose Your Illusion</h4>
+        <p class="text-xs text-slate-400">Select one of our four classic modules from the top tabs: Café Wall, Hermann Grid, Rotating Rings, or Stripes.</p>
+      </div>
+
+      <div class="bg-slate-950/40 border border-slate-850 rounded-2xl p-6 space-y-3">
+        <div class="h-10 w-10 rounded-xl bg-purple-600/20 text-purple-400 flex items-center justify-center font-black">2</div>
+        <h4 class="font-bold text-white">Adjust the Sliders</h4>
+        <p class="text-xs text-slate-400">Fine-tune spacing, colors, gaps, or animation speed. Each change updates the live preview instantly.</p>
+      </div>
+
+      <div class="bg-slate-950/40 border border-slate-850 rounded-2xl p-6 space-y-3">
+        <div class="h-10 w-10 rounded-xl bg-purple-600/20 text-purple-400 flex items-center justify-center font-black">3</div>
+        <h4 class="font-bold text-white">Export & Share</h4>
+        <p class="text-xs text-slate-400">Download a high-resolution PNG file to print out, or generate a unique shareable link containing your settings.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Client-side Logic Script -->
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+
+      // Centralized configuration state
+      let config = {
+        activeTab: 'cafe',
+        cafe: {
+          rows: 10,
+          cols: 10,
+          offset: 50,
+          tileColor1: '#000000',
+          tileColor2: '#ffffff',
+          groutColor: '#808080',
+          groutThickness: 3,
+          rowHeight: 30
+        },
+        hermann: {
+          gridSize: 8,
+          squareSize: 38,
+          gapSize: 8,
+          squareColor: '#000000',
+          backgroundColor: '#ffffff',
+          coloredMode: false
+        },
+        rings: {
+          ringsCount: 4,
+          segmentsCount: 16,
+          colorA: '#eab308',
+          colorB: '#06b6d4',
+          spacing: 20,
+          chevronAngle: 30,
+          speed: 0
+        },
+        stripes: {
+          linesCount: 10,
+          lineColor: '#ec4899',
+          backgroundColor: '#0f172a',
+          dashPattern: 12,
+          dashAngle: 30,
+          alternating: true,
+          thickness: 3
+        }
+      };
+
+      // Select DOM Elements
+      const svgEl = document.getElementById('generator-svg');
+      const tabs = document.querySelectorAll('#generator-tabs button');
+      const controlContainers = document.querySelectorAll('.generator-controls');
+
+      // 1. RENDERERS
+
+      // Café Wall
+      function renderCafeWall(svg, params) {
+        const { rows, cols, offset, tileColor1, tileColor2, groutColor, groutThickness, rowHeight } = params;
+        let html = '';
+        html += `
+          <defs>
+            <clipPath id="cafe-clip">
+              <rect x="0" y="0" width="400" height="400" rx="16" />
+            </clipPath>
+          </defs>
+          <g clip-path="url(#cafe-clip)">
+            <rect x="0" y="0" width="400" height="400" fill="${groutColor}" />
+        `;
+
+        const totalHeight = rows * rowHeight;
+        const startY = (400 - totalHeight) / 2;
+        const tileWidth = (400 / cols) * 1.5;
+
+        for (let r = 0; r < rows; r++) {
+          const y = startY + r * rowHeight;
+          const isShifted = r % 2 === 1;
+          const shiftPercent = isShifted ? (offset / 100) : 0;
+          const shiftX = -tileWidth + (shiftPercent * tileWidth);
+
+          html += `<g transform="translate(0, ${y})">`;
+          for (let c = 0; c < cols * 2; c++) {
+            const x = shiftX + c * tileWidth;
+            const fillColor = c % 2 === 0 ? tileColor1 : tileColor2;
+            html += `<rect x="${x}" y="0" width="${tileWidth - groutThickness/2}" height="${rowHeight - groutThickness}" fill="${fillColor}" />`;
+          }
+          html += `</g>`;
+
+          if (r < rows - 1) {
+            html += `<line x1="0" y1="${y + rowHeight - groutThickness/2}" x2="400" y2="${y + rowHeight - groutThickness/2}" stroke="${groutColor}" stroke-width="${groutThickness}" />`;
+          }
+        }
+        html += `</g>`;
+        svg.innerHTML = html;
+      }
+
+      // Hermann Grid
+      function renderHermannGrid(svg, params) {
+        const { gridSize, squareSize, gapSize, squareColor, backgroundColor, coloredMode } = params;
+        let html = '';
+        html += `
+          <defs>
+            <clipPath id="hermann-clip">
+              <rect x="0" y="0" width="400" height="400" rx="16" />
+            </clipPath>
+          </defs>
+          <g clip-path="url(#hermann-clip)">
+            <rect x="0" y="0" width="400" height="400" fill="${backgroundColor}" />
+        `;
+
+        const gridWidth = (gridSize * squareSize) + ((gridSize - 1) * gapSize);
+        const startX = (400 - gridWidth) / 2;
+        const startY = (400 - gridWidth) / 2;
+        const colors = ["#f87171", "#fb923c", "#facc15", "#4ade80", "#60a5fa", "#c084fc", "#f472b6"];
+
+        for (let r = 0; r < gridSize; r++) {
+          for (let c = 0; c < gridSize; c++) {
+            const x = startX + c * (squareSize + gapSize);
+            const y = startY + r * (squareSize + gapSize);
+            const color = coloredMode ? colors[(r + c) % colors.length] : squareColor;
+
+            html += `<rect x="${x}" y="${y}" width="${squareSize}" height="${squareSize}" fill="${color}" />`;
+          }
+        }
+        html += `</g>`;
+        svg.innerHTML = html;
+      }
+
+      // Rotating Rings
+      function renderRotatingRings(svg, params) {
+        const { ringsCount, segmentsCount, colorA, colorB, spacing, chevronAngle, speed } = params;
+        let html = '';
+        html += `
+          <defs>
+            <clipPath id="rings-clip">
+              <rect x="0" y="0" width="400" height="400" rx="16" />
+            </clipPath>
+            <style>
+              @keyframes rot-cw {
+                from { transform: rotate(0deg); }
+                to { transform: rotate(360deg); }
+              }
+              @keyframes rot-ccw {
+                from { transform: rotate(0deg); }
+                to { transform: rotate(-360deg); }
+              }
+            </style>
+          </defs>
+          <g clip-path="url(#rings-clip)">
+            <rect x="0" y="0" width="400" height="400" fill="#0f172a" />
+        `;
+
+        for (let r = 0; r < ringsCount; r++) {
+          const radius = 50 + (r * spacing);
+          const isEven = r % 2 === 0;
+          const animName = isEven ? 'rot-cw' : 'rot-ccw';
+          const duration = speed > 0 ? (35 / (speed * (r + 1) * 0.4)) : 0;
+          
+          let animStyle = '';
+          if (speed > 0) {
+            animStyle = `style="animation: ${animName} ${duration}s linear infinite; transform-origin: 200px 200px;"`;
+          }
+
+          html += `<g ${animStyle}>`;
+          const W = spacing * 0.9;
+          const H = spacing * 0.5;
+
+          for (let s = 0; s < segmentsCount; s++) {
+            const theta = (2 * Math.PI * s) / segmentsCount;
+            const x = 200 + radius * Math.cos(theta);
+            const y = 200 + radius * Math.sin(theta);
+            
+            const radialAngleDeg = (theta * 180) / Math.PI;
+            const tilt = isEven ? chevronAngle : -chevronAngle;
+            const angle = radialAngleDeg + tilt;
+
+            let fill = colorA;
+            let stroke = '#000000';
+            const phase = s % 4;
+            if (phase === 1) {
+              fill = '#000000';
+              stroke = colorB;
+            } else if (phase === 2) {
+              fill = colorB;
+              stroke = '#ffffff';
+            } else if (phase === 3) {
+              fill = '#ffffff';
+              stroke = colorA;
+            }
+
+            html += `
+              <g transform="translate(${x}, ${y}) rotate(${angle})">
+                <polygon points="${-W/2},${-H/2} ${W/2},0 ${-W/2},${H/2} ${-W/3},0" fill="${fill}" stroke="${stroke}" stroke-width="1.2" />
+              </g>
+            `;
+          }
+          html += `</g>`;
+        }
+        html += `</g>`;
+        svg.innerHTML = html;
+      }
+
+      // Stripes
+      function renderStripes(svg, params) {
+        const { linesCount, lineColor, backgroundColor, dashPattern, dashAngle, alternating, thickness } = params;
+        let html = '';
+        html += `
+          <defs>
+            <clipPath id="stripes-clip">
+              <rect x="0" y="0" width="400" height="400" rx="16" />
+            </clipPath>
+          </defs>
+          <g clip-path="url(#stripes-clip)">
+            <rect x="0" y="0" width="400" height="400" fill="${backgroundColor}" />
+        `;
+
+        const totalHeight = 360;
+        const startY = 20;
+        const spacing = totalHeight / (linesCount - 1 || 1);
+
+        for (let l = 0; l < linesCount; l++) {
+          const y = startY + l * spacing;
+          html += `<line x1="20" y1="${y}" x2="380" y2="${y}" stroke="${lineColor}" stroke-width="${thickness}" stroke-linecap="round" />`;
+
+          const angleRad = (dashAngle * Math.PI) / 180;
+          const isEven = l % 2 === 0;
+          const activeAngleRad = (alternating && isEven) ? -angleRad : angleRad;
+
+          const dashLen = 14;
+          const dx = dashLen * Math.sin(activeAngleRad);
+          const dy = dashLen * Math.cos(activeAngleRad);
+
+          const stepX = 360 / (dashPattern + 1);
+          for (let d = 0; d < dashPattern; d++) {
+            const cx = 20 + (d + 1) * stepX;
+            const x1 = cx - dx / 2;
+            const y1 = y - dy / 2;
+            const x2 = cx + dx / 2;
+            const y2 = y + dy / 2;
+
+            html += `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${lineColor}" stroke-width="${thickness * 0.75}" stroke-linecap="round" opacity="0.85" />`;
+          }
+        }
+        html += `</g>`;
+        svg.innerHTML = html;
+      }
+
+      // 2. DISPATCH RENDER
+      function renderActiveGenerator() {
+        const tab = config.activeTab;
+        if (tab === 'cafe') {
+          renderCafeWall(svgEl, config.cafe);
+        } else if (tab === 'hermann') {
+          renderHermannGrid(svgEl, config.hermann);
+        } else if (tab === 'rings') {
+          renderRotatingRings(svgEl, config.rings);
+        } else if (tab === 'stripes') {
+          renderStripes(svgEl, config.stripes);
+        }
+      }
+
+      // 3. EVENT HANDLERS & BINDINGS
+      function bindInputs() {
+        // Cafe Inputs
+        document.getElementById('cafe-rows').addEventListener('input', (e) => {
+          config.cafe.rows = parseInt(e.target.value);
+          document.getElementById('cafe-rows-val').textContent = e.target.value;
+          renderActiveGenerator();
+        });
+        document.getElementById('cafe-cols').addEventListener('input', (e) => {
+          config.cafe.cols = parseInt(e.target.value);
+          document.getElementById('cafe-cols-val').textContent = e.target.value;
+          renderActiveGenerator();
+        });
+        document.getElementById('cafe-offset').addEventListener('input', (e) => {
+          config.cafe.offset = parseInt(e.target.value);
+          document.getElementById('cafe-offset-val').textContent = e.target.value + '%';
+          renderActiveGenerator();
+        });
+        document.getElementById('cafe-thickness').addEventListener('input', (e) => {
+          config.cafe.groutThickness = parseInt(e.target.value);
+          document.getElementById('cafe-thickness-val').textContent = e.target.value + 'px';
+          renderActiveGenerator();
+        });
+        document.getElementById('cafe-height').addEventListener('input', (e) => {
+          config.cafe.rowHeight = parseInt(e.target.value);
+          document.getElementById('cafe-height-val').textContent = e.target.value + 'px';
+          renderActiveGenerator();
+        });
+        document.getElementById('cafe-color1').addEventListener('input', (e) => {
+          config.cafe.tileColor1 = e.target.value;
+          renderActiveGenerator();
+        });
+        document.getElementById('cafe-color2').addEventListener('input', (e) => {
+          config.cafe.tileColor2 = e.target.value;
+          renderActiveGenerator();
+        });
+        document.getElementById('cafe-grout').addEventListener('input', (e) => {
+          config.cafe.groutColor = e.target.value;
+          renderActiveGenerator();
+        });
+
+        // Hermann Inputs
+        document.getElementById('hermann-grid').addEventListener('input', (e) => {
+          config.hermann.gridSize = parseInt(e.target.value);
+          document.getElementById('hermann-grid-val').textContent = `${e.target.value} x ${e.target.value}`;
+          renderActiveGenerator();
+        });
+        document.getElementById('hermann-size').addEventListener('input', (e) => {
+          config.hermann.squareSize = parseInt(e.target.value);
+          document.getElementById('hermann-size-val').textContent = e.target.value + 'px';
+          renderActiveGenerator();
+        });
+        document.getElementById('hermann-gap').addEventListener('input', (e) => {
+          config.hermann.gapSize = parseInt(e.target.value);
+          document.getElementById('hermann-gap-val').textContent = e.target.value + 'px';
+          renderActiveGenerator();
+        });
+        document.getElementById('hermann-color').addEventListener('input', (e) => {
+          config.hermann.squareColor = e.target.value;
+          renderActiveGenerator();
+        });
+        document.getElementById('hermann-bg').addEventListener('input', (e) => {
+          config.hermann.backgroundColor = e.target.value;
+          renderActiveGenerator();
+        });
+        document.getElementById('hermann-colored').addEventListener('change', (e) => {
+          config.hermann.coloredMode = e.target.checked;
+          renderActiveGenerator();
+        });
+
+        // Rings Inputs
+        document.getElementById('rings-count').addEventListener('input', (e) => {
+          config.rings.ringsCount = parseInt(e.target.value);
+          document.getElementById('rings-count-val').textContent = e.target.value;
+          renderActiveGenerator();
+        });
+        document.getElementById('rings-segments').addEventListener('input', (e) => {
+          config.rings.segmentsCount = parseInt(e.target.value);
+          document.getElementById('rings-segments-val').textContent = e.target.value;
+          renderActiveGenerator();
+        });
+        document.getElementById('rings-spacing').addEventListener('input', (e) => {
+          config.rings.spacing = parseInt(e.target.value);
+          document.getElementById('rings-spacing-val').textContent = e.target.value + 'px';
+          renderActiveGenerator();
+        });
+        document.getElementById('rings-angle').addEventListener('input', (e) => {
+          config.rings.chevronAngle = parseInt(e.target.value);
+          document.getElementById('rings-angle-val').textContent = e.target.value + '°';
+          renderActiveGenerator();
+        });
+        document.getElementById('rings-speed').addEventListener('input', (e) => {
+          config.rings.speed = parseFloat(e.target.value);
+          document.getElementById('rings-speed-val').textContent = config.rings.speed === 0 ? '0 (Static)' : config.rings.speed;
+          renderActiveGenerator();
+        });
+        document.getElementById('rings-colorA').addEventListener('input', (e) => {
+          config.rings.colorA = e.target.value;
+          renderActiveGenerator();
+        });
+        document.getElementById('rings-colorB').addEventListener('input', (e) => {
+          config.rings.colorB = e.target.value;
+          renderActiveGenerator();
+        });
+
+        // Stripes Inputs
+        document.getElementById('stripes-count').addEventListener('input', (e) => {
+          config.stripes.linesCount = parseInt(e.target.value);
+          document.getElementById('stripes-count-val').textContent = e.target.value;
+          renderActiveGenerator();
+        });
+        document.getElementById('stripes-pattern').addEventListener('input', (e) => {
+          config.stripes.dashPattern = parseInt(e.target.value);
+          document.getElementById('stripes-pattern-val').textContent = e.target.value;
+          renderActiveGenerator();
+        });
+        document.getElementById('stripes-angle').addEventListener('input', (e) => {
+          config.stripes.dashAngle = parseInt(e.target.value);
+          document.getElementById('stripes-angle-val').textContent = e.target.value + '°';
+          renderActiveGenerator();
+        });
+        document.getElementById('stripes-thickness').addEventListener('input', (e) => {
+          config.stripes.thickness = parseInt(e.target.value);
+          document.getElementById('stripes-thickness-val').textContent = e.target.value + 'px';
+          renderActiveGenerator();
+        });
+        document.getElementById('stripes-lineColor').addEventListener('input', (e) => {
+          config.stripes.lineColor = e.target.value;
+          renderActiveGenerator();
+        });
+        document.getElementById('stripes-bg').addEventListener('input', (e) => {
+          config.stripes.backgroundColor = e.target.value;
+          renderActiveGenerator();
+        });
+        document.getElementById('stripes-alternating').addEventListener('change', (e) => {
+          config.stripes.alternating = e.target.checked;
+          renderActiveGenerator();
+        });
+      }
+
+      // Sync DOM controls to current config state
+      function syncDOMFromConfig() {
+        // Tab styling
+        tabs.forEach(t => {
+          if (t.dataset.tab === config.activeTab) {
+            t.classList.add('border-purple-500', 'text-purple-400');
+            t.classList.remove('border-transparent', 'text-slate-400');
+          } else {
+            t.classList.remove('border-purple-500', 'text-purple-400');
+            t.classList.add('border-transparent', 'text-slate-400');
+          }
+        });
+
+        // Hide/Show Controls panels
+        controlContainers.forEach(container => {
+          if (container.dataset.tab === config.activeTab) {
+            container.classList.remove('hidden');
+          } else {
+            container.classList.add('hidden');
+          }
+        });
+
+        // Cafe
+        document.getElementById('cafe-rows').value = config.cafe.rows;
+        document.getElementById('cafe-rows-val').textContent = config.cafe.rows;
+        document.getElementById('cafe-cols').value = config.cafe.cols;
+        document.getElementById('cafe-cols-val').textContent = config.cafe.cols;
+        document.getElementById('cafe-offset').value = config.cafe.offset;
+        document.getElementById('cafe-offset-val').textContent = config.cafe.offset + '%';
+        document.getElementById('cafe-thickness').value = config.cafe.groutThickness;
+        document.getElementById('cafe-thickness-val').textContent = config.cafe.groutThickness + 'px';
+        document.getElementById('cafe-height').value = config.cafe.rowHeight;
+        document.getElementById('cafe-height-val').textContent = config.cafe.rowHeight + 'px';
+        document.getElementById('cafe-color1').value = config.cafe.tileColor1;
+        document.getElementById('cafe-color2').value = config.cafe.tileColor2;
+        document.getElementById('cafe-grout').value = config.cafe.groutColor;
+
+        // Hermann
+        document.getElementById('hermann-grid').value = config.hermann.gridSize;
+        document.getElementById('hermann-grid-val').textContent = `${config.hermann.gridSize} x ${config.hermann.gridSize}`;
+        document.getElementById('hermann-size').value = config.hermann.squareSize;
+        document.getElementById('hermann-size-val').textContent = config.hermann.squareSize + 'px';
+        document.getElementById('hermann-gap').value = config.hermann.gapSize;
+        document.getElementById('hermann-gap-val').textContent = config.hermann.gapSize + 'px';
+        document.getElementById('hermann-color').value = config.hermann.squareColor;
+        document.getElementById('hermann-bg').value = config.hermann.backgroundColor;
+        document.getElementById('hermann-colored').checked = config.hermann.coloredMode;
+
+        // Rings
+        document.getElementById('rings-count').value = config.rings.ringsCount;
+        document.getElementById('rings-count-val').textContent = config.rings.ringsCount;
+        document.getElementById('rings-segments').value = config.rings.segmentsCount;
+        document.getElementById('rings-segments-val').textContent = config.rings.segmentsCount;
+        document.getElementById('rings-spacing').value = config.rings.spacing;
+        document.getElementById('rings-spacing-val').textContent = config.rings.spacing + 'px';
+        document.getElementById('rings-angle').value = config.rings.chevronAngle;
+        document.getElementById('rings-angle-val').textContent = config.rings.chevronAngle + '°';
+        document.getElementById('rings-speed').value = config.rings.speed;
+        document.getElementById('rings-speed-val').textContent = config.rings.speed === 0 ? '0 (Static)' : config.rings.speed;
+        document.getElementById('rings-colorA').value = config.rings.colorA;
+        document.getElementById('rings-colorB').value = config.rings.colorB;
+
+        // Stripes
+        document.getElementById('stripes-count').value = config.stripes.linesCount;
+        document.getElementById('stripes-count-val').textContent = config.stripes.linesCount;
+        document.getElementById('stripes-pattern').value = config.stripes.dashPattern;
+        document.getElementById('stripes-pattern-val').textContent = config.stripes.dashPattern;
+        document.getElementById('stripes-angle').value = config.stripes.dashAngle;
+        document.getElementById('stripes-angle-val').textContent = config.stripes.dashAngle + '°';
+        document.getElementById('stripes-thickness').value = config.stripes.thickness;
+        document.getElementById('stripes-thickness-val').textContent = config.stripes.thickness + 'px';
+        document.getElementById('stripes-lineColor').value = config.stripes.lineColor;
+        document.getElementById('stripes-bg').value = config.stripes.backgroundColor;
+        document.getElementById('stripes-alternating').checked = config.stripes.alternating;
+      }
+
+      // 4. ACTION BUTTONS: Download, Share, Reset
+
+      // Download PNG via Canvas API
+      function downloadPNG() {
+        const svgString = new XMLSerializer().serializeToString(svgEl);
+        // Include SVG namespace headers to prevent canvas drawing failures
+        const cleanSvgString = svgString.includes('xmlns') ? svgString : svgString.replace('<svg', '<svg xmlns="http://www.w3.org/2000/svg"');
+        const svgBlob = new Blob([cleanSvgString], { type: 'image/svg+xml;charset=utf-8' });
+        const URL = window.URL || window.webkitURL || window;
+        const blobURL = URL.createObjectURL(svgBlob);
+        
+        const image = new Image();
+        image.onload = () => {
+          const canvas = document.createElement('canvas');
+          canvas.width = 800; // High quality output
+          canvas.height = 800;
+          const context = canvas.getContext('2d');
+          context.fillStyle = config.activeTab === 'rings' ? '#0f172a' : (config.activeTab === 'hermann' ? config.hermann.backgroundColor : (config.activeTab === 'stripes' ? config.stripes.backgroundColor : config.cafe.groutColor));
+          context.fillRect(0, 0, 800, 800);
+          
+          context.drawImage(image, 0, 0, 800, 800);
+          
+          const png = canvas.toDataURL('image/png');
+          const downloadLink = document.createElement('a');
+          downloadLink.href = png;
+          downloadLink.download = `${config.activeTab}-optical-illusion.png`;
+          document.body.appendChild(downloadLink);
+          downloadLink.click();
+          document.body.removeChild(downloadLink);
+          
+          URL.revokeObjectURL(blobURL);
+        };
+        image.src = blobURL;
+      }
+
+      document.getElementById('download-png-btn').addEventListener('click', downloadPNG);
+
+      // URL Query params serialization (Share link)
+      function shareLink() {
+        const params = new URLSearchParams();
+        params.set('tab', config.activeTab);
+        
+        const subConfig = config[config.activeTab];
+        for (const key in subConfig) {
+          params.set(key, subConfig[key]);
+        }
+        
+        const shareURL = `${window.location.origin}${window.location.pathname}?${params.toString()}`;
+        
+        navigator.clipboard.writeText(shareURL).then(() => {
+          alert('🔗 Share URL copied to clipboard! Share this link to load this exact illusion configuration.');
+        }).catch(err => {
+          console.error('Failed to copy share link', err);
+        });
+      }
+
+      document.getElementById('share-link-btn').addEventListener('click', shareLink);
+
+      // Reset Defaults
+      function resetDefaults() {
+        const defaults = {
+          cafe: {
+            rows: 10,
+            cols: 10,
+            offset: 50,
+            tileColor1: '#000000',
+            tileColor2: '#ffffff',
+            groutColor: '#808080',
+            groutThickness: 3,
+            rowHeight: 30
+          },
+          hermann: {
+            gridSize: 8,
+            squareSize: 38,
+            gapSize: 8,
+            squareColor: '#000000',
+            backgroundColor: '#ffffff',
+            coloredMode: false
+          },
+          rings: {
+            ringsCount: 4,
+            segmentsCount: 16,
+            colorA: '#eab308',
+            colorB: '#06b6d4',
+            spacing: 20,
+            chevronAngle: 30,
+            speed: 0
+          },
+          stripes: {
+            linesCount: 10,
+            lineColor: '#ec4899',
+            backgroundColor: '#0f172a',
+            dashPattern: 12,
+            dashAngle: 30,
+            alternating: true,
+            thickness: 3
+          }
+        };
+
+        config[config.activeTab] = JSON.parse(JSON.stringify(defaults[config.activeTab]));
+        syncDOMFromConfig();
+        renderActiveGenerator();
+      }
+
+      document.getElementById('reset-btn').addEventListener('click', resetDefaults);
+
+      // 5. TAB CLICKS
+      tabs.forEach(t => {
+        t.addEventListener('click', () => {
+          config.activeTab = t.dataset.tab;
+          syncDOMFromConfig();
+          renderActiveGenerator();
+        });
+      });
+
+      // 6. PRESETS GALLERY
+      const presetDefinitions = {
+        'classic-cafe': {
+          tab: 'cafe',
+          rows: 10,
+          cols: 10,
+          offset: 50,
+          tileColor1: '#000000',
+          tileColor2: '#ffffff',
+          groutColor: '#808080',
+          groutThickness: 3,
+          rowHeight: 30
+        },
+        'ghost-grid': {
+          tab: 'hermann',
+          gridSize: 8,
+          squareSize: 38,
+          gapSize: 8,
+          squareColor: '#000000',
+          backgroundColor: '#ffffff',
+          coloredMode: false
+        },
+        'subtle-spin': {
+          tab: 'rings',
+          ringsCount: 4,
+          segmentsCount: 16,
+          colorA: '#eab308',
+          colorB: '#06b6d4',
+          spacing: 20,
+          chevronAngle: 30,
+          speed: 0
+        },
+        'zoellner-maze': {
+          tab: 'stripes',
+          linesCount: 10,
+          lineColor: '#ec4899',
+          backgroundColor: '#0f172a',
+          dashPattern: 12,
+          dashAngle: 30,
+          alternating: true,
+          thickness: 3
+        },
+        'rainbow-grid': {
+          tab: 'hermann',
+          gridSize: 8,
+          squareSize: 38,
+          gapSize: 8,
+          squareColor: '#000000',
+          backgroundColor: '#ffffff',
+          coloredMode: true
+        },
+        'max-confusion': {
+          tab: 'rings',
+          ringsCount: 6,
+          segmentsCount: 24,
+          colorA: '#a855f7',
+          colorB: '#10b981',
+          spacing: 16,
+          chevronAngle: 45,
+          speed: 1.5
+        }
+      };
+
+      document.querySelectorAll('.preset-card').forEach(card => {
+        card.addEventListener('click', () => {
+          const name = card.dataset.preset;
+          const def = presetDefinitions[name];
+          if (def) {
+            config.activeTab = def.tab;
+            config[def.tab] = JSON.parse(JSON.stringify(def));
+            syncDOMFromConfig();
+            renderActiveGenerator();
+            window.scrollTo({ top: document.getElementById('generator-tabs').offsetTop - 80, behavior: 'smooth' });
+          }
+        });
+      });
+
+      // 7. INITIAL URL QUERY PARAMS DECODER
+      function decodeURLParams() {
+        const params = new URLSearchParams(window.location.search);
+        const tab = params.get('tab');
+        if (tab && ['cafe', 'hermann', 'rings', 'stripes'].includes(tab)) {
+          config.activeTab = tab;
+          
+          const subConfig = config[tab];
+          for (const key in subConfig) {
+            const val = params.get(key);
+            if (val !== null) {
+              if (val === 'true') {
+                subConfig[key] = true;
+              } else if (val === 'false') {
+                subConfig[key] = false;
+              } else if (!isNaN(val)) {
+                subConfig[key] = parseFloat(val);
+              } else {
+                subConfig[key] = val;
+              }
+            }
+          }
+        }
+      }
+
+      // Initialize workspace
+      decodeURLParams();
+      bindInputs();
+      syncDOMFromConfig();
+      renderActiveGenerator();
+    });
+  </script>
+
+</Layout>

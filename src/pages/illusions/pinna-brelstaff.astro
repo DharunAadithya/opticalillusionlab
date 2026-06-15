@@ -1,0 +1,332 @@
+---
+// src/pages/illusions/pinna-brelstaff.astro
+import Layout from '../../layouts/Layout.astro';
+
+// Math Helper: draws an SVG wedge from (cx, cy) out to radius r
+function getWedgePath(cx: number, cy: number, r: number, startAngle: number, endAngle: number) {
+  const rad = Math.PI / 180;
+  const x1 = cx + r * Math.cos(startAngle * rad);
+  const y1 = cy + r * Math.sin(startAngle * rad);
+  const x2 = cx + r * Math.cos(endAngle * rad);
+  const y2 = cy + r * Math.sin(endAngle * rad);
+  const largeArcFlag = endAngle - startAngle <= 180 ? 0 : 1;
+  return `M ${cx},${cy} L ${x1},${y1} A ${r},${r} 0 ${largeArcFlag},1 ${x2},${y2} Z`;
+}
+---
+
+<Layout 
+  title="Pinna-Brelstaff Illusion — Optical Illusion Lab" 
+  description="Moving your eyes around the image causes these concentric rings of tilted tiles to rotate, though it is 100% static."
+>
+  <div class="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-12">
+    
+    <!-- Breadcrumb back navigation to Section -->
+    <nav class="flex text-xs font-black uppercase tracking-wider text-slate-400 space-x-2 pb-2 border-b border-indigo-500/10">
+      <a href="/" class="hover:text-white transition-colors">Home</a>
+      <span>/</span>
+      <a href="/moving" class="hover:text-white transition-colors">Moving Illusions</a>
+      <span>/</span>
+      <span class="text-purple-400">Pinna-Brelstaff Illusion</span>
+    </nav>
+
+    <!-- Hero Header Section -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6">
+      <div class="space-y-3">
+        <div class="flex items-center space-x-2">
+          <span class="text-xs font-black px-2.5 py-0.5 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 uppercase tracking-wider">Peripheral Drift</span>
+          <span class="text-xs font-black px-2.5 py-0.5 rounded-full bg-purple-500/10 text-purple-400 border border-purple-500/20 uppercase tracking-wider">💀 Expert</span>
+        </div>
+        <h1 class="font-display text-4xl sm:text-5xl font-black tracking-tight text-slate-900 dark:text-white">
+          Pinna-Brelstaff Illusion
+        </h1>
+        <p class="text-slate-600 dark:text-slate-350 text-base max-w-2xl font-medium">
+          Moving your eyes around the image causes these concentric rings of tilted tiles to rotate, though it is 100% static.
+        </p>
+      </div>
+
+      <!-- Share Button -->
+      <button 
+        id="share-illusion-page-btn"
+        class="relative shrink-0 flex items-center space-x-2 rounded-2xl bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-600 hover:scale-105 text-white font-black text-sm px-6 py-3.5 transition-all shadow-lg shadow-purple-500/10"
+      >
+        <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M15 8a3 3 0 1 0-2.977-2.63l-4.94 2.47a3 3 0 1 0 0 4.319l4.94 2.47a3 3 0 1 0 .895-1.789l-4.94-2.47a3.027 3.027 0 0 0 0-.74l4.94-2.47C13.456 7.68 14.19 8 15 8Z"/></svg>
+        <span>Share Page</span>
+        <span id="page-share-toast" class="absolute bottom-full right-1/2 translate-x-1/2 mb-2 px-2.5 py-1 text-[10px] font-bold text-white bg-purple-650 rounded-lg shadow-md opacity-0 pointer-events-none transition-opacity duration-200 whitespace-nowrap">Link Copied! ✓</span>
+      </button>
+    </div>
+
+    <!-- LARGE INTERACTIVE DEMO (600px wide, centered) -->
+    <div class="flex flex-col items-center justify-center py-6 border-b border-indigo-500/10">
+      <div class="w-full max-w-[600px] mx-auto space-y-4">
+        <div id="pinna-illusion" class="relative flex flex-col items-center justify-center h-96 w-full bg-slate-100 dark:bg-slate-950/40 rounded-xl overflow-hidden border border-indigo-500/10 p-4">
+          <svg class="pinna-svg w-72 h-72 select-none overflow-visible" viewBox="0 0 200 200">
+            <circle cx="100" cy="100" r="3" fill="currentColor" />
+            <!-- Inner Ring (16 chevrons tilted counter-clockwise) -->
+            <g class="pinna-ring-1 origin-center" style="transform-origin: 100px 100px;">
+              <g transform="translate(145, 100) rotate(0)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#ffffff" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#000000" /></g>
+              <g transform="translate(141.5, 117.2) rotate(22.5)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#ffffff" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#000000" /></g>
+              <g transform="translate(131.8, 131.8) rotate(45)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#ffffff" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#000000" /></g>
+              <g transform="translate(117.2, 141.5) rotate(67.5)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#ffffff" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#000000" /></g>
+              <g transform="translate(100, 145) rotate(90)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#ffffff" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#000000" /></g>
+              <g transform="translate(82.8, 141.5) rotate(112.5)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#ffffff" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#000000" /></g>
+              <g transform="translate(68.2, 131.8) rotate(135)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#ffffff" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#000000" /></g>
+              <g transform="translate(58.5, 117.2) rotate(157.5)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#ffffff" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#000000" /></g>
+              <g transform="translate(55, 100) rotate(180)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#ffffff" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#000000" /></g>
+              <g transform="translate(58.5, 82.8) rotate(202.5)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#ffffff" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#000000" /></g>
+              <g transform="translate(68.2, 68.2) rotate(225)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#ffffff" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#000000" /></g>
+              <g transform="translate(82.8, 58.5) rotate(247.5)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#ffffff" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#000000" /></g>
+              <g transform="translate(100, 55) rotate(270)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#ffffff" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#000000" /></g>
+              <g transform="translate(117.2, 58.5) rotate(292.5)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#ffffff" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#000000" /></g>
+              <g transform="translate(131.8, 68.2) rotate(315)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#ffffff" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#000000" /></g>
+              <g transform="translate(141.5, 82.8) rotate(337.5)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#ffffff" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#000000" /></g>
+            </g>
+            <!-- Outer Ring (24 chevrons tilted clockwise) -->
+            <g class="pinna-ring-2 origin-center" style="transform-origin: 100px 100px;">
+              <g transform="translate(175, 100) rotate(0)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#000000" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#ffffff" /></g>
+              <g transform="translate(172.4, 119.4) rotate(15)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#000000" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#ffffff" /></g>
+              <g transform="translate(164.9, 137.5) rotate(30)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#000000" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#ffffff" /></g>
+              <g transform="translate(153, 153) rotate(45)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#000000" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#ffffff" /></g>
+              <g transform="translate(137.5, 164.9) rotate(60)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#000000" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#ffffff" /></g>
+              <g transform="translate(119.4, 172.4) rotate(75)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#000000" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#ffffff" /></g>
+              <g transform="translate(100, 175) rotate(90)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#000000" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#ffffff" /></g>
+              <g transform="translate(80.6, 172.4) rotate(105)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#000000" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#ffffff" /></g>
+              <g transform="translate(62.5, 164.9) rotate(120)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#000000" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#ffffff" /></g>
+              <g transform="translate(47, 153) rotate(135)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#000000" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#ffffff" /></g>
+              <g transform="translate(35.1, 137.5) rotate(150)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#000000" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#ffffff" /></g>
+              <g transform="translate(27.6, 119.4) rotate(165)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#000000" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#ffffff" /></g>
+              <g transform="translate(25, 100) rotate(180)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#000000" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#ffffff" /></g>
+              <g transform="translate(27.6, 80.6) rotate(195)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#000000" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#ffffff" /></g>
+              <g transform="translate(35.1, 62.5) rotate(210)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#000000" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#ffffff" /></g>
+              <g transform="translate(47, 47) rotate(225)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#000000" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#ffffff" /></g>
+              <g transform="translate(62.5, 35.1) rotate(240)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#000000" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#ffffff" /></g>
+              <g transform="translate(80.6, 27.6) rotate(255)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#000000" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#ffffff" /></g>
+              <g transform="translate(100, 25) rotate(270)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#000000" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#ffffff" /></g>
+              <g transform="translate(119.4, 27.6) rotate(285)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#000000" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#ffffff" /></g>
+              <g transform="translate(137.5, 35.1) rotate(300)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#000000" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#ffffff" /></g>
+              <g transform="translate(153, 47) rotate(315)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#000000" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#ffffff" /></g>
+              <g transform="translate(164.9, 62.5) rotate(330)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#000000" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#ffffff" /></g>
+              <g transform="translate(172.4, 80.6) rotate(345)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#000000" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#ffffff" /></g>
+            </g>
+          </svg>
+          <div class="absolute bottom-4 flex flex-col items-center bg-slate-950/80 px-3 py-1.5 rounded-lg border border-white/10 z-10 text-center">
+            <span class="text-[9px] text-slate-400 font-bold uppercase mb-1">Move your eyes around the image — don't stare at one point</span>
+            <button class="toggle-pinna-spin text-xs font-bold px-3 py-1 rounded bg-purple-600 hover:bg-purple-500 text-white transition-colors">Start Spin (Prove static is same)</button>
+          </div>
+        </div>
+    
+        <div class="text-center text-xs text-slate-500 dark:text-slate-400 italic">
+          Use the controllers inside the display card to interact with the visual triggers.
+        </div>
+        <div class="text-center text-xs text-slate-500 dark:text-slate-400 italic font-semibold">
+          Use the controllers inside the display card to interact with the visual triggers.
+        </div>
+      </div>
+    </div>
+
+    <!-- Content Split Layout -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 pt-4">
+      
+      <!-- Left 2-Columns: Science and Prompt -->
+      <div class="lg:col-span-2 space-y-10">
+        <!-- EXPERIENCE IT FIRST prompt -->
+        <section class="space-y-4">
+          <h2 class="font-display text-2xl font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">🎮</span>
+            <span>EXPERIENCE IT FIRST</span>
+          </h2>
+          <div class="bg-indigo-950/20 border-2 border-indigo-500/15 rounded-3xl p-6 text-slate-700 dark:text-slate-300">
+            <p class="font-bold text-sm sm:text-base text-slate-200">Before reading the neuroscience explanation below, take a moment to interact with the demo above:</p>
+            <ul class="list-disc pl-5 mt-3 space-y-2 text-xs sm:text-sm font-medium">
+              <li>How does the visual change when you move your eyes or look at different parts of the screen?</li>
+              <li>Use the slider or toggle buttons to reveal the actual geometric layout. Did it match what your eyes predicted?</li>
+              <li>Pay attention to whether you can consciously force your brain to switch between interpretations.</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- THE SCIENCE (400 words) -->
+        <section class="space-y-4">
+          <h2 class="font-display text-2xl font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">🧠</span>
+            <span>THE SCIENCE</span>
+          </h2>
+          <div class="prose prose-indigo dark:prose-invert text-slate-700 dark:text-slate-300 leading-relaxed space-y-4 text-xs sm:text-sm font-semibold text-justify">
+            <p>The Pinna-Brelstaff illusion represents a fascinating interaction between spatial geometry and motion integration. Concentric rings of small square tiles are tilted in opposite directions (the inner ring slants counter-clockwise, the outer slants clockwise). When you move your head closer to the screen or look around the image, the rings appear to rotate in opposite directions.
+    
+    As you move closer or further, the expansion and contraction of the image across your retina triggers radial motion signals. However, because the individual tiles are tilted, the orientation-sensitive neurons in V1 and V2 detect a directional offset. When these signals are integrated in the motion area MT/V5, the radial expansion vectors are warped by the tilt angles, converting the visual signal into a rotary vector. This forces the brain to perceive rotation where only expansion/contraction exists.</p>
+          </div>
+        </section>
+      </div>
+
+      <!-- Right Column: Fun Facts and Try This -->
+      <div class="space-y-8">
+        <!-- FUN FACTS -->
+        <section class="rounded-3xl border border-indigo-950/20 bg-slate-900/60 p-6 space-y-4 shadow-xl">
+          <h3 class="font-display text-lg font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">💡</span>
+            <span>FUN FACTS</span>
+          </h3>
+          <ul class="space-y-4 text-xs sm:text-sm text-slate-600 dark:text-slate-300 font-semibold">
+            
+              <li class="flex items-start space-x-2">
+                <span class="text-purple-500 font-black">•</span>
+                <span>Discovered by Baingio Pinna and Gavin Brelstaff during studies on visual orientation maps.</span>
+              </li>
+            
+              <li class="flex items-start space-x-2">
+                <span class="text-purple-500 font-black">•</span>
+                <span>The illusion shows that our motion-sensing area MT/V5 is heavily biased by local edge orientations.</span>
+              </li>
+            
+              <li class="flex items-start space-x-2">
+                <span class="text-purple-500 font-black">•</span>
+                <span>If you close one eye, the perceived rotation is reduced because depth-sensing pathways are suppressed.</span>
+              </li>
+            
+              <li class="flex items-start space-x-2">
+                <span class="text-purple-500 font-black">•</span>
+                <span>The inner and outer rings rotate in opposite directions because their tiles tilt in opposite directions.</span>
+              </li>
+            
+          </ul>
+        </section>
+
+        <!-- TRY THIS AT HOME -->
+        <section class="rounded-3xl border border-indigo-950/20 bg-slate-900/60 p-6 space-y-4 shadow-xl">
+          <h3 class="font-display text-lg font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">🧪</span>
+            <span>TRY THIS AT HOME</span>
+          </h3>
+          <p class="text-xs sm:text-sm text-slate-650 dark:text-slate-300 leading-relaxed font-semibold">
+            Hold your phone at arm's length and stare at the center dot. Keep staring as you bring the phone close to your face. Watch the inner and outer rings twist in opposite directions, then twist back as you pull the phone away!
+          </p>
+        </section>
+
+        <!-- WHO DISCOVERED IT -->
+        <section class="rounded-3xl border border-indigo-950/20 bg-slate-900/60 p-6 space-y-4 shadow-xl">
+          <h3 class="font-display text-lg font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">📜</span>
+            <span>WHO DISCOVERED IT</span>
+          </h3>
+          <div class="text-xs sm:text-sm text-slate-650 dark:text-slate-300 leading-relaxed font-semibold space-y-2">
+            <p><strong>Discoverer:</strong> Baingio Pinna & Gavin Brelstaff (2000)</p>
+            <p>Pinna and Brelstaff were experimenting with concentric circles made of tilted parallelogram blocks. They discovered that when observers walked toward the display, the rings appeared to spin. This led to breakthroughs in how we understand local-to-global motion integration.</p>
+          </div>
+        </section>
+      </div>
+
+    </div>
+
+    <!-- SEO content: 300 words naturally written -->
+    <section class="border-t border-indigo-500/10 pt-12 space-y-4 max-w-4xl mx-auto">
+      <h3 class="font-display text-lg font-black text-white uppercase tracking-wider text-center">Educational Resources & History</h3>
+      <p class="text-xs sm:text-sm text-slate-350 leading-relaxed text-justify font-semibold">
+        Pinna-Brelstaff optical illusion explanation. Learn how concentric rings of tilted tiles convert radial movement into illusory rotation, and explore the neurobiology of MT/V5 motion integration.
+      </p>
+    </section>
+
+    <!-- RELATED ILLUSIONS -->
+    <section class="border-t border-indigo-500/10 pt-12 space-y-6">
+      <h2 class="font-display text-2xl font-black text-slate-900 dark:text-white text-center">Related Illusions</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+      <a 
+        href="/illusions/rotating-snakes" 
+        class="group rounded-xl border border-indigo-950/20 bg-white dark:bg-slate-900/60 p-5 shadow-lg hover:border-purple-500/40 hover:-translate-y-1 hover:shadow-purple-500/10 transition-all duration-300"
+      >
+        <div class="text-[10px] font-bold text-purple-400 uppercase tracking-wide">Related Illusion</div>
+        <h4 class="font-display text-base font-bold text-slate-900 dark:text-white mt-1 group-hover:text-purple-400 transition-colors">
+          Rotating Snakes &rarr;
+        </h4>
+      </a>
+    
+
+      <a 
+        href="/illusions/motion-binding" 
+        class="group rounded-xl border border-indigo-950/20 bg-white dark:bg-slate-900/60 p-5 shadow-lg hover:border-purple-500/40 hover:-translate-y-1 hover:shadow-purple-500/10 transition-all duration-300"
+      >
+        <div class="text-[10px] font-bold text-purple-400 uppercase tracking-wide">Related Illusion</div>
+        <h4 class="font-display text-base font-bold text-slate-900 dark:text-white mt-1 group-hover:text-purple-400 transition-colors">
+          Motion Binding &rarr;
+        </h4>
+      </a>
+    
+
+      <a 
+        href="/illusions/breathing-square" 
+        class="group rounded-xl border border-indigo-950/20 bg-white dark:bg-slate-900/60 p-5 shadow-lg hover:border-purple-500/40 hover:-translate-y-1 hover:shadow-purple-500/10 transition-all duration-300"
+      >
+        <div class="text-[10px] font-bold text-purple-400 uppercase tracking-wide">Related Illusion</div>
+        <h4 class="font-display text-base font-bold text-slate-900 dark:text-white mt-1 group-hover:text-purple-400 transition-colors">
+          Breathing Square &rarr;
+        </h4>
+      </a>
+    
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    // Share Page URL
+    const sharePageBtn = document.getElementById('share-illusion-page-btn');
+    const pageToast = document.getElementById('page-share-toast');
+
+    sharePageBtn?.addEventListener('click', () => {
+      const pageUrl = window.location.href;
+      navigator.clipboard.writeText(pageUrl).then(() => {
+        if (pageToast) {
+          pageToast.classList.remove('opacity-0');
+          pageToast.classList.add('opacity-100');
+          setTimeout(() => {
+            pageToast.classList.remove('opacity-100');
+            pageToast.classList.add('opacity-0');
+          }, 2000);
+        }
+      });
+    });
+
+    // Handle Global Speed Mult
+    const checkSpeed = () => {
+      const level = localStorage.getItem('speed-multiplier-level') || '5';
+      let multiplier = 1.0;
+      const parsed = parseInt(level);
+      if (parsed <= 5) {
+        multiplier = 0.2 + (parsed - 1) * 0.2;
+      } else {
+        multiplier = 1.0 + (parsed - 5) * 0.4;
+      }
+      document.documentElement.style.setProperty('--speed-multiplier', multiplier.toString());
+    };
+    checkSpeed();
+    window.addEventListener('storage', checkSpeed);
+
+    // Prevent propagation on inner interactive controllers so we don't trigger parent clicks (if wrapped)
+    const innerControls = document.querySelectorAll('.interactive-demo-card button, .interactive-demo-card input, .interactive-demo-card select');
+    innerControls.forEach(ctrl => {
+      ctrl.addEventListener('click', (e) => e.stopPropagation());
+    });
+
+    // Local script logic from original file
+    const container = document.getElementById('pinna-illusion');
+      const ring1 = container?.querySelector('.pinna-ring-1') as SVGElement;
+      const ring2 = container?.querySelector('.pinna-ring-2') as SVGElement;
+      const btn = container?.querySelector('.toggle-pinna-spin');
+      let spinning = false;
+
+      btn?.addEventListener('click', () => {
+        spinning = !spinning;
+        if (ring1 && ring2) {
+          if (spinning) {
+            ring1.style.animation = 'spin-clockwise calc(20s / var(--speed-multiplier, 1)) linear infinite';
+            ring2.style.animation = 'spin-counter calc(25s / var(--speed-multiplier, 1)) linear infinite';
+            if (btn) btn.textContent = 'Stop Spin';
+          } else {
+            ring1.style.animation = '';
+            ring2.style.animation = '';
+            if (btn) btn.textContent = 'Start Spin (Prove static is same)';
+          }
+        }
+      });
+  </script>
+</Layout>

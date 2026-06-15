@@ -1,0 +1,1519 @@
+---
+// src/pages/hidden.astro
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout 
+  title="Ambiguous & Hidden Optical Illusions | Optical Illusion Lab" 
+  description="Explore 10 classic bistable and ambiguous illusions. Test your brain with the Necker Cube, Rubin's Vase, Duck-Rabbit, and the Waterfall Motion aftereffect."
+>
+
+  <!-- Hero Section -->
+  <section class="relative overflow-hidden py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-slate-900 to-slate-950 text-white dark:from-slate-950 dark:to-slate-900 border-b border-indigo-500/10">
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(99,102,241,0.15),transparent_45%)]"></div>
+    <div class="absolute -top-40 -left-40 h-80 w-80 rounded-full bg-purple-600/10 blur-3xl"></div>
+    
+    <div class="relative mx-auto max-w-4xl text-center space-y-6">
+      <nav class="flex justify-center text-xs font-semibold text-indigo-300 space-x-2 animate-fade-in" aria-label="Breadcrumb">
+        <a href="/" class="hover:underline hover:text-white transition-colors">Home</a>
+        <span>/</span>
+        <span class="text-slate-400">Hidden & Ambiguous Illusions</span>
+      </nav>
+      
+      <h1 class="font-display text-4xl sm:text-6xl font-extrabold tracking-tight bg-gradient-to-r from-purple-400 via-indigo-300 to-purple-400 bg-clip-text text-transparent">
+        Ambiguous Optical Illusions
+      </h1>
+      <p class="mx-auto max-w-2xl text-base sm:text-lg text-slate-300 leading-relaxed">
+        These aren't hidden objects — they are <strong>AMBIGUOUS FIGURES</strong>. Your brain constructs reality from incomplete information, and sometimes it constructs two completely different realities from the same image. Both are equally correct.
+      </p>
+
+      <div class="inline-flex items-center space-x-2 rounded-xl border border-purple-500/30 bg-purple-950/40 px-5 py-3 text-xs font-bold text-purple-300 shadow-lg shadow-purple-900/10 max-w-xl mx-auto backdrop-blur-sm">
+        ⏱️ Game Rules: Click "Found It!" / "I See It!" as soon as you spot both interpretations to save your time.
+      </div>
+    </div>
+  </section>
+
+  <!-- Puzzles Gallery Grid -->
+  <section id="hidden-gallery" class="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+      
+      <!-- Card 1: Old Woman / Young Woman -->
+      <a href="/illusions/rubins-vase" id="card-old-young" class="illusion-card flex flex-col justify-between rounded-2xl border border-indigo-100/10 bg-white dark:bg-slate-900/60 backdrop-blur-sm p-6 shadow-xl relative block hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(168,85,247,0.35)] hover:border-purple-500/40 cursor-pointer transition-all duration-300 group" data-id="old-young">
+        <button class="share-btn absolute top-6 right-6 p-2 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-400 hover:text-slate-200 border border-slate-500/10 transition-colors z-20" aria-label="Share this illusion">
+          <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M15 8a3 3 0 1 0-2.977-2.63l-4.94 2.47a3 3 0 1 0 0 4.319l4.94 2.47a3 3 0 1 0 .895-1.789l-4.94-2.47a3.027 3.027 0 0 0 0-.74l4.94-2.47C13.456 7.68 14.19 8 15 8Z"/></svg>
+          <span class="share-toast absolute bottom-full right-0 mb-2 px-2.5 py-1 text-[10px] font-bold text-white bg-purple-600 rounded-lg shadow-md opacity-0 pointer-events-none transition-opacity duration-200 whitespace-nowrap">Link Copied! ✓</span>
+        </button>
+        
+        <div class="space-y-1 pr-10 mb-4">
+          <div class="flex items-center space-x-2">
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-500/10 text-amber-500 border border-amber-500/20">🟡 Medium</span>
+            <span class="text-[10px] font-bold text-indigo-400 uppercase tracking-wide">Bistable Portrait</span>
+          </div>
+          <h3 class="font-display text-xl font-bold text-slate-900 dark:text-white">1. Old Woman / Young Woman</h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400">Can you see both the young woman looking away and the old woman looking down? Both profiles share the exact same contours.</p>
+        </div>
+
+        <div class="demo-area relative flex flex-col items-center justify-center h-80 w-full bg-slate-100 dark:bg-slate-950/40 rounded-xl overflow-hidden border border-indigo-500/5 p-4">
+          <svg id="svg-old-young" class="w-64 h-64 select-none overflow-visible transition-all duration-300" viewBox="0 0 200 200">
+            <defs>
+              <marker id="arrow-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                <path d="M 0 2 L 10 5 L 0 8 z" fill="#3b82f6" />
+              </marker>
+              <marker id="arrow-red" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                <path d="M 0 2 L 10 5 L 0 8 z" fill="#ef4444" />
+              </marker>
+            </defs>
+            <!-- Head Scarf/Hair border -->
+            <path d="M 40,45 Q 90,25 150,45 Q 180,95 140,155 Q 110,185 80,185" fill="none" stroke="currentColor" stroke-width="2" class="text-slate-900 dark:text-slate-200" />
+            <!-- Face profile boundary (Young jaw/cheek vs Old nose) -->
+            <path d="M 80,45 Q 60,65 70,85 Q 75,95 73,100 Q 82,113 76,125 Q 82,133 85,138 Q 92,145 95,153" fill="none" stroke="currentColor" stroke-width="2.5" class="text-slate-950 dark:text-slate-50" />
+            <!-- Neckband / Mouth line -->
+            <path d="M 85,138 Q 95,139 105,137" fill="none" stroke="currentColor" stroke-width="2" class="text-slate-900 dark:text-slate-200" stroke-linecap="round" />
+            <!-- Scarf bottom wrap -->
+            <path d="M 95,153 Q 110,170 130,175" fill="none" stroke="currentColor" stroke-width="2" class="text-slate-900 dark:text-slate-200" />
+            <!-- Eye of Young / Ear of Old -->
+            <path d="M 70,85 Q 67,87 66,90 Q 69,92 72,90" fill="none" stroke="currentColor" stroke-width="1.5" class="text-slate-900 dark:text-slate-200" />
+            <!-- Ear of Young / Eye of Old -->
+            <path d="M 100,100 C 96,98 94,102 96,106 C 98,108 103,106 101,102" fill="none" stroke="currentColor" stroke-width="1.5" class="text-slate-900 dark:text-slate-200" />
+            <!-- Scarf details -->
+            <path d="M 80,45 C 95,55 110,70 110,90 C 110,110 105,120 115,130" fill="none" stroke="currentColor" stroke-width="1.2" class="text-slate-400 dark:text-slate-600" />
+
+            <!-- Highlight arrows for Young Woman -->
+            <g class="young-guides opacity-0 transition-opacity duration-300 pointer-events-none">
+              <line x1="25" y1="90" x2="60" y2="90" stroke="#3b82f6" stroke-width="1.5" marker-end="url(#arrow-blue)" />
+              <text x="20" y="93" fill="#3b82f6" font-size="7" font-weight="black" text-anchor="end">Young Eyelash</text>
+              
+              <line x1="25" y1="125" x2="68" y2="125" stroke="#3b82f6" stroke-width="1.5" marker-end="url(#arrow-blue)" />
+              <text x="20" y="128" fill="#3b82f6" font-size="7" font-weight="black" text-anchor="end">Young Jawline</text>
+
+              <line x1="155" y1="102" x2="110" y2="102" stroke="#3b82f6" stroke-width="1.5" marker-end="url(#arrow-blue)" />
+              <text x="160" y="105" fill="#3b82f6" font-size="7" font-weight="black" text-anchor="start">Young Ear</text>
+
+              <line x1="155" y1="137" x2="112" y2="137" stroke="#3b82f6" stroke-width="1.5" marker-end="url(#arrow-blue)" />
+              <text x="160" y="140" fill="#3b82f6" font-size="7" font-weight="black" text-anchor="start">Necklace / Band</text>
+            </g>
+            <!-- Highlight arrows for Old Woman -->
+            <g class="old-guides opacity-0 transition-opacity duration-300 pointer-events-none">
+              <line x1="25" y1="90" x2="60" y2="90" stroke="#ef4444" stroke-width="1.5" marker-end="url(#arrow-red)" />
+              <text x="20" y="93" fill="#ef4444" font-size="7" font-weight="black" text-anchor="end">Old Ear</text>
+              
+              <line x1="25" y1="125" x2="68" y2="125" stroke="#ef4444" stroke-width="1.5" marker-end="url(#arrow-red)" />
+              <text x="20" y="128" fill="#ef4444" font-size="7" font-weight="black" text-anchor="end">Old Large Nose</text>
+
+              <line x1="155" y1="102" x2="110" y2="102" stroke="#ef4444" stroke-width="1.5" marker-end="url(#arrow-red)" />
+              <text x="160" y="105" fill="#ef4444" font-size="7" font-weight="black" text-anchor="start">Old Eye</text>
+
+              <line x1="155" y1="137" x2="112" y2="137" stroke="#ef4444" stroke-width="1.5" marker-end="url(#arrow-red)" />
+              <text x="160" y="140" fill="#ef4444" font-size="7" font-weight="black" text-anchor="start">Old Mouth / Lips</text>
+            </g>
+          </svg>
+          
+          <div class="absolute bottom-3 flex space-x-2 bg-slate-900/90 border border-white/10 rounded-xl p-1 z-10">
+            <button class="see-young-btn text-xs font-bold px-3 py-1 rounded-lg text-slate-400 hover:text-white transition-colors">See Young Woman</button>
+            <button class="see-old-btn text-xs font-bold px-3 py-1 rounded-lg text-slate-400 hover:text-white transition-colors">See Old Woman</button>
+          </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="mt-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-t border-slate-500/10 pt-4">
+          <div class="flex items-center space-x-3 shrink-0">
+            <button class="found-btn text-xs font-bold px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white shadow-md transition-colors">I See Both!</button>
+          </div>
+          <div class="flex items-center justify-between sm:justify-end gap-6 text-xs text-slate-500 w-full">
+            <div class="font-mono font-bold text-sm">Time: <span class="timer-val">0.0</span>s</div>
+            <div class="font-bold">PB: <span class="pb-val">-</span></div>
+          </div>
+        </div>
+        <details class="mt-4 border-t border-slate-500/10 pt-3 text-xs text-slate-600 dark:text-slate-400">
+          <summary class="font-bold cursor-pointer hover:text-purple-500 dark:hover:text-purple-400 transition-colors select-none">🔬 Why it works (Neurobiology)</summary>
+          <p class="mt-2 leading-relaxed font-normal">
+            The Old Woman / Young Woman illusion, sometimes called the Boring Figure (named after Edwin Boring who studied it in 1930), is one of the most famous examples of a bistable ambiguous figure. The brain processes visual stimuli by grouping edges and boundaries into semantic objects. In this image, the lines are mathematically constant, but their cognitive interpretations are mutually exclusive.
+          </p>
+          <p class="mt-2 leading-relaxed font-normal">
+            When you look at the chin area of the young woman, it doubles as the nose of the old woman. The young woman's ear is interpreted by the brain as the old woman's left eye, and the young woman's necklace is seen as the old woman's mouth. The primary visual cortex (V1) maps the lines, but the higher-level temporal lobes (specifically the fusiform face area) must map these coordinates to a face schema. Because the neural pathways for face identification cannot hold two active schemas for the same coordinates simultaneously, they undergo bistable rivalry. Your perception fluctuates back and forth.
+          </p>
+          <p class="mt-2 leading-relaxed font-normal">
+            Top-down cognitive bias plays a major role; if you are primed to see youth, your brain selects the young girl, whereas if you focus on the details of the central profile, the elderly woman emerges.
+          </p>
+          <p class="mt-3">
+            <a href="/illusions/rubins-vase" class="text-purple-600 dark:text-purple-400 font-bold hover:underline">Explore full science page &rarr;</a>
+          </p>
+        </details>
+      
+        <div class="mt-5 flex items-center justify-between text-xs font-black text-purple-600 dark:text-purple-400 group-hover:text-purple-300 transition-colors border-t border-slate-500/10 pt-4">
+          <span>View Full Science & Facts</span>
+          <span>Explore &rarr;</span>
+        </div>
+      </a>
+
+      <!-- Card 2: Duck or Rabbit -->
+      <a href="/illusions/rubins-vase" id="card-duck-rabbit" class="illusion-card flex flex-col justify-between rounded-2xl border border-indigo-100/10 bg-white dark:bg-slate-900/60 backdrop-blur-sm p-6 shadow-xl relative block hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(168,85,247,0.35)] hover:border-purple-500/40 cursor-pointer transition-all duration-300 group" data-id="duck-rabbit">
+        <button class="share-btn absolute top-6 right-6 p-2 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-400 hover:text-slate-200 border border-slate-500/10 transition-colors z-20" aria-label="Share this illusion">
+          <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M15 8a3 3 0 1 0-2.977-2.63l-4.94 2.47a3 3 0 1 0 0 4.319l4.94 2.47a3 3 0 1 0 .895-1.789l-4.94-2.47a3.027 3.027 0 0 0 0-.74l4.94-2.47C13.456 7.68 14.19 8 15 8Z"/></svg>
+          <span class="share-toast absolute bottom-full right-0 mb-2 px-2.5 py-1 text-[10px] font-bold text-white bg-purple-600 rounded-lg shadow-md opacity-0 pointer-events-none transition-opacity duration-200 whitespace-nowrap">Link Copied! ✓</span>
+        </button>
+
+        <div class="space-y-1 pr-10 mb-4">
+          <div class="flex items-center space-x-2">
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">🟢 Easy</span>
+            <span class="text-[10px] font-bold text-indigo-400 uppercase tracking-wide">Jastrow 1899</span>
+          </div>
+          <h3 class="font-display text-xl font-bold text-slate-900 dark:text-white">2. Duck or Rabbit</h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400">A single drawing that shifts between a duck facing left and a rabbit facing right. Which did you see first?</p>
+        </div>
+
+        <div class="demo-area relative flex flex-col items-center justify-center h-80 w-full bg-slate-100 dark:bg-slate-950/40 rounded-xl overflow-hidden border border-indigo-500/5 p-4">
+          <svg id="svg-duck-rabbit" class="w-64 h-64 select-none overflow-visible" viewBox="0 0 200 200">
+            <!-- Duck/Rabbit outline path -->
+            <path d="M 90,75 C 115,75 140,85 140,110 C 140,125 130,135 110,135 C 95,135 90,130 90,122 C 85,120 75,122 65,123 C 55,124 32,120 30,110 C 28,105 45,102 75,102 C 60,95 28,95 28,87 C 28,80 50,82 80,85 C 80,80 85,75 90,75 Z" fill="none" stroke="currentColor" stroke-width="2.5" class="text-slate-900 dark:text-slate-200" />
+            <!-- Eye -->
+            <circle cx="92" cy="95" r="3" fill="currentColor" class="text-slate-900 dark:text-slate-200" />
+            
+            <!-- Beak highlight for Duck -->
+            <path class="duck-beak-highlight stroke-blue-500 stroke-[3.5] fill-none opacity-0 transition-opacity duration-300" d="M 75,102 C 60,95 28,95 28,87 C 28,80 50,82 80,85" />
+            <!-- Ears highlight for Rabbit -->
+            <path class="rabbit-ears-highlight stroke-rose-500 stroke-[3.5] fill-none opacity-0 transition-opacity duration-300" d="M 28,87 C 28,80 50,82 80,85 M 30,110 C 28,105 45,102 75,102" />
+          </svg>
+          
+          <div class="absolute bottom-3 flex space-x-2 bg-slate-900/90 border border-white/10 rounded-xl p-1 z-10">
+            <button class="highlight-duck text-xs font-bold px-3 py-1 rounded-lg text-slate-400 hover:text-white transition-colors">See Duck</button>
+            <button class="highlight-rabbit text-xs font-bold px-3 py-1 rounded-lg text-slate-400 hover:text-white transition-colors">See Rabbit</button>
+          </div>
+        </div>
+
+        <!-- Vote statistics & fun fact -->
+        <div class="mt-4 bg-slate-50 dark:bg-slate-950/20 border border-slate-200/50 dark:border-white/5 rounded-xl p-3 space-y-3">
+          <div class="text-xs font-semibold text-slate-600 dark:text-slate-400 flex items-center justify-between">
+            <span>Which did you spot first?</span>
+            <span class="stat-percentage hidden text-purple-500 font-bold font-mono">Duck: 48% | Rabbit: 52%</span>
+          </div>
+          <div class="flex space-x-2 voting-buttons">
+            <button class="vote-duck flex-1 py-1.5 text-xs font-bold rounded-lg border border-indigo-500/20 bg-indigo-500/5 hover:bg-indigo-500/10 text-indigo-400 transition-colors">Duck First</button>
+            <button class="vote-rabbit flex-1 py-1.5 text-xs font-bold rounded-lg border border-rose-500/20 bg-rose-500/5 hover:bg-rose-500/10 text-rose-400 transition-colors">Rabbit First</button>
+          </div>
+          <p class="text-[10px] text-slate-500 italic">
+            💡 Fun Fact: Jastrow noted that people are more likely to see a rabbit around Easter, and a duck in October!
+          </p>
+        </div>
+
+        <!-- Controls -->
+        <div class="mt-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-t border-slate-500/10 pt-4">
+          <div class="flex items-center space-x-3 shrink-0">
+            <button class="found-btn text-xs font-bold px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white shadow-md transition-colors">I See Both!</button>
+          </div>
+          <div class="flex items-center justify-between sm:justify-end gap-6 text-xs text-slate-500 w-full">
+            <div class="font-mono font-bold text-sm">Time: <span class="timer-val">0.0</span>s</div>
+            <div class="font-bold">PB: <span class="pb-val">-</span></div>
+          </div>
+        </div>
+        <details class="mt-4 border-t border-slate-500/10 pt-3 text-xs text-slate-600 dark:text-slate-400">
+          <summary class="font-bold cursor-pointer hover:text-purple-500 dark:hover:text-purple-400 transition-colors select-none">🔬 Why it works (Neurobiology)</summary>
+          <p class="mt-2 leading-relaxed font-normal">
+            The Duck or Rabbit illusion is a classic ambiguous figure popularized by psychologist Joseph Jastrow in 1899 and later studied by Ludwig Wittgenstein to illustrate the difference between "seeing that" and "seeing as." This bistable gestalt image is a single outline contour that can be mapped to two completely different animal templates.
+          </p>
+          <p class="mt-2 leading-relaxed font-normal">
+            When you perceive the duck, the protrusions on the left are grouped as a long, flat beak, and the head faces left. When you perceive the rabbit, those same protrusions are interpreted as long, vertical ears, and the head faces right. The eye of the animal remains constant, but the visual pathways process the spatial context differently based on where you focus.
+          </p>
+          <p class="mt-2 leading-relaxed font-normal">
+            Research shows that the visual system cannot experience both interpretations simultaneously; instead, it undergoes a cognitive flip. Interestingly, studies have shown that your immediate perception can be influenced by temporal priming, such as the season (rabbits are seen more often during Easter, ducks in autumn) or your current cognitive flexibility. This proves that what we "see" is not merely a passive recording of light, but an active, top-down categorization process.
+          </p>
+          <p class="mt-3">
+            <a href="/illusions/rubins-vase" class="text-purple-600 dark:text-purple-400 font-bold hover:underline">Explore full science page &rarr;</a>
+          </p>
+        </details>
+      
+        <div class="mt-5 flex items-center justify-between text-xs font-black text-purple-600 dark:text-purple-400 group-hover:text-purple-300 transition-colors border-t border-slate-500/10 pt-4">
+          <span>View Full Science & Facts</span>
+          <span>Explore &rarr;</span>
+        </div>
+      </a>
+
+      <!-- Card 3: Face or Vase -->
+      <a href="/illusions/rubins-vase" id="card-face-vase" class="illusion-card flex flex-col justify-between rounded-2xl border border-indigo-100/10 bg-white dark:bg-slate-900/60 backdrop-blur-sm p-6 shadow-xl relative block hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(168,85,247,0.35)] hover:border-purple-500/40 cursor-pointer transition-all duration-300 group" data-id="face-vase">
+        <button class="share-btn absolute top-6 right-6 p-2 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-400 hover:text-slate-200 border border-slate-500/10 transition-colors z-20" aria-label="Share this illusion">
+          <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M15 8a3 3 0 1 0-2.977-2.63l-4.94 2.47a3 3 0 1 0 0 4.319l4.94 2.47a3 3 0 1 0 .895-1.789l-4.94-2.47a3.027 3.027 0 0 0 0-.74l4.94-2.47C13.456 7.68 14.19 8 15 8Z"/></svg>
+          <span class="share-toast absolute bottom-full right-0 mb-2 px-2.5 py-1 text-[10px] font-bold text-white bg-purple-600 rounded-lg shadow-md opacity-0 pointer-events-none transition-opacity duration-200 whitespace-nowrap">Link Copied! ✓</span>
+        </button>
+
+        <div class="space-y-1 pr-10 mb-4">
+          <div class="flex items-center space-x-2">
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">🟢 Easy</span>
+            <span class="text-[10px] font-bold text-indigo-400 uppercase tracking-wide">Figure-Ground</span>
+          </div>
+          <h3 class="font-display text-xl font-bold text-slate-900 dark:text-white">3. Face or Vase</h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400">Classic Rubin's Vase. The shared borders form two profile faces or an ornate vase in the center.</p>
+        </div>
+
+        <div class="demo-area relative flex flex-col items-center justify-center h-80 w-full bg-slate-950 rounded-xl overflow-hidden border border-indigo-500/5 p-4">
+          <svg id="svg-face-vase" class="w-64 h-64 select-none overflow-visible" viewBox="0 0 200 200">
+            <!-- Left profile face -->
+            <path class="rubin-face-l fill-slate-800 transition-all duration-700" d="M 0,0 L 75,0 C 75,30 65,40 65,60 C 65,65 78,68 78,75 C 78,82 65,85 65,90 C 65,95 72,98 72,104 C 72,110 65,112 65,118 C 65,125 78,135 75,155 L 75,200 L 0,200 Z" />
+            <!-- Right profile face -->
+            <path class="rubin-face-r fill-slate-800 transition-all duration-700" d="M 200,0 L 125,0 C 125,30 135,40 135,60 C 135,65 122,68 122,75 C 122,82 135,85 135,90 C 135,95 128,98 128,104 C 128,110 135,112 135,118 C 135,125 122,135 125,155 L 125,200 L 200,200 Z" />
+            <!-- Center Vase -->
+            <path class="rubin-center-vase fill-slate-200 transition-all duration-700" d="M 75,0 C 75,30 65,40 65,60 C 65,65 78,68 78,75 C 78,82 65,85 65,90 C 65,95 72,98 72,104 C 72,110 65,112 65,118 C 65,125 78,135 75,155 L 75,200 L 125,200 L 125,155 C 122,135 135,125 135,118 C 135,112 128,110 128,104 C 128,98 135,95 135,90 C 135,85 122,82 122,75 C 122,68 135,65 135,60 C 135,40 125,30 125,0 Z" />
+            
+            <!-- Glow Overlays -->
+            <path class="vase-highlight stroke-indigo-500 stroke-[2] fill-none opacity-0 transition-opacity duration-300" d="M 75,0 C 75,30 65,40 65,60 C 65,65 78,68 78,75 C 78,82 65,85 65,90 C 65,95 72,98 72,104 C 72,110 65,112 65,118 C 65,125 78,135 75,155 L 75,200" />
+            <path class="vase-highlight stroke-indigo-500 stroke-[2] fill-none opacity-0 transition-opacity duration-300" d="M 125,0 C 125,30 135,40 135,60 C 135,65 122,68 122,75 C 122,82 135,85 135,90 C 135,95 128,98 128,104 C 128,110 135,112 135,118 C 135,125 122,135 125,155 L 125,200" />
+          </svg>
+          
+          <div class="absolute bottom-3 text-xs font-semibold text-slate-400 bg-slate-900/90 px-3 py-1.5 rounded-lg border border-white/10 select-none">
+            Animate loop slowly alternates focus
+          </div>
+        </div>
+
+        <!-- Voting Stats -->
+        <div class="mt-4 bg-slate-50 dark:bg-slate-950/20 border border-slate-200/50 dark:border-white/5 rounded-xl p-3 space-y-3">
+          <div class="text-xs font-semibold text-slate-600 dark:text-slate-400 flex items-center justify-between">
+            <span>What do you see first?</span>
+            <span class="stat-percentage-vase hidden text-purple-500 font-bold font-mono">Faces: 63% | Vase: 37%</span>
+          </div>
+          <div class="flex space-x-2 voting-buttons-vase">
+            <button class="vote-faces flex-1 py-1.5 text-xs font-bold rounded-lg border border-indigo-500/20 bg-indigo-500/5 hover:bg-indigo-500/10 text-indigo-400 transition-colors">Faces First</button>
+            <button class="vote-vase flex-1 py-1.5 text-xs font-bold rounded-lg border border-rose-500/20 bg-rose-500/5 hover:bg-rose-500/10 text-rose-400 transition-colors">Vase First</button>
+          </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="mt-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-t border-slate-500/10 pt-4">
+          <div class="flex items-center space-x-3 shrink-0">
+            <button class="found-btn text-xs font-bold px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white shadow-md transition-colors">I See Both!</button>
+          </div>
+          <div class="flex items-center justify-between sm:justify-end gap-6 text-xs text-slate-500 w-full">
+            <div class="font-mono font-bold text-sm">Time: <span class="timer-val">0.0</span>s</div>
+            <div class="font-bold">PB: <span class="pb-val">-</span></div>
+          </div>
+        </div>
+        <details class="mt-4 border-t border-slate-500/10 pt-3 text-xs text-slate-600 dark:text-slate-400">
+          <summary class="font-bold cursor-pointer hover:text-purple-500 dark:hover:text-purple-400 transition-colors select-none">🔬 Why it works (Neurobiology)</summary>
+          <p class="mt-2 leading-relaxed font-normal">
+            Rubin's Vase, developed by Danish psychologist Edgar Rubin in 1915, is the quintessential demonstration of figure-ground segregation in Gestalt psychology. When you look at the image, your visual system must decide which parts of the scene represent the "figure" (the object in the foreground) and which represent the "ground" (the background behind it).
+          </p>
+          <p class="mt-2 leading-relaxed font-normal">
+            The border outline between the black and white shapes is shared. If the brain treats the white central area as the figure, you perceive a decorative, ornate vase against a black background. If the brain treats the black outer areas as the figure, you see two symmetric human faces in profile staring at each other against a white background.
+          </p>
+          <p class="mt-2 leading-relaxed font-normal">
+            This division is resolved in the visual cortex through border-ownership coding in area V2. Neurons in this area fire selectively depending on which side of the boundary is classified as the foreground object. Because the boundary cannot "belong" to both the black and white regions at the same instant, the brain fluctuates. This visual rivalry is a fundamental proof that the brain actively groups visual noise into structured, separate objects.
+          </p>
+          <p class="mt-3">
+            <a href="/illusions/rubins-vase" class="text-purple-600 dark:text-purple-400 font-bold hover:underline">Explore full science page &rarr;</a>
+          </p>
+        </details>
+      
+        <div class="mt-5 flex items-center justify-between text-xs font-black text-purple-600 dark:text-purple-400 group-hover:text-purple-300 transition-colors border-t border-slate-500/10 pt-4">
+          <span>View Full Science & Facts</span>
+          <span>Explore &rarr;</span>
+        </div>
+      </a>
+
+      <!-- Card 4: Necker Cube -->
+      <a href="/illusions/necker-cube" id="card-necker" class="illusion-card flex flex-col justify-between rounded-2xl border border-indigo-100/10 bg-white dark:bg-slate-900/60 backdrop-blur-sm p-6 shadow-xl relative block hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(168,85,247,0.35)] hover:border-purple-500/40 cursor-pointer transition-all duration-300 group" data-id="necker">
+        <button class="share-btn absolute top-6 right-6 p-2 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-400 hover:text-slate-200 border border-slate-500/10 transition-colors z-20" aria-label="Share this illusion">
+          <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M15 8a3 3 0 1 0-2.977-2.63l-4.94 2.47a3 3 0 1 0 0 4.319l4.94 2.47a3 3 0 1 0 .895-1.789l-4.94-2.47a3.027 3.027 0 0 0 0-.74l4.94-2.47C13.456 7.68 14.19 8 15 8Z"/></svg>
+          <span class="share-toast absolute bottom-full right-0 mb-2 px-2.5 py-1 text-[10px] font-bold text-white bg-purple-600 rounded-lg shadow-md opacity-0 pointer-events-none transition-opacity duration-200 whitespace-nowrap">Link Copied! ✓</span>
+        </button>
+
+        <div class="space-y-1 pr-10 mb-4">
+          <div class="flex items-center space-x-2">
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-rose-500/10 text-rose-500 border border-rose-500/20">🔴 Hard</span>
+            <span class="text-[10px] font-bold text-indigo-400 uppercase tracking-wide">3D Bistability</span>
+          </div>
+          <h3 class="font-display text-xl font-bold text-slate-900 dark:text-white">4. Necker Cube</h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400">A wireframe cube with no depth cues. Try staring at the center dot and control which way it flips.</p>
+        </div>
+
+        <div class="demo-area relative flex flex-col items-center justify-center h-80 w-full bg-slate-100 dark:bg-slate-950/40 rounded-xl overflow-hidden border border-indigo-500/5 p-4">
+          <svg id="svg-necker" class="w-64 h-64 select-none overflow-visible" viewBox="0 0 200 200">
+            <!-- Shading polygons (initially transparent) -->
+            <polygon class="necker-shade-front fill-indigo-500/0 transition-all duration-300 pointer-events-none" points="50,50 110,50 110,110 50,110" />
+            <polygon class="necker-shade-back fill-emerald-500/0 transition-all duration-300 pointer-events-none" points="90,90 150,90 150,150 90,150" />
+            
+            <!-- Wireframe lines -->
+            <!-- Back square -->
+            <rect x="90" y="90" width="60" height="60" fill="none" stroke="currentColor" stroke-width="2.5" class="text-slate-800 dark:text-slate-300" />
+            <!-- Front square -->
+            <rect x="50" y="50" width="60" height="60" fill="none" stroke="currentColor" stroke-width="2.5" class="text-slate-800 dark:text-slate-300" />
+            <!-- Connectors -->
+            <line x1="50" y1="50" x2="90" y2="90" stroke="currentColor" stroke-width="2.5" class="text-slate-800 dark:text-slate-300" />
+            <line x1="110" y1="50" x2="150" y2="90" stroke="currentColor" stroke-width="2.5" class="text-slate-800 dark:text-slate-300" />
+            <line x1="50" y1="110" x2="90" y2="150" stroke="currentColor" stroke-width="2.5" class="text-slate-800 dark:text-slate-300" />
+            <line x1="110" y1="110" x2="150" y2="150" stroke="currentColor" stroke-width="2.5" class="text-slate-800 dark:text-slate-300" />
+
+            <!-- Center dot -->
+            <circle cx="100" cy="100" r="4.5" fill="#f43f5e" />
+          </svg>
+          
+          <div class="absolute bottom-3 flex space-x-1.5 bg-slate-900/90 border border-white/10 rounded-lg p-0.5 z-10">
+            <button class="lock-front-btn text-[10px] font-bold px-2 py-1 rounded text-slate-400 hover:text-white transition-all">Lock Front</button>
+            <button class="lock-back-btn text-[10px] font-bold px-2 py-1 rounded text-slate-400 hover:text-white transition-all">Lock Back</button>
+            <button class="release-lock-btn text-[10px] font-bold px-2 py-1 rounded text-slate-400 hover:text-white transition-all">Release</button>
+          </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="mt-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-t border-slate-500/10 pt-4">
+          <div class="flex items-center space-x-3 shrink-0">
+            <button class="found-btn text-xs font-bold px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white shadow-md transition-colors">I See Both!</button>
+          </div>
+          <div class="flex items-center justify-between sm:justify-end gap-6 text-xs text-slate-500 w-full">
+            <div class="font-mono font-bold text-sm">Time: <span class="timer-val">0.0</span>s</div>
+            <div class="font-bold">PB: <span class="pb-val">-</span></div>
+          </div>
+        </div>
+        <details class="mt-4 border-t border-slate-500/10 pt-3 text-xs text-slate-600 dark:text-slate-400">
+          <summary class="font-bold cursor-pointer hover:text-purple-500 dark:hover:text-purple-400 transition-colors select-none">🔬 Why it works (Neurobiology)</summary>
+          <p class="mt-2 leading-relaxed font-normal">
+            The Necker Cube is a wireframe drawing of a 3D cube first published in 1832 by Swiss crystallographer Louis Albert Necker. It is a classic example of a multistable perceptual illusion. Because the drawing is an isometric projection without any depth cues—such as perspective lines, shadows, or overlapping solid faces—there is no physical evidence to determine which face of the cube is in the foreground and which is in the background.
+          </p>
+          <p class="mt-2 leading-relaxed font-normal">
+            As a result, your brain is presented with two equally valid 3D interpretations: one where the bottom-left face is in front, and one where the top-right face is in front. The visual cortex, striving to construct a 3D model from a 2D retinal image, continually switches between these two states, a process known as perceptual bistability.
+          </p>
+          <p class="mt-2 leading-relaxed font-normal">
+            This switching is driven by neural fatigue in the orientation-selective columns of the visual cortex. As you stare at one interpretation, the neurons representing that view tire, allowing the alternative representation to dominate. You can attempt to manually override this by focusing on a specific corner, but the subconscious visual pathways will eventually trigger a flip.
+          </p>
+          <p class="mt-3">
+            <a href="/illusions/necker-cube" class="text-purple-600 dark:text-purple-400 font-bold hover:underline">Explore full science page &rarr;</a>
+          </p>
+        </details>
+      
+        <div class="mt-5 flex items-center justify-between text-xs font-black text-purple-600 dark:text-purple-400 group-hover:text-purple-300 transition-colors border-t border-slate-500/10 pt-4">
+          <span>View Full Science & Facts</span>
+          <span>Explore &rarr;</span>
+        </div>
+      </a>
+
+      <!-- Card 5: Spinning Dancer -->
+      <a href="/illusions/spinning-dancer" id="card-dancer" class="illusion-card flex flex-col justify-between rounded-2xl border border-indigo-100/10 bg-white dark:bg-slate-900/60 backdrop-blur-sm p-6 shadow-xl relative block hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(168,85,247,0.35)] hover:border-purple-500/40 cursor-pointer transition-all duration-300 group" data-id="dancer">
+        <button class="share-btn absolute top-6 right-6 p-2 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-400 hover:text-slate-200 border border-slate-500/10 transition-colors z-20" aria-label="Share this illusion">
+          <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M15 8a3 3 0 1 0-2.977-2.63l-4.94 2.47a3 3 0 1 0 0 4.319l4.94 2.47a3 3 0 1 0 .895-1.789l-4.94-2.47a3.027 3.027 0 0 0 0-.74l4.94-2.47C13.456 7.68 14.19 8 15 8Z"/></svg>
+          <span class="share-toast absolute bottom-full right-0 mb-2 px-2.5 py-1 text-[10px] font-bold text-white bg-purple-600 rounded-lg shadow-md opacity-0 pointer-events-none transition-opacity duration-200 whitespace-nowrap">Link Copied! ✓</span>
+        </button>
+
+        <div class="space-y-1 pr-10 mb-4">
+          <div class="flex items-center space-x-2">
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-violet-500/15 text-violet-400 border border-violet-500/20">💀 Expert</span>
+            <span class="text-[10px] font-bold text-indigo-400 uppercase tracking-wide">Kinetic Silhouette</span>
+          </div>
+          <h3 class="font-display text-xl font-bold text-slate-900 dark:text-white">5. Spinning Dancer</h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400">Because there are no depth markers, this rotating silhouette appears to spin clockwise or counter-clockwise.</p>
+        </div>
+
+        <div class="demo-area relative flex flex-col items-center justify-center h-80 w-full bg-slate-900 rounded-xl overflow-hidden border border-indigo-500/5 p-4">
+          <div class="dancer-wrapper flex items-center justify-center w-full h-full">
+            <svg id="svg-dancer" class="w-32 h-44 text-slate-100 overflow-visible" viewBox="0 0 200 200">
+              <!-- Dancer Silhouette Group -->
+              <g class="dancer-silhouette">
+                <!-- Head -->
+                <circle cx="100" cy="35" r="9" fill="currentColor" />
+                <!-- Torso & Arms -->
+                <path d="M 92,45 C 92,65 92,85 96,105 L 104,105 C 108,85 108,65 104,45 Z" fill="currentColor" />
+                <!-- Outstretched Leg -->
+                <path d="M 100,105 Q 125,125 155,130 Q 140,135 100,115 Z" fill="currentColor" class="dancer-right-limb" />
+                <!-- Outstretched Arm -->
+                <path d="M 96,48 Q 60,45 35,40 Q 60,52 96,52 Z" fill="currentColor" class="dancer-left-limb" />
+              </g>
+              
+              <!-- Depth overlays that trigger to force perception -->
+              <!-- Clockwise lines (blue) -->
+              <path class="cw-lines stroke-blue-400 stroke-[3] fill-none opacity-0 transition-opacity duration-300" d="M 96,48 Q 60,45 35,40 M 100,105 Q 125,125 155,130" />
+              <!-- Counter-Clockwise lines (rose) -->
+              <path class="ccw-lines stroke-rose-400 stroke-[3] fill-none opacity-0 transition-opacity duration-300" d="M 104,48 Q 140,45 165,40 M 100,105 Q 75,125 45,130" />
+            </svg>
+          </div>
+          
+          <div class="absolute bottom-3 flex space-x-1.5 bg-slate-900/90 border border-white/10 rounded-lg p-0.5 z-10">
+            <button class="force-cw-btn text-[10px] font-bold px-2 py-1 rounded text-slate-400 hover:text-white transition-all">Force CW</button>
+            <button class="force-ccw-btn text-[10px] font-bold px-2 py-1 rounded text-slate-400 hover:text-white transition-all">Force CCW</button>
+            <button class="reset-dancer-btn text-[10px] font-bold px-2 py-1 rounded text-slate-400 hover:text-white transition-all">Remove Cues</button>
+          </div>
+        </div>
+
+        <!-- Voting Stats -->
+        <div class="mt-4 bg-slate-50 dark:bg-slate-950/20 border border-slate-200/50 dark:border-white/5 rounded-xl p-3 space-y-3">
+          <div class="text-xs font-semibold text-slate-600 dark:text-slate-400 flex items-center justify-between">
+            <span>Which direction do you see?</span>
+            <span class="stat-percentage-dancer hidden text-purple-500 font-bold font-mono">CW: 72% | CCW: 28%</span>
+          </div>
+          <div class="flex space-x-2 voting-buttons-dancer">
+            <button class="vote-cw flex-1 py-1.5 text-xs font-bold rounded-lg border border-indigo-500/20 bg-indigo-500/5 hover:bg-indigo-500/10 text-indigo-400 transition-colors">Clockwise (CW)</button>
+            <button class="vote-ccw flex-1 py-1.5 text-xs font-bold rounded-lg border border-rose-500/20 bg-rose-500/5 hover:bg-rose-500/10 text-rose-400 transition-colors">Counter-Clockwise (CCW)</button>
+          </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="mt-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-t border-slate-500/10 pt-4">
+          <div class="flex items-center space-x-3 shrink-0">
+            <button class="found-btn text-xs font-bold px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white shadow-md transition-colors">I See Both Directions!</button>
+          </div>
+          <div class="flex items-center justify-between sm:justify-end gap-6 text-xs text-slate-500 w-full">
+            <div class="font-mono font-bold text-sm">Time: <span class="timer-val">0.0</span>s</div>
+            <div class="font-bold">PB: <span class="pb-val">-</span></div>
+          </div>
+        </div>
+        <details class="mt-4 border-t border-slate-500/10 pt-3 text-xs text-slate-600 dark:text-slate-400">
+          <summary class="font-bold cursor-pointer hover:text-purple-500 dark:hover:text-purple-400 transition-colors select-none">🔬 Why it works (Neurobiology)</summary>
+          <p class="mt-2 leading-relaxed font-normal">
+            The Spinning Dancer is a famous kinetic ambiguous illusion originally created in 2003 by web designer Nobuyuki Kayahara. It consists of a flat silhouette of a female dancer rotating on a loop. Because the figure is rendered as a solid black silhouette without depth cues, there is no visual information to indicate whether the dancer's limbs are passing in front of or behind her body.
+          </p>
+          <p class="mt-2 leading-relaxed font-normal">
+            Without depth, the 2D projection on your retina is mathematically identical whether she is spinning clockwise on her left foot or counter-clockwise on her right foot. The visual system, which hates ambiguity, must fabricate a 3D interpretation. Most people default to seeing clockwise rotation because of a cognitive bias known as the "view-from-above" or "ground-plane" prior, where we assume moving objects are below our line of sight.
+          </p>
+          <p class="mt-2 leading-relaxed font-normal">
+            By adding colored guide strokes that cross in front of the dancer's body, we insert artificial depth cues. This forces the visual cortex to bind the moving lines in a specific direction. When the guide is removed, the brain is left to its own bistable rivalry, showing that direction of motion is a construct of our visual system.
+          </p>
+          <p class="mt-3">
+            <a href="/illusions/spinning-dancer" class="text-purple-600 dark:text-purple-400 font-bold hover:underline">Explore full science page &rarr;</a>
+          </p>
+        </details>
+      
+        <div class="mt-5 flex items-center justify-between text-xs font-black text-purple-600 dark:text-purple-400 group-hover:text-purple-300 transition-colors border-t border-slate-500/10 pt-4">
+          <span>View Full Science & Facts</span>
+          <span>Explore &rarr;</span>
+        </div>
+      </a>
+
+      <!-- Card 6: The Hidden Tiger -->
+      <a href="/illusions/rubins-vase" id="card-tiger" class="illusion-card flex flex-col justify-between rounded-2xl border border-indigo-100/10 bg-white dark:bg-slate-900/60 backdrop-blur-sm p-6 shadow-xl relative block hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(168,85,247,0.35)] hover:border-purple-500/40 cursor-pointer transition-all duration-300 group" data-id="tiger">
+        <button class="share-btn absolute top-6 right-6 p-2 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-400 hover:text-slate-200 border border-slate-500/10 transition-colors z-20" aria-label="Share this illusion">
+          <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M15 8a3 3 0 1 0-2.977-2.63l-4.94 2.47a3 3 0 1 0 0 4.319l4.94 2.47a3 3 0 1 0 .895-1.789l-4.94-2.47a3.027 3.027 0 0 0 0-.74l4.94-2.47C13.456 7.68 14.19 8 15 8Z"/></svg>
+          <span class="share-toast absolute bottom-full right-0 mb-2 px-2.5 py-1 text-[10px] font-bold text-white bg-purple-600 rounded-lg shadow-md opacity-0 pointer-events-none transition-opacity duration-200 whitespace-nowrap">Link Copied! ✓</span>
+        </button>
+
+        <div class="space-y-1 pr-10 mb-4">
+          <div class="flex items-center space-x-2">
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-500/10 text-amber-500 border border-amber-500/20">🟡 Medium</span>
+            <span class="text-[10px] font-bold text-indigo-400 uppercase tracking-wide">Outline Camouflage</span>
+          </div>
+          <h3 class="font-display text-xl font-bold text-slate-900 dark:text-white">6. The Hidden Tiger</h3>
+          <p class="text-xs text-slate-600 dark:text-slate-400">Somewhere in the stripes of the tiger's body, the words "THE HIDDEN TIGER" are written. The text IS the stripes.</p>
+        </div>
+
+        <div class="demo-area relative flex flex-col items-center justify-center h-80 w-full bg-amber-500 rounded-xl overflow-hidden border border-indigo-500/5 p-4">
+          <svg id="svg-tiger" class="w-full h-full select-none" viewBox="0 0 200 200">
+            <!-- Tiger body block -->
+            <path d="M 25,110 Q 50,90 80,95 Q 110,90 140,95 Q 165,85 180,105 L 175,150 L 155,150 L 150,125 L 60,125 L 55,150 L 35,150 Z" fill="#000000" />
+            <!-- Head & Tail -->
+            <circle cx="25" cy="100" r="14" fill="#000000" />
+            <path d="M 175,105 Q 195,95 200,125" fill="none" stroke="#000000" stroke-width="4.5" />
+            
+            <!-- Hidden text stripes (spelling THE HIDDEN TIGER) -->
+            <g class="tiger-text-stripes stroke-[#eab308] stroke-[2.2] fill-none transition-colors duration-500" stroke-linecap="round">
+              <!-- T -->
+              <path d="M 62,100 L 72,100 M 67,100 L 67,120" />
+              <!-- H -->
+              <path d="M 76,100 L 76,120 M 82,100 L 82,120 M 76,110 L 82,110" />
+              <!-- E -->
+              <path d="M 87,100 L 87,120 M 87,100 L 92,100 M 87,110 L 91,110 M 87,120 L 92,120" />
+              
+              <!-- H -->
+              <path d="M 97,100 L 97,120 M 103,100 L 103,120 M 97,110 L 103,110" />
+              <!-- I -->
+              <path d="M 108,100 L 108,120" />
+              <!-- D -->
+              <path d="M 112,100 L 112,120 Q 119,100 119,110 Q 119,120 112,120" />
+              <!-- D -->
+              <path d="M 123,100 L 123,120 Q 130,100 130,110 Q 130,120 123,120" />
+              <!-- E -->
+              <path d="M 134,100 L 134,120 M 134,100 L 139,100 M 134,110 L 138,110 M 134,120 L 139,120" />
+              <!-- N -->
+              <path d="M 143,120 L 143,100 L 149,120 L 149,100" />
+              
+              <!-- T -->
+              <path d="M 154,100 L 164,100 M 159,100 L 159,120" />
+              <!-- I -->
+              <path d="M 168,100 L 168,120" />
+              <!-- G -->
+              <path d="M 177,100 C 172,100 172,120 177,120 L 177,112 L 174,112" />
+              <!-- E -->
+              <path d="M 182,100 L 182,120 M 182,100 L 187,100 M 182,110 L 186,110 M 182,120 L 187,120" />
+              <!-- R -->
+              <path d="M 191,120 L 191,100 Q 197,100 197,110 L 191,110 L 197,120" />
+            </g>
+            
+            <!-- Standard body highlight lines -->
+            <g stroke="#eab308" stroke-width="2.5" fill="none">
+              <path d="M 38,110 Q 42,120 38,135" />
+              <path d="M 45,112 Q 48,122 46,138" />
+              <path d="M 52,110 Q 56,120 54,135" />
+            </g>
+          </svg>
+        </div>
+
+        <!-- Controls -->
+        <div class="mt-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-t border-slate-500/10 pt-4">
+          <div class="flex items-center space-x-3 shrink-0">
+            <button class="found-btn text-xs font-bold px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white shadow-md transition-colors">Found It!</button>
+            <button class="reveal-btn text-xs font-bold px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">Give Up / Reveal</button>
+          </div>
+          <div class="flex items-center justify-between sm:justify-end gap-6 text-xs text-slate-500 w-full">
+            <div class="font-mono font-bold text-sm">Time: <span class="timer-val">0.0</span>s</div>
+            <div class="font-bold">PB: <span class="pb-val">-</span></div>
+          </div>
+        </div>
+        <details class="mt-4 border-t border-slate-500/10 pt-3 text-xs text-slate-600 dark:text-slate-400">
+          <summary class="font-bold cursor-pointer hover:text-purple-500 dark:hover:text-purple-400 transition-colors select-none">🔬 Why it works (Neurobiology)</summary>
+          <p class="mt-2 leading-relaxed font-normal">
+            The Hidden Tiger is an illusion based on cognitive camouflage and text-shape segment grouping. In a standard jungle scene, a tiger is hidden because its stripes break up the contour of its body, blending it into the high-contrast vertical lines of tall forest grasses. In this specific illusion, the camouflage goes one step deeper: the stripes on the tiger's body are shaped to spell out the letters "THE HIDDEN TIGER".
+          </p>
+          <p class="mt-2 leading-relaxed font-normal">
+            The letters are rendered with the exact same stroke width, color, and curved paths as the natural stripes surrounding them. This exploits the Gestalt laws of similarity and good continuation. The visual cortex automatically groups the text letters as part of the tiger's natural stripe pattern, masking their semantic identity.
+          </p>
+          <p class="mt-2 leading-relaxed font-normal">
+            To find the hidden word, you must disengage your global object recognition (seeing the tiger as a whole) and activate local symbol recognition. Once you spot the letters, your brain establishes a new semantic template, and the words stand out clearly. This demonstrates how expectation and visual search patterns alter the way details are parsed in the temporal lobe.
+          </p>
+          <p class="mt-3">
+            <a href="/illusions/zoellner-illusion" class="text-purple-600 dark:text-purple-400 font-bold hover:underline">Explore full science page &rarr;</a>
+          </p>
+        </details>
+      
+        <div class="mt-5 flex items-center justify-between text-xs font-black text-purple-600 dark:text-purple-400 group-hover:text-purple-300 transition-colors border-t border-slate-500/10 pt-4">
+          <span>View Full Science & Facts</span>
+          <span>Explore &rarr;</span>
+        </div>
+      </a>
+
+      <!-- Card 7: Impossible Trident -->
+      <a href="/illusions/penrose-triangle" id="card-trident" class="illusion-card flex flex-col justify-between rounded-2xl border border-indigo-100/10 bg-white dark:bg-slate-900/60 backdrop-blur-sm p-6 shadow-xl relative block hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(168,85,247,0.35)] hover:border-purple-500/40 cursor-pointer transition-all duration-300 group" data-id="trident">
+        <button class="share-btn absolute top-6 right-6 p-2 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-400 hover:text-slate-200 border border-slate-500/10 transition-colors z-20" aria-label="Share this illusion">
+          <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M15 8a3 3 0 1 0-2.977-2.63l-4.94 2.47a3 3 0 1 0 0 4.319l4.94 2.47a3 3 0 1 0 .895-1.789l-4.94-2.47a3.027 3.027 0 0 0 0-.74l4.94-2.47C13.456 7.68 14.19 8 15 8Z"/></svg>
+          <span class="share-toast absolute bottom-full right-0 mb-2 px-2.5 py-1 text-[10px] font-bold text-white bg-purple-600 rounded-lg shadow-md opacity-0 pointer-events-none transition-opacity duration-200 whitespace-nowrap">Link Copied! ✓</span>
+        </button>
+
+        <div class="space-y-1 pr-10 mb-4">
+          <div class="flex items-center space-x-2">
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-rose-500/10 text-rose-500 border border-rose-500/20">🔴 Hard</span>
+            <span class="text-[10px] font-bold text-indigo-400 uppercase tracking-wide">Impossible Object</span>
+          </div>
+          <h3 class="font-display text-xl font-bold text-slate-900 dark:text-white">7. Impossible Trident (Blivet)</h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400">Follow any single prong from left to right. It starts as three round tubes and ends as two square bars.</p>
+        </div>
+
+        <div class="demo-area relative flex flex-col items-center justify-center h-80 w-full bg-slate-100 dark:bg-slate-950/40 rounded-xl overflow-hidden border border-indigo-500/5 p-4">
+          <svg id="svg-trident" class="w-64 h-64 select-none overflow-visible" viewBox="0 0 200 200">
+            <!-- Main outline paths forming impossible junctions -->
+            <g stroke="currentColor" stroke-width="2.5" fill="none" class="text-slate-900 dark:text-slate-200" stroke-linecap="round" stroke-linejoin="round">
+              <!-- Top bar edge -->
+              <path d="M 40,75 L 160,75 C 165,75 165,90 160,90" />
+              <!-- Bottom bar edge -->
+              <path d="M 40,125 L 160,125 C 165,125 165,110 160,110" />
+              
+              <!-- Center transition lines -->
+              <path d="M 40,92 L 100,92 C 110,92 110,75 120,75" />
+              <path d="M 40,108 L 100,108 C 110,108 110,125 120,125" />
+              
+              <!-- Inner prong loops -->
+              <path d="M 160,90 C 152,90 152,110 160,110" />
+              <!-- Cylindrical caps -->
+              <path d="M 160,75 C 155,75 155,90 160,90" />
+              <path d="M 160,110 C 155,110 155,125 160,125" />
+              <!-- Middle cylinder cap -->
+              <path d="M 160,92.5 C 155,92.5 155,107.5 160,107.5" />
+              <path d="M 160,92.5 C 165,92.5 165,107.5 160,107.5" />
+              
+              <!-- Left side bracket base -->
+              <path d="M 40,75 L 30,75 C 25,75 25,125 30,125 L 40,125 Z" fill="currentColor" fill-opacity="0.1" />
+            </g>
+            
+            <!-- Traced path overlay (colored stroke) -->
+            <path class="trident-trace stroke-purple-500 stroke-[3] fill-none opacity-0 transition-opacity duration-300" d="M 40,75 L 160,75 C 165,75 165,90 160,90 C 152,90 152,110 160,110 C 165,110 165,125 160,125 L 40,125" />
+          </svg>
+          
+          <div class="absolute bottom-3 flex space-x-2 bg-slate-900/90 border border-white/10 rounded-xl p-1 z-10">
+            <button class="trace-trident-btn text-xs font-bold px-3 py-1 rounded-lg text-slate-400 hover:text-white transition-colors">Trace Prong Impossibility</button>
+          </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="mt-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-t border-slate-500/10 pt-4">
+          <div class="flex items-center space-x-3 shrink-0">
+            <button class="found-btn text-xs font-bold px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white shadow-md transition-colors">I See It!</button>
+          </div>
+          <div class="flex items-center justify-between sm:justify-end gap-6 text-xs text-slate-500 w-full">
+            <div class="font-mono font-bold text-sm">Time: <span class="timer-val">0.0</span>s</div>
+            <div class="font-bold">PB: <span class="pb-val">-</span></div>
+          </div>
+        </div>
+        <details class="mt-4 border-t border-slate-500/10 pt-3 text-xs text-slate-600 dark:text-slate-400">
+          <summary class="font-bold cursor-pointer hover:text-purple-500 dark:hover:text-purple-400 transition-colors select-none">🔬 Why it works (Neurobiology)</summary>
+          <p class="mt-2 leading-relaxed font-normal">
+            The Impossible Trident, also known as a blivet or devil's tuning fork, is an impossible object that represents a profound conflict in the visual system's spatial reconstruction. When you look at the left end, you see two rectangular prongs originating from a solid base. However, as your eyes trace the prongs to the right, they appear to divide and resolve into three cylindrical prongs.
+          </p>
+          <p class="mt-2 leading-relaxed font-normal">
+            The illusion works because the brain processes visual scenes locally rather than globally at first. The visual cortex parses the junctions and curves in small local areas (receptive fields), and each end of the drawing is locally self-consistent and mathematically valid in 3D. However, when the brain tries to assemble these local interpretations into a single, global 3D model, it encounters a geometric paradox.
+          </p>
+          <p class="mt-2 leading-relaxed font-normal">
+            The negative space (empty gap) between the prongs on the left becomes a positive solid prong on the right. Your visual system is trapped in a loop, unable to resolve the conflicting depth cues. This proves that our 3D perception is built by integrating local orientation and depth coordinates, and can be easily fractured by contradictory boundary ownership.
+          </p>
+          <p class="mt-3">
+            <a href="/illusions/penrose-triangle" class="text-purple-600 dark:text-purple-400 font-bold hover:underline">Explore full science page &rarr;</a>
+          </p>
+        </details>
+      
+        <div class="mt-5 flex items-center justify-between text-xs font-black text-purple-600 dark:text-purple-400 group-hover:text-purple-300 transition-colors border-t border-slate-500/10 pt-4">
+          <span>View Full Science & Facts</span>
+          <span>Explore &rarr;</span>
+        </div>
+      </a>
+
+      <!-- Card 8: Count the Black Dots -->
+      <a href="/illusions/hermann-grid" id="card-dots" class="illusion-card flex flex-col justify-between rounded-2xl border border-indigo-100/10 bg-white dark:bg-slate-900/60 backdrop-blur-sm p-6 shadow-xl relative block hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(168,85,247,0.35)] hover:border-purple-500/40 cursor-pointer transition-all duration-300 group" data-id="dots">
+        <button class="share-btn absolute top-6 right-6 p-2 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-400 hover:text-slate-200 border border-slate-500/10 transition-colors z-20" aria-label="Share this illusion">
+          <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M15 8a3 3 0 1 0-2.977-2.63l-4.94 2.47a3 3 0 1 0 0 4.319l4.94 2.47a3 3 0 1 0 .895-1.789l-4.94-2.47a3.027 3.027 0 0 0 0-.74l4.94-2.47C13.456 7.68 14.19 8 15 8Z"/></svg>
+          <span class="share-toast absolute bottom-full right-0 mb-2 px-2.5 py-1 text-[10px] font-bold text-white bg-purple-600 rounded-lg shadow-md opacity-0 pointer-events-none transition-opacity duration-200 whitespace-nowrap">Link Copied! ✓</span>
+        </button>
+
+        <div class="space-y-1 pr-10 mb-4">
+          <div class="flex items-center space-x-2">
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-rose-500/10 text-rose-500 border border-rose-500/20">🔴 Hard</span>
+            <span class="text-[10px] font-bold text-indigo-400 uppercase tracking-wide">Lateral Inhibition</span>
+          </div>
+          <h3 class="font-display text-xl font-bold text-slate-900 dark:text-white">8. Count the Black Dots</h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400">Look at the grid layout. Black dots appear to blink in the intersections, but how many are actually there?</p>
+        </div>
+
+        <div class="demo-area relative flex flex-col items-center justify-center h-80 w-full bg-slate-950 rounded-xl overflow-hidden border border-indigo-500/5 p-4">
+          <svg id="svg-scintillating" class="w-56 h-56 select-none" viewBox="0 0 200 200">
+            <!-- Scintillating Grid -->
+            <!-- Grey grid lines -->
+            <g stroke="#64748b" stroke-width="3.5">
+              <line x1="25" y1="0" x2="25" y2="200" />
+              <line x1="60" y1="0" x2="60" y2="200" />
+              <line x1="95" y1="0" x2="95" y2="200" />
+              <line x1="130" y1="0" x2="130" y2="200" />
+              <line x1="165" y1="0" x2="165" y2="200" />
+              
+              <line x1="0" y1="25" x2="200" y2="25" />
+              <line x1="0" y1="60" x2="200" y2="60" />
+              <line x1="0" y1="95" x2="200" y2="95" />
+              <line x1="0" y1="130" x2="200" y2="130" />
+              <line x1="0" y1="165" x2="200" y2="165" />
+            </g>
+            <!-- White circles at intersections -->
+            <g fill="#ffffff">
+              <circle cx="25" cy="25" r="4.5" />
+              <circle cx="60" cy="25" r="4.5" />
+              <circle cx="95" cy="25" r="4.5" />
+              <circle cx="130" cy="25" r="4.5" />
+              <circle cx="165" cy="25" r="4.5" />
+              
+              <circle cx="25" cy="60" r="4.5" />
+              <circle cx="60" cy="60" r="4.5" />
+              <circle cx="95" cy="60" r="4.5" />
+              <circle cx="130" cy="60" r="4.5" />
+              <circle cx="165" cy="60" r="4.5" />
+              
+              <circle cx="25" cy="95" r="4.5" />
+              <circle cx="60" cy="95" r="4.5" />
+              <circle cx="95" cy="95" r="4.5" />
+              <circle cx="130" cy="95" r="4.5" />
+              <circle cx="165" cy="95" r="4.5" />
+              
+              <circle cx="25" cy="130" r="4.5" />
+              <circle cx="60" cy="130" r="4.5" />
+              <circle cx="95" cy="130" r="4.5" />
+              <circle cx="130" cy="130" r="4.5" />
+              <circle cx="165" cy="130" r="4.5" />
+              
+              <circle cx="25" cy="165" r="4.5" />
+              <circle cx="60" cy="165" r="4.5" />
+              <circle cx="95" cy="165" r="4.5" />
+              <circle cx="130" cy="165" r="4.5" />
+              <circle cx="165" cy="165" r="4.5" />
+            </g>
+          </svg>
+          
+          <div class="absolute bottom-3 flex space-x-2 bg-slate-900/90 border border-white/10 rounded-xl p-1 z-10">
+            <input type="number" id="dots-guess" placeholder="Enter count..." class="w-24 bg-slate-800 text-white text-xs border border-slate-700 rounded-lg px-2 py-1 focus:outline-none" />
+            <button class="submit-guess-btn text-xs font-bold px-3 py-1 rounded-lg bg-purple-600 text-white hover:bg-purple-500 transition-colors">Submit</button>
+          </div>
+        </div>
+
+        <div class="mt-4 text-xs font-semibold text-center text-red-500 hidden dots-feedback"></div>
+
+        <!-- Controls -->
+        <div class="mt-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-t border-slate-500/10 pt-4">
+          <div class="flex items-center space-x-3 shrink-0">
+            <button class="found-btn text-xs font-bold px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white shadow-md transition-colors">I See It!</button>
+          </div>
+          <div class="flex items-center justify-between sm:justify-end gap-6 text-xs text-slate-500 w-full">
+            <div class="font-mono font-bold text-sm">Time: <span class="timer-val">0.0</span>s</div>
+            <div class="font-bold">PB: <span class="pb-val">-</span></div>
+          </div>
+        </div>
+        <details class="mt-4 border-t border-slate-500/10 pt-3 text-xs text-slate-600 dark:text-slate-400">
+          <summary class="font-bold cursor-pointer hover:text-purple-500 dark:hover:text-purple-400 transition-colors select-none">🔬 Why it works (Neurobiology)</summary>
+          <p class="mt-2 leading-relaxed font-normal">
+            The Scintillating Grid illusion is a famous variation of the classic Hermann Grid, discovered by E. and B. Lingelbach and M. Schrauf in 1994. It consists of a grid of grey lines overlaying a black background, with white circles at all the intersections. When you look at the grid, dark, ghost-like black dots rapidly appear and disappear at the intersections in your peripheral vision, but vanish the moment you look directly at them.
+          </p>
+          <p class="mt-2 leading-relaxed font-normal">
+            This occurs due to lateral inhibition in the receptive fields of your retinal ganglion cells. Cells centered on the white intersections receive light from four directions along the grey bars, causing them to signal that the intersection is dimmer than it actually is.
+          </p>
+          <p class="mt-2 leading-relaxed font-normal">
+            In your central vision (the fovea), receptive fields are tiny, so they resolve the absolute brightness accurately (the dot looks white). In your peripheral vision, however, the receptive fields are much larger, causing the surrounding grey lines to suppress the white signal and generate a dark grey or black illusion. This shows that the brain does not see absolute colors, but rather calculates relative contrast across visual channels.
+          </p>
+          <p class="mt-3">
+            <a href="/illusions/hermann-grid" class="text-purple-600 dark:text-purple-400 font-bold hover:underline">Explore full science page &rarr;</a>
+          </p>
+        </details>
+      
+        <div class="mt-5 flex items-center justify-between text-xs font-black text-purple-600 dark:text-purple-400 group-hover:text-purple-300 transition-colors border-t border-slate-500/10 pt-4">
+          <span>View Full Science & Facts</span>
+          <span>Explore &rarr;</span>
+        </div>
+      </a>
+
+      <!-- Card 9: JND - Same or Different? -->
+      <a href="/illusions/adelsons-checkerboard" id="card-jnd" class="illusion-card flex flex-col justify-between rounded-2xl border border-indigo-100/10 bg-white dark:bg-slate-900/60 backdrop-blur-sm p-6 shadow-xl relative block hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(168,85,247,0.35)] hover:border-purple-500/40 cursor-pointer transition-all duration-300 group" data-id="jnd">
+        <button class="share-btn absolute top-6 right-6 p-2 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-400 hover:text-slate-200 border border-slate-500/10 transition-colors z-20" aria-label="Share this illusion">
+          <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M15 8a3 3 0 1 0-2.977-2.63l-4.94 2.47a3 3 0 1 0 0 4.319l4.94 2.47a3 3 0 1 0 .895-1.789l-4.94-2.47a3.027 3.027 0 0 0 0-.74l4.94-2.47C13.456 7.68 14.19 8 15 8Z"/></svg>
+          <span class="share-toast absolute bottom-full right-0 mb-2 px-2.5 py-1 text-[10px] font-bold text-white bg-purple-600 rounded-lg shadow-md opacity-0 pointer-events-none transition-opacity duration-200 whitespace-nowrap">Link Copied! ✓</span>
+        </button>
+
+        <div class="space-y-1 pr-10 mb-4">
+          <div class="flex items-center space-x-2">
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">🟢 Easy</span>
+            <span class="text-[10px] font-bold text-indigo-400 uppercase tracking-wide">Contrast Constancy</span>
+          </div>
+          <h3 class="font-display text-xl font-bold text-slate-900 dark:text-white">9. JND — Same or Different?</h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400">Do the two central gray squares appear different in shading? Vote below to reveal the truth.</p>
+        </div>
+
+        <div class="demo-area relative flex flex-col items-center justify-center h-80 w-full bg-slate-400 rounded-xl overflow-hidden border border-indigo-500/5">
+          <!-- Split background container -->
+          <div class="absolute inset-0 flex">
+            <div class="w-1/2 h-full bg-white"></div>
+            <div class="w-1/2 h-full bg-slate-950"></div>
+          </div>
+          
+          <svg id="svg-jnd" class="w-64 h-64 select-none overflow-visible z-10" viewBox="0 0 200 200">
+            <!-- Left gray square (on white background) -->
+            <rect x="35" y="75" width="50" height="50" fill="#888888" />
+            <!-- Right gray square (on black background) -->
+            <rect x="115" y="75" width="50" height="50" fill="#888888" />
+            
+            <!-- Connecting bridge (initially hidden) -->
+            <rect class="jnd-bridge fill-[#888888] opacity-0 transition-opacity duration-500" x="80" y="85" width="40" height="30" />
+          </svg>
+          
+          <div class="absolute bottom-3 flex space-x-2 bg-slate-900/90 border border-white/10 rounded-xl p-1 z-10">
+            <button class="jnd-yes-btn text-xs font-bold px-3 py-1 rounded-lg text-slate-400 hover:text-white transition-colors">Vote YES (Same)</button>
+            <button class="jnd-no-btn text-xs font-bold px-3 py-1 rounded-lg text-slate-400 hover:text-white transition-colors">Vote NO (Different)</button>
+          </div>
+        </div>
+
+        <div class="mt-4 text-xs font-semibold text-center text-purple-500 hidden jnd-feedback"></div>
+
+        <!-- Controls -->
+        <div class="mt-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-t border-slate-500/10 pt-4">
+          <div class="flex items-center space-x-3 shrink-0">
+            <button class="found-btn text-xs font-bold px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white shadow-md transition-colors">I See It!</button>
+          </div>
+          <div class="flex items-center justify-between sm:justify-end gap-6 text-xs text-slate-500 w-full">
+            <div class="font-mono font-bold text-sm">Time: <span class="timer-val">0.0</span>s</div>
+            <div class="font-bold">PB: <span class="pb-val">-</span></div>
+          </div>
+        </div>
+        <details class="mt-4 border-t border-slate-500/10 pt-3 text-xs text-slate-600 dark:text-slate-400">
+          <summary class="font-bold cursor-pointer hover:text-purple-500 dark:hover:text-purple-400 transition-colors select-none">🔬 Why it works (Neurobiology)</summary>
+          <p class="mt-2 leading-relaxed font-normal">
+            The Just Noticeable Difference (JND) Same-or-Different illusion is a classic demonstration of simultaneous contrast and lateral inhibition, which is the physiological basis for color constancy. In this setup, two gray squares are rendered with the exact same hex code (#888888). However, one is placed on a solid white background, and the other is placed on a solid black background.
+          </p>
+          <p class="mt-2 leading-relaxed font-normal">
+            To your eyes, the square on the white background looks noticeably darker, while the square on the black background looks much lighter. This occurs because the photoreceptors in your retina do not report absolute light levels. Instead, they report the difference in brightness between adjacent regions to enhance edges.
+          </p>
+          <p class="mt-2 leading-relaxed font-normal">
+            The white background stimulates surrounding receptors, which send inhibitory signals (lateral inhibition) to the central area, making it look darker. The black background does not trigger inhibition, allowing the central gray square to appear brighter. Toggling the connecting bar merges the two backgrounds with a continuous stripe of the same gray, bypassing the contrast boundaries and proving they are identical.
+          </p>
+          <p class="mt-3">
+            <a href="/illusions/wertheimer-koffka" class="text-purple-600 dark:text-purple-400 font-bold hover:underline">Explore full science page &rarr;</a>
+          </p>
+        </details>
+      
+        <div class="mt-5 flex items-center justify-between text-xs font-black text-purple-600 dark:text-purple-400 group-hover:text-purple-300 transition-colors border-t border-slate-500/10 pt-4">
+          <span>View Full Science & Facts</span>
+          <span>Explore &rarr;</span>
+        </div>
+      </a>
+
+      <!-- Card 10: Motion Aftereffect -->
+      <a href="/illusions/reverse-spoke" id="card-aftereffect" class="illusion-card flex flex-col justify-between rounded-2xl border border-indigo-100/10 bg-white dark:bg-slate-900/60 backdrop-blur-sm p-6 shadow-xl relative block hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(168,85,247,0.35)] hover:border-purple-500/40 cursor-pointer transition-all duration-300 group" data-id="aftereffect">
+        <button class="share-btn absolute top-6 right-6 p-2 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-400 hover:text-slate-200 border border-slate-500/10 transition-colors z-20" aria-label="Share this illusion">
+          <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M15 8a3 3 0 1 0-2.977-2.63l-4.94 2.47a3 3 0 1 0 0 4.319l4.94 2.47a3 3 0 1 0 .895-1.789l-4.94-2.47a3.027 3.027 0 0 0 0-.74l4.94-2.47C13.456 7.68 14.19 8 15 8Z"/></svg>
+          <span class="share-toast absolute bottom-full right-0 mb-2 px-2.5 py-1 text-[10px] font-bold text-white bg-purple-600 rounded-lg shadow-md opacity-0 pointer-events-none transition-opacity duration-200 whitespace-nowrap">Link Copied! ✓</span>
+        </button>
+
+        <div class="space-y-1 pr-10 mb-4">
+          <div class="flex items-center space-x-2">
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-rose-500/10 text-rose-500 border border-rose-500/20">🔴 Hard</span>
+            <span class="text-[10px] font-bold text-indigo-400 uppercase tracking-wide">Opponent Motion</span>
+          </div>
+          <h3 class="font-display text-xl font-bold text-slate-900 dark:text-white">10. Motion Aftereffect</h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400">Click "Start Staring" and look at the center of the moving stripes for 20s. Once they stop, watch them drift upward.</p>
+        </div>
+
+        <div class="demo-area relative flex flex-col items-center justify-center h-80 w-full bg-slate-900 rounded-xl overflow-hidden border border-indigo-500/5">
+          <!-- Scrolling stripes container -->
+          <div class="waterfall-stripes absolute inset-0 w-full h-full opacity-80 pointer-events-none paused"></div>
+          
+          <!-- Central focal dot -->
+          <circle class="absolute w-4 h-4 rounded-full bg-rose-500 border-2 border-white z-10"></circle>
+          
+          <div class="absolute bottom-3 flex flex-col items-center space-y-1 z-10">
+            <span class="aftereffect-timer-label text-[10px] font-bold text-slate-300 bg-slate-950/80 px-2 py-0.5 rounded">Ready</span>
+            <button class="start-aftereffect-btn text-xs font-bold px-3 py-1.5 rounded-lg bg-purple-600 text-white hover:bg-purple-505 transition-colors">Start Staring (20s)</button>
+          </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="mt-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-t border-slate-500/10 pt-4">
+          <div class="flex items-center space-x-3 shrink-0">
+            <button class="found-btn text-xs font-bold px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white shadow-md transition-colors">I See It!</button>
+          </div>
+          <div class="flex items-center justify-between sm:justify-end gap-6 text-xs text-slate-500 w-full">
+            <div class="font-mono font-bold text-sm">Time: <span class="timer-val">0.0</span>s</div>
+            <div class="font-bold">PB: <span class="pb-val">-</span></div>
+          </div>
+        </div>
+        <details class="mt-4 border-t border-slate-500/10 pt-3 text-xs text-slate-600 dark:text-slate-400">
+          <summary class="font-bold cursor-pointer hover:text-purple-500 dark:hover:text-purple-400 transition-colors select-none">🔬 Why it works (Neurobiology)</summary>
+          <p class="mt-2 leading-relaxed font-normal">
+            The Motion Aftereffect (MAE), famously known as the Waterfall Illusion, was described by Aristotle and later formalised by Robert Addams in 1834. It is a powerful physiological illusion of motion that occurs after staring at a moving stimulus for an extended period.
+          </p>
+          <p class="mt-2 leading-relaxed font-normal">
+            When you watch stripes move downward for 20 seconds, the direction-selective neurons in your visual cortex (specifically area MT/V5) that detect downward motion are highly active. Over time, these specific neurons experience adaptation and become fatigued.
+          </p>
+          <p class="mt-2 leading-relaxed font-normal">
+            Meanwhile, the opponent neurons that detect upward motion remain at their baseline resting state. When the stripes suddenly stop moving, the downward-detecting neurons drop below their normal baseline firing rate due to fatigue. The upward-detecting neurons, firing at their normal resting rate, now have a higher relative activity. The brain interprets this imbalance as upward motion, creating a vivid hallucination of drift in a completely static image. This shows that motion detection relies on a dynamic balance of opponent neural populations.
+          </p>
+          <p class="mt-3">
+            <a href="/illusions/reverse-spoke" class="text-purple-600 dark:text-purple-400 font-bold hover:underline">Explore full science page &rarr;</a>
+          </p>
+        </details>
+      
+        <div class="mt-5 flex items-center justify-between text-xs font-black text-purple-600 dark:text-purple-400 group-hover:text-purple-300 transition-colors border-t border-slate-500/10 pt-4">
+          <span>View Full Science & Facts</span>
+          <span>Explore &rarr;</span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- Accordion Q&A and Leaderboard Section -->
+  <section class="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-indigo-100/10">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+      
+      <!-- Leaderboard -->
+      <div class="lg:col-span-1 bg-slate-50 dark:bg-slate-900/30 border border-slate-200/50 dark:border-white/5 rounded-2xl p-6">
+        <h3 class="font-display text-xl font-bold text-slate-900 dark:text-white mb-4">🏆 Personal Records</h3>
+        <p class="text-xs text-slate-500 dark:text-slate-400 mb-6">Compare your best spotting times against typical averages.</p>
+        
+        <div class="space-y-4">
+          <div class="flex items-center justify-between text-xs border-b border-slate-500/10 pb-2">
+            <span class="font-semibold text-slate-700 dark:text-slate-300">Illusion Name</span>
+            <span class="font-semibold text-slate-700 dark:text-slate-300">Your Personal Best</span>
+          </div>
+          
+          <div class="space-y-2 text-xs">
+            <div class="flex items-center justify-between">
+              <span class="text-slate-600 dark:text-slate-400">1. Old/Young Woman</span>
+              <span id="pb-old-young" class="font-mono font-bold text-purple-500">-</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-slate-600 dark:text-slate-400">2. Duck or Rabbit</span>
+              <span id="pb-duck-rabbit" class="font-mono font-bold text-purple-500">-</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-slate-600 dark:text-slate-400">3. Face or Vase</span>
+              <span id="pb-face-vase" class="font-mono font-bold text-purple-500">-</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-slate-600 dark:text-slate-400">4. Necker Cube</span>
+              <span id="pb-necker" class="font-mono font-bold text-purple-500">-</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-slate-600 dark:text-slate-400">5. Spinning Dancer</span>
+              <span id="pb-dancer" class="font-mono font-bold text-purple-500">-</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-slate-600 dark:text-slate-400">6. The Hidden Tiger</span>
+              <span id="pb-tiger" class="font-mono font-bold text-purple-500">-</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-slate-600 dark:text-slate-400">7. Impossible Trident</span>
+              <span id="pb-trident" class="font-mono font-bold text-purple-500">-</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-slate-600 dark:text-slate-400">8. Count the Dots</span>
+              <span id="pb-dots" class="font-mono font-bold text-purple-500">-</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-slate-600 dark:text-slate-400">9. JND Same/Diff</span>
+              <span id="pb-jnd" class="font-mono font-bold text-purple-500">-</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-slate-600 dark:text-slate-400">10. Motion Aftereffect</span>
+              <span id="pb-aftereffect" class="font-mono font-bold text-purple-500">-</span>
+            </div>
+          </div>
+          
+          <button id="reset-leaderboard-btn" class="w-full mt-4 py-2 rounded-xl text-center text-xs font-bold bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-700 transition-colors">Clear All Records</button>
+        </div>
+      </div>
+      
+      <!-- FAQ accordion & copy -->
+      <div class="lg:col-span-2 space-y-8">
+        <h3 class="font-display text-2xl font-bold text-slate-900 dark:text-white">Frequently Asked Questions</h3>
+        
+        <div class="space-y-4">
+          <details class="group bg-slate-50 dark:bg-slate-900/20 border border-slate-200/50 dark:border-white/5 rounded-2xl p-4">
+            <summary class="font-semibold text-sm cursor-pointer select-none text-slate-800 dark:text-slate-200 group-open:text-purple-500 transition-colors">Why can't I see both interpretations of ambiguous figures at the same time?</summary>
+            <p class="mt-2 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Your visual cortex processes shapes by mapping boundaries to semantic templates in the temporal lobe. Because the same outlines are shared by both shapes, the neural networks associated with each interpretation compete for dominance. The brain cannot hold two active, separate definitions for the same visual space at the same microsecond, so it chooses one and suppresses the other, resulting in visual bistability.
+            </p>
+          </details>
+
+          <details class="group bg-slate-50 dark:bg-slate-900/20 border border-slate-200/50 dark:border-white/5 rounded-2xl p-4">
+            <summary class="font-semibold text-sm cursor-pointer select-none text-slate-800 dark:text-slate-200 group-open:text-purple-500 transition-colors">What is the difference between foveal and peripheral vision in illusions?</summary>
+            <p class="mt-2 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Foveal vision represents the center of your gaze, where photoreceptors are densely packed, providing sharp detail. Peripheral vision has larger receptive fields with lower resolution but high sensitivity to motion. Illusions like "Count the Black Dots" exploit this: foveal vision resolves the intersections accurately as white, but peripheral channels average the adjacent dark squares, generating ghost black dots.
+            </p>
+          </details>
+
+          <details class="group bg-slate-50 dark:bg-slate-900/20 border border-slate-200/50 dark:border-white/5 rounded-2xl p-4">
+            <summary class="font-semibold text-sm cursor-pointer select-none text-slate-800 dark:text-slate-200 group-open:text-purple-500 transition-colors">How does the motion aftereffect work physically in the eyes?</summary>
+            <p class="mt-2 text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              It occurs due to neural adaptation in the direction-selective cells of area MT/V5. Staring at downward stripes fatigues the cells tuned to downward motion. When you look at static lines, the rested upward-detecting cells fire at their normal resting rate, which is now higher than the fatigued downward cells. The brain reads this relative difference as upward motion.
+            </p>
+          </details>
+        
+        <div class="mt-5 flex items-center justify-between text-xs font-black text-purple-600 dark:text-purple-400 group-hover:text-purple-300 transition-colors border-t border-slate-500/10 pt-4">
+          <span>View Full Science & Facts</span>
+          <span>Explore &rarr;</span>
+        </div>
+      </a>
+      </div>
+      
+    </div>
+  </section>
+
+  <style>
+    /* Repeating linear gradient for downward scrolling stripes */
+    .waterfall-stripes {
+      background: repeating-linear-gradient(to bottom, #020617, #020617 15px, #f1f5f9 15px, #f1f5f9 30px);
+      background-size: 100% 30px;
+      animation: move-stripes-down 1s linear infinite;
+    }
+    
+    .waterfall-stripes.paused {
+      animation-play-state: paused;
+    }
+    
+    @keyframes move-stripes-down {
+      0% { background-position-y: 0px; }
+      100% { background-position-y: 30px; }
+    }
+
+    /* Spinning dancer CSS animation */
+    @keyframes spin-scale-x {
+      0% { transform: scaleX(1); }
+      50% { transform: scaleX(-1); }
+      100% { transform: scaleX(1); }
+    }
+    
+    .dancer-silhouette {
+      transform-origin: 100px 100px;
+      animation: spin-scale-x calc(4s / var(--speed-multiplier, 1)) linear infinite;
+    }
+  </style>
+
+  <script>
+    // ----------------------------------------------------
+    // STOPWATCH TIMER LOGIC FOR ALL 10 CARDS
+    // ----------------------------------------------------
+    const cards = document.querySelectorAll('.illusion-card');
+    const cardStates: Record<string, {
+      elapsed: number;
+      interval: any;
+      running: boolean;
+    }> = {};
+
+    cards.forEach(card => {
+      const id = card.getAttribute('data-id');
+      if (!id) return;
+
+      // Stop event propagation on inner details, summary, buttons, and inputs to prevent navigation
+      card.querySelectorAll('button, input, select, details, summary, label, a').forEach(el => {
+        el.addEventListener('click', (e) => e.stopPropagation());
+        el.addEventListener('mousedown', (e) => e.stopPropagation());
+        el.addEventListener('touchstart', (e) => e.stopPropagation());
+      });
+  
+      
+      cardStates[id] = {
+        elapsed: 0.0,
+        interval: null,
+        running: true
+      };
+
+      // Start timer automatically on page load
+      const timerValEl = card.querySelector('.timer-val');
+      cardStates[id].interval = setInterval(() => {
+        if (cardStates[id].running) {
+          cardStates[id].elapsed += 0.1;
+          if (timerValEl) {
+            timerValEl.textContent = cardStates[id].elapsed.toFixed(1);
+          }
+        }
+      }, 100);
+
+      // Load PB from localStorage
+      const pb = localStorage.getItem(`hidden-illusion-pb-${id}`);
+      const pbValEl = card.querySelector('.pb-val');
+      const leaderboardValEl = document.getElementById(`pb-${id}`);
+      if (pb) {
+        if (pbValEl) pbValEl.textContent = `${parseFloat(pb).toFixed(1)}s`;
+        if (leaderboardValEl) leaderboardValEl.textContent = `${parseFloat(pb).toFixed(1)}s`;
+      }
+
+      // Found It! / I See It! Button Handler
+      const foundBtn = card.querySelector('.found-btn');
+      foundBtn?.addEventListener('click', () => {
+        if (!cardStates[id].running) return;
+        cardStates[id].running = false;
+        clearInterval(cardStates[id].interval);
+
+        const score = cardStates[id].elapsed;
+        const savedPb = localStorage.getItem(`hidden-illusion-pb-${id}`);
+        if (!savedPb || score < parseFloat(savedPb)) {
+          localStorage.setItem(`hidden-illusion-pb-${id}`, score.toString());
+          if (pbValEl) pbValEl.textContent = `${score.toFixed(1)}s`;
+          if (leaderboardValEl) leaderboardValEl.textContent = `${score.toFixed(1)}s`;
+        }
+
+        // Trigger reveal outlines
+        const svg = card.querySelector('svg');
+        const revealMarkers = card.querySelectorAll('.reveal-markers, .young-guides, .old-guides, .duck-beak-highlight, .rabbit-ears-highlight, .vase-highlight, .trident-trace, .jnd-bridge');
+        revealMarkers.forEach(el => el.classList.remove('opacity-0'));
+      });
+
+      // Give Up / Reveal Button Handler
+      const revealBtn = card.querySelector('.reveal-btn');
+      revealBtn?.addEventListener('click', () => {
+        cardStates[id].running = false;
+        clearInterval(cardStates[id].interval);
+        
+        const revealMarkers = card.querySelectorAll('.reveal-markers, .young-guides, .old-guides, .duck-beak-highlight, .rabbit-ears-highlight, .vase-highlight, .trident-trace, .jnd-bridge, .tiger-text-stripes');
+        revealMarkers.forEach(el => {
+          el.classList.remove('opacity-0');
+          // Tiger text stripe reveal transitions to magenta
+          if (el.classList.contains('tiger-text-stripes')) {
+            el.setAttribute('stroke', '#d946ef');
+          }
+        });
+      });
+
+      // Share Button Handler
+      const shareBtn = card.querySelector('.share-btn');
+      shareBtn?.addEventListener('click', (e) => {
+        e.preventDefault();
+        const score = cardStates[id].elapsed;
+        const title = card.querySelector('h3')?.textContent || 'Illusion';
+        const shareText = `I spotted the ${title} in ${score.toFixed(1)}s on the Optical Illusion Lab! Can you beat me?`;
+        
+        navigator.clipboard.writeText(shareText).then(() => {
+          const toast = shareBtn.querySelector('.share-toast');
+          if (toast) {
+            toast.classList.remove('opacity-0');
+            toast.classList.add('opacity-100');
+            setTimeout(() => {
+              toast.classList.remove('opacity-100');
+              toast.classList.add('opacity-0');
+            }, 2000);
+          }
+        });
+      });
+    });
+
+    // Reset Leaderboard Handler
+    const resetBtn = document.getElementById('reset-leaderboard-btn');
+    resetBtn?.addEventListener('click', () => {
+      Object.keys(cardStates).forEach(id => {
+        localStorage.removeItem(`hidden-illusion-pb-${id}`);
+        const pbValEl = document.querySelector(`#card-${id} .pb-val`);
+        if (pbValEl) pbValEl.textContent = `-`;
+        const leaderboardValEl = document.getElementById(`pb-${id}`);
+        if (leaderboardValEl) leaderboardValEl.textContent = `-`;
+      });
+    });
+
+
+    // ----------------------------------------------------
+    // CARD SPECIFIC CONTROLLER INTERACTIVITY
+    // ----------------------------------------------------
+
+    // 1. Old Woman / Young Woman
+    const youngBtn = document.querySelector('.see-young-btn');
+    const oldBtn = document.querySelector('.see-old-btn');
+    const youngGuides = document.querySelector('.young-guides');
+    const oldGuides = document.querySelector('.old-guides');
+
+    youngBtn?.addEventListener('click', () => {
+      youngGuides?.classList.remove('opacity-0');
+      oldGuides?.classList.add('opacity-0');
+      youngBtn.classList.add('bg-purple-600', 'text-white');
+      oldBtn?.classList.remove('bg-purple-600', 'text-white');
+    });
+
+    oldBtn?.addEventListener('click', () => {
+      youngGuides?.classList.add('opacity-0');
+      oldGuides?.classList.remove('opacity-0');
+      oldBtn.classList.add('bg-purple-600', 'text-white');
+      youngBtn?.classList.remove('bg-purple-600', 'text-white');
+    });
+
+    // 2. Duck or Rabbit
+    const duckBtn = document.querySelector('.highlight-duck');
+    const rabbitBtn = document.querySelector('.highlight-rabbit');
+    const duckHighlight = document.querySelector('.duck-beak-highlight');
+    const rabbitHighlight = document.querySelector('.rabbit-ears-highlight');
+
+    duckBtn?.addEventListener('click', () => {
+      duckHighlight?.classList.remove('opacity-0');
+      rabbitHighlight?.classList.add('opacity-0');
+      duckBtn.classList.add('bg-purple-600', 'text-white');
+      rabbitBtn?.classList.remove('bg-purple-600', 'text-white');
+    });
+
+    rabbitBtn?.addEventListener('click', () => {
+      duckHighlight?.classList.add('opacity-0');
+      rabbitHighlight?.classList.remove('opacity-0');
+      rabbitBtn.classList.add('bg-purple-600', 'text-white');
+      duckBtn?.classList.remove('bg-purple-600', 'text-white');
+    });
+
+    // Duck or Rabbit Voting
+    const voteDuckBtn = document.querySelector('.vote-duck');
+    const voteRabbitBtn = document.querySelector('.vote-rabbit');
+    const statsPercentage = document.querySelector('.stat-percentage');
+
+    const handleVotingStats = () => {
+      if (statsPercentage) {
+        statsPercentage.classList.remove('hidden');
+      }
+      voteDuckBtn?.setAttribute('disabled', 'true');
+      voteRabbitBtn?.setAttribute('disabled', 'true');
+    };
+
+    voteDuckBtn?.addEventListener('click', () => {
+      localStorage.setItem('voted-duck-rabbit', 'duck');
+      handleVotingStats();
+    });
+
+    voteRabbitBtn?.addEventListener('click', () => {
+      localStorage.setItem('voted-duck-rabbit', 'rabbit');
+      handleVotingStats();
+    });
+
+    // Check if voted previously
+    if (localStorage.getItem('voted-duck-rabbit') && statsPercentage) {
+      statsPercentage.classList.remove('hidden');
+    }
+
+    // 3. Face or Vase
+    const voteFacesBtn = document.querySelector('.vote-faces');
+    const voteVaseBtn = document.querySelector('.vote-vase');
+    const statsPercentageVase = document.querySelector('.stat-percentage-vase');
+
+    const handleVotingStatsVase = () => {
+      if (statsPercentageVase) {
+        statsPercentageVase.classList.remove('hidden');
+      }
+      voteFacesBtn?.setAttribute('disabled', 'true');
+      voteVaseBtn?.setAttribute('disabled', 'true');
+    };
+
+    voteFacesBtn?.addEventListener('click', () => {
+      localStorage.setItem('voted-face-vase', 'faces');
+      handleVotingStatsVase();
+    });
+
+    voteVaseBtn?.addEventListener('click', () => {
+      localStorage.setItem('voted-face-vase', 'vase');
+      handleVotingStatsVase();
+    });
+
+    if (localStorage.getItem('voted-face-vase') && statsPercentageVase) {
+      statsPercentageVase.classList.remove('hidden');
+    }
+
+    // Face or Vase slow alternation animation
+    const rubinFaceL = document.querySelector('.rubin-face-l');
+    const rubinFaceR = document.querySelector('.rubin-face-r');
+    const rubinCenterVase = document.querySelector('.rubin-center-vase');
+    const vaseHighlight = document.querySelectorAll('.vase-highlight');
+
+    let vaseActive = true;
+    setInterval(() => {
+      vaseActive = !vaseActive;
+      if (vaseActive) {
+        rubinCenterVase?.setAttribute('fill', '#e2e8f0');
+        rubinFaceL?.setAttribute('fill', '#0f172a');
+        rubinFaceR?.setAttribute('fill', '#0f172a');
+        vaseHighlight.forEach(el => el.classList.remove('opacity-0'));
+      } else {
+        rubinCenterVase?.setAttribute('fill', '#020617');
+        rubinFaceL?.setAttribute('fill', '#c084fc');
+        rubinFaceR?.setAttribute('fill', '#c084fc');
+        vaseHighlight.forEach(el => el.classList.add('opacity-0'));
+      }
+    }, 4000);
+
+    // 4. Necker Cube
+    const lockFrontBtn = document.querySelector('.lock-front-btn');
+    const lockBackBtn = document.querySelector('.lock-back-btn');
+    const releaseLockBtn = document.querySelector('.release-lock-btn');
+    const shadeFront = document.querySelector('.necker-shade-front');
+    const shadeBack = document.querySelector('.necker-shade-back');
+
+    lockFrontBtn?.addEventListener('click', () => {
+      shadeFront?.classList.remove('fill-indigo-500/0');
+      shadeFront?.classList.add('fill-indigo-500/40');
+      shadeBack?.classList.add('fill-emerald-500/0');
+      shadeBack?.classList.remove('fill-emerald-500/40');
+      lockFrontBtn.classList.add('bg-purple-600', 'text-white');
+      lockBackBtn?.classList.remove('bg-purple-600', 'text-white');
+    });
+
+    lockBackBtn?.addEventListener('click', () => {
+      shadeBack?.classList.remove('fill-emerald-500/0');
+      shadeBack?.classList.add('fill-emerald-500/40');
+      shadeFront?.classList.add('fill-indigo-500/0');
+      shadeFront?.classList.remove('fill-indigo-500/40');
+      lockBackBtn.classList.add('bg-purple-600', 'text-white');
+      lockFrontBtn?.classList.remove('bg-purple-600', 'text-white');
+    });
+
+    releaseLockBtn?.addEventListener('click', () => {
+      shadeFront?.classList.add('fill-indigo-500/0');
+      shadeFront?.classList.remove('fill-indigo-500/40');
+      shadeBack?.classList.add('fill-emerald-500/0');
+      shadeBack?.classList.remove('fill-emerald-500/40');
+      lockFrontBtn?.classList.remove('bg-purple-600', 'text-white');
+      lockBackBtn?.classList.remove('bg-purple-600', 'text-white');
+    });
+
+    // 5. Spinning Dancer
+    const forceCwBtn = document.querySelector('.force-cw-btn');
+    const forceCcwBtn = document.querySelector('.force-ccw-btn');
+    const resetDancerBtn = document.querySelector('.reset-dancer-btn');
+    const cwLines = document.querySelector('.cw-lines');
+    const ccwLines = document.querySelector('.ccw-lines');
+    const dancerSilhouette = document.querySelector('.dancer-silhouette');
+
+    forceCwBtn?.addEventListener('click', () => {
+      cwLines?.classList.remove('opacity-0');
+      ccwLines?.classList.add('opacity-0');
+      if (dancerSilhouette) {
+        dancerSilhouette.classList.add('text-blue-500');
+        dancerSilhouette.classList.remove('text-slate-100');
+      }
+      forceCwBtn.classList.add('bg-purple-600', 'text-white');
+      forceCcwBtn?.classList.remove('bg-purple-600', 'text-white');
+    });
+
+    forceCcwBtn?.addEventListener('click', () => {
+      cwLines?.classList.add('opacity-0');
+      ccwLines?.classList.remove('opacity-0');
+      if (dancerSilhouette) {
+        dancerSilhouette.classList.add('text-rose-500');
+        dancerSilhouette.classList.remove('text-slate-100');
+      }
+      forceCcwBtn.classList.add('bg-purple-600', 'text-white');
+      forceCwBtn?.classList.remove('bg-purple-600', 'text-white');
+    });
+
+    resetDancerBtn?.addEventListener('click', () => {
+      cwLines?.classList.add('opacity-0');
+      ccwLines?.classList.add('opacity-0');
+      if (dancerSilhouette) {
+        dancerSilhouette.classList.remove('text-blue-500', 'text-rose-500');
+        dancerSilhouette.classList.add('text-slate-100');
+      }
+      forceCwBtn?.classList.remove('bg-purple-600', 'text-white');
+      forceCcwBtn?.classList.remove('bg-purple-600', 'text-white');
+    });
+
+    // Spinning Dancer Voting
+    const voteCwBtn = document.querySelector('.vote-cw');
+    const voteCcwBtn = document.querySelector('.vote-ccw');
+    const statsPercentageDancer = document.querySelector('.stat-percentage-dancer');
+
+    const handleVotingStatsDancer = () => {
+      if (statsPercentageDancer) {
+        statsPercentageDancer.classList.remove('hidden');
+      }
+      voteCwBtn?.setAttribute('disabled', 'true');
+      voteCcwBtn?.setAttribute('disabled', 'true');
+    };
+
+    voteCwBtn?.addEventListener('click', () => {
+      localStorage.setItem('voted-dancer-direction', 'cw');
+      handleVotingStatsDancer();
+    });
+
+    voteCcwBtn?.addEventListener('click', () => {
+      localStorage.setItem('voted-dancer-direction', 'ccw');
+      handleVotingStatsDancer();
+    });
+
+    if (localStorage.getItem('voted-dancer-direction') && statsPercentageDancer) {
+      statsPercentageDancer.classList.remove('hidden');
+    }
+
+    // 7. Impossible Trident
+    const traceTridentBtn = document.querySelector('.trace-trident-btn');
+    const tridentTrace = document.querySelector('.trident-trace');
+    let traceActive = false;
+
+    traceTridentBtn?.addEventListener('click', () => {
+      traceActive = !traceActive;
+      if (traceActive) {
+        tridentTrace?.classList.remove('opacity-0');
+        traceTridentBtn.classList.add('bg-purple-600', 'text-white');
+      } else {
+        tridentTrace?.classList.add('opacity-0');
+        traceTridentBtn.classList.remove('bg-purple-600', 'text-white');
+      }
+    });
+
+    // 8. Count the Black Dots
+    const dotsGuessInput = document.getElementById('dots-guess') as HTMLInputElement;
+    const submitGuessBtn = document.querySelector('.submit-guess-btn');
+    const dotsFeedback = document.querySelector('.dots-feedback');
+
+    submitGuessBtn?.addEventListener('click', () => {
+      const guess = dotsGuessInput.value.trim();
+      if (dotsFeedback) {
+        dotsFeedback.classList.remove('hidden');
+        if (guess === '0') {
+          dotsFeedback.textContent = "🎉 Correct! The answer is 0. All intersections are purely white. Your brain generated the black dots in your peripheral vision due to lateral inhibition.";
+          dotsFeedback.classList.remove('text-red-500');
+          dotsFeedback.classList.add('text-purple-500');
+          
+          // Stop timer and solve puzzle
+          const id = 'dots';
+          if (cardStates[id] && cardStates[id].running) {
+            cardStates[id].running = false;
+            clearInterval(cardStates[id].interval);
+            const score = cardStates[id].elapsed;
+            const pbValEl = document.querySelector('#card-dots .pb-val');
+            const leaderboardValEl = document.getElementById('pb-dots');
+            const savedPb = localStorage.getItem(`hidden-illusion-pb-${id}`);
+            if (!savedPb || score < parseFloat(savedPb)) {
+              localStorage.setItem(`hidden-illusion-pb-${id}`, score.toString());
+              if (pbValEl) pbValEl.textContent = `${score.toFixed(1)}s`;
+              if (leaderboardValEl) leaderboardValEl.textContent = `${score.toFixed(1)}s`;
+            }
+          }
+        } else {
+          dotsFeedback.textContent = "❌ Incorrect count. Look directly at any of the black dots you see. Do they disappear? Enter your new guess.";
+          dotsFeedback.classList.remove('text-purple-500');
+          dotsFeedback.classList.add('text-red-500');
+        }
+      }
+    });
+
+    // 9. JND - Same or Different
+    const jndYesBtn = document.querySelector('.jnd-yes-btn');
+    const jndNoBtn = document.querySelector('.jnd-no-btn');
+    const jndFeedback = document.querySelector('.jnd-feedback');
+    const jndBridge = document.querySelector('.jnd-bridge');
+
+    const handleJndReveal = (vote: string) => {
+      jndBridge?.classList.remove('opacity-0');
+      if (jndFeedback) {
+        jndFeedback.classList.remove('hidden');
+        jndFeedback.textContent = `You voted ${vote}. The connecting bridge shows both squares are the exact same hex color (#888888)!`;
+      }
+      
+      const id = 'jnd';
+      if (cardStates[id] && cardStates[id].running) {
+        cardStates[id].running = false;
+        clearInterval(cardStates[id].interval);
+        const score = cardStates[id].elapsed;
+        const pbValEl = document.querySelector('#card-jnd .pb-val');
+        const leaderboardValEl = document.getElementById('pb-jnd');
+        const savedPb = localStorage.getItem(`hidden-illusion-pb-${id}`);
+        if (!savedPb || score < parseFloat(savedPb)) {
+          localStorage.setItem(`hidden-illusion-pb-${id}`, score.toString());
+          if (pbValEl) pbValEl.textContent = `${score.toFixed(1)}s`;
+          if (leaderboardValEl) leaderboardValEl.textContent = `${score.toFixed(1)}s`;
+        }
+      }
+    };
+
+    jndYesBtn?.addEventListener('click', () => handleJndReveal('YES'));
+    jndNoBtn?.addEventListener('click', () => handleJndReveal('NO'));
+
+    // 10. Motion Aftereffect
+    const startAftereffectBtn = document.querySelector('.start-aftereffect-btn');
+    const stripes = document.querySelector('.waterfall-stripes');
+    const timerLabel = document.querySelector('.aftereffect-timer-label');
+    
+    let stareTimer: any = null;
+    let secondsRemaining = 20;
+    let isStaringActive = false;
+
+    startAftereffectBtn?.addEventListener('click', () => {
+      if (isStaringActive) return;
+      isStaringActive = true;
+      secondsRemaining = 20;
+      stripes?.classList.remove('paused');
+      
+      if (timerLabel) {
+        timerLabel.textContent = `Stare at the red dot: 20s remaining`;
+      }
+      if (startAftereffectBtn) {
+        startAftereffectBtn.setAttribute('disabled', 'true');
+      }
+
+      stareTimer = setInterval(() => {
+        secondsRemaining--;
+        if (timerLabel) {
+          timerLabel.textContent = `Stare at the red dot: ${secondsRemaining}s remaining`;
+        }
+        
+        if (secondsRemaining <= 0) {
+          clearInterval(stareTimer);
+          stripes?.classList.add('paused');
+          isStaringActive = false;
+          if (timerLabel) {
+            timerLabel.textContent = `STOP! Experience motion aftereffect now!`;
+          }
+          if (startAftereffectBtn) {
+            startAftereffectBtn.removeAttribute('disabled');
+            startAftereffectBtn.textContent = 'Restart';
+          }
+          
+          // Trigger I See It / solved state for timer pb
+          const id = 'aftereffect';
+          if (cardStates[id] && cardStates[id].running) {
+            cardStates[id].running = false;
+            clearInterval(cardStates[id].interval);
+            const score = cardStates[id].elapsed;
+            const pbValEl = document.querySelector('#card-aftereffect .pb-val');
+            const leaderboardValEl = document.getElementById('pb-aftereffect');
+            const savedPb = localStorage.getItem(`hidden-illusion-pb-${id}`);
+            if (!savedPb || score < parseFloat(savedPb)) {
+              localStorage.setItem(`hidden-illusion-pb-${id}`, score.toString());
+              if (pbValEl) pbValEl.textContent = `${score.toFixed(1)}s`;
+              if (leaderboardValEl) leaderboardValEl.textContent = `${score.toFixed(1)}s`;
+            }
+          }
+        }
+      }, 1000);
+    });
+  </script>
+</Layout>

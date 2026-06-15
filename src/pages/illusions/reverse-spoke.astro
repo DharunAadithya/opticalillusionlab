@@ -1,0 +1,299 @@
+---
+// src/pages/illusions/reverse-spoke.astro
+import Layout from '../../layouts/Layout.astro';
+
+// Math Helper: draws an SVG wedge from (cx, cy) out to radius r
+function getWedgePath(cx: number, cy: number, r: number, startAngle: number, endAngle: number) {
+  const rad = Math.PI / 180;
+  const x1 = cx + r * Math.cos(startAngle * rad);
+  const y1 = cy + r * Math.sin(startAngle * rad);
+  const x2 = cx + r * Math.cos(endAngle * rad);
+  const y2 = cy + r * Math.sin(endAngle * rad);
+  const largeArcFlag = endAngle - startAngle <= 180 ? 0 : 1;
+  return `M ${cx},${cy} L ${x1},${y1} A ${r},${r} 0 ${largeArcFlag},1 ${x2},${y2} Z`;
+}
+---
+
+<Layout 
+  title="Reverse Spoke Illusion — Optical Illusion Lab" 
+  description="A spinning colorful backdrop makes fixed black spokes appear to rotate in the opposite direction."
+>
+  <div class="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-12">
+    
+    <!-- Breadcrumb back navigation to Section -->
+    <nav class="flex text-xs font-black uppercase tracking-wider text-slate-400 space-x-2 pb-2 border-b border-indigo-500/10">
+      <a href="/" class="hover:text-white transition-colors">Home</a>
+      <span>/</span>
+      <a href="/moving" class="hover:text-white transition-colors">Moving Illusions</a>
+      <span>/</span>
+      <span class="text-purple-400">Reverse Spoke Illusion</span>
+    </nav>
+
+    <!-- Hero Header Section -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6">
+      <div class="space-y-3">
+        <div class="flex items-center space-x-2">
+          <span class="text-xs font-black px-2.5 py-0.5 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 uppercase tracking-wider">Motion Aftereffect</span>
+          <span class="text-xs font-black px-2.5 py-0.5 rounded-full bg-purple-500/10 text-purple-400 border border-purple-500/20 uppercase tracking-wider">🟡 Medium</span>
+        </div>
+        <h1 class="font-display text-4xl sm:text-5xl font-black tracking-tight text-slate-900 dark:text-white">
+          Reverse Spoke Illusion
+        </h1>
+        <p class="text-slate-600 dark:text-slate-350 text-base max-w-2xl font-medium">
+          A spinning colorful backdrop makes fixed black spokes appear to rotate in the opposite direction.
+        </p>
+      </div>
+
+      <!-- Share Button -->
+      <button 
+        id="share-illusion-page-btn"
+        class="relative shrink-0 flex items-center space-x-2 rounded-2xl bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-600 hover:scale-105 text-white font-black text-sm px-6 py-3.5 transition-all shadow-lg shadow-purple-500/10"
+      >
+        <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M15 8a3 3 0 1 0-2.977-2.63l-4.94 2.47a3 3 0 1 0 0 4.319l4.94 2.47a3 3 0 1 0 .895-1.789l-4.94-2.47a3.027 3.027 0 0 0 0-.74l4.94-2.47C13.456 7.68 14.19 8 15 8Z"/></svg>
+        <span>Share Page</span>
+        <span id="page-share-toast" class="absolute bottom-full right-1/2 translate-x-1/2 mb-2 px-2.5 py-1 text-[10px] font-bold text-white bg-purple-650 rounded-lg shadow-md opacity-0 pointer-events-none transition-opacity duration-200 whitespace-nowrap">Link Copied! ✓</span>
+      </button>
+    </div>
+
+    <!-- LARGE INTERACTIVE DEMO (600px wide, centered) -->
+    <div class="flex flex-col items-center justify-center py-6 border-b border-indigo-500/10">
+      <div class="w-full max-w-[600px] mx-auto space-y-4">
+        <div id="spoke-illusion" class="relative flex flex-col items-center justify-center h-96 w-full bg-slate-950 rounded-xl overflow-hidden border border-indigo-500/10 p-4">
+          <!-- Rotating colorful background wheel -->
+          <div class="absolute inset-0 flex items-center justify-center">
+            <svg class="spoke-bg-wheel w-64 h-64 origin-center" viewBox="0 0 200 200" style="animation: spin-clockwise calc(10s / var(--speed-multiplier, 1)) linear infinite;">
+              <path d="M 100,100 L 100,0 A 100,100 0 0,1 186.6,50 Z" fill="#f43f5e" />
+              <path d="M 100,100 L 186.6,50 A 100,100 0 0,1 200,100 Z" fill="#3b82f6" />
+              <path d="M 100,100 L 200,100 A 100,100 0 0,1 186.6,150 Z" fill="#10b981" />
+              <path d="M 100,100 L 186.6,150 A 100,100 0 0,1 100,200 Z" fill="#eab308" />
+              <path d="M 100,100 L 100,200 A 100,100 0 0,1 13.4,150 Z" fill="#8b5cf6" />
+              <path d="M 100,100 L 13.4,150 A 100,100 0 0,1 0,100 Z" fill="#ec4899" />
+              <path d="M 100,100 L 0,100 A 100,100 0 0,1 13.4,50 Z" fill="#f43f5e" />
+              <path d="M 100,100 L 13.4,50 A 100,100 0 0,1 100,0 Z" fill="#3b82f6" />
+            </svg>
+          </div>
+          <!-- Fixed spoke overlay grid (completely stationary) -->
+          <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <svg class="w-64 h-64 overflow-visible" viewBox="0 0 200 200">
+              <g stroke="#000000" stroke-width="4.5" opacity="0.9">
+                <line x1="100" y1="100" x2="100" y2="10" /><line x1="100" y1="100" x2="125" y2="15" /><line x1="100" y1="100" x2="150" y2="30" /><line x1="100" y1="100" x2="170" y2="50" /><line x1="100" y1="100" x2="185" y2="75" /><line x1="100" y1="100" x2="190" y2="100" />
+                <line x1="100" y1="100" x2="185" y2="125" /><line x1="100" y1="100" x2="170" y2="150" /><line x1="100" y1="100" x2="150" y2="170" /><line x1="100" y1="100" x2="125" y2="185" /><line x1="100" y1="100" x2="100" y2="190" />
+                <line x1="100" y1="100" x2="75" y2="185" /><line x1="100" y1="100" x2="50" y2="170" /><line x1="100" y1="100" x2="30" y2="150" /><line x1="100" y1="100" x2="15" y2="125" /><line x1="100" y1="100" x2="10" y2="100" />
+                <line x1="100" y1="100" x2="15" y2="75" /><line x1="100" y1="100" x2="30" y2="50" /><line x1="100" y1="100" x2="50" y2="30" /><line x1="100" y1="100" x2="75" y2="15" />
+              </g>
+              <circle cx="100" cy="100" r="45" fill="none" stroke="#000000" stroke-width="6" />
+              <circle cx="100" cy="100" r="10" fill="#000000" />
+            </svg>
+          </div>
+          <div class="absolute bottom-4 flex space-x-2 bg-slate-900/90 border border-white/10 rounded-xl p-1 z-10">
+            <button class="toggle-spoke-spin text-xs font-bold px-3 py-1.5 rounded-lg bg-purple-600 text-white transition-all">Pause</button>
+          </div>
+        </div>
+    
+        <div class="text-center text-xs text-slate-500 dark:text-slate-400 italic">
+          Use the controllers inside the display card to interact with the visual triggers.
+        </div>
+        <div class="text-center text-xs text-slate-500 dark:text-slate-400 italic font-semibold">
+          Use the controllers inside the display card to interact with the visual triggers.
+        </div>
+      </div>
+    </div>
+
+    <!-- Content Split Layout -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 pt-4">
+      
+      <!-- Left 2-Columns: Science and Prompt -->
+      <div class="lg:col-span-2 space-y-10">
+        <!-- EXPERIENCE IT FIRST prompt -->
+        <section class="space-y-4">
+          <h2 class="font-display text-2xl font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">🎮</span>
+            <span>EXPERIENCE IT FIRST</span>
+          </h2>
+          <div class="bg-indigo-950/20 border-2 border-indigo-500/15 rounded-3xl p-6 text-slate-700 dark:text-slate-300">
+            <p class="font-bold text-sm sm:text-base text-slate-200">Before reading the neuroscience explanation below, take a moment to interact with the demo above:</p>
+            <ul class="list-disc pl-5 mt-3 space-y-2 text-xs sm:text-sm font-medium">
+              <li>How does the visual change when you move your eyes or look at different parts of the screen?</li>
+              <li>Use the slider or toggle buttons to reveal the actual geometric layout. Did it match what your eyes predicted?</li>
+              <li>Pay attention to whether you can consciously force your brain to switch between interpretations.</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- THE SCIENCE (400 words) -->
+        <section class="space-y-4">
+          <h2 class="font-display text-2xl font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">🧠</span>
+            <span>THE SCIENCE</span>
+          </h2>
+          <div class="prose prose-indigo dark:prose-invert text-slate-700 dark:text-slate-300 leading-relaxed space-y-4 text-xs sm:text-sm font-semibold text-justify">
+            <p>The Reverse Spoke illusion is a dynamic motion aftereffect that demonstrates opponent processing and relative motion in the visual cortex. A colorful wheel divided into sectors rotates clockwise. Overlaid on top of this wheel are thin, black radial spokes that are completely stationary.
+    
+    However, as the colorful backdrop spins, your direction-selective neurons in visual area MT/V5 detect the movement. To separate the static spokes from the moving background, the brain performs a relative contrast calculation. This creates a powerful backward drag (counter-clockwise) on the spokes. This opponent processing makes you perceive the spokes as rotating in the opposite direction. Pausing the colorful wheel instantly reveals that the spokes are completely still.</p>
+          </div>
+        </section>
+      </div>
+
+      <!-- Right Column: Fun Facts and Try This -->
+      <div class="space-y-8">
+        <!-- FUN FACTS -->
+        <section class="rounded-3xl border border-indigo-950/20 bg-slate-900/60 p-6 space-y-4 shadow-xl">
+          <h3 class="font-display text-lg font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">💡</span>
+            <span>FUN FACTS</span>
+          </h3>
+          <ul class="space-y-4 text-xs sm:text-sm text-slate-600 dark:text-slate-300 font-semibold">
+            
+              <li class="flex items-start space-x-2">
+                <span class="text-purple-500 font-black">•</span>
+                <span>This is related to the Wagon-Wheel Effect, where wheels look like they spin backward due to camera frame rates.</span>
+              </li>
+            
+              <li class="flex items-start space-x-2">
+                <span class="text-purple-500 font-black">•</span>
+                <span>Our motion-sensing area MT/V5 prioritizes relative object motion over absolute position coordinate maps.</span>
+              </li>
+            
+              <li class="flex items-start space-x-2">
+                <span class="text-purple-500 font-black">•</span>
+                <span>The effect is highly dependent on contrast; making the spokes semi-transparent reduces the backward spin.</span>
+              </li>
+            
+              <li class="flex items-start space-x-2">
+                <span class="text-purple-500 font-black">•</span>
+                <span>Slowing down the background rotation reduces the effect, showing it depends on high-velocity transitions.</span>
+              </li>
+            
+          </ul>
+        </section>
+
+        <!-- TRY THIS AT HOME -->
+        <section class="rounded-3xl border border-indigo-950/20 bg-slate-900/60 p-6 space-y-4 shadow-xl">
+          <h3 class="font-display text-lg font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">🧪</span>
+            <span>TRY THIS AT HOME</span>
+          </h3>
+          <p class="text-xs sm:text-sm text-slate-650 dark:text-slate-300 leading-relaxed font-semibold">
+            Stare at the center of the spinning wheel for 15 seconds, then press pause. Keep staring at the static spokes. You will see a temporary forward motion aftereffect, where the wheel appears to drift in the opposite direction!
+          </p>
+        </section>
+
+        <!-- WHO DISCOVERED IT -->
+        <section class="rounded-3xl border border-indigo-950/20 bg-slate-900/60 p-6 space-y-4 shadow-xl">
+          <h3 class="font-display text-lg font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">📜</span>
+            <span>WHO DISCOVERED IT</span>
+          </h3>
+          <div class="text-xs sm:text-sm text-slate-650 dark:text-slate-300 leading-relaxed font-semibold space-y-2">
+            <p><strong>Discoverer:</strong> Visual Motion Scientists (1985)</p>
+            <p>Researchers were studying how the visual system segregates figure (the spokes) from ground (the rotating background). They discovered that high-velocity background motion induces a powerful directional bias in the perceived orientation of static overlay lines, leading to the Reverse Spoke model.</p>
+          </div>
+        </section>
+      </div>
+
+    </div>
+
+    <!-- SEO content: 300 words naturally written -->
+    <section class="border-t border-indigo-500/10 pt-12 space-y-4 max-w-4xl mx-auto">
+      <h3 class="font-display text-lg font-black text-white uppercase tracking-wider text-center">Educational Resources & History</h3>
+      <p class="text-xs sm:text-sm text-slate-350 leading-relaxed text-justify font-semibold">
+        Reverse Spoke optical illusion motion aftereffect. Discover why static black spokes appear to spin backward over a rotating colorful wheel, and explore the neuroscience of relative motion in MT/V5.
+      </p>
+    </section>
+
+    <!-- RELATED ILLUSIONS -->
+    <section class="border-t border-indigo-500/10 pt-12 space-y-6">
+      <h2 class="font-display text-2xl font-black text-slate-900 dark:text-white text-center">Related Illusions</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+      <a 
+        href="/illusions/rotating-snakes" 
+        class="group rounded-xl border border-indigo-950/20 bg-white dark:bg-slate-900/60 p-5 shadow-lg hover:border-purple-500/40 hover:-translate-y-1 hover:shadow-purple-500/10 transition-all duration-300"
+      >
+        <div class="text-[10px] font-bold text-purple-400 uppercase tracking-wide">Related Illusion</div>
+        <h4 class="font-display text-base font-bold text-slate-900 dark:text-white mt-1 group-hover:text-purple-400 transition-colors">
+          Rotating Snakes &rarr;
+        </h4>
+      </a>
+    
+
+      <a 
+        href="/illusions/motion-binding" 
+        class="group rounded-xl border border-indigo-950/20 bg-white dark:bg-slate-900/60 p-5 shadow-lg hover:border-purple-500/40 hover:-translate-y-1 hover:shadow-purple-500/10 transition-all duration-300"
+      >
+        <div class="text-[10px] font-bold text-purple-400 uppercase tracking-wide">Related Illusion</div>
+        <h4 class="font-display text-base font-bold text-slate-900 dark:text-white mt-1 group-hover:text-purple-400 transition-colors">
+          Motion Binding &rarr;
+        </h4>
+      </a>
+    
+
+      <a 
+        href="/illusions/moving-circles" 
+        class="group rounded-xl border border-indigo-950/20 bg-white dark:bg-slate-900/60 p-5 shadow-lg hover:border-purple-500/40 hover:-translate-y-1 hover:shadow-purple-500/10 transition-all duration-300"
+      >
+        <div class="text-[10px] font-bold text-purple-400 uppercase tracking-wide">Related Illusion</div>
+        <h4 class="font-display text-base font-bold text-slate-900 dark:text-white mt-1 group-hover:text-purple-400 transition-colors">
+          Moving Circles &rarr;
+        </h4>
+      </a>
+    
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    // Share Page URL
+    const sharePageBtn = document.getElementById('share-illusion-page-btn');
+    const pageToast = document.getElementById('page-share-toast');
+
+    sharePageBtn?.addEventListener('click', () => {
+      const pageUrl = window.location.href;
+      navigator.clipboard.writeText(pageUrl).then(() => {
+        if (pageToast) {
+          pageToast.classList.remove('opacity-0');
+          pageToast.classList.add('opacity-100');
+          setTimeout(() => {
+            pageToast.classList.remove('opacity-100');
+            pageToast.classList.add('opacity-0');
+          }, 2000);
+        }
+      });
+    });
+
+    // Handle Global Speed Mult
+    const checkSpeed = () => {
+      const level = localStorage.getItem('speed-multiplier-level') || '5';
+      let multiplier = 1.0;
+      const parsed = parseInt(level);
+      if (parsed <= 5) {
+        multiplier = 0.2 + (parsed - 1) * 0.2;
+      } else {
+        multiplier = 1.0 + (parsed - 5) * 0.4;
+      }
+      document.documentElement.style.setProperty('--speed-multiplier', multiplier.toString());
+    };
+    checkSpeed();
+    window.addEventListener('storage', checkSpeed);
+
+    // Prevent propagation on inner interactive controllers so we don't trigger parent clicks (if wrapped)
+    const innerControls = document.querySelectorAll('.interactive-demo-card button, .interactive-demo-card input, .interactive-demo-card select');
+    innerControls.forEach(ctrl => {
+      ctrl.addEventListener('click', (e) => e.stopPropagation());
+    });
+
+    // Local script logic from original file
+    const container = document.getElementById('spoke-illusion');
+      const bgWheel = container?.querySelector('.spoke-bg-wheel') as SVGElement;
+      const btn = container?.querySelector('.toggle-spoke-spin');
+      let spinning = true;
+      btn?.addEventListener('click', () => {
+        spinning = !spinning;
+        if (bgWheel) {
+          bgWheel.style.animationPlayState = spinning ? 'running' : 'paused';
+        }
+        if (btn) btn.textContent = spinning ? 'Pause' : 'Play';
+      });
+  </script>
+</Layout>

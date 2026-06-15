@@ -1,0 +1,620 @@
+---
+// src/pages/test.astro
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout 
+  title="Optical Illusion Personality Test — Discover Your Brain Type | Optical Illusion Lab" 
+  description="Take the 10-question optical illusion personality test online. What you see first in these visual tricks reveals your dominant brain processing type!"
+>
+
+  <!-- Hero / Intro Section -->
+  <section id="test-intro" class="py-16 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto text-center space-y-8">
+    <div class="inline-flex items-center space-x-2 rounded-full border border-purple-500/30 bg-purple-500/15 px-4 py-1.5 text-xs font-black uppercase tracking-wider text-purple-300">
+      ⚡ Personality & Perception Exam ⚡
+    </div>
+    <h1 class="font-display text-4xl sm:text-6xl font-black tracking-tight bg-gradient-to-r from-pink-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">
+      Optical Illusion Personality Test
+    </h1>
+    <p class="mx-auto max-w-2xl text-lg sm:text-xl text-slate-300 font-medium leading-relaxed">
+      What you see first reveals how your brain works. Take the 10-question test and discover your Brain Type.
+    </p>
+    
+    <div class="pt-4">
+      <button id="start-test-btn" class="rounded-2xl bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-600 px-8 py-4 text-base font-black text-white shadow-xl hover:scale-105 transition-all">
+        Start Test 🚀
+      </button>
+    </div>
+    
+    <p class="text-[11px] text-slate-500 uppercase tracking-widest pt-8">
+      Keyword target: optical illusion test online
+    </p>
+  </section>
+
+  <!-- Interactive Test Interface (Hidden initially) -->
+  <section id="test-interface" class="hidden py-12 px-4 sm:px-6 lg:px-8 max-w-3xl mx-auto">
+    <div class="bg-slate-900/60 border border-purple-500/20 rounded-3xl p-6 sm:p-8 shadow-2xl space-y-6">
+      
+      <!-- Progress and Question tracker -->
+      <div class="space-y-2">
+        <div class="flex justify-between items-center text-xs font-black text-slate-400 uppercase tracking-wider">
+          <span id="question-tracker">Question 1 of 10</span>
+          <span id="progress-pct">10% Complete</span>
+        </div>
+        <div class="w-full h-2.5 bg-slate-800 rounded-full overflow-hidden">
+          <div id="test-progress-bar" class="h-full bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-500 transition-all duration-300" style="width: 10%;"></div>
+        </div>
+      </div>
+
+      <!-- Question Content Wrapper -->
+      <div id="question-container" class="space-y-6">
+        
+        <!-- Q1: SPINNING DANCER -->
+        <div class="test-question space-y-6" data-qidx="0" data-cat-map='{"0":"A","1":"C","2":"F"}'>
+          <h2 class="text-xl font-bold text-white text-center">Q1: Which direction is she spinning? 💃</h2>
+          
+          <div class="flex flex-col items-center justify-center bg-slate-950/40 rounded-2xl p-6 border border-slate-800 relative min-h-[260px]">
+            <!-- Dancer Silhouette Animation -->
+            <div class="w-32 h-48 relative overflow-hidden flex items-center justify-center">
+              <svg viewBox="0 0 100 150" class="w-full h-full text-pink-500 fill-current animate-dancer">
+                <!-- Dancer path representation -->
+                <path d="M 50,20 C 53,20 55,17 55,15 C 55,13 53,10 50,10 C 47,10 45,13 45,15 C 45,17 47,20 50,20 Z" /> <!-- Head -->
+                <path d="M 46,20 L 54,20 L 58,60 L 52,60 L 50,110 L 48,60 L 42,60 Z" /> <!-- Body & standing leg -->
+                <path d="M 46,30 L 25,40 L 46,45 Z" /> <!-- Outstretched arm -->
+                <path d="M 50,60 L 75,90 L 52,60 Z" /> <!-- Outstretched leg -->
+              </svg>
+            </div>
+          </div>
+          
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <button class="test-option-btn text-left p-4 rounded-xl border border-slate-700 bg-slate-800 text-sm font-bold text-slate-200 hover:text-white hover:bg-slate-700 transition-colors" data-oidx="0">Clockwise ➡️</button>
+            <button class="test-option-btn text-left p-4 rounded-xl border border-slate-700 bg-slate-800 text-sm font-bold text-slate-200 hover:text-white hover:bg-slate-700 transition-colors" data-oidx="1">Counter-Clockwise ⬅️</button>
+            <button class="test-option-btn text-left p-4 rounded-xl border border-slate-700 bg-slate-800 text-sm font-bold text-slate-200 hover:text-white hover:bg-slate-700 transition-colors" data-oidx="2">Both! 🔄</button>
+          </div>
+        </div>
+
+        <!-- Q2: OLD WOMAN / YOUNG WOMAN -->
+        <div class="test-question space-y-6 hidden" data-qidx="1" data-cat-map='{"0":"C","1":"A"}'>
+          <h2 class="text-xl font-bold text-white text-center">Q2: Who do you see FIRST? 👵👩</h2>
+          
+          <div class="flex flex-col items-center justify-center bg-slate-950/40 rounded-2xl p-6 border border-slate-800 relative min-h-[260px]">
+            <!-- SVG placeholder for Boring figure -->
+            <svg class="w-48 h-48 select-none" viewBox="0 0 100 100">
+              <!-- Chin line / Nose profiles -->
+              <path d="M 30,80 C 40,80 50,75 52,70 C 54,65 52,60 50,55 C 48,50 49,45 55,45 C 60,45 58,35 55,30 C 50,20 40,25 35,40" fill="none" stroke="#a855f7" stroke-width="2.5" />
+              <!-- Lash / Ear profiles -->
+              <circle cx="36" cy="40" r="1.5" fill="#a855f7" />
+              <path d="M 50,55 C 45,55 45,58 45,60 C 45,62 47,62 50,60" fill="none" stroke="#a855f7" stroke-width="1.5" /> <!-- Mouth/Ear profile -->
+              <!-- Scarf / Veil -->
+              <path d="M 35,25 C 20,30 20,60 25,80" fill="none" stroke="#ec4899" stroke-width="2" />
+              <path d="M 55,30 C 70,30 80,50 75,80 L 25,80" fill="none" stroke="#ec4899" stroke-width="2" />
+              <!-- Necklace -->
+              <path d="M 50,70 Q 45,75 40,73" fill="none" stroke="#eab308" stroke-width="2.5" stroke-dasharray="3,3" />
+            </svg>
+          </div>
+          
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <button class="test-option-btn text-left p-4 rounded-xl border border-slate-700 bg-slate-800 text-sm font-bold text-slate-200 hover:text-white hover:bg-slate-700 transition-colors" data-oidx="0">Young Woman 👩</button>
+            <button class="test-option-btn text-left p-4 rounded-xl border border-slate-700 bg-slate-800 text-sm font-bold text-slate-200 hover:text-white hover:bg-slate-700 transition-colors" data-oidx="1">Old Woman 👵</button>
+          </div>
+        </div>
+
+        <!-- Q3: DUCK OR RABBIT -->
+        <div class="test-question space-y-6 hidden" data-qidx="2" data-cat-map='{"0":"A","1":"C"}'>
+          <h2 class="text-xl font-bold text-white text-center">Q3: What do you see? 🦆🐰</h2>
+          
+          <div class="flex flex-col items-center justify-center bg-slate-950/40 rounded-2xl p-6 border border-slate-800 relative min-h-[260px]">
+            <!-- Duck-Rabbit SVG -->
+            <svg class="w-48 h-48 select-none" viewBox="0 0 120 120">
+              <!-- Main Head outline -->
+              <path d="M 70,35 C 90,35 100,50 100,70 C 100,90 90,95 70,95 C 55,95 45,85 45,70 C 45,50 55,35 70,35 Z" fill="none" stroke="#22d3ee" stroke-width="2.5" />
+              <!-- Bill / Ears -->
+              <path d="M 45,60 C 20,50 15,62 45,68 Z" fill="none" stroke="#22d3ee" stroke-width="2.5" />
+              <path d="M 45,72 C 18,72 15,84 46,78 Z" fill="none" stroke="#22d3ee" stroke-width="2.5" />
+              <!-- Eye -->
+              <circle cx="60" cy="65" r="2.5" fill="#22d3ee" />
+            </svg>
+          </div>
+          
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <button class="test-option-btn text-left p-4 rounded-xl border border-slate-700 bg-slate-800 text-sm font-bold text-slate-200 hover:text-white hover:bg-slate-700 transition-colors" data-oidx="0">Duck 🦆</button>
+            <button class="test-option-btn text-left p-4 rounded-xl border border-slate-700 bg-slate-800 text-sm font-bold text-slate-200 hover:text-white hover:bg-slate-700 transition-colors" data-oidx="1">Rabbit 🐰</button>
+          </div>
+        </div>
+
+        <!-- Q4: RUBIN'S VASE -->
+        <div class="test-question space-y-6 hidden" data-qidx="3" data-cat-map='{"0":"A","1":"C"}'>
+          <h2 class="text-xl font-bold text-white text-center">Q4: What do you see first? 🏺👥</h2>
+          
+          <div class="flex flex-col items-center justify-center bg-slate-950/40 rounded-2xl p-6 border border-slate-800 relative min-h-[260px]">
+            <svg class="w-48 h-48 select-none" viewBox="0 0 120 120">
+              <!-- Left Face -->
+              <path d="M 15,10 L 35,10 C 35,25 25,35 38,45 C 50,55 35,60 38,70 C 40,80 25,85 35,110 L 15,110 Z" fill="#ffffff" />
+              <!-- Right Face -->
+              <path d="M 105,10 L 85,10 C 85,25 95,35 82,45 C 70,55 85,60 82,70 C 80,80 95,85 85,110 L 105,110 Z" fill="#ffffff" />
+              <!-- Background Vase formed in middle (black) -->
+              <rect x="0" y="0" width="120" height="120" fill="#a855f7" style="z-index:-1;" />
+              <!-- Face outlines on top of background -->
+              <path d="M 15,10 L 35,10 C 35,25 25,35 38,45 C 50,55 35,60 38,70 C 40,80 25,85 35,110 L 15,110 Z" fill="#030712" />
+              <path d="M 105,10 L 85,10 C 85,25 95,35 82,45 C 70,55 85,60 82,70 C 80,80 95,85 85,110 L 105,110 Z" fill="#030712" />
+            </svg>
+          </div>
+          
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <button class="test-option-btn text-left p-4 rounded-xl border border-slate-700 bg-slate-800 text-sm font-bold text-slate-200 hover:text-white hover:bg-slate-700 transition-colors" data-oidx="0">A Vase 🏺</button>
+            <button class="test-option-btn text-left p-4 rounded-xl border border-slate-700 bg-slate-800 text-sm font-bold text-slate-200 hover:text-white hover:bg-slate-700 transition-colors" data-oidx="1">Two Faces 👥</button>
+          </div>
+        </div>
+
+        <!-- Q5: NECKER CUBE -->
+        <div class="test-question space-y-6 hidden" data-qidx="4" data-cat-map='{"0":"A","1":"C","2":"F"}'>
+          <h2 class="text-xl font-bold text-white text-center">Q5: Which face of the cube is pointing toward you? 🧊</h2>
+          
+          <div class="flex flex-col items-center justify-center bg-slate-950/40 rounded-2xl p-6 border border-slate-800 relative min-h-[260px]">
+            <svg class="w-48 h-48 select-none" viewBox="0 0 100 100">
+              <g stroke="#ec4899" stroke-width="2.5" fill="none">
+                <rect x="20" y="35" width="45" height="45" rx="1" />
+                <rect x="35" y="20" width="45" height="45" rx="1" />
+                <line x1="20" y1="35" x2="35" y2="20" />
+                <line x1="65" y1="35" x2="80" y2="20" />
+                <line x1="20" y1="80" x2="35" y2="65" />
+                <line x1="65" y1="80" x2="80" y2="65" />
+              </g>
+            </svg>
+          </div>
+          
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <button class="test-option-btn text-left p-4 rounded-xl border border-slate-700 bg-slate-800 text-sm font-bold text-slate-200 hover:text-white hover:bg-slate-700 transition-colors" data-oidx="0">Bottom-Left Face ↙️</button>
+            <button class="test-option-btn text-left p-4 rounded-xl border border-slate-700 bg-slate-800 text-sm font-bold text-slate-200 hover:text-white hover:bg-slate-700 transition-colors" data-oidx="1">Top-Right Face ↗️</button>
+            <button class="test-option-btn text-left p-4 rounded-xl border border-slate-700 bg-slate-800 text-sm font-bold text-slate-200 hover:text-white hover:bg-slate-700 transition-colors" data-oidx="2">It keeps switching! 🔄</button>
+          </div>
+        </div>
+
+        <!-- Q6: THREE DOTS -->
+        <div class="test-question space-y-6 hidden" data-qidx="5" data-cat-map='{"0":"C","1":"A","2":"D"}'>
+          <h2 class="text-xl font-bold text-white text-center">Q6: Are these dots forming a triangle or a line? ⚪⚪⚪</h2>
+          
+          <div class="flex flex-col items-center justify-center bg-slate-950/40 rounded-2xl p-6 border border-slate-800 relative min-h-[260px]">
+            <svg class="w-48 h-48 select-none" viewBox="0 0 100 100">
+              <!-- 3 ambiguous dots -->
+              <circle cx="30" cy="70" r="6" fill="#eab308" />
+              <circle cx="70" cy="70" r="6" fill="#eab308" />
+              <circle cx="50" cy="38" r="6" fill="#eab308" />
+            </svg>
+          </div>
+          
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <button class="test-option-btn text-left p-4 rounded-xl border border-slate-700 bg-slate-800 text-sm font-bold text-slate-200 hover:text-white hover:bg-slate-700 transition-colors" data-oidx="0">Triangle 📐</button>
+            <button class="test-option-btn text-left p-4 rounded-xl border border-slate-700 bg-slate-800 text-sm font-bold text-slate-200 hover:text-white hover:bg-slate-700 transition-colors" data-oidx="1">Line 📏</button>
+            <button class="test-option-btn text-left p-4 rounded-xl border border-slate-700 bg-slate-800 text-sm font-bold text-slate-200 hover:text-white hover:bg-slate-700 transition-colors" data-oidx="2">Neither 🚫</button>
+          </div>
+        </div>
+
+        <!-- Q7: COLOR PERCEPTION -->
+        <div class="test-question space-y-6 hidden" data-qidx="6" data-cat-map='{"0":"A","1":"C"}'>
+          <h2 class="text-xl font-bold text-white text-center">Q7: Are squares A and B the same color? 🏁</h2>
+          
+          <div class="flex flex-col items-center justify-center bg-slate-950/40 rounded-2xl p-6 border border-slate-800 relative min-h-[260px]">
+            <div class="relative w-full max-w-[240px] aspect-[4/3] rounded-lg overflow-hidden flex items-center justify-center bg-slate-900 border border-slate-700 shadow-inner">
+              <svg class="w-full h-full select-none" viewBox="0 0 160 120">
+                <rect x="10" y="10" width="140" height="100" fill="#334155" />
+                <!-- Shadows / Contrast gradient background -->
+                <rect x="10" y="10" width="70" height="100" fill="#f8fafc" opacity="0.9" />
+                <rect x="80" y="10" width="70" height="100" fill="#0f172a" opacity="0.9" />
+                <!-- Test squares A and B (Both are HSL 210, 10%, 50%) -->
+                <rect x="35" y="45" width="20" height="20" fill="#787878" />
+                <rect x="105" y="45" width="20" height="20" fill="#787878" />
+                <text x="45" y="58" fill="#fff" font-size="10" font-weight="black" text-anchor="middle">A</text>
+                <text x="115" y="58" fill="#111" font-size="10" font-weight="black" text-anchor="middle">B</text>
+              </svg>
+            </div>
+          </div>
+          
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <button class="test-option-btn text-left p-4 rounded-xl border border-slate-700 bg-slate-800 text-sm font-bold text-slate-200 hover:text-white hover:bg-slate-700 transition-colors" data-oidx="0">Yes, same 🤝</button>
+            <button class="test-option-btn text-left p-4 rounded-xl border border-slate-700 bg-slate-800 text-sm font-bold text-slate-200 hover:text-white hover:bg-slate-700 transition-colors" data-oidx="1">No, different ❌</button>
+          </div>
+        </div>
+
+        <!-- Q8: MOTION PERCEPTION -->
+        <div class="test-question space-y-6 hidden" data-qidx="7" data-cat-map='{"0":"C","1":"A","2":"D"}'>
+          <h2 class="text-xl font-bold text-white text-center">Q8: Is this image moving? 🌀</h2>
+          
+          <div class="flex flex-col items-center justify-center bg-slate-950/40 rounded-2xl p-6 border border-slate-800 relative min-h-[260px]">
+            <!-- Static peripheral drift display -->
+            <svg class="w-48 h-48 select-none" viewBox="0 0 100 100">
+              <g stroke-width="3" fill="none">
+                <circle cx="50" cy="50" r="40" stroke="#f59e0b" />
+                <circle cx="50" cy="50" r="30" stroke="#3b82f6" />
+                <circle cx="50" cy="50" r="20" stroke="#10b981" />
+              </g>
+              <g fill="#000">
+                <!-- segments creating peripheral drift -->
+                <circle cx="50" cy="10" r="2" />
+                <circle cx="90" cy="50" r="2" />
+                <circle cx="50" cy="90" r="2" />
+                <circle cx="10" cy="50" r="2" />
+              </g>
+            </svg>
+          </div>
+          
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <button class="test-option-btn text-left p-4 rounded-xl border border-slate-700 bg-slate-800 text-sm font-bold text-slate-200 hover:text-white hover:bg-slate-700 transition-colors" data-oidx="0">Yes, definitely! 🚀</button>
+            <button class="test-option-btn text-left p-4 rounded-xl border border-slate-700 bg-slate-800 text-sm font-bold text-slate-200 hover:text-white hover:bg-slate-700 transition-colors" data-oidx="1">No, it's static 🧊</button>
+            <button class="test-option-btn text-left p-4 rounded-xl border border-slate-700 bg-slate-800 text-sm font-bold text-slate-200 hover:text-white hover:bg-slate-700 transition-colors" data-oidx="2">I can't tell 🤷</button>
+          </div>
+        </div>
+
+        <!-- Q9: DEPTH PERCEPTION -->
+        <div class="test-question space-y-6 hidden" data-qidx="8" data-cat-map='{"0":"A","1":"C","2":"F"}'>
+          <h2 class="text-xl font-bold text-white text-center">Q9: Is this object pointing UP or pointing DOWN? 📐</h2>
+          
+          <div class="flex flex-col items-center justify-center bg-slate-950/40 rounded-2xl p-6 border border-slate-800 relative min-h-[260px]">
+            <svg class="w-48 h-48 select-none" viewBox="0 0 100 100">
+              <!-- Pointing folding shape -->
+              <g stroke="#06b6d4" stroke-width="2.5" fill="none">
+                <polygon points="50,15 15,50 50,85 85,50" />
+                <line x1="50" y1="15" x2="50" y2="85" />
+                <line x1="15" y1="50" x2="85" y2="50" />
+              </g>
+            </svg>
+          </div>
+          
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <button class="test-option-btn text-left p-4 rounded-xl border border-slate-700 bg-slate-800 text-sm font-bold text-slate-200 hover:text-white hover:bg-slate-700 transition-colors" data-oidx="0">Up ⬆️</button>
+            <button class="test-option-btn text-left p-4 rounded-xl border border-slate-700 bg-slate-800 text-sm font-bold text-slate-200 hover:text-white hover:bg-slate-700 transition-colors" data-oidx="1">Down ⬇️</button>
+            <button class="test-option-btn text-left p-4 rounded-xl border border-slate-700 bg-slate-800 text-sm font-bold text-slate-200 hover:text-white hover:bg-slate-700 transition-colors" data-oidx="2">Both 🔄</button>
+          </div>
+        </div>
+
+        <!-- Q10: FACE IN THE TREES -->
+        <div class="test-question space-y-6 hidden" data-qidx="9" data-cat-map='{"0":"C","1":"A","2":"D","3":"D"}'>
+          <h2 class="text-xl font-bold text-white text-center">Q10: How quickly did you find the hidden face? 🌲👤</h2>
+          
+          <div class="flex flex-col items-center justify-center bg-slate-950/40 rounded-2xl p-6 border border-slate-800 relative min-h-[260px]">
+            <!-- Complex forest scene SVG with face shape in center tree trunk -->
+            <div class="relative w-full max-w-[240px] aspect-[4/3] rounded-lg overflow-hidden border border-slate-800 bg-slate-950">
+              <svg class="w-full h-full select-none" viewBox="0 0 160 120">
+                <!-- Trees / forest lines -->
+                <path d="M 20,120 L 35,40 L 40,120" fill="none" stroke="#22c55e" stroke-width="2.5" />
+                <path d="M 130,120 L 115,20 L 110,120" fill="none" stroke="#22c55e" stroke-width="2.5" />
+                
+                <!-- Center large trunk with hidden face profile -->
+                <!-- The right side of this trunk forms a forehead, nose, lips, chin profile! -->
+                <path d="M 70,120 C 65,90 68,75 75,70 C 80,68 83,62 80,55 C 77,50 82,45 85,42 C 88,40 82,32 80,20 C 78,10 75,0 75,0 L 60,0 L 55,120 Z" fill="#334155" />
+                
+                <!-- Branch lines mimicking eyebrows/eyes -->
+                <path d="M 75,42 Q 65,40 50,45" fill="none" stroke="#475569" stroke-width="2" />
+                <path d="M 72,55 Q 60,54 52,60" fill="none" stroke="#475569" stroke-width="2" />
+                
+                <!-- Face highlighting guide (initially transparent) -->
+                <path id="face-hint-outline" d="M 75,70 C 80,68 83,62 80,55 C 77,50 82,45 85,42 C 88,40 82,32 80,20" fill="none" stroke="#ec4899" stroke-width="3" class="opacity-0 transition-opacity duration-300" />
+              </svg>
+              <!-- Hint button inside display -->
+              <button id="forest-hint-btn" class="absolute top-2 right-2 bg-slate-900/90 text-slate-300 hover:text-white font-bold text-[9px] px-2 py-1 rounded border border-white/10">Show Hint 💡</button>
+            </div>
+          </div>
+          
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <button class="test-option-btn text-left p-4 rounded-xl border border-slate-700 bg-slate-800 text-sm font-bold text-slate-200 hover:text-white hover:bg-slate-700 transition-colors" data-oidx="0">Instantly (under 5s) ⚡</button>
+            <button class="test-option-btn text-left p-4 rounded-xl border border-slate-700 bg-slate-800 text-sm font-bold text-slate-200 hover:text-white hover:bg-slate-700 transition-colors" data-oidx="1">Quickly (5-15s) ⏱️</button>
+            <button class="test-option-btn text-left p-4 rounded-xl border border-slate-700 bg-slate-800 text-sm font-bold text-slate-200 hover:text-white hover:bg-slate-700 transition-colors" data-oidx="2">It took a while 🚶</button>
+            <button class="test-option-btn text-left p-4 rounded-xl border border-slate-700 bg-slate-800 text-sm font-bold text-slate-200 hover:text-white hover:bg-slate-700 transition-colors" data-oidx="3">I needed a hint 💡</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- RESULTS DISPLAY PANEL (Hidden initially) -->
+  <section id="test-results-panel" class="hidden py-12 px-4 sm:px-6 lg:px-8 max-w-3xl mx-auto space-y-8">
+    
+    <!-- Large Result Card -->
+    <div class="bg-gradient-to-r from-indigo-950 via-slate-900 to-indigo-950 border-4 border-purple-500/30 rounded-3xl p-8 shadow-[0_0_35px_rgba(168,85,247,0.25)] space-y-6 text-center">
+      <div class="inline-flex items-center space-x-2 rounded-full border border-yellow-500/30 bg-yellow-500/10 px-4 py-1 text-xs font-black uppercase tracking-wider text-yellow-300">
+        🎓 Your Brain Type Results 🎓
+      </div>
+      
+      <!-- Brain Type Display -->
+      <div class="space-y-2">
+        <h2 id="result-type-name" class="font-display text-4xl sm:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-cyan-400">THE CREATIVE</h2>
+        <p id="result-type-percentage" class="text-xs text-purple-300 font-bold uppercase tracking-wider">Only 28% of people got this result</p>
+      </div>
+
+      <!-- Result description (300 words) -->
+      <div id="result-type-desc" class="text-slate-200 text-sm sm:text-base leading-relaxed text-justify space-y-4 max-w-xl mx-auto border-t border-b border-slate-800 py-6">
+        <!-- Will be dynamically populated -->
+      </div>
+
+      <!-- Share buttons and Retake controls -->
+      <div class="flex flex-col sm:flex-row justify-center items-center gap-4 pt-4">
+        <button id="share-result-btn" class="w-full sm:w-auto rounded-2xl bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-600 px-8 py-3.5 text-base font-black text-white shadow-xl hover:scale-105 transition-all">
+          Share Your Result 🔗
+        </button>
+        <button id="retake-test-btn" class="w-full sm:w-auto rounded-2xl border-2 border-white/20 bg-white/5 hover:bg-white/10 px-8 py-3.5 text-base font-black text-slate-200 hover:text-white transition-all">
+          Retake Test 🔄
+        </button>
+      </div>
+
+      <!-- Temp Toast Notification -->
+      <div id="share-toast" class="hidden text-xs font-bold text-green-400 animate-pulse">Link and description copied to clipboard! 📋</div>
+    </div>
+
+    <!-- Comparative stats panel -->
+    <div class="bg-slate-900/60 border border-slate-850 p-6 rounded-2xl space-y-4">
+      <h3 class="text-sm font-black text-white uppercase tracking-wider text-center">Global Brain Types distribution</h3>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
+        <div class="p-3 bg-slate-950/40 rounded-xl border border-slate-800 space-y-1">
+          <span class="block text-xl">🎨</span>
+          <span class="block text-xs font-black text-slate-400">Creative</span>
+          <span class="block text-sm font-black text-pink-400">28%</span>
+        </div>
+        <div class="p-3 bg-slate-950/40 rounded-xl border border-slate-800 space-y-1">
+          <span class="block text-xl">🔬</span>
+          <span class="block text-xs font-black text-slate-400">Analyst</span>
+          <span class="block text-sm font-black text-yellow-400">35%</span>
+        </div>
+        <div class="p-3 bg-slate-950/40 rounded-xl border border-slate-800 space-y-1">
+          <span class="block text-xl">⚡</span>
+          <span class="block text-xs font-black text-slate-400">Flexible</span>
+          <span class="block text-sm font-black text-cyan-400">12%</span>
+        </div>
+        <div class="p-3 bg-slate-950/40 rounded-xl border border-slate-800 space-y-1">
+          <span class="block text-xl">🌀</span>
+          <span class="block text-xs font-black text-slate-400">Deep Proc.</span>
+          <span class="block text-sm font-black text-purple-400">25%</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Legal disclaimer -->
+    <div class="text-center text-[10px] text-slate-500 uppercase tracking-widest leading-relaxed max-w-md mx-auto">
+      ⚠️ Disclaimer: This assessment is designed solely for entertainment and educational purposes. It does not constitute a clinical, medical, or psychological diagnosis.
+    </div>
+
+  </section>
+
+  <style>
+    /* Spinning dancer animation keyframe */
+    @keyframes dancer-rotate {
+      0% { transform: scaleX(1); }
+      50% { transform: scaleX(-1); }
+      100% { transform: scaleX(1); }
+    }
+    .animate-dancer {
+      animation: dancer-rotate 2.8s ease-in-out infinite;
+      transform-origin: 50px 75px;
+    }
+  </style>
+
+  <script>
+    // ----------------------------------------------------
+    // TEST STATE MACHINE LOGIC
+    // ----------------------------------------------------
+
+    const startTestBtn = document.getElementById('start-test-btn');
+    const testIntro = document.getElementById('test-intro');
+    const testInterface = document.getElementById('test-interface');
+    const testResultsPanel = document.getElementById('test-results-panel');
+    const progressBar = document.getElementById('test-progress-bar');
+    const progressPct = document.getElementById('progress-pct');
+    const questionTracker = document.getElementById('question-tracker');
+    const questions = document.querySelectorAll('.test-question');
+    const retakeTestBtn = document.getElementById('retake-test-btn');
+    const shareResultBtn = document.getElementById('share-result-btn');
+    const shareToast = document.getElementById('share-toast');
+
+    // Brain Type result fields
+    const resultTypeName = document.getElementById('result-type-name');
+    const resultTypePct = document.getElementById('result-type-percentage');
+    const resultTypeDesc = document.getElementById('result-type-desc');
+
+    let currentQIdx = 0;
+    let scores = { C: 0, A: 0, F: 0, D: 0 };
+    let currentShareMessage = "";
+
+    // Brain Type Descriptions
+    const brainTypeDescriptions: Record<string, { name: string; pct: string; desc: string; share: string }> = {
+      C: {
+        name: "🎨 THE CREATIVE",
+        pct: "Only 28% of people got this result",
+        share: "I'm a Creative Brain type! What's yours?",
+        desc: `
+          <p>
+            <strong>Your dominant processing style is intuitive, synthesis-oriented, and holistic!</strong> You tend to see the forest before the trees, naturally looking for global shapes, patterns, and connections. In cognitive psychology, this is referred to as **right-hemisphere integration** or **global precedence processing**.
+          </p>
+          <p>
+            When faced with visual ambiguity, your brain constructs the most emotionally resonant or anthropomorphic interpretation first (such as seeing faces and animals). You rely heavily on context and immediate visual impact, which fuels your creativity and allows you to make unique emotional connections in your work and life.
+          </p>
+          <p>
+            You are highly visual, artistic, and adapt easily to artistic ambiguities. Your brain is gifted at lateral thinking, enabling you to find innovative solutions by connecting ideas that others might deem completely unrelated. You trust your instincts and thrive in environments that value open-ended brainstorming.
+          </p>
+        `
+      },
+      A: {
+        name: "🔬 THE ANALYST",
+        pct: "Only 35% of people got this result",
+        share: "I'm an Analyst Brain type! What's yours?",
+        desc: `
+          <p>
+            <strong>Your dominant processing style is logical, detail-oriented, and systematic!</strong> You tend to see the individual trees before the forest, focusing heavily on local components, edges, and coordinates. This correlates with strong **left-hemisphere focal attention** and systematic cognitive framing.
+          </p>
+          <p>
+            Faced with ambiguous figures, your brain defaults to the most geometric or physically grounded structure (like structural vases, static lines, and direct coordinates). You naturally analyze the boundary details, checking alignment and scanning for logical inconsistencies before drawing a conclusion.
+          </p>
+          <p>
+            This high-detail focal processing makes you excellent at logical analysis, coding, mathematics, and complex engineering. You are observant, structured, and notice factual discrepancies immediately. You prefer clear definitions, organized environments, and value evidence-based reasoning above immediate instinct.
+          </p>
+        `
+      },
+      F: {
+        name: "⚡ THE FLEXIBLE THINKER",
+        pct: "Only 12% of people got this result",
+        share: "I'm a Flexible Thinker! Only 12% of people are. What's yours?",
+        desc: `
+          <p>
+            <strong>Your dominant processing style is highly adaptable, bistable, and multi-perspective!</strong> You did not just latch onto one interpretation — you frequently reported seeing both or noted that the illusions kept switching in front of your eyes. This indicates a high degree of **cognitive flexibility** and rapid hemispheric alternation.
+          </p>
+          <p>
+            Your visual cortex is highly sensitive to feedback loops, which prevents you from locking onto a single sensory explanation. Your V1/V2 brain regions actively swap hypotheses in real time, allowing you to hold two opposing realities in your head simultaneously.
+          </p>
+          <p>
+            This rare flexibility translates into a strong ability to see other points of view. You are an excellent mediator, strategist, and highly adaptable problem solver. You don't get stuck in dogma and can easily shift your strategy when circumstances change, making you incredibly resilient in fast-paced fields.
+          </p>
+        `
+      },
+      D: {
+        name: "🌀 THE DEEP PROCESSOR",
+        pct: "Only 25% of people got this result",
+        share: "I'm a Deep Processor! What's yours?",
+        desc: `
+          <p>
+            <strong>Your dominant processing style is deep, contemplative, and highly independent!</strong> You frequently selected options that indicated unusual patterns or required careful study. This indicates a **deep bottom-up sensory processing** style, where your brain refuses to take shortcuts and studies every detail individually.
+          </p>
+          <p>
+            Unlike the general population whose brains take fast shortcuts and jump to conclusions, your visual pathway is extra thorough. You process details independently of context, which makes you immune to certain common biases but means your brain takes longer to process complex visual scenes.
+          </p>
+          <p>
+            You are highly contemplative, independent, and resistant to peer pressure or groupthink. You notice things that others completely skip, making you an excellent investigator, auditor, or deep researcher. You take your time to build solid, unshakeable foundations in everything you study.
+          </p>
+        `
+      }
+    };
+
+    // Show/hide helper
+    const showScreen = (showEl: HTMLElement, hideEls: HTMLElement[]) => {
+      showEl.classList.remove('hidden');
+      hideEls.forEach(el => el.classList.add('hidden'));
+    };
+
+    // Initialize test
+    startTestBtn?.addEventListener('click', () => {
+      if (testIntro && testInterface) {
+        showScreen(testInterface, [testIntro]);
+        currentQIdx = 0;
+        scores = { C: 0, A: 0, F: 0, D: 0 };
+        renderQuestion();
+      }
+    });
+
+    // Render current question
+    const renderQuestion = () => {
+      questions.forEach((q, idx) => {
+        if (idx === currentQIdx) {
+          q.classList.remove('hidden');
+        } else {
+          q.classList.add('hidden');
+        }
+      });
+
+      // Update tracker and progress bar
+      if (questionTracker && progressPct && progressBar) {
+        const qNum = currentQIdx + 1;
+        const progress = Math.round((qNum / 10) * 100);
+        
+        questionTracker.textContent = `Question ${qNum} of 10`;
+        progressPct.textContent = `${progress}% Complete`;
+        progressBar.style.width = `${progress}%`;
+      }
+    };
+
+    // Handle Option Clicks
+    questions.forEach(q => {
+      const optionBtns = q.querySelectorAll('.test-option-btn');
+      const catMap = JSON.parse(q.getAttribute('data-cat-map') || '{}') as Record<string, string>;
+
+      optionBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const oIdx = (e.currentTarget as HTMLElement).getAttribute('data-oidx') || '0';
+          const category = catMap[oIdx] || 'C';
+          
+          // Increment category score
+          if (category in scores) {
+            scores[category as keyof typeof scores]++;
+          }
+
+          // Advance state
+          currentQIdx++;
+          if (currentQIdx < 10) {
+            renderQuestion();
+          } else {
+            // Test Finished! Calculate results
+            calculateResults();
+          }
+        });
+      });
+    });
+
+    // Calculate final Brain Type
+    const calculateResults = () => {
+      let maxCategory: keyof typeof scores = 'C';
+      let maxScore = -1;
+
+      // Find highest category score
+      Object.keys(scores).forEach(cat => {
+        const c = cat as keyof typeof scores;
+        if (scores[c] > maxScore) {
+          maxScore = scores[c];
+          maxCategory = c;
+        }
+      });
+
+      // Render results screen
+      const res = brainTypeDescriptions[maxCategory] || brainTypeDescriptions.C;
+      if (resultTypeName && resultTypePct && resultTypeDesc) {
+        resultTypeName.textContent = res.name;
+        resultTypePct.textContent = res.pct;
+        resultTypeDesc.innerHTML = res.desc;
+        currentShareMessage = res.share;
+      }
+
+      if (testInterface && testResultsPanel) {
+        showScreen(testResultsPanel, [testInterface]);
+      }
+    };
+
+    // Forest hint outline action
+    const forestHintBtn = document.getElementById('forest-hint-btn');
+    const forestOutline = document.getElementById('face-hint-outline');
+    let hintShowing = false;
+
+    forestHintBtn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      hintShowing = !hintShowing;
+      if (forestOutline) {
+        forestOutline.classList.toggle('opacity-0', !hintShowing);
+      }
+      if (forestHintBtn) {
+        forestHintBtn.textContent = hintShowing ? "Hide Hint 💡" : "Show Hint 💡";
+      }
+    });
+
+    // Retake Test
+    retakeTestBtn?.addEventListener('click', () => {
+      if (testIntro && testResultsPanel) {
+        showScreen(testIntro, [testResultsPanel]);
+        // Reset forest hint
+        hintShowing = false;
+        forestOutline?.classList.add('opacity-0');
+        if (forestHintBtn) forestHintBtn.textContent = "Show Hint 💡";
+      }
+    });
+
+    // Share result action
+    shareResultBtn?.addEventListener('click', () => {
+      const shareUrl = window.location.href;
+      const fullMessage = `${currentShareMessage}\nTake the optical illusion personality test here to find your dominant brain type: ${shareUrl}`;
+      
+      navigator.clipboard.writeText(fullMessage).then(() => {
+        if (shareToast) {
+          shareToast.classList.remove('hidden');
+          setTimeout(() => {
+            shareToast.classList.add('hidden');
+          }, 3000);
+        }
+      });
+    });
+
+  </script>
+</Layout>
