@@ -28,6 +28,7 @@ const {
     <meta name="apple-mobile-web-app-title" content="Optical Illusion Lab" />
     <link rel="manifest" href="/site.webmanifest" />
     <meta name="generator" content={Astro.generator} />
+    <meta name="google-site-verification" content="rKLy-pM5JLjJnleUVC-BZRvOVlMPmB3Y4jmxG7U5mJA" />
     
     <!-- Primary SEO Meta Tags -->
     <title>{title}</title>
@@ -61,8 +62,8 @@ const {
       }
     </script>
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9LMNZJQXGC"></script>
-    <script>
+    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-9LMNZJQXGC"></script>
+    <script is:inline>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
