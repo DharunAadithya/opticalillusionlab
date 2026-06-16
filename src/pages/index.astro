@@ -4,9 +4,57 @@ import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout 
-  title="Optical Illusion Lab — Mind-Bending Interactive Visual Tricks" 
+  title="Optical Illusions — Trick Your Brain | Optical Illusion Lab" 
   description="Explore the ultimate interactive gallery of 12 upgraded optical illusions. Test your brain with Adelson's Checkerboard, Troxler Fading, Curvature Blindness, Poggendorff, and more."
 >
+  <script type="application/ld+json" slot="head">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What are optical illusions?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "An optical illusion is a visual perception that differs from physical reality. It occurs when the visual system (eyes and brain) interprets visual sensory inputs in a way that deviates from the actual properties of the stimulus."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do optical illusions work?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Optical illusions work by exploiting the brain's shortcut mechanisms for visual processing. Instead of passively recording what is in front of us, the brain constructs a predicted model based on context, shadows, lighting, and past experience."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why do optical illusions trick the brain?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "They trick the brain by feeding it ambiguous visual cues. The brain processes information rapidly to make quick survival decisions, and illusions represent rare edge cases where these speed-over-accuracy shortcuts fail."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What are the 3 types of optical illusions?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The three main categories are: Literal illusions (physically different from their component parts), Physiological illusions (caused by visual/neural fatigue from excessive contrast, brightness, or color channels), and Cognitive illusions (where top-down assumptions construct phantom lines or shapes)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Are optical illusions bad for your eyes?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No, optical illusions are completely safe. They showcase the limits and rules of visual processing and do not cause any harm to the visual cells or the brain."
+          }
+        }
+      ]
+    }
+  </script>
   
   <!-- Hero Section -->
   <section class="relative overflow-hidden py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-slate-900 to-slate-950 text-white dark:from-slate-950 dark:to-slate-900 border-b border-indigo-500/10">
