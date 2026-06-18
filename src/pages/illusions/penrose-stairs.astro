@@ -1,0 +1,207 @@
+---
+// src/pages/illusions/penrose-stairs.astro
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout 
+  title="Penrose Stairs — Interactive Optical Illusion | Optical Illusion Lab" 
+  description="Explore the isometric impossible staircase that loops infinitely. Learn the visual neuroscience behind this impossible object."
+>
+  <div class="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-12">
+    
+    <!-- Breadcrumb back navigation -->
+    <nav class="flex text-xs font-black uppercase tracking-wider text-slate-400 space-x-2 pb-2 border-b border-indigo-500/10">
+      <a href="/" class="hover:text-white transition-colors">Home</a>
+      <span>/</span>
+      <a href="/famous" class="hover:text-white transition-colors">Famous Illusions</a>
+      <span>/</span>
+      <span class="text-purple-400">Penrose Stairs</span>
+    </nav>
+
+    <!-- Hero Header -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6">
+      <div class="space-y-3">
+        <div class="flex items-center space-x-2">
+          <span class="text-xs font-black px-2.5 py-0.5 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 uppercase tracking-wider">Impossible Objects</span>
+          <span class="text-xs font-black px-2.5 py-0.5 rounded-full bg-purple-500/10 text-purple-400 border border-purple-500/20 uppercase tracking-wider">🔴 Hard</span>
+        </div>
+        <h1 class="font-display text-4xl sm:text-5xl font-black tracking-tight text-slate-900 dark:text-white">
+          Penrose Stairs
+        </h1>
+        <p class="text-slate-600 dark:text-slate-350 text-base max-w-2xl font-medium">
+          An isometric drawing depicting a continuous loop of steps where you can ascend or descend forever without changing height.
+        </p>
+      </div>
+
+      <!-- Share Button -->
+      <button 
+        id="share-illusion-page-btn"
+        class="relative shrink-0 flex items-center space-x-2 rounded-2xl bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-600 hover:scale-105 text-white font-black text-sm px-6 py-3.5 transition-all shadow-lg shadow-purple-500/10"
+      >
+        <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M15 8a3 3 0 1 0-2.977-2.63l-4.94 2.47a3 3 0 1 0 0 4.319l4.94 2.47a3 3 0 1 0 .895-1.789l-4.94-2.47a3.027 3.027 0 0 0 0-.74l4.94-2.47C13.456 7.68 14.19 8 15 8Z"/></svg>
+        <span>Share Page</span>
+        <span id="page-share-toast" class="absolute bottom-full right-1/2 translate-x-1/2 mb-2 px-2.5 py-1 text-[10px] font-bold text-white bg-purple-650 rounded-lg shadow-md opacity-0 pointer-events-none transition-opacity duration-200 whitespace-nowrap">Link Copied! ✓</span>
+      </button>
+    </div>
+
+    <!-- LARGE INTERACTIVE DEMO -->
+    <div class="flex flex-col items-center justify-center py-6 border-b border-indigo-500/10">
+      <div class="w-full max-w-[600px] mx-auto space-y-4">
+        <div id="stairs-illusion" class="relative flex flex-col items-center justify-center h-96 w-full bg-slate-100 dark:bg-slate-950/40 rounded-xl overflow-hidden border border-indigo-500/10 p-6">
+          <svg class="w-full h-64 p-2 select-none" viewBox="0 0 200 200">
+            <!-- Isometric Stairs loop -->
+            <g transform="translate(100, 105) scale(0.95)" stroke="currentColor" stroke-width="2.5" fill="none" class="text-slate-900 dark:text-slate-200">
+              <!-- Top Left Stairs -->
+              <path d="M -40,-40 L -20,-30 L -20,-50 L 0,-40 L 0,-60 L 20,-50 M -40,-20 L -40,-40" />
+              <!-- Top Right Stairs -->
+              <path d="M 20,-50 L 40,-40 L 40,-20 L 20,-30 M 40,-40 L 60,-30 L 60,-10 L 40,-20" />
+              <!-- Bottom Right Stairs -->
+              <path d="M 60,-10 L 40,0 L 40,20 L 60,10 M 40,0 L 20,10 L 20,30 L 40,20" />
+              <!-- Bottom Left Stairs -->
+              <path d="M 20,30 L -20,10 L -20,-10 L -40,-20 L -40,-40 M -20,10 L 0,0 L 0,-20 L 20,-10" />
+            </g>
+            <!-- Walking dot -->
+            <circle id="stairs-dot" cx="100" cy="100" r="6" fill="#ef4444" stroke="#ffffff" stroke-width="1.5" />
+          </svg>
+          <div class="absolute bottom-4 w-11/12 px-6 flex flex-col space-y-2 bg-white/80 dark:bg-slate-900/80 p-3 rounded-2xl backdrop-blur border border-slate-200 dark:border-white/5">
+            <div class="flex items-center justify-between text-xs text-slate-500 font-bold uppercase">
+              <span>Walking Speed</span>
+              <span id="speed-indicator" class="text-purple-500 font-mono">Level 5</span>
+            </div>
+            <input type="range" min="1" max="10" value="5" id="stairs-speed-slider" class="w-full h-1 bg-slate-200 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-purple-600 focus:outline-none" />
+          </div>
+        </div>
+        <div class="text-center text-xs text-slate-500 dark:text-slate-400 italic">
+          Use the walking speed slider to accelerate the red marker climbing the steps.
+        </div>
+      </div>
+    </div>
+
+    <!-- Content Split Layout -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 pt-4">
+      
+      <!-- Left 2-Columns -->
+      <div class="lg:col-span-2 space-y-10">
+        <section class="space-y-4">
+          <h2 class="font-display text-2xl font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">🎮</span>
+            <span>EXPERIENCE IT FIRST</span>
+          </h2>
+          <div class="bg-indigo-950/20 border-2 border-indigo-500/15 rounded-3xl p-6 text-slate-700 dark:text-slate-300">
+            <p class="font-bold text-sm sm:text-base text-slate-200">Watch the red dot climb the steps continuously in a clockwise direction:</p>
+            <ul class="list-disc pl-5 mt-3 space-y-2 text-xs sm:text-sm font-medium">
+              <li>Notice that each step the dot takes appears to be an upward step.</li>
+              <li>Track the dot for multiple loops. It makes four 90-degree turns and completes a full loop, yet returns to the exact same starting position.</li>
+              <li>This is a physical impossibility. Adjust the slider to see how the speed alters your brain's integration of the walking movement.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="space-y-4">
+          <h2 class="font-display text-2xl font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">🧠</span>
+            <span>THE SCIENCE</span>
+          </h2>
+          <div class="prose prose-indigo dark:prose-invert text-slate-700 dark:text-slate-300 leading-relaxed space-y-4 text-xs sm:text-sm font-semibold text-justify">
+            <p>The Penrose Stairs represents a <strong>geometric impossibility</strong> depicted in a two-dimensional drawing. This drawing plays with the rules of linear perspective. The visual system processes the staircase locally (each individual step and flight looks perfectly natural, containing correct depth lines and 90-degree angles). Because our brains assume consistency, we extrapolate a three-dimensional shape where the stairs connect globally in a continuous, perpetual loop.</p>
+            
+            <p>However, in three-dimensional space, a staircase cannot form a closed loop where every flight ascends. This illusion exploits the fact that our visual system has no built-in "global consistency checker" for perspective. The parietal lobe builds a mental 3D construct based on local cues. Because local cues are consistent, the brain is forced to accept the impossible global configuration, resulting in a fascinating contradiction of standard spatial logic.</p>
+          </div>
+        </section>
+      </div>
+
+      <!-- Right Column -->
+      <div class="space-y-8">
+        <section class="rounded-3xl border border-indigo-950/20 bg-slate-900/60 p-6 space-y-4 shadow-xl">
+          <h3 class="font-display text-lg font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">💡</span>
+            <span>FUN FACTS</span>
+          </h3>
+          <ul class="space-y-4 text-xs sm:text-sm text-slate-600 dark:text-slate-350 font-semibold">
+            <li class="flex items-start space-x-2">
+              <span class="text-purple-500 font-black">•</span>
+              <span>Lionel Penrose, a geneticist, and his son Roger Penrose, a mathematician (and future Nobel laureate), co-published the stairs in a 1958 psychology paper.</span>
+            </li>
+            <li class="flex items-start space-x-2">
+              <span class="text-purple-500 font-black">•</span>
+              <span>The legendary Dutch artist M.C. Escher was inspired by their paper to draw "Ascending and Descending" in 1960.</span>
+            </li>
+            <li class="flex items-start space-x-2">
+              <span class="text-purple-500 font-black">•</span>
+              <span>The illusion was popularized in modern pop culture in the film "Inception" (2010), where Arthur demonstrates it to Ariadne as an architectural paradox.</span>
+            </li>
+          </ul>
+        </section>
+
+        <section class="rounded-3xl border border-indigo-950/20 bg-slate-900/60 p-6 space-y-4 shadow-xl">
+          <h3 class="font-display text-lg font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">📜</span>
+            <span>CREATORS</span>
+          </h3>
+          <p class="text-xs sm:text-sm text-slate-650 dark:text-slate-350 leading-relaxed font-semibold">
+            Lionel and Roger Penrose developed the stairs alongside the famous Penrose Triangle. Their research focused on impossible structures that reveal how visual processing relies on localized depth assumptions.
+          </p>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const sharePageBtn = document.getElementById('share-illusion-page-btn');
+    const pageToast = document.getElementById('page-share-toast');
+
+    sharePageBtn?.addEventListener('click', () => {
+      const pageUrl = window.location.href;
+      navigator.clipboard.writeText(pageUrl).then(() => {
+        if (pageToast) {
+          pageToast.classList.remove('opacity-0');
+          pageToast.classList.add('opacity-100');
+          setTimeout(() => {
+            pageToast.classList.remove('opacity-100');
+            pageToast.classList.add('opacity-0');
+          }, 2000);
+        }
+      });
+    });
+
+    // Stairs Walking Interactivity
+    const speedSlider = document.getElementById('stairs-speed-slider') as HTMLInputElement;
+    const speedText = document.getElementById('speed-indicator');
+    const dot = document.getElementById('stairs-dot');
+
+    let stairsStep = 0;
+    // walk coordinates coordinates in isometric loop space
+    const stairsPoints = [
+      {cx: 100, cy: 55}, // top
+      {cx: 120, cy: 65},
+      {cx: 140, cy: 75}, // right
+      {cx: 120, cy: 85},
+      {cx: 100, cy: 95}, // bottom right
+      {cx: 80, cy: 105}, // bottom left
+      {cx: 60, cy: 95},
+      {cx: 80, cy: 75}  // top left
+    ];
+
+    let intervalId: any = null;
+
+    const runStairsAnimation = () => {
+      if (intervalId) clearInterval(intervalId);
+      const val = speedSlider ? parseInt(speedSlider.value) : 5;
+      if (speedText) speedText.textContent = `Level ${val}`;
+
+      const intervalMs = Math.max(80, 1000 - (val * 90));
+
+      intervalId = setInterval(() => {
+        stairsStep = (stairsStep + 1) % stairsPoints.length;
+        const pt = stairsPoints[stairsStep];
+        if (dot) {
+          dot.setAttribute('cx', pt.cx.toString());
+          dot.setAttribute('cy', pt.cy.toString());
+        }
+      }, intervalMs);
+    };
+
+    speedSlider?.addEventListener('input', runStairsAnimation);
+    runStairsAnimation();
+  </script>
+</Layout>

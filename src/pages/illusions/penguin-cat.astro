@@ -1,0 +1,263 @@
+---
+// src/pages/illusions/penguin-cat.astro
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout 
+  title="Penguin or Cat — Interactive Ambiguous Silhouette Illusion | Optical Illusion Lab" 
+  description="Experience the Penguin or Cat silhouette bistable visual illusion. Observe how your brain alternates between waddling flippers and sitting cat ears."
+>
+  <div class="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-12">
+    
+    <!-- Breadcrumb back navigation -->
+    <nav class="flex text-xs font-black uppercase tracking-wider text-slate-400 space-x-2 pb-2 border-b border-indigo-500/10">
+      <a href="/" class="hover:text-white transition-colors">Home</a>
+      <span>/</span>
+      <a href="/what-do-you-see" class="hover:text-white transition-colors">What Do You See</a>
+      <span>/</span>
+      <span class="text-purple-400">Penguin or Cat</span>
+    </nav>
+
+    <!-- Hero Header Section -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6">
+      <div class="space-y-3">
+        <div class="flex items-center space-x-2">
+          <span class="text-xs font-black px-2.5 py-0.5 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 uppercase tracking-wider">Type 3: Ambiguous Figures</span>
+          <span class="text-xs font-black px-2.5 py-0.5 rounded-full bg-yellow-500/10 text-yellow-500 border border-yellow-500/20 uppercase tracking-wider">🟡 Medium</span>
+        </div>
+        <h1 class="font-display text-4xl sm:text-5xl font-black tracking-tight text-slate-900 dark:text-white">
+          Penguin or Cat?
+        </h1>
+        <p class="text-slate-600 dark:text-slate-350 text-base max-w-2xl font-medium">
+          A minimalist silhouette visual puzzle. A single graphic that functions equally well as a cute cat or a waddling penguin.
+        </p>
+      </div>
+
+      <!-- Share Button -->
+      <button 
+        id="share-illusion-page-btn"
+        class="relative shrink-0 flex items-center space-x-2 rounded-2xl bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-600 hover:scale-105 text-white font-black text-sm px-6 py-3.5 transition-all shadow-lg shadow-purple-500/10"
+      >
+        <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M15 8a3 3 0 1 0-2.977-2.63l-4.94 2.47a3 3 0 1 0 0 4.319l4.94 2.47a3 3 0 1 0 .895-1.789l-4.94-2.47a3.027 3.027 0 0 0 0-.74l4.94-2.47C13.456 7.68 14.19 8 15 8Z"/></svg>
+        <span>Share Page</span>
+        <span id="page-share-toast" class="absolute bottom-full right-1/2 translate-x-1/2 mb-2 px-2.5 py-1 text-[10px] font-bold text-white bg-purple-650 rounded-lg shadow-md opacity-0 pointer-events-none transition-opacity duration-200 whitespace-nowrap">Link Copied! ✓</span>
+      </button>
+    </div>
+
+    <!-- LARGE INTERACTIVE DEMO -->
+    <div class="flex flex-col items-center justify-center py-6 border-b border-indigo-500/10">
+      <div class="w-full max-w-[600px] mx-auto space-y-4">
+        
+        <!-- Instruction Box -->
+        <div class="my-3 flex items-start gap-2 rounded-xl border border-indigo-500/10 bg-indigo-500/5 p-3 text-xs text-slate-350 text-left">
+          <span class="text-base leading-none">👁️</span>
+          <div>
+            <strong class="text-slate-200">👁️ WHAT TO LOOK FOR:</strong> Switch between the highlighting modes. The waddling flippers and belly patch isolate the penguin, while the pointed ears at the top isolate the cat.
+          </div>
+        </div>
+
+        <div id="penguin-cat-illusion" class="relative flex flex-col items-center justify-center h-[400px] w-full bg-slate-950 rounded-xl overflow-hidden border border-indigo-500/10 p-6">
+          <svg class="w-64 h-64 select-none" viewBox="0 0 200 260" xmlns="http://www.w3.org/2000/svg">
+            <!-- Dark body (penguin body / cat body) -->
+            <ellipse fill="#1e293b" cx="100" cy="165" rx="55" ry="72"/>
+            <!-- White belly / cat's face markings -->
+            <ellipse fill="#f1f5f9" cx="100" cy="172" rx="32" ry="52"/>
+            <!-- Head -->
+            <ellipse fill="#1e293b" cx="100" cy="88" rx="42" ry="40"/>
+            <!-- Cat ears / Penguin head bumps -->
+            <polygon fill="#1e293b" points="68,62 58,30 85,58"/>
+            <polygon fill="#1e293b" points="132,62 142,30 115,58"/>
+            <!-- Inner ear (cat) -->
+            <polygon fill="#fda4af" points="68,58 62,38 82,56" opacity="0.7"/>
+            <polygon fill="#fda4af" points="132,58 138,38 118,56" opacity="0.7"/>
+            <!-- Eyes (big penguin eyes / cat eyes) -->
+            <ellipse fill="white" cx="85" cy="90" rx="10" ry="12"/>
+            <ellipse fill="white" cx="115" cy="90" rx="10" ry="12"/>
+            <ellipse fill="#1e1b4b" cx="86" cy="90" rx="6" ry="8"/>
+            <ellipse fill="#1e1b4b" cx="116" cy="90" rx="6" ry="8"/>
+            <circle fill="white" cx="88" cy="87" r="2.5"/>
+            <circle fill="white" cx="118" cy="87" r="2.5"/>
+            <!-- Nose (beak orange / cat nose pink) -->
+            <polygon fill="#f97316" points="100,105 92,115 108,115"/>
+            <!-- Whiskers (cat) / beak lines (penguin) -->
+            <line x1="55" y1="112" x2="88" y2="108" stroke="#94a3b8" stroke-width="1.5"/>
+            <line x1="55" y1="118" x2="88" y2="112" stroke="#94a3b8" stroke-width="1.5"/>
+            <line x1="145" y1="112" x2="112" y2="108" stroke="#94a3b8" stroke-width="1.5"/>
+            <line x1="145" y1="118" x2="112" y2="112" stroke="#94a3b8" stroke-width="1.5"/>
+            <!-- Flippers / paws -->
+            <ellipse fill="#0f172a" cx="52" cy="175" rx="14" ry="28" transform="rotate(-15,52,175)"/>
+            <ellipse fill="#0f172a" cx="148" cy="175" rx="14" ry="28" transform="rotate(15,148,175)"/>
+            <!-- Feet -->
+            <ellipse fill="#f97316" cx="85" cy="233" rx="20" ry="8" transform="rotate(-15,85,233)"/>
+            <ellipse fill="#f97316" cx="115" cy="233" rx="20" ry="8" transform="rotate(15,115,233)"/>
+
+            <!-- Penguin Overlay -->
+            <g id="pc-detail-overlay-penguin" style="display:none" class="pointer-events-none">
+              <ellipse cx="100" cy="172" rx="32" ry="52" fill="none" stroke="#3b82f6" stroke-width="3.5" />
+              <ellipse fill="none" stroke="#3b82f6" stroke-width="2.5" cx="85" cy="90" rx="12" ry="14"/>
+              <ellipse fill="none" stroke="#3b82f6" stroke-width="2.5" cx="115" cy="90" rx="12" ry="14"/>
+              <text x="100" y="25" fill="#60a5fa" font-size="11" font-weight="950" text-anchor="middle">Penguin Belly & Eyes</text>
+            </g>
+            <!-- Cat Overlay -->
+            <g id="pc-detail-overlay-cat" style="display:none" class="pointer-events-none">
+              <ellipse fill="none" stroke="#ef4444" stroke-width="3.5" cx="100" cy="88" rx="42" ry="40"/>
+              <polygon fill="none" stroke="#ef4444" stroke-width="3.5" points="68,62 58,30 85,58"/>
+              <polygon fill="none" stroke="#ef4444" stroke-width="3.5" points="132,62 142,30 115,58"/>
+              <text x="100" y="25" fill="#f87171" font-size="11" font-weight="950" text-anchor="middle">Cat Ears & Head contour</text>
+            </g>
+          </svg>
+
+          <!-- Control buttons inside demo -->
+          <div class="absolute bottom-4 flex space-x-2 bg-slate-900/90 border border-white/10 rounded-xl p-1 z-10">
+            <button id="show-penguin-btn" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-indigo-950 text-slate-350 hover:bg-slate-800 transition-all">Show Penguin 🐧</button>
+            <button id="show-cat-btn" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-indigo-950 text-slate-350 hover:bg-slate-800 transition-all">Show Cat 🐱</button>
+            <button id="reset-btn" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-indigo-950 text-slate-350 hover:bg-slate-800 transition-all">Reset Highlights</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Content Split Layout -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 pt-4">
+      
+      <!-- Left 2-Columns: Science and Prompt -->
+      <div class="lg:col-span-2 space-y-10">
+        <!-- EXPERIENCE IT FIRST prompt -->
+        <section class="space-y-4">
+          <h2 class="font-display text-2xl font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">🎮</span>
+            <span>EXPERIENCE IT FIRST</span>
+          </h2>
+          <div class="bg-indigo-950/20 border-2 border-indigo-500/15 rounded-3xl p-6 text-slate-700 dark:text-slate-300">
+            <p class="font-bold text-sm sm:text-base text-slate-200">Test your perceptual switches with the outline above:</p>
+            <ul class="list-disc pl-5 mt-3 space-y-2 text-xs sm:text-sm font-medium">
+              <li>Which silhouette did you resolve first? Minimally drawn graphics rely heavily on recent memory and language cues.</li>
+              <li>Observe how the whiskers of the cat transform into structural guides for the penguin's head and neck area.</li>
+              <li>Does focusing on the orange shape at the bottom as a beak vs a nose force the perceptual shift?</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- THE SCIENCE (400 words) -->
+        <section class="space-y-4">
+          <h2 class="font-display text-2xl font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">🧠</span>
+            <span>THE SCIENCE</span>
+          </h2>
+          <div class="prose prose-indigo dark:prose-invert text-slate-700 dark:text-slate-300 leading-relaxed space-y-4 text-xs sm:text-sm font-semibold text-justify">
+            <p>
+              The Penguin or Cat optical illusion is a modern silhouette-based ambiguous figure. Like other bistable figures, it contains structural configurations that support two distinct object categories. A single geometric area functions both as the white belly of a waddling penguin and the face-marking of a domestic cat.
+            </p>
+            <p>
+              When your eyes look at this shape, the retinal ganglion cells capture the luminance difference between the dark background, the slate-blue outline, and the white center. This raw information is sent through the lateral geniculate nucleus (LGN) to area V1. Here, local features like the sharp angles at the top (which can be interpreted as cat ears or penguin flipper ends) are mapped out.
+            </p>
+            <p>
+              However, the final perception is resolved in the ventral stream of the visual pathway, which flows into the inferior temporal cortex. This region deals with object representation. Because the visual system cannot assign multiple identities to the same region simultaneously (known as the figure-ground assignment limit), it selects one category to occupy the "figure" state, relegating the rest to the "ground." 
+            </p>
+            <p>
+              This visual competition is highly dynamic. Once the brain constructs the "cat" hypothesis, the neurons representing the cat are highly active. Over time, these active neurons undergo adaptation (fatigue), reducing their firing rates. As their activity drops, the lateral inhibition they exert on the competing "penguin" neurons weakens. Eventually, the penguin interpretation crosses the activation threshold, and your conscious awareness flips.
+            </p>
+          </div>
+        </section>
+      </div>
+
+      <!-- Right Column: Fun Facts and Try This -->
+      <div class="space-y-8">
+        <!-- FUN FACTS -->
+        <section class="rounded-3xl border border-indigo-950/20 bg-slate-900/60 p-6 space-y-4 shadow-xl">
+          <h3 class="font-display text-lg font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">💡</span>
+            <span>FUN FACTS</span>
+          </h3>
+          <ul class="space-y-4 text-xs sm:text-sm text-slate-650 dark:text-slate-300 font-semibold">
+            <li class="flex items-start space-x-2">
+              <span class="text-purple-500 font-black">•</span>
+              <span>This illusion is classified as a figure-ground bistable graphic, similar to Rubin's Famous Vase.</span>
+            </li>
+            <li class="flex items-start space-x-2">
+              <span class="text-purple-500 font-black">•</span>
+              <span>The orange triangle acts as a "semantic anchor": labeling it a beak immediately triggers the penguin category in the brain.</span>
+            </li>
+            <li class="flex items-start space-x-2">
+              <span class="text-purple-500 font-black">•</span>
+              <span>Minimalist contours force the brain to generate more top-down predictions than detailed realistic pictures.</span>
+            </li>
+          </ul>
+        </section>
+
+        <!-- TRY THIS AT HOME -->
+        <section class="rounded-3xl border border-indigo-950/20 bg-slate-900/60 p-6 space-y-4 shadow-xl">
+          <h3 class="font-display text-lg font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">🧪</span>
+            <span>TRY THIS AT HOME</span>
+          </h3>
+          <p class="text-xs sm:text-sm text-slate-650 dark:text-slate-300 leading-relaxed font-semibold">
+            Try looking at the image from 10 feet away. Without the detailed whisker lines being visible, does one animal become significantly more dominant than the other?
+          </p>
+        </section>
+
+        <!-- DISCOVERER -->
+        <section class="rounded-3xl border border-indigo-950/20 bg-slate-900/60 p-6 space-y-4 shadow-xl">
+          <h3 class="font-display text-lg font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">📜</span>
+            <span>DISCOVERER</span>
+          </h3>
+          <div class="text-xs sm:text-sm text-slate-650 dark:text-slate-300 leading-relaxed font-semibold space-y-2">
+            <p><strong>Creator:</strong> Graphic Design Specialists (2000s)</p>
+            <p>Created as an exercise in negative space design. It demonstrates how artists can merge animal shapes by mapping common anatomical contours together.</p>
+          </div>
+        </section>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+    // Share Page URL
+    const sharePageBtn = document.getElementById('share-illusion-page-btn');
+    const pageToast = document.getElementById('page-share-toast');
+
+    sharePageBtn?.addEventListener('click', () => {
+      const pageUrl = window.location.href;
+      navigator.clipboard.writeText(pageUrl).then(() => {
+        if (pageToast) {
+          pageToast.classList.remove('opacity-0');
+          pageToast.classList.add('opacity-100');
+          setTimeout(() => {
+            pageToast.classList.remove('opacity-100');
+            pageToast.classList.add('opacity-0');
+          }, 2000);
+        }
+      });
+    });
+
+    // Toggle highlights
+    const penguinBtn = document.getElementById('show-penguin-btn');
+    const catBtn = document.getElementById('show-cat-btn');
+    const resetBtn = document.getElementById('reset-btn');
+    const penguinOverlay = document.getElementById('pc-detail-overlay-penguin');
+    const catOverlay = document.getElementById('pc-detail-overlay-cat');
+
+    penguinBtn?.addEventListener('click', () => {
+      if (penguinOverlay) penguinOverlay.style.display = 'block';
+      if (catOverlay) catOverlay.style.display = 'none';
+      penguinBtn.className = 'text-xs font-bold px-3 py-1.5 rounded-lg bg-blue-600 text-white transition-all';
+      if (catBtn) catBtn.className = 'text-xs font-bold px-3 py-1.5 rounded-lg bg-indigo-950 text-slate-350 hover:bg-slate-800 transition-all';
+    });
+
+    catBtn?.addEventListener('click', () => {
+      if (penguinOverlay) penguinOverlay.style.display = 'none';
+      if (catOverlay) catOverlay.style.display = 'block';
+      if (penguinBtn) penguinBtn.className = 'text-xs font-bold px-3 py-1.5 rounded-lg bg-indigo-950 text-slate-350 hover:bg-slate-800 transition-all';
+      catBtn.className = 'text-xs font-bold px-3 py-1.5 rounded-lg bg-red-650 text-white transition-all';
+    });
+
+    resetBtn?.addEventListener('click', () => {
+      if (penguinOverlay) penguinOverlay.style.display = 'none';
+      if (catOverlay) catOverlay.style.display = 'none';
+      if (penguinBtn) penguinBtn.className = 'text-xs font-bold px-3 py-1.5 rounded-lg bg-indigo-950 text-slate-350 hover:bg-slate-800 transition-all';
+      if (catBtn) catBtn.className = 'text-xs font-bold px-3 py-1.5 rounded-lg bg-indigo-950 text-slate-350 hover:bg-slate-800 transition-all';
+    });
+  </script>
+</Layout>

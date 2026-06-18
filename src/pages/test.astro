@@ -304,6 +304,26 @@ import Layout from '../layouts/Layout.astro';
         </div>
 
       </div>
+
+      <!-- Global Question Feedback (displays after choosing an option) -->
+      <div id="question-feedback" class="hidden p-5 bg-slate-950/80 border border-purple-500/25 rounded-2xl text-xs space-y-3 text-left">
+        <h4 class="font-extrabold text-purple-400 text-sm border-b border-slate-800 pb-1.5 flex items-center justify-between">
+          <span>Perception Insight</span>
+          <span id="q-feedback-choice" class="font-bold text-yellow-450 uppercase font-mono"></span>
+        </h4>
+        <p id="q-feedback-text" class="text-slate-300 leading-relaxed font-semibold"></p>
+        
+        <!-- Statistics -->
+        <div class="p-3 bg-purple-500/5 border border-purple-500/20 rounded-xl space-y-2">
+          <div class="font-bold text-purple-300 text-[10px] uppercase tracking-wider">Global Statistics</div>
+          <div id="q-feedback-stats" class="space-y-1.5 font-mono text-[10px] text-slate-350">
+            <!-- Will be dynamically populated -->
+          </div>
+        </div>
+
+        <button id="btn-next-question" class="w-full bg-purple-600 hover:bg-purple-500 text-white font-black py-2.5 rounded-xl shadow-lg transition-all active:scale-95 text-center mt-3">Next Question ➡️</button>
+      </div>
+
     </div>
   </section>
 
@@ -488,6 +508,289 @@ import Layout from '../layouts/Layout.astro';
       hideEls.forEach(el => el.classList.add('hidden'));
     };
 
+    // Question Insights & Statistics Database
+    const questionInsights = [
+      {
+        options: {
+          "0": {
+            choice: "Clockwise",
+            text: "You perceive clockwise rotation, which indicates a strong reliance on the 'viewpoint-from-above' visual bias. Your brain defaults to looking down at the figure.",
+            stats: [
+              { label: "Clockwise (Default)", value: 52 },
+              { label: "Counter-Clockwise", value: 38 },
+              { label: "Both/Keeps switching", value: 10 }
+            ]
+          },
+          "1": {
+            choice: "Counter-Clockwise",
+            text: "You perceive counter-clockwise rotation, indicating a more analytical focus on the bottom pivot points and silhouette edges.",
+            stats: [
+              { label: "Clockwise", value: 52 },
+              { label: "Counter-Clockwise (Analytical)", value: 38 },
+              { label: "Both/Keeps switching", value: 10 }
+            ]
+          },
+          "2": {
+            choice: "Both",
+            text: "You see it switch in both directions! This shows high cognitive flexibility, where your visual cortex easily updates its depth hypotheses in real-time.",
+            stats: [
+              { label: "Clockwise", value: 52 },
+              { label: "Counter-Clockwise", value: 38 },
+              { label: "Both/Keeps switching", value: 10 }
+            ]
+          }
+        }
+      },
+      {
+        options: {
+          "0": {
+            choice: "Young Woman",
+            text: "Seeing the Young Woman first suggests high sensitivity to fine details (high-frequency contours) like eyelashes and cheeks. Statistically more common in younger viewers.",
+            stats: [
+              { label: "Young Woman", value: 52 },
+              { label: "Old Woman", value: 48 }
+            ]
+          },
+          "1": {
+            choice: "Old Woman",
+            text: "Seeing the Old Woman first suggests your visual system groups large contours and low-frequency structures first, identifying the large nose and jawline.",
+            stats: [
+              { label: "Young Woman", value: 52 },
+              { label: "Old Woman", value: 48 }
+            ]
+          }
+        }
+      },
+      {
+        options: {
+          "0": {
+            choice: "Duck",
+            text: "Seeing the Duck first suggests a left-to-right scanning bias. It is also heavily influenced by cognitive priming and seasonal context (more common in autumn).",
+            stats: [
+              { label: "Duck", value: 50 },
+              { label: "Rabbit", value: 50 }
+            ]
+          },
+          "1": {
+            choice: "Rabbit",
+            text: "Seeing the Rabbit first suggests a right-to-left scanning bias. It is highly influenced by priming (more common during spring/Easter).",
+            stats: [
+              { label: "Duck", value: 50 },
+              { label: "Rabbit", value: 50 }
+            ]
+          }
+        }
+      },
+      {
+        options: {
+          "0": {
+            choice: "A Vase",
+            text: "Focusing on the Vase first indicates that your brain automatically groups the central positive space as the figure, relegating the outer dark space to the background.",
+            stats: [
+              { label: "A Vase", value: 45 },
+              { label: "Two Faces", value: 55 }
+            ]
+          },
+          "1": {
+            choice: "Two Faces",
+            text: "Focusing on the Faces first indicates that your brain processes the negative space as the active figure, showing highly integrated background processing.",
+            stats: [
+              { label: "A Vase", value: 45 },
+              { label: "Two Faces", value: 55 }
+            ]
+          }
+        }
+      },
+      {
+        options: {
+          "0": {
+            choice: "Bottom-Left Face",
+            text: "Perceiving the bottom-left face as pointing forward is the most common default, stemming from our natural 'viewpoint-from-above' spatial expectation.",
+            stats: [
+              { label: "Bottom-Left", value: 42 },
+              { label: "Top-Right", value: 33 },
+              { label: "Keeps Switching", value: 25 }
+            ]
+          },
+          "1": {
+            choice: "Top-Right Face",
+            text: "Perceiving the top-right face as forward is less common, showing that your brain has chosen an upward, ascending perspective layout.",
+            stats: [
+              { label: "Bottom-Left", value: 42 },
+              { label: "Top-Right", value: 33 },
+              { label: "Keeps Switching", value: 25 }
+            ]
+          },
+          "2": {
+            choice: "Keeps Switching",
+            text: "Seeing it switch continuously is a perfect illustration of visual bistability and neural adaptation: as one orientation fatigues, the other takes over.",
+            stats: [
+              { label: "Bottom-Left", value: 42 },
+              { label: "Top-Right", value: 33 },
+              { label: "Keeps Switching", value: 25 }
+            ]
+          }
+        }
+      },
+      {
+        options: {
+          "0": {
+            choice: "Triangle",
+            text: "Grouping the dots as a Triangle demonstrates the Gestalt principle of closure. Your visual cortex automatically constructs boundaries between disparate elements.",
+            stats: [
+              { label: "Triangle", value: 65 },
+              { label: "Line", value: 20 },
+              { label: "Neither", value: 15 }
+            ]
+          },
+          "1": {
+            choice: "Line",
+            text: "Seeing them as a Line indicates your brain groups elements sequentially or searches for linear direction rather than closed geometric forms.",
+            stats: [
+              { label: "Triangle", value: 65 },
+              { label: "Line", value: 20 },
+              { label: "Neither", value: 15 }
+            ]
+          },
+          "2": {
+            choice: "Neither",
+            text: "Processing the dots as independent points with no grouping shows a highly literal bottom-up processing style that avoids premature structural assumptions.",
+            stats: [
+              { label: "Triangle", value: 65 },
+              { label: "Line", value: 20 },
+              { label: "Neither", value: 15 }
+            ]
+          }
+        }
+      },
+      {
+        options: {
+          "0": {
+            choice: "Yes, same",
+            text: "Correct! Both squares reflect the exact same shade of gray. You bypassed or recalled the color constancy illusion.",
+            stats: [
+              { label: "Yes, same", value: 15 },
+              { label: "No, different", value: 85 }
+            ]
+          },
+          "1": {
+            choice: "No, different",
+            text: "Incorrect, but completely normal! Your brain scales up the brightness of square B because it lies in a shadow, maintaining color constancy in daily life.",
+            stats: [
+              { label: "Yes, same", value: 15 },
+              { label: "No, different", value: 85 }
+            ]
+          }
+        }
+      },
+      {
+        options: {
+          "0": {
+            choice: "Yes, definitely",
+            text: "Normal peripheral drift! The asymmetric contrast borders of the rings stimulate motion-sensitive neurons in your visual cortex even though the image is static.",
+            stats: [
+              { label: "Yes, definitely", value: 70 },
+              { label: "No, static", value: 20 },
+              { label: "I can't tell", value: 10 }
+            ]
+          },
+          "1": {
+            choice: "No, static",
+            text: "You see it static. Your visual system has a strong focal fixation, or you are less sensitive to asymmetric contrast drift in the periphery.",
+            stats: [
+              { label: "Yes, definitely", value: 70 },
+              { label: "No, static", value: 20 },
+              { label: "I can't tell", value: 10 }
+            ]
+          },
+          "2": {
+            choice: "I can't tell",
+            text: "Your brain is actively trying to resolve the conflict between the static focal center and the drifting peripheral signals.",
+            stats: [
+              { label: "Yes, definitely", value: 70 },
+              { label: "No, static", value: 20 },
+              { label: "I can't tell", value: 10 }
+            ]
+          }
+        }
+      },
+      {
+        options: {
+          "0": {
+            choice: "Up",
+            text: "Perceiving it pointing Up indicates that your brain interprets the perspective projection as an ascending folded structure.",
+            stats: [
+              { label: "Up", value: 48 },
+              { label: "Down", value: 37 },
+              { label: "Both/Switches", value: 15 }
+            ]
+          },
+          "1": {
+            choice: "Down",
+            text: "Perceiving it pointing Down indicates that your brain interprets the perspective projection as a descending folded structure.",
+            stats: [
+              { label: "Up", value: 48 },
+              { label: "Down", value: 37 },
+              { label: "Both/Switches", value: 15 }
+            ]
+          },
+          "2": {
+            choice: "Both",
+            text: "You experience bistable switching, which shows excellent hemispheric rivalry and rapid update of depth parameters.",
+            stats: [
+              { label: "Up", value: 48 },
+              { label: "Down", value: 37 },
+              { label: "Both/Switches", value: 15 }
+            ]
+          }
+        }
+      },
+      {
+        options: {
+          "0": {
+            choice: "Instantly",
+            text: "Instantly detecting the face shows highly active pareidolia and rapid face recognition via the fusiform face area (FFA).",
+            stats: [
+              { label: "Instantly (<5s)", value: 30 },
+              { label: "Quickly (5-15s)", value: 40 },
+              { label: "Took a while", value: 20 },
+              { label: "Needed hint", value: 10 }
+            ]
+          },
+          "1": {
+            choice: "Quickly",
+            text: "Quickly detecting the face shows normal face pareidolia, where the brain rapidly scans forest trunks for organic patterns.",
+            stats: [
+              { label: "Instantly (<5s)", value: 30 },
+              { label: "Quickly (5-15s)", value: 40 },
+              { label: "Took a while", value: 20 },
+              { label: "Needed hint", value: 10 }
+            ]
+          },
+          "2": {
+            choice: "Took a while",
+            text: "Taking a while indicates a highly analytical processing style that prioritizes physical edges (like tree bark) over rapid organic facial grouping.",
+            stats: [
+              { label: "Instantly (<5s)", value: 30 },
+              { label: "Quickly (5-15s)", value: 40 },
+              { label: "Took a while", value: 20 },
+              { label: "Needed hint", value: 10 }
+            ]
+          },
+          "3": {
+            choice: "Needed hint",
+            text: "Needing a hint indicates that your visual cortex processed the image purely as a landscape, showing strong resistance to pareidolia.",
+            stats: [
+              { label: "Instantly (<5s)", value: 30 },
+              { label: "Quickly (5-15s)", value: 40 },
+              { label: "Took a while", value: 20 },
+              { label: "Needed hint", value: 10 }
+            ]
+          }
+        }
+      }
+    ];
+
     // Initialize test
     startTestBtn?.addEventListener('click', () => {
       if (testIntro && testInterface) {
@@ -498,11 +801,28 @@ import Layout from '../layouts/Layout.astro';
       }
     });
 
+    const feedbackPanel = document.getElementById('question-feedback');
+    const feedbackChoice = document.getElementById('q-feedback-choice');
+    const feedbackText = document.getElementById('q-feedback-text');
+    const feedbackStats = document.getElementById('q-feedback-stats');
+    const btnNext = document.getElementById('btn-next-question');
+
+    let isWaitingForNext = false;
+    let selectedCategory = 'C';
+
     // Render current question
     const renderQuestion = () => {
+      isWaitingForNext = false;
+      feedbackPanel?.classList.add('hidden');
+
       questions.forEach((q, idx) => {
         if (idx === currentQIdx) {
           q.classList.remove('hidden');
+          // Re-enable and reset option buttons
+          q.querySelectorAll('.test-option-btn').forEach(btn => {
+            (btn as HTMLButtonElement).disabled = false;
+            btn.classList.remove('border-purple-500', 'bg-purple-500/10', 'opacity-50');
+          });
         } else {
           q.classList.add('hidden');
         }
@@ -526,24 +846,71 @@ import Layout from '../layouts/Layout.astro';
 
       optionBtns.forEach(btn => {
         btn.addEventListener('click', (e) => {
-          const oIdx = (e.currentTarget as HTMLElement).getAttribute('data-oidx') || '0';
-          const category = catMap[oIdx] || 'C';
+          if (isWaitingForNext) return;
+          e.stopPropagation();
+
+          const clickedBtn = e.currentTarget as HTMLButtonElement;
+          const oIdx = clickedBtn.getAttribute('data-oidx') || '0';
+          selectedCategory = catMap[oIdx] || 'C';
           
-          // Increment category score
-          if (category in scores) {
-            scores[category as keyof typeof scores]++;
+          // Disable all other buttons in this question and highlight selected
+          optionBtns.forEach(b => {
+            const button = b as HTMLButtonElement;
+            button.disabled = true;
+            if (button === clickedBtn) {
+              button.classList.add('border-purple-500', 'bg-purple-500/10');
+            } else {
+              button.classList.add('opacity-50');
+            }
+          });
+
+          // Show Per-Question feedback panel
+          const insightData = questionInsights[currentQIdx]?.options[oIdx as keyof typeof questionInsights[number]['options']];
+          if (insightData && feedbackPanel && feedbackChoice && feedbackText && feedbackStats) {
+            feedbackChoice.textContent = `You selected: ${insightData.choice}`;
+            feedbackText.textContent = insightData.text;
+
+            // Generate statistics breakdown HTML
+            let statsHtml = "";
+            insightData.stats.forEach(stat => {
+              const active = stat.label.includes(insightData.choice);
+              statsHtml += `
+                <div class="space-y-1">
+                  <div class="flex justify-between font-bold ${active ? 'text-white' : 'text-slate-400'}">
+                    <span>${stat.label}</span>
+                    <span>${stat.value}%</span>
+                  </div>
+                  <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
+                    <div class="${active ? 'bg-purple-500' : 'bg-slate-700'} h-full" style="width: ${stat.value}%"></div>
+                  </div>
+                </div>
+              `;
+            });
+            feedbackStats.innerHTML = statsHtml;
+            feedbackPanel.classList.remove('hidden');
           }
 
-          // Advance state
-          currentQIdx++;
-          if (currentQIdx < 10) {
-            renderQuestion();
-          } else {
-            // Test Finished! Calculate results
-            calculateResults();
-          }
+          isWaitingForNext = true;
         });
       });
+    });
+
+    btnNext?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (!isWaitingForNext) return;
+
+      // Increment category score
+      if (selectedCategory in scores) {
+        scores[selectedCategory as keyof typeof scores]++;
+      }
+
+      currentQIdx++;
+      if (currentQIdx < 10) {
+        renderQuestion();
+      } else {
+        // Test Finished! Calculate results
+        calculateResults();
+      }
     });
 
     // Calculate final Brain Type
@@ -569,6 +936,7 @@ import Layout from '../layouts/Layout.astro';
         currentShareMessage = res.share;
       }
 
+      feedbackPanel?.classList.add('hidden');
       if (testInterface && testResultsPanel) {
         showScreen(testResultsPanel, [testInterface]);
       }
@@ -598,6 +966,7 @@ import Layout from '../layouts/Layout.astro';
         hintShowing = false;
         forestOutline?.classList.add('opacity-0');
         if (forestHintBtn) forestHintBtn.textContent = "Show Hint 💡";
+        feedbackPanel?.classList.add('hidden');
       }
     });
 

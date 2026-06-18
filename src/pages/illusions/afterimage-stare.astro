@@ -1,0 +1,248 @@
+---
+// src/pages/illusions/afterimage-stare.astro
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout 
+  title="Complementary Afterimage — Interactive Optical Illusion | Optical Illusion Lab" 
+  description="Stare at the cyan cross for 30 seconds. Look at the white box to see a ghostly red afterimage floating in your vision."
+>
+  <div class="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-12">
+    
+    <!-- Breadcrumb back navigation -->
+    <nav class="flex text-xs font-black uppercase tracking-wider text-slate-400 space-x-2 pb-2 border-b border-indigo-500/10">
+      <a href="/" class="hover:text-white transition-colors">Home</a>
+      <span>/</span>
+      <a href="/color" class="hover:text-white transition-colors">Color Illusions</a>
+      <span>/</span>
+      <span class="text-purple-400">Complementary Afterimage</span>
+    </nav>
+
+    <!-- Hero Header -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6">
+      <div class="space-y-3">
+        <div class="flex items-center space-x-2">
+          <span class="text-xs font-black px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 uppercase tracking-wider">Physiological</span>
+          <span class="text-xs font-black px-2.5 py-0.5 rounded-full bg-purple-500/10 text-purple-400 border border-purple-500/20 uppercase tracking-wider">🔴 Hard</span>
+        </div>
+        <h1 class="font-display text-4xl sm:text-5xl font-black tracking-tight text-slate-900 dark:text-white">
+          Complementary Afterimage
+        </h1>
+        <p class="text-slate-600 dark:text-slate-350 text-base max-w-2xl font-medium">
+          Stare at the center of the colored cross. When it vanishes, your eyes create a ghostly complementary red/pink shape on the white screen.
+        </p>
+      </div>
+
+      <!-- Share Button -->
+      <button 
+        id="share-illusion-page-btn"
+        class="relative shrink-0 flex items-center space-x-2 rounded-2xl bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-600 hover:scale-105 text-white font-black text-sm px-6 py-3.5 transition-all shadow-lg shadow-purple-500/10"
+      >
+        <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M15 8a3 3 0 1 0-2.977-2.63l-4.94 2.47a3 3 0 1 0 0 4.319l4.94 2.47a3 3 0 1 0 .895-1.789l-4.94-2.47a3.027 3.027 0 0 0 0-.74l4.94-2.47C13.456 7.68 14.19 8 15 8Z"/></svg>
+        <span>Share Page</span>
+        <span id="page-share-toast" class="absolute bottom-full right-1/2 translate-x-1/2 mb-2 px-2.5 py-1 text-[10px] font-bold text-white bg-purple-650 rounded-lg shadow-md opacity-0 pointer-events-none transition-opacity duration-200 whitespace-nowrap">Link Copied! ✓</span>
+      </button>
+    </div>
+
+    <!-- LARGE INTERACTIVE DEMO -->
+    <div class="flex flex-col items-center justify-center py-6 border-b border-indigo-500/10">
+      <div class="w-full max-w-[600px] mx-auto space-y-4">
+        <div id="stare-illusion-container" class="relative flex flex-col items-center justify-center h-96 w-full bg-[#1e293b] border border-slate-700 rounded-xl overflow-hidden p-8">
+          
+          <!-- Cyan Cross SVG -->
+          <svg id="svg-afterimage-cross" class="w-48 h-48 select-none" viewBox="0 0 100 100">
+            <rect x="40" y="10" width="20" height="80" fill="#06b6d4" />
+            <rect x="10" y="40" width="80" height="20" fill="#06b6d4" />
+            <!-- White staring dot -->
+            <circle cx="50" cy="50" r="3" fill="#ffffff" />
+          </svg>
+
+          <!-- White screen overlay -->
+          <div id="afterimage-screen" class="absolute inset-0 bg-white flex flex-col items-center justify-center hidden p-8 border-4 border-dashed border-red-500 transition-colors animate-pulse text-center">
+            <!-- Staring dot for afterimage anchoring -->
+            <div class="w-2.5 h-2.5 bg-black rounded-full mb-3"></div>
+            <span class="text-slate-900 font-black text-2xl tracking-wider uppercase">Look Here! 🔮</span>
+            <p class="text-sm text-slate-500 font-bold max-w-sm mt-2">Stare at the black dot and blink rapidly. Do you see a ghostly red/pink cross floating in your vision?</p>
+          </div>
+
+          <div class="absolute bottom-4 flex flex-col items-center space-y-2 bg-slate-950/80 px-5 py-3 rounded-2xl border border-white/10 text-center w-11/12 max-w-xs">
+            <!-- Progress Bar -->
+            <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden mb-1 hidden" id="stare-progress-bar-container">
+              <div id="stare-progress-fill" class="bg-indigo-500 h-full w-full transition-all duration-100"></div>
+            </div>
+            <div class="flex items-center justify-between w-full">
+              <button id="btn-start-stare" class="text-xs font-black px-4 py-2 rounded-xl bg-indigo-650 hover:bg-indigo-550 text-white transition-all shadow-md">Start Staring (30s)</button>
+              <span id="stare-timer-text" class="font-mono text-xs text-indigo-400 font-black">30.0s</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Experience Feedback Panel (hidden by default) -->
+        <div id="experience-feedback-panel" class="hidden w-full p-6 bg-slate-900/90 border border-white/10 rounded-2xl text-left space-y-4 shadow-xl">
+          <h4 class="text-xs font-black uppercase text-indigo-400 font-display">Stare Experience Verdict</h4>
+          
+          <div class="text-xs space-y-4">
+            <div class="space-y-2">
+              <p class="text-sm font-bold text-slate-200">What did you perceive?</p>
+              <div class="p-4 bg-indigo-500/5 border border-indigo-500/20 rounded-xl text-xs text-slate-350 font-medium leading-relaxed">
+                <span class="text-indigo-450 font-bold block mb-1">✓ Neurological Reality Check:</span>
+                If you saw a soft red/pink cross floating on the white box, <strong>that happened entirely inside your desensitized photoreceptors and visual cortex!</strong> The screen simply displays a plain white background with a black anchor dot.
+              </div>
+            </div>
+            
+            <div class="p-4 bg-slate-950/60 border border-slate-800 rounded-xl text-xs space-y-2 leading-relaxed">
+              <strong class="text-slate-200 font-display">Troubleshooting (If you did not see the effect):</strong>
+              <ul class="list-disc pl-4 space-y-1 text-slate-400 font-medium">
+                <li>Keep your eyes locked strictly on the white center dot of the cyan cross during the 30-second stare period.</li>
+                <li>Do not blink or move your eyes at all while the timer runs—even tiny micro-movements refresh the retinal image and prevent adaptation.</li>
+                <li>Once the white screen appears, blink rapidly to help refresh and isolate the afterimage against the white background.</li>
+                <li>Ensure your screen brightness is sufficiently high (at least 60%) and you are in a moderately lit room.</li>
+              </ul>
+            </div>
+            
+            <button id="btn-reset-experience" class="w-full border border-indigo-500/30 text-indigo-400 hover:bg-indigo-500/10 font-bold text-xs py-2 rounded-xl transition-all">Try Again 🔄</button>
+          </div>
+        </div>
+
+        <div class="text-center text-xs text-slate-500 dark:text-slate-400 italic">
+          This illusion uses a fixed high-contrast display for best effect.
+        </div>
+      </div>
+    </div>
+
+    <!-- Content Split Layout -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 pt-4">
+      <!-- Left 2-Columns -->
+      <div class="lg:col-span-2 space-y-10">
+        <section class="space-y-4">
+          <h2 class="font-display text-2xl font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-indigo-500">🎮</span>
+            <span>EXPERIENCE IT FIRST</span>
+          </h2>
+          <div class="bg-indigo-950/20 border-2 border-indigo-500/15 rounded-3xl p-6 text-slate-700 dark:text-slate-300">
+            <p class="font-bold text-sm sm:text-base text-slate-200">Stare directly at the white center dot inside the cyan cross. Keep your eyes perfectly still for 30 seconds:</p>
+            <ul class="list-disc pl-5 mt-3 space-y-2 text-xs sm:text-sm font-medium">
+              <li>Try not to blink while the countdown timer runs.</li>
+              <li>When the timer hits 0s, the cross will vanish and a plain white screen with a target black dot will appear.</li>
+              <li>Stare at the black target dot on the white screen. You will see a ghostly red/pink cross float in your vision.</li>
+              <li>If the afterimage begins to fade, blink rapidly—this will refresh the visual signal.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="space-y-4">
+          <h2 class="font-display text-2xl font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-indigo-500">🧠</span>
+            <span>THE SCIENCE</span>
+          </h2>
+          <div class="prose prose-indigo dark:prose-invert text-slate-700 dark:text-slate-300 leading-relaxed text-xs sm:text-sm font-semibold text-justify">
+            <p>The Complementary Afterimage illusion demonstrates the biological limits of visual adaptation and photoreceptor fatigue. When you stare at a high-saturation color (such as a bright cyan cross) for 20 to 30 seconds, the green and blue cone cells in your retina that respond to cyan light become chemically exhausted and desensitized. When you then shift your gaze to a neutral white screen, all cone cells are stimulated equally by the white light. However, because your green and blue cones are fatigued, they fire below their normal rate. Meanwhile, your red cones, which were rested during the cyan exposure, fire at their full rate. The brain compares these unequal signals and perceives the complementary color of cyan, which is a soft red or pink shape. This opponent-process theory of color vision explains how the retina and lateral geniculate nucleus process color signals in antagonistic pairs: red-green, blue-yellow, and black-white.</p>
+          </div>
+        </section>
+      </div>
+
+      <!-- Right Column -->
+      <div class="space-y-8">
+        <section class="rounded-3xl border border-indigo-950/20 bg-slate-900/60 p-6 space-y-4 shadow-xl">
+          <h3 class="font-display text-lg font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-indigo-500">📜</span>
+            <span>HISTORY</span>
+          </h3>
+          <p class="text-xs sm:text-sm text-slate-650 dark:text-slate-355 leading-relaxed font-semibold">
+            First described by Ewald Hering (19th Century). It remains a fundamental demonstration of perceptual processing and cognitive framing.
+          </p>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const sharePageBtn = document.getElementById('share-illusion-page-btn');
+    const pageToast = document.getElementById('page-share-toast');
+
+    sharePageBtn?.addEventListener('click', () => {
+      const pageUrl = window.location.href;
+      navigator.clipboard.writeText(pageUrl).then(() => {
+        if (pageToast) {
+          pageToast.classList.remove('opacity-0');
+          pageToast.classList.add('opacity-100');
+          setTimeout(() => {
+            pageToast.classList.remove('opacity-100');
+            pageToast.classList.add('opacity-0');
+          }, 2000);
+        }
+      });
+    });
+
+    // Interactive Stare Logic
+    const startBtn = document.getElementById('btn-start-stare') as HTMLButtonElement;
+    const timerText = document.getElementById('stare-timer-text') as HTMLElement;
+    const progressFill = document.getElementById('stare-progress-fill') as HTMLElement;
+    const progressContainer = document.getElementById('stare-progress-bar-container');
+    const screen = document.getElementById('afterimage-screen');
+    const svgCross = document.getElementById('svg-afterimage-cross');
+
+    const feedbackPanel = document.getElementById('experience-feedback-panel');
+    const resetExpBtn = document.getElementById('btn-reset-experience');
+
+    let secondsLeft = 30.0;
+    let timerId: any = null;
+    let staringActive = false;
+
+    const hideFeedback = () => {
+      feedbackPanel?.classList.add('hidden');
+    };
+
+    const stopStare = () => {
+      clearInterval(timerId);
+      staringActive = false;
+      secondsLeft = 30.0;
+      timerText.textContent = '30.0s';
+      progressContainer?.classList.add('hidden');
+      screen?.classList.add('hidden');
+      svgCross?.classList.remove('hidden');
+      startBtn.textContent = 'Start Staring (30s)';
+      hideFeedback();
+    };
+
+    startBtn?.addEventListener('click', () => {
+      if (staringActive) {
+        stopStare();
+      } else {
+        staringActive = true;
+        secondsLeft = 30.0;
+        timerText.textContent = '30.0s';
+        progressContainer?.classList.remove('hidden');
+        screen?.classList.add('hidden');
+        svgCross?.classList.remove('hidden');
+        startBtn.textContent = 'Reset Stare 🔄';
+        hideFeedback();
+
+        const startTime = Date.now();
+        timerId = setInterval(() => {
+          const elapsed = (Date.now() - startTime) / 1000;
+          secondsLeft = 30.0 - elapsed;
+          if (secondsLeft <= 0) {
+            secondsLeft = 0;
+            clearInterval(timerId);
+            timerText.textContent = '0.0s';
+            progressContainer?.classList.add('hidden');
+            svgCross?.classList.add('hidden');
+            screen?.classList.remove('hidden');
+            startBtn.textContent = 'Try Stare Again 🔄';
+            staringActive = false;
+            
+            // Show feedback panel
+            feedbackPanel?.classList.remove('hidden');
+          }
+          if (timerText) timerText.textContent = `${secondsLeft.toFixed(1)}s`;
+          if (progressFill) progressFill.style.width = `${(secondsLeft / 30.0) * 100}%`;
+        }, 100);
+      }
+    });
+
+    resetExpBtn?.addEventListener('click', () => {
+      stopStare();
+    });
+  </script>
+</Layout>

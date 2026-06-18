@@ -1,0 +1,310 @@
+---
+// src/pages/illusions/vertical-horizontal.astro
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout 
+  title="Vertical-Horizontal Illusion — Interactive Optical Illusion | Optical Illusion Lab" 
+  description="Adjust the slider to make the horizontal and vertical lines equal in length. Discover why vertical lines appear up to 20% longer than horizontal ones."
+>
+  <div class="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-12">
+    
+    <!-- Breadcrumb back navigation -->
+    <nav class="flex text-xs font-black uppercase tracking-wider text-slate-400 space-x-2 pb-2 border-b border-indigo-500/10">
+      <a href="/" class="hover:text-white transition-colors">Home</a>
+      <span>/</span>
+      <a href="/famous" class="hover:text-white transition-colors">Famous Illusions</a>
+      <span>/</span>
+      <span class="text-purple-400">Vertical-Horizontal Illusion</span>
+    </nav>
+
+    <!-- Hero Header -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6">
+      <div class="space-y-3">
+        <div class="flex items-center space-x-2">
+          <span class="text-xs font-black px-2.5 py-0.5 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 uppercase tracking-wider">Geometric</span>
+          <span class="text-xs font-black px-2.5 py-0.5 rounded-full bg-purple-500/10 text-purple-400 border border-purple-500/20 uppercase tracking-wider">🟢 Easy</span>
+        </div>
+        <h1 class="font-display text-4xl sm:text-5xl font-black tracking-tight text-slate-900 dark:text-white">
+          Vertical-Horizontal Illusion
+        </h1>
+        <p class="text-slate-600 dark:text-slate-350 text-base max-w-2xl font-medium">
+          A simple inverted "T" configuration where the vertical line appears significantly longer than the horizontal base, despite being identical.
+        </p>
+      </div>
+
+      <!-- Share Button -->
+      <button 
+        id="share-illusion-page-btn"
+        class="relative shrink-0 flex items-center space-x-2 rounded-2xl bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-600 hover:scale-105 text-white font-black text-sm px-6 py-3.5 transition-all shadow-lg shadow-purple-500/10"
+      >
+        <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M15 8a3 3 0 1 0-2.977-2.63l-4.94 2.47a3 3 0 1 0 0 4.319l4.94 2.47a3 3 0 1 0 .895-1.789l-4.94-2.47a3.027 3.027 0 0 0 0-.74l4.94-2.47C13.456 7.68 14.19 8 15 8Z"/></svg>
+        <span>Share Page</span>
+        <span id="page-share-toast" class="absolute bottom-full right-1/2 translate-x-1/2 mb-2 px-2.5 py-1 text-[10px] font-bold text-white bg-purple-650 rounded-lg shadow-md opacity-0 pointer-events-none transition-opacity duration-200 whitespace-nowrap">Link Copied! ✓</span>
+      </button>
+    </div>
+
+    <!-- LARGE INTERACTIVE DEMO -->
+    <div class="flex flex-col items-center justify-center py-6 border-b border-indigo-500/10">
+      <div class="w-full max-w-[600px] mx-auto space-y-6">
+        <div id="vh-illusion-container" class="relative flex flex-col items-center justify-center h-96 w-full bg-slate-100 dark:bg-slate-950/40 rounded-2xl overflow-hidden border border-indigo-500/10 p-6">
+          
+          <!-- Intersecting Lines SVG -->
+          <svg class="w-72 h-72 select-none overflow-visible" viewBox="0 0 200 200">
+            <!-- Grid reference marks for visual comparison (only visible on solve) -->
+            <g id="vh-reference-lines" class="opacity-0 transition-opacity duration-300 stroke-slate-500/35 stroke-dasharray-[2,2] stroke-[0.8]">
+              <!-- Horizontal grid borders at length boundaries -->
+              <line x1="40" y1="20" x2="160" y2="20" />
+              <line x1="40" y1="140" x2="160" y2="140" />
+              <line x1="40" y1="20" x2="40" y2="140" />
+              <line x1="160" y1="20" x2="160" y2="140" />
+            </g>
+
+            <!-- Horizontal base line (Fixed length = 120px) -->
+            <line x1="40" y1="140" x2="160" y2="140" stroke="#3b82f6" stroke-width="4" stroke-linecap="round" />
+            
+            <!-- Vertical line (Dynamic length: adjustments via slider or rotation) -->
+            <line 
+              id="vh-detail-vertical" 
+              x1="100" y1="140" 
+              x2="100" y2="20" 
+              stroke="#ef4444" 
+              stroke-width="4" 
+              stroke-linecap="round"
+              class="transition-all duration-300 origin-bottom" 
+              style="transform-origin: 100px 140px;"
+            />
+          </svg>
+
+          <!-- Interactive Control HUD -->
+          <div class="absolute bottom-4 flex flex-col items-center gap-3 bg-slate-900/95 border border-white/10 px-5 py-3 rounded-2xl w-11/12 max-w-sm">
+            
+            <!-- Slider Adjuster Mode -->
+            <div id="vh-slider-controls" class="w-full space-y-2">
+              <div class="flex items-center justify-between text-xs font-bold text-slate-300">
+                <span>Adjust Vertical Length:</span>
+                <span id="vh-length-readout" class="font-mono text-indigo-400">120px (Equal)</span>
+              </div>
+              <input 
+                type="range" 
+                id="vh-slider" 
+                min="80" 
+                max="160" 
+                value="120" 
+                class="w-full accent-purple-500 bg-slate-850 h-1 rounded-lg appearance-none cursor-pointer"
+              />
+            </div>
+
+            <!-- Verification Controls -->
+            <div class="flex items-center justify-between w-full gap-2 pt-1 border-t border-white/5">
+              <button 
+                id="btn-vh-verify" 
+                class="flex-1 text-center font-black text-xs px-3 py-2 rounded-xl bg-purple-650 hover:bg-purple-550 text-white transition-colors shadow-md"
+              >
+                Verify Lengths
+              </button>
+              <button 
+                id="btn-vh-rotate" 
+                class="flex-1 text-center font-black text-xs px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white transition-colors border border-white/5 shadow-md"
+              >
+                Rotate Vertical Line
+              </button>
+            </div>
+            
+            <!-- Verification result readout -->
+            <div id="vh-result-banner" class="text-xs font-bold text-center text-indigo-400 h-4 transition-opacity duration-300">
+              Horizontal: 120px | Vertical: 120px
+            </div>
+          </div>
+        </div>
+        <div class="text-center text-xs text-slate-500 dark:text-slate-400 italic">
+          Use the slider to make the lines match, then click "Verify Lengths" or "Rotate Vertical Line" to check your accuracy.
+        </div>
+      </div>
+    </div>
+
+    <!-- Content Split Layout -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 pt-4">
+      
+      <!-- Left 2-Columns -->
+      <div class="lg:col-span-2 space-y-10">
+        <section class="space-y-4">
+          <h2 class="font-display text-2xl font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">🎮</span>
+            <span>EXPERIENCE IT FIRST</span>
+          </h2>
+          <div class="bg-indigo-950/20 border-2 border-indigo-500/15 rounded-3xl p-6 text-slate-700 dark:text-slate-350">
+            <p class="font-bold text-sm sm:text-base text-slate-200">How to test your perception calibration:</p>
+            <ul class="list-disc pl-5 mt-3 space-y-2 text-xs sm:text-sm font-medium">
+              <li>When you load the page, the slider is set to 120px (making the red vertical line exactly equal to the blue horizontal line). Notice how much taller the red line appears!</li>
+              <li>Drag the slider to the left to shorten the red vertical line until they look visually identical in size.</li>
+              <li>Click <strong>Verify Lengths</strong> to see the exact measurement values. Most people stop dragging the slider when the vertical line is around 100px to 105px (15% shorter than the horizontal line).</li>
+              <li>Click <strong>Rotate Vertical Line</strong> to watch the vertical line pivot downward. It will rotate 90 degrees and align directly with the horizontal line, showing they are physically identical.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="space-y-4">
+          <h2 class="font-display text-2xl font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">🧠</span>
+            <span>THE SCIENCE</span>
+          </h2>
+          <div class="prose prose-indigo dark:prose-invert text-slate-700 dark:text-slate-300 leading-relaxed space-y-4 text-xs sm:text-sm font-semibold text-justify">
+            <p>
+              The <strong>Vertical-Horizontal Illusion</strong> is an iconic geometrical optical illusion. First described systematically in the 19th century, it demonstrates that our visual field is highly asymmetrical. When presented with two perpendicular lines of the exact same length, the human brain consistently misinterprets the vertical line as being 15% to 20% longer.
+            </p>
+            
+            <p>
+              Neurological and physiological studies offer several primary explanations for this distortion:
+            </p>
+            <ul class="list-disc pl-5 space-y-2">
+              <li>
+                <strong>Ocular Muscle Effort:</strong> Our binocular visual field is oval-shaped, spanning wider horizontally than vertically. Because our eyes are arranged side-by-side, we scan horizontal planes constantly and with minimal effort. Moving our eyes vertically requires a different set of eye muscles to contract, demanding more physiological effort. The brain translates this higher muscular exertion as a longer physical trajectory, skewing our perception.
+              </li>
+              <li>
+                <strong>Line Bisection Effect:</strong> In the classic inverted "T" design, the vertical line bisects the horizontal line. Psychologists have found that bisecting a line makes it appear shorter, while the line doing the bisecting appears elongated. When tested with an L-shape (where the lines meet at a corner instead of bisecting), the illusion remains present but is reduced by about half, proving that bisection accentuates the effect.
+              </li>
+              <li>
+                <strong>Depth and Size Constancy:</strong> In natural landscapes, vertical lines extending upward from a base correspond to paths or objects moving away from the observer in 3D space (such as a road heading toward the horizon or a tall tree). The brain's <strong>size constancy mechanism</strong> automatically scales up objects that are interpreted as being far away in depth. This automatic 3D scaling elongates the vertical line in our conscious perception.
+              </li>
+            </ul>
+            <p>
+              Because these processing systems are hardwired into the visual cortex and ocular motor control circuits, the illusion remains powerful even when we are fully aware of the mathematical equality of the lines.
+            </p>
+          </div>
+        </section>
+      </div>
+
+      <!-- Right Column -->
+      <div class="space-y-8">
+        <section class="rounded-3xl border border-indigo-950/20 bg-slate-900/60 p-6 space-y-4 shadow-xl">
+          <h3 class="font-display text-lg font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">💡</span>
+            <span>FUN FACTS</span>
+          </h3>
+          <ul class="space-y-4 text-xs sm:text-sm text-slate-600 dark:text-slate-350 font-semibold">
+            <li class="flex items-start space-x-2">
+              <span class="text-purple-500 font-black">•</span>
+              <span>This illusion applies to 3D objects as well! For instance, drinking glasses or cups often look taller than they are wide, leading people to overestimate how much liquid they hold.</span>
+            </li>
+            <li class="flex items-start space-x-2">
+              <span class="text-purple-500 font-black">•</span>
+              <span>The illusion is slightly weaker in urban residents who are surrounded by rectangular architecture compared to rural residents, suggesting environmental factors play a small role.</span>
+            </li>
+            <li class="flex items-start space-x-2">
+              <span class="text-purple-500 font-black">•</span>
+              <span>It was famously analyzed by Wilhelm Wundt, the founder of experimental psychology, in 1858 during his early exploration of human sensory thresholds.</span>
+            </li>
+          </ul>
+        </section>
+
+        <section class="rounded-3xl border border-indigo-950/20 bg-slate-900/60 p-6 space-y-4 shadow-xl">
+          <h3 class="font-display text-lg font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">📜</span>
+            <span>HISTORY</span>
+          </h3>
+          <p class="text-xs sm:text-sm text-slate-650 dark:text-slate-355 leading-relaxed font-semibold">
+            While Wilhelm Wundt popularized the illusion in 1858, German physicist Adolf Fick published the first quantitative study of the phenomenon in 1851. It remains a fundamental tool for checking visual distortion thresholds in neurological research.
+          </p>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const sharePageBtn = document.getElementById('share-illusion-page-btn');
+    const pageToast = document.getElementById('page-share-toast');
+
+    sharePageBtn?.addEventListener('click', () => {
+      const pageUrl = window.location.href;
+      navigator.clipboard.writeText(pageUrl).then(() => {
+        if (pageToast) {
+          pageToast.classList.remove('opacity-0');
+          pageToast.classList.add('opacity-100');
+          setTimeout(() => {
+            pageToast.classList.remove('opacity-100');
+            pageToast.classList.add('opacity-0');
+          }, 2000);
+        }
+      });
+    });
+
+    // Vertical-Horizontal Illusion Logic
+    const slider = document.getElementById('vh-slider') as HTMLInputElement;
+    const verticalLine = document.getElementById('vh-detail-vertical') as SVGLineElement;
+    const readout = document.getElementById('vh-length-readout') as HTMLElement;
+    const btnVerify = document.getElementById('btn-vh-verify') as HTMLButtonElement;
+    const btnRotate = document.getElementById('btn-vh-rotate') as HTMLButtonElement;
+    const resultBanner = document.getElementById('vh-result-banner') as HTMLElement;
+    const refLines = document.getElementById('vh-reference-lines');
+
+    let currentLength = 120;
+    let isRotated = false;
+    let refLinesVisible = false;
+
+    // Handle slider adjustments
+    slider?.addEventListener('input', (e) => {
+      if (isRotated) {
+        // Reset rotation if slider is adjusted to prevent visual glitches
+        isRotated = false;
+        if (verticalLine) verticalLine.style.transform = '';
+        btnRotate.textContent = 'Rotate Vertical Line';
+      }
+      
+      const val = parseInt(slider.value);
+      currentLength = val;
+      
+      // Update SVG coordinates
+      // Baseline is at y = 140. If length is val, target y2 is 140 - val
+      if (verticalLine) {
+        verticalLine.setAttribute('y2', (140 - val).toString());
+      }
+
+      // Update HUD text
+      let suffix = '';
+      if (val === 120) {
+        suffix = ' (Equal)';
+      } else if (val < 120) {
+        const pct = Math.round(((120 - val) / 120) * 100);
+        suffix = ` (-${pct}% shorter)`;
+      } else {
+        const pct = Math.round(((val - 120) / 120) * 100);
+        suffix = ` (+${pct}% longer)`;
+      }
+      if (readout) readout.textContent = `${val}px${suffix}`;
+      if (resultBanner) resultBanner.textContent = `Horizontal: 120px | Vertical: ${val}px`;
+    });
+
+    // Verify lengths
+    btnVerify?.addEventListener('click', () => {
+      refLinesVisible = !refLinesVisible;
+      if (refLines) {
+        if (refLinesVisible) {
+          refLines.classList.remove('opacity-0');
+          refLines.classList.add('opacity-100');
+          btnVerify.textContent = 'Hide Calibration';
+        } else {
+          refLines.classList.remove('opacity-100');
+          refLines.classList.add('opacity-0');
+          btnVerify.textContent = 'Verify Lengths';
+        }
+      }
+    });
+
+    // Rotate vertical line to align with base line
+    btnRotate?.addEventListener('click', () => {
+      isRotated = !isRotated;
+      if (verticalLine) {
+        if (isRotated) {
+          // Pivot 90 degrees clockwise from bottom anchor
+          // (Since it starts pointing straight up, 90 deg clockwise lays it to the right)
+          verticalLine.style.transform = 'rotate(90deg)';
+          btnRotate.textContent = 'Reset Line';
+        } else {
+          verticalLine.style.transform = '';
+          btnRotate.textContent = 'Rotate Vertical Line';
+        }
+      }
+    });
+  </script>
+</Layout>

@@ -54,14 +54,22 @@ import Layout from '../layouts/Layout.astro';
     <div class="wdys-grid" id="illusions-grid">
 
       <!-- ===== CARD 1: OLD WOMAN / YOUNG WOMAN ===== -->
-      <div class="wdys-card" id="card-1" data-index="1">
+      <div class="wdys-card border-l-4 border-l-yellow-500" id="card-1" data-index="1">
         <div class="wdys-card-header">
           <div class="wdys-tags"><span class="wdys-tag-medium">🟡 Medium</span><span class="wdys-tag-type">Bistable Portrait</span></div>
           <h2 class="wdys-card-title">1. Old Woman / Young Woman</h2>
           <p class="wdys-card-desc">The same drawing contains two complete people. The young woman's chin is the old woman's nose. Her choker is the old woman's mouth.</p>
         </div>
 
-        <div class="wdys-demo-area">
+        
+        <!-- Instruction Box -->
+        <div class="my-3 flex items-start gap-2 rounded-xl border border-indigo-500/10 bg-indigo-500/5 p-3 text-xs text-slate-350 text-left">
+          <span class="text-base leading-none">👁️</span>
+          <div>
+            <strong class="text-slate-200">👁️ WHAT TO LOOK FOR:</strong> Observe the profile line. Can you see a young lady looking away, or an old woman looking downwards in profile?
+          </div>
+        </div>
+<div class="wdys-demo-area">
           <!-- SVG Old Woman / Young Woman -->
           <svg id="svg-ow-yw" class="wdys-svg" viewBox="0 0 240 280" xmlns="http://www.w3.org/2000/svg">
             <defs>
@@ -134,36 +142,60 @@ import Layout from '../layouts/Layout.astro';
             </div>
           </div>
         </div>
-      </div>
+      
+        <!-- Collapsible Explanation -->
+        <details class="w-full mt-4 border-t border-slate-800/40 pt-3 text-xs text-slate-400 select-none text-left">
+          <summary class="font-bold cursor-pointer hover:text-purple-400">👁️ Reveal Answer & Science</summary>
+          <p class="mt-2 font-normal leading-relaxed text-slate-400">
+            The Old Woman / Young Woman portrait is a classic bistable ambiguous figure. The young woman's cheek and chin double as the old woman's nose, her ear represents the old woman's eye, and her neckband is perceived as the old woman's mouth. The brain cannot resolve both interpretations simultaneously, toggling its attention between them.
+          </p>
+        </details>
+
+        <!-- Explore Link -->
+        <div class="w-full mt-4 pt-4 border-t border-slate-500/10 flex justify-between items-center text-xs font-black text-indigo-400 hover:text-indigo-300 transition-colors">
+          <span>Explore Science & Facts</span>
+          <a href="/illusions/old-woman-young-woman" class="hover:underline">Explore &rarr;</a>
+        </div>
+</div>
 
       <!-- ===== CARD 2: DUCK OR RABBIT ===== -->
-      <div class="wdys-card" id="card-2" data-index="2">
+      <div class="wdys-card border-l-4 border-l-emerald-500" id="card-2" data-index="2">
         <div class="wdys-card-header">
           <div class="wdys-tags"><span class="wdys-tag-easy">🟢 Easy</span><span class="wdys-tag-type">Classic Bistable</span></div>
           <h2 class="wdys-card-title">2. Duck or Rabbit?</h2>
           <p class="wdys-card-desc">Jastrow's 1899 classic. The duck's bill becomes the rabbit's ears depending on which way your brain points the animal.</p>
         </div>
 
-        <div class="wdys-demo-area">
-          <svg id="svg-duck-rabbit" class="wdys-svg" viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg">
-            <!-- Duck/Rabbit ambiguous body -->
-            <ellipse class="wdys-fill-primary" cx="145" cy="105" rx="70" ry="50"/>
-            <!-- Head/beak area -->
-            <ellipse class="wdys-fill-primary" cx="85" cy="95" rx="38" ry="33"/>
-            <!-- Duck bill / Rabbit ears -->
-            <path class="wdys-fill-primary" d="M 48,78 Q 20,68 8,85 Q 14,98 48,95 Z"/>
-            <path class="wdys-fill-primary" d="M 48,95 Q 20,98 10,115 Q 18,128 48,112 Z"/>
-            <!-- Rabbit ear 1 (top) — same as duck bill top -->
-            <!-- Eye -->
-            <circle cx="72" cy="82" r="5" fill="white"/>
-            <circle cx="72" cy="82" r="2.5" fill="#1e293b"/>
-            <!-- Highlight -->
-            <circle cx="73" cy="81" r="1" fill="white"/>
-            <!-- Tail (rabbit) / Wing nub (duck) -->
-            <path class="wdys-fill-secondary" d="M 210,88 Q 230,82 235,100 Q 228,115 210,112 Z"/>
-            <!-- Webbed foot / fluffy bottom -->
-            <path class="wdys-fill-secondary" d="M 140,152 Q 155,165 170,158 Q 175,148 160,145 Z"/>
-            <path class="wdys-fill-secondary" d="M 118,155 Q 130,168 145,162 Q 148,150 134,147 Z"/>
+        
+        <!-- Instruction Box -->
+        <div class="my-3 flex items-start gap-2 rounded-xl border border-indigo-500/10 bg-indigo-500/5 p-3 text-xs text-slate-350 text-left">
+          <span class="text-base leading-none">👁️</span>
+          <div>
+            <strong class="text-slate-200">👁️ WHAT TO LOOK FOR:</strong> Observe the protrusions on the left. Do you see them as a duck's open bill facing left, or a rabbit's ears facing right?
+          </div>
+        </div>
+<div class="wdys-demo-area">
+          <svg id="svg-duck-rabbit" class="wdys-svg bg-slate-900 rounded-xl p-2" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="160" cy="110" rx="75" ry="55" fill="#ffffff" />
+            <ellipse cx="95" cy="100" rx="40" ry="35" fill="#ffffff" />
+            <path d="M 58,82 Q 25,72 10,90 Q 18,103 58,100 Z" fill="#ffffff" />
+            <path d="M 58,100 Q 25,103 12,120 Q 20,133 58,117 Z" fill="#ffffff" />
+            <circle cx="82" cy="86" r="6" fill="#0f172a" />
+            <circle cx="82" cy="86" r="3" fill="#ffffff" />
+            <path d="M 95,120 Q 90,110 95,100" stroke="#0f172a" stroke-width="2.5" fill="none" />
+
+            <!-- Duck Highlight Overlay -->
+            <g id="dr-duck-overlay" style="display:none" class="pointer-events-none">
+              <path d="M 58,82 Q 25,72 10,90 Q 18,103 58,100 Z" stroke="#3b82f6" stroke-width="3.5" fill="none" />
+              <path d="M 58,100 Q 25,103 12,120 Q 20,133 58,117 Z" stroke="#3b82f6" stroke-width="3.5" fill="none" />
+              <text x="15" y="65" fill="#60a5fa" font-size="11" font-weight="900">Duck Bill</text>
+            </g>
+            <!-- Rabbit Highlight Overlay -->
+            <g id="dr-rabbit-overlay" style="display:none" class="pointer-events-none">
+              <path d="M 58,82 Q 25,72 10,90 Q 18,103 58,100 Z" stroke="#ef4444" stroke-width="3.5" fill="none" />
+              <path d="M 58,100 Q 25,103 12,120 Q 20,133 58,117 Z" stroke="#ef4444" stroke-width="3.5" fill="none" />
+              <text x="15" y="145" fill="#f87171" font-size="11" font-weight="900">Rabbit Ears</text>
+            </g>
           </svg>
           <p class="wdys-fun-fact">🌱 Fun fact: People born in spring tend to see the rabbit first!</p>
         </div>
@@ -185,20 +217,46 @@ import Layout from '../layouts/Layout.astro';
               <div class="wdys-bar-track"><div class="wdys-bar-fill wdys-bar-b" id="bar-2-b" style="width:0%"></div></div>
               <span class="wdys-pct" id="pct-2-b">—</span>
             </div>
+            <div class="wdys-reveal-actions">
+              <button class="wdys-reveal-btn active" onclick="toggleArrows('dr-duck-overlay','dr-rabbit-overlay',this)">Show Duck 🦆</button>
+              <button class="wdys-reveal-btn" onclick="toggleArrows('dr-rabbit-overlay','dr-duck-overlay',this)">Show Rabbit 🐇</button>
+            </div>
             <p class="wdys-insight">Tip: Tilt your head right → duck. Left → rabbit. The ambiguity is in the horizontal orientation of the "bill/ears".</p>
           </div>
         </div>
-      </div>
+      
+        <!-- Collapsible Explanation -->
+        <details class="w-full mt-4 border-t border-slate-800/40 pt-3 text-xs text-slate-400 select-none text-left">
+          <summary class="font-bold cursor-pointer hover:text-purple-400">👁️ Reveal Answer & Science</summary>
+          <p class="mt-2 font-normal leading-relaxed text-slate-400">
+            The Duck-Rabbit is a classic bistable figure. The horizontal protrusions function as either a duck's bill or a rabbit's ears. The brain alternates between these interpretations based on top-down semantic priming and gaze orientation.
+          </p>
+        </details>
+
+        <!-- Explore Link -->
+        <div class="w-full mt-4 pt-4 border-t border-slate-500/10 flex justify-between items-center text-xs font-black text-indigo-400 hover:text-indigo-300 transition-colors">
+          <span>Explore Science & Facts</span>
+          <a href="/illusions/duck-rabbit" class="hover:underline">Explore &rarr;</a>
+        </div>
+</div>
 
       <!-- ===== CARD 3: FACE OR VASE (RUBIN) ===== -->
-      <div class="wdys-card" id="card-3" data-index="3">
+      <div class="wdys-card border-l-4 border-l-emerald-500" id="card-3" data-index="3">
         <div class="wdys-card-header">
           <div class="wdys-tags"><span class="wdys-tag-easy">🟢 Easy</span><span class="wdys-tag-type">Figure-Ground</span></div>
           <h2 class="wdys-card-title">3. Face or Vase?</h2>
           <p class="wdys-card-desc">Edgar Rubin's 1915 masterpiece of figure-ground perception. Your brain can only hold one interpretation at a time.</p>
         </div>
 
-        <div class="wdys-demo-area">
+        
+        <!-- Instruction Box -->
+        <div class="my-3 flex items-start gap-2 rounded-xl border border-indigo-500/10 bg-indigo-500/5 p-3 text-xs text-slate-350 text-left">
+          <span class="text-base leading-none">👁️</span>
+          <div>
+            <strong class="text-slate-200">👁️ WHAT TO LOOK FOR:</strong> Stare at the center. Do you see a yellow vase, or two dark profiles facing each other?
+          </div>
+        </div>
+<div class="wdys-demo-area">
           <svg id="svg-rubin" class="wdys-svg" viewBox="0 0 240 260" xmlns="http://www.w3.org/2000/svg">
             <rect width="240" height="260" fill="#1e1b4b" rx="8"/>
             <!-- Left face profile -->
@@ -249,22 +307,44 @@ import Layout from '../layouts/Layout.astro';
               <span class="wdys-pct" id="pct-3-b">—</span>
             </div>
             <div class="wdys-reveal-actions">
-              <button class="wdys-reveal-btn active" onclick="rubinHighlight('faces')">Highlight Faces 👤</button>
-              <button class="wdys-reveal-btn" onclick="rubinHighlight('vase')">Highlight Vase 🏺</button>
+              <button class="wdys-reveal-btn active" onclick="rubinHighlight('faces', this)">Highlight Faces 👤</button>
+              <button class="wdys-reveal-btn" onclick="rubinHighlight('vase', this)">Highlight Vase 🏺</button>
             </div>
           </div>
         </div>
-      </div>
+      
+        <!-- Collapsible Explanation -->
+        <details class="w-full mt-4 border-t border-slate-800/40 pt-3 text-xs text-slate-400 select-none text-left">
+          <summary class="font-bold cursor-pointer hover:text-purple-400">👁️ Reveal Answer & Science</summary>
+          <p class="mt-2 font-normal leading-relaxed text-slate-400">
+            Rubin's Vase is a classic figure-ground illusion. The visual cortex must decide whether to assign the central contour to the foreground (creating a vase) or the background (creating two profiles facing each other).
+          </p>
+        </details>
+
+        <!-- Explore Link -->
+        <div class="w-full mt-4 pt-4 border-t border-slate-500/10 flex justify-between items-center text-xs font-black text-indigo-400 hover:text-indigo-300 transition-colors">
+          <span>Explore Science & Facts</span>
+          <a href="/illusions/rubins-vase" class="hover:underline">Explore &rarr;</a>
+        </div>
+</div>
 
       <!-- ===== CARD 4: DUCK OR SQUIRREL ===== -->
-      <div class="wdys-card" id="card-4" data-index="4">
+      <div class="wdys-card border-l-4 border-l-rose-500" id="card-4" data-index="4">
         <div class="wdys-card-header">
           <div class="wdys-tags"><span class="wdys-tag-hard">🔴 Hard</span><span class="wdys-tag-type">Bistable Animal</span></div>
           <h2 class="wdys-card-title">4. Duck or Squirrel?</h2>
           <p class="wdys-card-desc">The duck's bill sweeps into the squirrel's bushy tail. Fewer than 40% of viewers see both animals without a hint.</p>
         </div>
 
-        <div class="wdys-demo-area">
+        
+        <!-- Instruction Box -->
+        <div class="my-3 flex items-start gap-2 rounded-xl border border-indigo-500/10 bg-indigo-500/5 p-3 text-xs text-slate-350 text-left">
+          <span class="text-base leading-none">👁️</span>
+          <div>
+            <strong class="text-slate-200">👁️ WHAT TO LOOK FOR:</strong> Observe the main figure shape. Is it a duck looking to the left, or a squirrel holding a nut facing right?
+          </div>
+        </div>
+<div class="wdys-demo-area">
           <svg id="svg-duck-squirrel" class="wdys-svg" viewBox="0 0 260 220" xmlns="http://www.w3.org/2000/svg">
             <!-- Body shared -->
             <ellipse class="wdys-fill-primary" cx="125" cy="125" rx="58" ry="42"/>
@@ -283,6 +363,19 @@ import Layout from '../layouts/Layout.astro';
             <!-- Legs / feet -->
             <path class="wdys-fill-secondary" d="M 108,165 Q 112,180 122,183 Q 130,178 128,165 Z"/>
             <path class="wdys-fill-secondary" d="M 128,165 Q 132,180 142,182 Q 150,176 148,165 Z"/>
+
+            <!-- Duck Overlay -->
+            <g id="ds-duck-overlay" style="display:none" class="pointer-events-none">
+              <path d="M 52,90 Q 30,82 18,98 Q 28,113 52,108 Z" fill="none" stroke="#3b82f6" stroke-width="2.5" />
+              <path d="M 170,75 Q 210,55 228,82 Q 240,100 225,122 Q 205,145 175,138 Q 155,128 165,110 Q 172,95 170,75 Z" fill="none" stroke="#3b82f6" stroke-width="2.5" />
+              <text x="125" y="45" fill="#60a5fa" font-size="10" font-weight="900" text-anchor="middle">Duck Wing & Beak</text>
+            </g>
+            <!-- Squirrel Overlay -->
+            <g id="ds-squirrel-overlay" style="display:none" class="pointer-events-none">
+              <path d="M 170,75 Q 210,55 228,82 Q 240,100 225,122 Q 205,145 175,138 Q 155,128 165,110 Q 172,95 170,75 Z" fill="none" stroke="#ef4444" stroke-width="2.5" />
+              <path d="M 72,75 Q 70,55 82,52 Q 92,52 90,72 Z" fill="none" stroke="#ef4444" stroke-width="2.5" />
+              <text x="125" y="45" fill="#f87171" font-size="10" font-weight="900" text-anchor="middle">Squirrel Tail & Ears</text>
+            </g>
           </svg>
         </div>
 
@@ -303,20 +396,46 @@ import Layout from '../layouts/Layout.astro';
               <div class="wdys-bar-track"><div class="wdys-bar-fill wdys-bar-b" id="bar-4-b" style="width:0%"></div></div>
               <span class="wdys-pct" id="pct-4-b">—</span>
             </div>
+            <div class="wdys-reveal-actions">
+              <button class="wdys-reveal-btn active" onclick="toggleArrows('ds-duck-overlay','ds-squirrel-overlay',this)">Show Duck 🦆</button>
+              <button class="wdys-reveal-btn" onclick="toggleArrows('ds-squirrel-overlay','ds-duck-overlay',this)">Show Squirrel 🐿️</button>
+            </div>
             <p class="wdys-insight">💡 Hint: If you see a duck, look at the tail area — it becomes a squirrel's bushy fur. The "ear" is actually a tail!</p>
           </div>
         </div>
-      </div>
+      
+        <!-- Collapsible Explanation -->
+        <details class="w-full mt-4 border-t border-slate-800/40 pt-3 text-xs text-slate-400 select-none text-left">
+          <summary class="font-bold cursor-pointer hover:text-purple-400">👁️ Reveal Answer & Science</summary>
+          <p class="mt-2 font-normal leading-relaxed text-slate-400">
+            The Duck-Squirrel is a modern figure-ground bistable illusion. The shape of the squirrel's tail forms the duck's beak on the left. The brain's object recognition system interprets the contours based on semantic priming.
+          </p>
+        </details>
+
+        <!-- Explore Link -->
+        <div class="w-full mt-4 pt-4 border-t border-slate-500/10 flex justify-between items-center text-xs font-black text-indigo-400 hover:text-indigo-300 transition-colors">
+          <span>Explore Science & Facts</span>
+          <a href="/illusions/duck-squirrel" class="hover:underline">Explore &rarr;</a>
+        </div>
+</div>
 
       <!-- ===== CARD 5: SKULL OR WOMEN ===== -->
-      <div class="wdys-card" id="card-5" data-index="5">
+      <div class="wdys-card border-l-4 border-l-rose-500" id="card-5" data-index="5">
         <div class="wdys-card-header">
           <div class="wdys-tags"><span class="wdys-tag-hard">🔴 Hard</span><span class="wdys-tag-type">Composite Figure</span></div>
           <h2 class="wdys-card-title">5. Skull or Women at a Table?</h2>
           <p class="wdys-card-desc">Inspired by Salvador Dalí's surrealism. Two women sitting at a vanity mirror form the shape of a human skull.</p>
         </div>
 
-        <div class="wdys-demo-area">
+        
+        <!-- Instruction Box -->
+        <div class="my-3 flex items-start gap-2 rounded-xl border border-indigo-500/10 bg-indigo-500/5 p-3 text-xs text-slate-350 text-left">
+          <span class="text-base leading-none">👁️</span>
+          <div>
+            <strong class="text-slate-200">👁️ WHAT TO LOOK FOR:</strong> Squint your eyes or step back. Do you see a large skull, or two women in dresses sitting opposite each other at a table?
+          </div>
+        </div>
+<div class="wdys-demo-area">
           <svg id="svg-skull-women" class="wdys-svg" viewBox="0 0 240 280" xmlns="http://www.w3.org/2000/svg">
             <!-- Background dark -->
             <rect width="240" height="280" fill="#0f172a" rx="8"/>
@@ -343,6 +462,18 @@ import Layout from '../layouts/Layout.astro';
             <!-- Candle on table / nose bridge detail -->
             <rect class="wdys-fill-svg-accent" x="116" y="148" width="8" height="16" rx="1"/>
             <ellipse class="wdys-fill-svg-glow" cx="120" cy="147" rx="4" ry="3"/>
+
+            <!-- Skull Overlay -->
+            <g id="sw-skull-overlay" style="display:none" class="pointer-events-none">
+              <ellipse cx="120" cy="125" rx="76" ry="90" fill="none" stroke="#ef4444" stroke-width="3" />
+              <text x="120" y="25" fill="#ef4444" font-size="10" font-weight="900" text-anchor="middle">Skull Outline</text>
+            </g>
+            <!-- Women Overlay -->
+            <g id="sw-women-overlay" style="display:none" class="pointer-events-none">
+              <path d="M 55,95 Q 60,80 72,78 Q 80,88 75,105 Q 68,118 65,135 Q 60,155 58,162 L 42,162 Q 44,145 48,128 Q 52,112 55,95 Z" fill="none" stroke="#3b82f6" stroke-width="2.5" />
+              <path d="M 185,95 Q 180,80 168,78 Q 160,88 165,105 Q 172,118 175,135 Q 180,155 182,162 L 198,162 Q 196,145 192,128 Q 188,112 185,95 Z" fill="none" stroke="#3b82f6" stroke-width="2.5" />
+              <text x="120" y="45" fill="#60a5fa" font-size="10" font-weight="900" text-anchor="middle">Two Seated Women</text>
+            </g>
           </svg>
         </div>
 
@@ -363,20 +494,46 @@ import Layout from '../layouts/Layout.astro';
               <div class="wdys-bar-track"><div class="wdys-bar-fill wdys-bar-b" id="bar-5-b" style="width:0%"></div></div>
               <span class="wdys-pct" id="pct-5-b">—</span>
             </div>
+            <div class="wdys-reveal-actions">
+              <button class="wdys-reveal-btn active" onclick="toggleArrows('sw-skull-overlay','sw-women-overlay',this)">Show Skull 💀</button>
+              <button class="wdys-reveal-btn" onclick="toggleArrows('sw-women-overlay','sw-skull-overlay',this)">Show Women 👩</button>
+            </div>
             <p class="wdys-insight">The two dark oval eye sockets are actually the women's silhouettes. The table with teeth = the row of teeth along the jaw. Step back from your screen for the skull!</p>
           </div>
         </div>
-      </div>
+      
+        <!-- Collapsible Explanation -->
+        <details class="w-full mt-4 border-t border-slate-800/40 pt-3 text-xs text-slate-400 select-none text-left">
+          <summary class="font-bold cursor-pointer hover:text-purple-400">👁️ Reveal Answer & Science</summary>
+          <p class="mt-2 font-normal leading-relaxed text-slate-400">
+            This skull composite drawing is an ambiguous illusion. When viewed close, high-frequency details (two women at a table) dominate. From a distance, low-frequency details group to form a human skull, where the women's heads form the eyes and the plates form the teeth.
+          </p>
+        </details>
+
+        <!-- Explore Link -->
+        <div class="w-full mt-4 pt-4 border-t border-slate-500/10 flex justify-between items-center text-xs font-black text-indigo-400 hover:text-indigo-300 transition-colors">
+          <span>Explore Science & Facts</span>
+          <a href="/illusions/skull-women" class="hover:underline">Explore &rarr;</a>
+        </div>
+</div>
 
       <!-- ===== CARD 6: SAXOPHONIST OR WOMAN'S FACE ===== -->
-      <div class="wdys-card" id="card-6" data-index="6">
+      <div class="wdys-card border-l-4 border-l-yellow-500" id="card-6" data-index="6">
         <div class="wdys-card-header">
           <div class="wdys-tags"><span class="wdys-tag-medium">🟡 Medium</span><span class="wdys-tag-type">Figure-Ground</span></div>
           <h2 class="wdys-card-title">6. Saxophonist or Woman's Face?</h2>
           <p class="wdys-card-desc">A jazz musician in full profile OR a beautiful woman's face. The saxophone bell becomes her flowing hair.</p>
         </div>
 
-        <div class="wdys-demo-area">
+        
+        <!-- Instruction Box -->
+        <div class="my-3 flex items-start gap-2 rounded-xl border border-indigo-500/10 bg-indigo-500/5 p-3 text-xs text-slate-350 text-left">
+          <span class="text-base leading-none">👁️</span>
+          <div>
+            <strong class="text-slate-200">👁️ WHAT TO LOOK FOR:</strong> Look at the black silhouette. Do you see a profile of a saxophone player, or the white background shaping a woman's face in highlight?
+          </div>
+        </div>
+<div class="wdys-demo-area">
           <svg id="svg-sax-woman" class="wdys-svg" viewBox="0 0 200 280" xmlns="http://www.w3.org/2000/svg">
             <rect width="200" height="280" fill="#1e1b4b" rx="8"/>
             <!-- Saxophonist hat / woman's forehead hair -->
@@ -415,6 +572,19 @@ import Layout from '../layouts/Layout.astro';
             <circle cx="110" cy="165" r="5" fill="#fbbf24" opacity="0.8"/>
             <circle cx="112" cy="180" r="4" fill="#fbbf24" opacity="0.7"/>
             <circle cx="108" cy="195" r="4.5" fill="#fbbf24" opacity="0.8"/>
+
+            <!-- Saxophonist Overlay -->
+            <g id="sax-overlay-sax" style="display:none" class="pointer-events-none">
+              <path d="M 20,0 L 20,280 L 100,280 M 100,280 Q 95,260 88,245 Q 78,228 68,218 Q 55,205 50,188 Q 42,165 45,145 Q 47,128 55,115 Q 62,102 65,88 Q 70,72 65,55 Q 58,38 45,30 Q 30,20 20,10" fill="none" stroke="#3b82f6" stroke-width="3" />
+              <circle cx="55" cy="82" r="8" fill="none" stroke="#3b82f6" stroke-width="2" />
+              <text x="150" y="45" fill="#60a5fa" font-size="10" font-weight="900" text-anchor="middle">Sax Player Outline</text>
+            </g>
+            <!-- Woman Overlay -->
+            <g id="sax-overlay-woman" style="display:none" class="pointer-events-none">
+              <path d="M 100,280 Q 95,260 88,245 Q 78,228 68,218 Q 55,205 50,188 Q 42,165 45,145 Q 47,128 55,115 Q 62,102 65,88 Q 70,72 65,55 Q 58,38 45,30 Q 30,20 20,10" fill="none" stroke="#ef4444" stroke-width="3" />
+              <circle cx="55" cy="82" r="8" fill="none" stroke="#ef4444" stroke-width="2" />
+              <text x="150" y="45" fill="#f87171" font-size="10" font-weight="900" text-anchor="middle">Woman Profile Outline</text>
+            </g>
           </svg>
         </div>
 
@@ -435,20 +605,46 @@ import Layout from '../layouts/Layout.astro';
               <div class="wdys-bar-track"><div class="wdys-bar-fill wdys-bar-b" id="bar-6-b" style="width:0%"></div></div>
               <span class="wdys-pct" id="pct-6-b">—</span>
             </div>
+            <div class="wdys-reveal-actions">
+              <button class="wdys-reveal-btn active" onclick="toggleArrows('sax-overlay-sax','sax-overlay-woman',this)">Show Saxophonist 🎷</button>
+              <button class="wdys-reveal-btn" onclick="toggleArrows('sax-overlay-woman','sax-overlay-sax',this)">Show Woman's Face 👩</button>
+            </div>
             <p class="wdys-insight">The left white region = musician playing sax. The right dark region = a woman's face in shadow. The saxophone bell = her flowing dark hair. Same boundary, two realities.</p>
           </div>
         </div>
-      </div>
+      
+        <!-- Collapsible Explanation -->
+        <details class="w-full mt-4 border-t border-slate-800/40 pt-3 text-xs text-slate-400 select-none text-left">
+          <summary class="font-bold cursor-pointer hover:text-purple-400">👁️ Reveal Answer & Science</summary>
+          <p class="mt-2 font-normal leading-relaxed text-slate-400">
+            The Saxophonist / Woman's Face is a figure-ground bistable outline. The black silhouette outlines a saxophone player, while the white negative space outlines a woman's face lit from the side.
+          </p>
+        </details>
+
+        <!-- Explore Link -->
+        <div class="w-full mt-4 pt-4 border-t border-slate-500/10 flex justify-between items-center text-xs font-black text-indigo-400 hover:text-indigo-300 transition-colors">
+          <span>Explore Science & Facts</span>
+          <a href="/illusions/saxophonist-woman" class="hover:underline">Explore &rarr;</a>
+        </div>
+</div>
 
       <!-- ===== CARD 7: PENGUIN OR CAT ===== -->
-      <div class="wdys-card" id="card-7" data-index="7">
+      <div class="wdys-card border-l-4 border-l-emerald-500" id="card-7" data-index="7">
         <div class="wdys-card-header">
           <div class="wdys-tags"><span class="wdys-tag-easy">🟢 Easy</span><span class="wdys-tag-type">Animal Bistable</span></div>
           <h2 class="wdys-card-title">7. Penguin or Cat?</h2>
           <p class="wdys-card-desc">A simple silhouette that works equally well as a waddling penguin or a sitting cat looking forward. Can you see both?</p>
         </div>
 
-        <div class="wdys-demo-area">
+        
+        <!-- Instruction Box -->
+        <div class="my-3 flex items-start gap-2 rounded-xl border border-indigo-500/10 bg-indigo-500/5 p-3 text-xs text-slate-350 text-left">
+          <span class="text-base leading-none">👁️</span>
+          <div>
+            <strong class="text-slate-200">👁️ WHAT TO LOOK FOR:</strong> Observe the white negative space. Is it a waddling penguin, or a silhouette of a cat's head?
+          </div>
+        </div>
+<div class="wdys-demo-area">
           <svg id="svg-penguin-cat" class="wdys-svg" viewBox="0 0 200 260" xmlns="http://www.w3.org/2000/svg">
             <!-- Dark body (penguin body / cat body) -->
             <ellipse fill="#1e293b" cx="100" cy="165" rx="55" ry="72"/>
@@ -482,6 +678,21 @@ import Layout from '../layouts/Layout.astro';
             <!-- Feet -->
             <ellipse fill="#f97316" cx="85" cy="233" rx="20" ry="8" transform="rotate(-15,85,233)"/>
             <ellipse fill="#f97316" cx="115" cy="233" rx="20" ry="8" transform="rotate(15,115,233)"/>
+
+            <!-- Penguin Overlay -->
+            <g id="pc-overlay-penguin" style="display:none" class="pointer-events-none">
+              <ellipse cx="100" cy="172" rx="32" ry="52" fill="none" stroke="#3b82f6" stroke-width="3" />
+              <ellipse fill="none" stroke="#3b82f6" stroke-width="2" cx="85" cy="90" rx="12" ry="14"/>
+              <ellipse fill="none" stroke="#3b82f6" stroke-width="2" cx="115" cy="90" rx="12" ry="14"/>
+              <text x="100" y="25" fill="#60a5fa" font-size="10" font-weight="900" text-anchor="middle">Penguin Outline</text>
+            </g>
+            <!-- Cat Overlay -->
+            <g id="pc-overlay-cat" style="display:none" class="pointer-events-none">
+              <ellipse fill="none" stroke="#ef4444" stroke-width="3" cx="100" cy="88" rx="42" ry="40"/>
+              <polygon fill="none" stroke="#ef4444" stroke-width="3" points="68,62 58,30 85,58"/>
+              <polygon fill="none" stroke="#ef4444" stroke-width="3" points="132,62 142,30 115,58"/>
+              <text x="100" y="25" fill="#f87171" font-size="10" font-weight="900" text-anchor="middle">Cat ears & head</text>
+            </g>
           </svg>
         </div>
 
@@ -502,13 +713,31 @@ import Layout from '../layouts/Layout.astro';
               <div class="wdys-bar-track"><div class="wdys-bar-fill wdys-bar-b" id="bar-7-b" style="width:0%"></div></div>
               <span class="wdys-pct" id="pct-7-b">—</span>
             </div>
+            <div class="wdys-reveal-actions">
+              <button class="wdys-reveal-btn active" onclick="toggleArrows('pc-overlay-penguin','pc-overlay-cat',this)">Show Penguin 🐧</button>
+              <button class="wdys-reveal-btn" onclick="toggleArrows('pc-overlay-cat','pc-overlay-penguin',this)">Show Cat 🐱</button>
+            </div>
             <p class="wdys-insight">The orange "triangle" at the bottom is a beak (penguin) or a cat's nose. The pointy ears confirm the cat. The waddling feet confirm the penguin!</p>
           </div>
         </div>
-      </div>
+      
+        <!-- Collapsible Explanation -->
+        <details class="w-full mt-4 border-t border-slate-800/40 pt-3 text-xs text-slate-400 select-none text-left">
+          <summary class="font-bold cursor-pointer hover:text-purple-400">👁️ Reveal Answer & Science</summary>
+          <p class="mt-2 font-normal leading-relaxed text-slate-400">
+            The Penguin / Cat is a silhouette bistable illusion. The white inner shape represents a penguin's body, while the surrounding black contours outline a cat's head, showing how figure-ground segregation defines object boundaries.
+          </p>
+        </details>
+
+        <!-- Explore Link -->
+        <div class="w-full mt-4 pt-4 border-t border-slate-500/10 flex justify-between items-center text-xs font-black text-indigo-400 hover:text-indigo-300 transition-colors">
+          <span>Explore Science & Facts</span>
+          <a href="/illusions/penguin-cat" class="hover:underline">Explore &rarr;</a>
+        </div>
+</div>
 
       <!-- ===== CARD 8: SPINNING DANCER ===== -->
-      <div class="wdys-card" id="card-8" data-index="8">
+      <div class="wdys-card border-l-4 border-l-yellow-500" id="card-8" data-index="8">
         <div class="wdys-card-header">
           <div class="wdys-tags"><span class="wdys-tag-medium">🟡 Medium</span><span class="wdys-tag-type">Motion Bistable</span></div>
           <h2 class="wdys-card-title">8. Spinning Dancer</h2>
@@ -567,17 +796,39 @@ import Layout from '../layouts/Layout.astro';
             <p class="wdys-insight">Neither answer is "correct"! The dancer is a 2D silhouette with no depth cues. Studies show ~54% see clockwise first. Trying looking just at the foot touching the ground.</p>
           </div>
         </div>
-      </div>
+      
+        <!-- Collapsible Explanation -->
+        <details class="w-full mt-4 border-t border-slate-800/40 pt-3 text-xs text-slate-400 select-none text-left">
+          <summary class="font-bold cursor-pointer hover:text-purple-400">👁️ Reveal Answer & Science</summary>
+          <p class="mt-2 font-normal leading-relaxed text-slate-400">
+            The Spinning Dancer is an ambiguous silhouette illusion. Since it has no depth or volumetric cues (no shadows or light reflections), the brain cannot determine whether the rotation is clockwise or counter-clockwise.
+          </p>
+        </details>
+
+        <!-- Explore Link -->
+        <div class="w-full mt-4 pt-4 border-t border-slate-500/10 flex justify-between items-center text-xs font-black text-indigo-400 hover:text-indigo-300 transition-colors">
+          <span>Explore Science & Facts</span>
+          <a href="/illusions/spinning-dancer" class="hover:underline">Explore &rarr;</a>
+        </div>
+</div>
 
       <!-- ===== CARD 9: NECKER CUBE ===== -->
-      <div class="wdys-card" id="card-9" data-index="9">
+      <div class="wdys-card border-l-4 border-l-yellow-500" id="card-9" data-index="9">
         <div class="wdys-card-header">
           <div class="wdys-tags"><span class="wdys-tag-medium">🟡 Medium</span><span class="wdys-tag-type">3D Depth Bistable</span></div>
           <h2 class="wdys-card-title">9. Necker Cube</h2>
           <p class="wdys-card-desc">Louis Albert Necker discovered in 1832 that a wireframe cube spontaneously "flips" between two 3D orientations. Your brain can only hold one at a time.</p>
         </div>
 
-        <div class="wdys-demo-area">
+        
+        <!-- Instruction Box -->
+        <div class="my-3 flex items-start gap-2 rounded-xl border border-indigo-500/10 bg-indigo-500/5 p-3 text-xs text-slate-350 text-left">
+          <span class="text-base leading-none">👁️</span>
+          <div>
+            <strong class="text-slate-200">👁️ WHAT TO LOOK FOR:</strong> Look at the wireframe cube. Which face is in the front? Watch it flip in your mind's eye.
+          </div>
+        </div>
+<div class="wdys-demo-area">
           <div class="necker-wrap">
             <svg id="svg-necker" class="wdys-svg" viewBox="0 0 220 200" xmlns="http://www.w3.org/2000/svg">
               <!-- Necker cube wireframe — classic orientation -->
@@ -619,64 +870,40 @@ import Layout from '../layouts/Layout.astro';
             <p class="wdys-insight">Both orientations are equally valid! The cube reversal happens every ~3-5 seconds for most people. Interestingly, you can learn to control which orientation you see with practice.</p>
           </div>
         </div>
-      </div>
+      
+        <!-- Collapsible Explanation -->
+        <details class="w-full mt-4 border-t border-slate-800/40 pt-3 text-xs text-slate-400 select-none text-left">
+          <summary class="font-bold cursor-pointer hover:text-purple-400">👁️ Reveal Answer & Science</summary>
+          <p class="mt-2 font-normal leading-relaxed text-slate-400">
+            The Necker Cube is a wireframe bistable projection. With no depth markers, both the front and back planes are equally plausible, causing the visual system to constantly toggle the cube's orientation in 3D space.
+          </p>
+        </details>
 
-      <!-- ===== CARD 10: THREE DOTS MOTION ===== -->
-      <div class="wdys-card" id="card-10" data-index="10">
-        <div class="wdys-card-header">
-          <div class="wdys-tags"><span class="wdys-tag-hard">🔴 Hard</span><span class="wdys-tag-type">Motion Perception</span></div>
-          <h2 class="wdys-card-title">10. What Motion Do You See?</h2>
-          <p class="wdys-card-desc">Two dots moving in simple paths. Without context, your brain must decide whether they are moving independently or as a single rotating pair.</p>
+        <!-- Explore Link -->
+        <div class="w-full mt-4 pt-4 border-t border-slate-500/10 flex justify-between items-center text-xs font-black text-indigo-400 hover:text-indigo-300 transition-colors">
+          <span>Explore Science & Facts</span>
+          <a href="/illusions/necker-cube" class="hover:underline">Explore &rarr;</a>
         </div>
+</div>
 
-        <div class="wdys-demo-area">
-          <div class="dots-stage" id="dots-stage">
-            <canvas id="dots-canvas" width="300" height="220" style="border-radius:12px;"></canvas>
-          </div>
-          <div class="wdys-slider-row">
-            <label class="dancer-label">Cover right half: <input type="range" id="dots-cover" min="0" max="100" value="0" class="wdys-slider"/></label>
-          </div>
-          <div id="dots-cover-overlay" class="dots-cover-overlay" style="right:auto;left:auto;width:0%"></div>
-          <p class="wdys-fun-fact">💡 Reveal: Drag the slider to cover one dot — the motion of the remaining dot becomes crystal clear!</p>
-        </div>
-
-        <div class="wdys-vote-section">
-          <p class="wdys-vote-prompt">What motion do you perceive?</p>
-          <div class="wdys-vote-buttons wdys-vote-buttons-3">
-            <button class="wdys-vote-btn" data-card="10" data-choice="a">↔️ Side to side</button>
-            <button class="wdys-vote-btn" data-card="10" data-choice="b">↕️ Up and down</button>
-            <button class="wdys-vote-btn" data-card="10" data-choice="c">🔄 Circular</button>
-          </div>
-          <div class="wdys-reveal-bar" id="reveal-10" style="display:none">
-            <div class="wdys-result-bar-row">
-              <span class="wdys-result-label">↔️ Side to side</span>
-              <div class="wdys-bar-track"><div class="wdys-bar-fill wdys-bar-a" id="bar-10-a" style="width:0%"></div></div>
-              <span class="wdys-pct" id="pct-10-a">—</span>
-            </div>
-            <div class="wdys-result-bar-row">
-              <span class="wdys-result-label">↕️ Up/Down</span>
-              <div class="wdys-bar-track"><div class="wdys-bar-fill wdys-bar-b" id="bar-10-b" style="width:0%"></div></div>
-              <span class="wdys-pct" id="pct-10-b">—</span>
-            </div>
-            <div class="wdys-result-bar-row">
-              <span class="wdys-result-label">🔄 Circular</span>
-              <div class="wdys-bar-track"><div class="wdys-bar-fill wdys-bar-b" id="bar-10-c" style="width:0%"></div></div>
-              <span class="wdys-pct" id="pct-10-c">—</span>
-            </div>
-            <p class="wdys-insight">The dots are actually moving in perfect circles! But seen together, your brain "binds" them into an apparent lateral or rocking motion. This is called motion binding and involves area MT/V5 of the visual cortex.</p>
-          </div>
-        </div>
-      </div>
 
       <!-- ===== CARD 11: RABBIT OR DUCK — SEASONAL ===== -->
-      <div class="wdys-card" id="card-11" data-index="11">
+      <div class="wdys-card border-l-4 border-l-yellow-500" id="card-11" data-index="11">
         <div class="wdys-card-header">
           <div class="wdys-tags"><span class="wdys-tag-medium">🟡 Medium</span><span class="wdys-tag-type">Contextual Bistable</span></div>
           <h2 class="wdys-card-title">11. Seasonal Duck or Rabbit?</h2>
           <p class="wdys-card-desc">Studies by Joseph Jastrow show that what time of year it is subtly influences which animal you see first. The image shifts based on the current month!</p>
         </div>
 
-        <div class="wdys-demo-area">
+        
+        <!-- Instruction Box -->
+        <div class="my-3 flex items-start gap-2 rounded-xl border border-indigo-500/10 bg-indigo-500/5 p-3 text-xs text-slate-350 text-left">
+          <span class="text-base leading-none">👁️</span>
+          <div>
+            <strong class="text-slate-200">👁️ WHAT TO LOOK FOR:</strong> Look at the animal outline. Jastrow's research shows that the current month primes your brain to see one animal first.
+          </div>
+        </div>
+<div class="wdys-demo-area">
           <div class="seasonal-wrap">
             <div class="seasonal-month-label" id="seasonal-label">Loading...</div>
             <svg id="svg-seasonal" class="wdys-svg" viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg">
@@ -701,6 +928,16 @@ import Layout from '../layouts/Layout.astro';
               <g id="rabbit-hint" opacity="0">
                 <text x="145" y="200" text-anchor="middle" fill="#10b981" font-size="9" font-family="sans-serif">🐇 rabbit season</text>
               </g>
+              <!-- Duck Highlight Overlay -->
+              <g id="sea-duck-overlay" style="display:none" class="pointer-events-none">
+                <path d="M 46,80 Q 18,70 6,87 Q 12,100 46,97 Z" stroke="#3b82f6" stroke-width="3.5" fill="none" />
+                <path d="M 46,97 Q 18,100 8,117 Q 16,130 46,114 Z" stroke="#3b82f6" stroke-width="3.5" fill="none" />
+              </g>
+              <!-- Rabbit Highlight Overlay -->
+              <g id="sea-rabbit-overlay" style="display:none" class="pointer-events-none">
+                <path d="M 46,80 Q 18,70 6,87 Q 12,100 46,97 Z" stroke="#ef4444" stroke-width="3.5" fill="none" />
+                <path d="M 46,97 Q 18,100 8,117 Q 16,130 46,114 Z" stroke="#ef4444" stroke-width="3.5" fill="none" />
+              </g>
             </svg>
           </div>
         </div>
@@ -722,20 +959,46 @@ import Layout from '../layouts/Layout.astro';
               <div class="wdys-bar-track"><div class="wdys-bar-fill wdys-bar-b" id="bar-11-b" style="width:0%"></div></div>
               <span class="wdys-pct" id="pct-11-b">—</span>
             </div>
+            <div class="wdys-reveal-actions">
+              <button class="wdys-reveal-btn active" onclick="toggleArrows('sea-duck-overlay','sea-rabbit-overlay',this)">Show Duck 🦆</button>
+              <button class="wdys-reveal-btn" onclick="toggleArrows('sea-rabbit-overlay','sea-duck-overlay',this)">Show Rabbit 🐇</button>
+            </div>
             <p id="seasonal-science" class="wdys-insight"></p>
           </div>
         </div>
-      </div>
+      
+        <!-- Collapsible Explanation -->
+        <details class="w-full mt-4 border-t border-slate-800/40 pt-3 text-xs text-slate-400 select-none text-left">
+          <summary class="font-bold cursor-pointer hover:text-purple-400">👁️ Reveal Answer & Science</summary>
+          <p class="mt-2 font-normal leading-relaxed text-slate-400">
+            The Seasonal Duck-Rabbit demonstrates how top-down cognitive priming works. The current season (spring/summer vs autumn/winter) primes our semantic pathways, influencing which animal our visual cortex resolves first.
+          </p>
+        </details>
+
+        <!-- Explore Link -->
+        <div class="w-full mt-4 pt-4 border-t border-slate-500/10 flex justify-between items-center text-xs font-black text-indigo-400 hover:text-indigo-300 transition-colors">
+          <span>Explore Science & Facts</span>
+          <a href="/illusions/seasonal-duck-rabbit" class="hover:underline">Explore &rarr;</a>
+        </div>
+</div>
 
       <!-- ===== CARD 12: MY WIFE AND MY MOTHER-IN-LAW ===== -->
-      <div class="wdys-card" id="card-12" data-index="12">
+      <div class="wdys-card border-l-4 border-l-yellow-500" id="card-12" data-index="12">
         <div class="wdys-card-header">
           <div class="wdys-tags"><span class="wdys-tag-medium">🟡 Medium</span><span class="wdys-tag-type">Gestalt Portrait</span></div>
           <h2 class="wdys-card-title">12. Young or Old? — W.E. Hill's Classic</h2>
           <p class="wdys-card-desc">W.E. Hill's 1915 "My Wife and My Mother-In-Law." The young woman's chin becomes the old woman's nose. Studies show age affects which you see first.</p>
         </div>
 
-        <div class="wdys-demo-area">
+        
+        <!-- Instruction Box -->
+        <div class="my-3 flex items-start gap-2 rounded-xl border border-indigo-500/10 bg-indigo-500/5 p-3 text-xs text-slate-350 text-left">
+          <span class="text-base leading-none">👁️</span>
+          <div>
+            <strong class="text-slate-200">👁️ WHAT TO LOOK FOR:</strong> Stare at the nose and chin area. Can you see a young lady looking away, or an elderly woman looking downwards?
+          </div>
+        </div>
+<div class="wdys-demo-area">
           <svg id="svg-hill" class="wdys-svg" viewBox="0 0 220 270" xmlns="http://www.w3.org/2000/svg">
             <!-- Outer silhouette background -->
             <ellipse fill="#1e293b" cx="110" cy="140" rx="85" ry="98"/>
@@ -768,6 +1031,19 @@ import Layout from '../layouts/Layout.astro';
             <path fill="#94a3b8" d="M 65,195 Q 90,218 120,215 Q 142,210 155,198 Q 148,225 120,232 Q 90,232 70,218 Z"/>
             <!-- Hat / hair top (young woman's hat = old woman's hair) -->
             <path fill="#64748b" d="M 82,50 Q 100,30 128,38 Q 148,46 152,62 Q 158,52 148,40 Q 132,24 108,22 Q 85,22 72,38 Z"/>
+
+            <!-- Young Woman Overlay -->
+            <g id="hill-overlay-young" style="display:none" class="pointer-events-none">
+              <circle cx="148" cy="115" r="12" fill="none" stroke="#3b82f6" stroke-width="2.5" />
+              <path d="M 88,165 Q 100,172 115,165" fill="none" stroke="#3b82f6" stroke-width="3" />
+              <text x="110" y="245" fill="#60a5fa" font-size="10" font-weight="900" text-anchor="middle">Young Woman Choker & Ear</text>
+            </g>
+            <!-- Old Woman Overlay -->
+            <g id="hill-overlay-old" style="display:none" class="pointer-events-none">
+              <path d="M 90,110 Q 80,118 78,130 Q 82,138 92,132" fill="none" stroke="#ef4444" stroke-width="3" />
+              <path d="M 88,165 Q 100,172 115,165" fill="none" stroke="#ef4444" stroke-width="3" />
+              <text x="110" y="245" fill="#f87171" font-size="10" font-weight="900" text-anchor="middle">Old Woman Nose & Mouth</text>
+            </g>
           </svg>
         </div>
 
@@ -788,12 +1064,30 @@ import Layout from '../layouts/Layout.astro';
               <div class="wdys-bar-track"><div class="wdys-bar-fill wdys-bar-b" id="bar-12-b" style="width:0%"></div></div>
               <span class="wdys-pct" id="pct-12-b">—</span>
             </div>
+            <div class="wdys-reveal-actions">
+              <button class="wdys-reveal-btn active" onclick="toggleArrows('hill-overlay-young','hill-overlay-old',this)">Show Young Woman 👱‍♀️</button>
+              <button class="wdys-reveal-btn" onclick="toggleArrows('hill-overlay-old','hill-overlay-young',this)">Show Old Woman 👵</button>
+            </div>
             <p class="wdys-insight">Studies show that younger participants tend to see the young woman first, while older participants more readily see the old woman. Your brain's priors prime it toward the familiar!</p>
           </div>
         </div>
       </div>
 
-    </div><!-- /grid -->
+    
+        <!-- Collapsible Explanation -->
+        <details class="w-full mt-4 border-t border-slate-800/40 pt-3 text-xs text-slate-400 select-none text-left">
+          <summary class="font-bold cursor-pointer hover:text-purple-400">👁️ Reveal Answer & Science</summary>
+          <p class="mt-2 font-normal leading-relaxed text-slate-400">
+            W.E. Hill's classic 'My Wife and My Mother-in-Law' is a bistable portrait. The young lady's chin is the old lady's nose, and her necklace is the old lady's mouth, illustrating top-down prediction processing.
+          </p>
+        </details>
+
+        <!-- Explore Link -->
+        <div class="w-full mt-4 pt-4 border-t border-slate-500/10 flex justify-between items-center text-xs font-black text-indigo-400 hover:text-indigo-300 transition-colors">
+          <span>Explore Science & Facts</span>
+          <a href="/illusions/wife-mother-in-law" class="hover:underline">Explore &rarr;</a>
+        </div>
+</div><!-- /grid -->
   </section>
 
   <!-- ===== RESULTS SECTION ===== -->
@@ -850,32 +1144,95 @@ import Layout from '../layouts/Layout.astro';
       <div class="wdys-faq-list">
 
         <details class="wdys-faq-item">
+          <summary class="wdys-faq-q">What do you see optical illusions?</summary>
+          <p class="wdys-faq-a">"What do you see" optical illusions (technically known as ambiguous or bistable figures) are visual stimuli that present two or more distinct, mutually exclusive interpretations. These images exploit a process in visual neuroscience called perceptual rivalry. When you look at an ambiguous figure like Rubin's Vase, the raw light signals entering the retina are identical for both interpretations. However, the higher-level visual processing centers in the primary visual cortex (V1) and secondary visual cortex (V2) must segment the image into a foreground figure and a background. Because the borders are shared, the brain's top-down processing system must choose one winner, resulting in the alternating perceptual flips we experience.</p>
+        </details>
+
+        <details class="wdys-faq-item">
+          <summary class="wdys-faq-q">Optical illusions what do you see first?</summary>
+          <p class="wdys-faq-a">The question of what you see first in an optical illusion depends on a combination of visual priming, attention, and cognitive priors. Your visual system is not a passive mirror; it actively predicts the environment. If your eyes scan a specific feature first—such as the central vase curve vs. the outer profile contours—that area reaches the neural activation threshold in area V2 faster. Additionally, recent exposure to related images, cultural priming, and even seasonal contexts (Jastrow's seasonal duck/rabbit effect) bias the top-down predictive signals sent from the prefrontal cortex to the visual cortex. This primes specific neural assemblies to detect one shape over another, determining your initial conscious perception.</p>
+        </details>
+
+        <details class="wdys-faq-item">
+          <summary class="wdys-faq-q">Hard optical illusions what do you see first?</summary>
+          <p class="wdys-faq-a">Hard "what do you see first" optical illusions feature highly balanced visual cues where both interpretations compete equally for neural dominance. In these complex figures, such as Escher's tessellations or composite portraits like W.E. Hill's young/old woman, the shared contours are mathematically optimized to prevent a single clear winner. Your first impression in these difficult tasks is driven by micro-saccadic eye movements. Your eyes perform rapid, involuntary jumps to search for focal points. If your first saccade lands on a high-contrast detail, like the choker necklace or hooked nose, that detail anchors your attention. This allows top-down predictions to instantly resolve the rest of the ambiguous geometry accordingly.</p>
+        </details>
+
+        <details class="wdys-faq-item">
+          <summary class="wdys-faq-q">Optical illusions how many animals can you see?</summary>
+          <p class="wdys-faq-a">"How many animals can you see" illusions exploit Gestalt principles of grouping, particularly the laws of closure, continuity, and figure-ground organization. Artists hide animal silhouettes within larger visual structures, such as tree branches or complex landscape contours. In visual area V2, neurons are highly sensitive to contours and border ownership. When you scan the image, your attention selectively highlights different parts of the drawing, shifting border ownership from the background tree to a hidden animal silhouette. The brain cannot group all shapes simultaneously because of the single-winner constraint of visual consciousness. Instead, it parses the hidden animals sequentially as your focus shifts from region to region.</p>
+        </details>
+
+        <details class="wdys-faq-item">
           <summary class="wdys-faq-q">What does what you see first in an optical illusion reveal about you?</summary>
-          <p class="wdys-faq-a">Your first interpretation reflects your brain's <strong>perceptual priors</strong> — accumulated expectations built from past experience, culture, current mood, and even recent context. It doesn't definitively label you as "creative" or "analytical," but patterns across many ambiguous figures can reveal tendencies in how your visual system prioritizes information.</p>
+          <p class="wdys-faq-a">What you see first in an optical illusion does not reveal hidden personality traits, but it does demonstrate your brain's unique perceptual priors and processing tendencies. The visual cortex relies on accumulated experiences to make unconscious inferences about ambiguous sensory data. For example, studies show that younger individuals are primed to see the young lady in Hill's classic portrait, whereas older populations identify the elderly woman first. This correlation reveals how age, cultural familiarity, and environmental statistics shape the top-down templates your brain uses to interpret the world. These tests highlight individual differences in visual processing, attention distribution, and neural adaptation thresholds.</p>
         </details>
 
         <details class="wdys-faq-item">
           <summary class="wdys-faq-q">Why can't I see both interpretations at the same time?</summary>
-          <p class="wdys-faq-a">Your brain's perceptual system is a <strong>single-winner network</strong>. Competing interpretations are processed simultaneously at low levels of the visual hierarchy, but only one is allowed to reach conscious awareness at a time. This is likely an evolutionary advantage — ambiguity in the wild (is that a stick or a snake?) demands a clear, committed answer.</p>
-        </details>
-
-        <details class="wdys-faq-item">
-          <summary class="wdys-faq-q">Can I train myself to switch between optical illusion interpretations?</summary>
-          <p class="wdys-faq-a">Yes! With practice, you can learn to control bistable perception. Effective strategies include: shifting your gaze to different parts of the image, briefly closing your eyes, imagining the alternative interpretation before looking, and using attention to "lock in" a specific reading. Artists and neuroscientists regularly use this technique.</p>
-        </details>
-
-        <details class="wdys-faq-item">
-          <summary class="wdys-faq-q">Do optical illusions that show what you see first really work as personality tests?</summary>
-          <p class="wdys-faq-a">The science is nuanced. While single illusion tests are not clinically validated personality measures, research shows that <strong>systematic differences in perceptual style</strong> do correlate with personality traits. For example, high openness-to-experience scorers switch between interpretations more readily. These tests are best understood as fun, educational demonstrations rather than diagnostic tools.</p>
-        </details>
-
-        <details class="wdys-faq-item">
-          <summary class="wdys-faq-q">Why do some people never see the second interpretation in "what do you see" illusions?</summary>
-          <p class="wdys-faq-a">Some individuals have <strong>strongly dominant perceptual priors</strong> for one interpretation, making the alternative nearly invisible without explicit instruction. Factors include: prior exposure, cultural context (East Asian cultures are more prone to see contextual/background elements), and individual differences in top-down vs. bottom-up visual processing strength.</p>
+          <p class="wdys-faq-a">You cannot see both interpretations of an ambiguous figure at the same time because the visual cortex operates as a single-winner competitive network. When two different visual hypotheses compete, reciprocal inhibitory connections between specialized neuron groups in the visual cortex actively suppress the weaker signal. When one hypothesis is selected as the conscious "figure," the other is relegated to the "ground." This winner-take-all architecture is an evolutionary advantage: in the wild, the brain must make rapid, unambiguous decisions for survival (such as identifying a predator). The constant switching between interpretations occurs because the active neural population tires over time, allowing the suppressed hypothesis to rise and dominate.</p>
         </details>
 
       </div>
     </div>
+
+    <!-- Structured JSON-LD FAQ Schema -->
+    <script type="application/ld+json" is:inline>
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What do you see optical illusions?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "\"What do you see\" optical illusions (technically known as ambiguous or bistable figures) are visual stimuli that present two or more distinct, mutually exclusive interpretations. These images exploit a process in visual neuroscience called perceptual rivalry. When you look at an ambiguous figure like Rubin's Vase, the raw light signals entering the retina are identical for both interpretations. However, the higher-level visual processing centers in the primary visual cortex (V1) and secondary visual cortex (V2) must segment the image into a foreground figure and a background. Because the borders are shared, the brain's top-down processing system must choose one winner, resulting in the alternating perceptual flips we experience."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Optical illusions what do you see first?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The question of what you see first in an optical illusion depends on a combination of visual priming, attention, and cognitive priors. Your visual system is not a passive mirror; it actively predicts the environment. If your eyes scan a specific feature first—such as the central vase curve vs. the outer profile contours—that area reaches the neural activation threshold in area V2 faster. Additionally, recent exposure to related images, cultural priming, and even seasonal contexts (Jastrow's seasonal duck/rabbit effect) bias the top-down predictive signals sent from the prefrontal cortex to the visual cortex. This primes specific neural assemblies to detect one shape over another, determining your initial conscious perception."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Hard optical illusions what do you see first?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Hard \"what do you see first\" optical illusions feature highly balanced visual cues where both interpretations compete equally for neural dominance. In these complex figures, such as Escher's tessellations or composite portraits like W.E. Hill's young/old woman, the shared contours are mathematically optimized to prevent a single clear winner. Your first impression in these difficult tasks is driven by micro-saccadic eye movements. Your eyes perform rapid, involuntary jumps to search for focal points. If your first saccade lands on a high-contrast detail, like the choker necklace or hooked nose, that detail anchors your attention. This allows top-down predictions to instantly resolve the rest of the ambiguous geometry accordingly."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Optical illusions how many animals can you see?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "\"How many animals can you see\" illusions exploit Gestalt principles of grouping, particularly the laws of closure, continuity, and figure-ground organization. Artists hide animal silhouettes within larger visual structures, such as tree branches or complex landscape contours. In visual area V2, neurons are highly sensitive to contours and border ownership. When you scan the image, your attention selectively highlights different parts of the drawing, shifting border ownership from the background tree to a hidden animal silhouette. The brain cannot group all shapes simultaneously because of the single-winner constraint of visual consciousness. Instead, it parses the hidden animals sequentially as your focus shifts from region to region."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What does what you see first in an optical illusion reveal about you?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "What you see first in an optical illusion does not reveal hidden personality traits, but it does demonstrate your brain's unique perceptual priors and processing tendencies. The visual cortex relies on accumulated experiences to make unconscious inferences about ambiguous sensory data. For example, studies show that younger individuals are primed to see the young lady in Hill's classic portrait, whereas older populations identify the elderly woman first. This correlation reveals how age, cultural familiarity, and environmental statistics shape the top-down templates your brain uses to interpret the world. These tests highlight individual differences in visual processing, attention distribution, and neural adaptation thresholds."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Why can't I see both interpretations at the same time?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "You cannot see both interpretations of an ambiguous figure at the same time because the visual cortex operates as a single-winner competitive network. When two different visual hypotheses compete, reciprocal inhibitory connections between specialized neuron groups in the visual cortex actively suppress the weaker signal. When one hypothesis is selected as the conscious \"figure,\" the other is relegated to the \"ground.\" This winner-take-all architecture is an evolutionary advantage: in the wild, the brain must make rapid, unambiguous decisions for survival (such as identifying a predator). The constant switching between interpretations occurs because the active neural population tires over time, allowing the suppressed hypothesis to rise and dominate."
+            }
+          }
+        ]
+      }
+    </script>
   </section>
 
   <style>
@@ -1343,6 +1700,49 @@ import Layout from '../layouts/Layout.astro';
     reveal.style.flexDirection = 'column';
     reveal.style.gap = '0.5rem';
 
+    // Show selection tag
+    const votes = loadVotes();
+    const myVote = votes[String(cardIndex)];
+    if (myVote) {
+      const btn = document.querySelector(`[data-card="${cardIndex}"][data-choice="${myVote}"]`);
+      if (btn) {
+        let tag = reveal.querySelector('.wdys-selection-tag');
+        if (!tag) {
+          tag = document.createElement('p');
+          tag.className = 'wdys-selection-tag text-[10px] text-purple-400 font-bold mb-2 text-left';
+          reveal.insertBefore(tag, reveal.firstChild);
+        }
+        tag.innerHTML = `Your selection: <span class="text-white bg-purple-500/20 px-2 py-0.5 rounded border border-purple-500/30">${btn.textContent.trim()}</span>`;
+      }
+    }
+
+    // Auto-show overlays on reveal
+    if (cardIndex === 1) {
+      const el = document.getElementById('ow-yw-young-arrows');
+      if (el) el.style.display = 'block';
+    } else if (cardIndex === 2) {
+      const el = document.getElementById('dr-duck-overlay');
+      if (el) el.style.display = 'block';
+    } else if (cardIndex === 4) {
+      const el = document.getElementById('ds-duck-overlay');
+      if (el) el.style.display = 'block';
+    } else if (cardIndex === 5) {
+      const el = document.getElementById('sw-skull-overlay');
+      if (el) el.style.display = 'block';
+    } else if (cardIndex === 6) {
+      const el = document.getElementById('sax-overlay-sax');
+      if (el) el.style.display = 'block';
+    } else if (cardIndex === 7) {
+      const el = document.getElementById('pc-overlay-penguin');
+      if (el) el.style.display = 'block';
+    } else if (cardIndex === 11) {
+      const el = document.getElementById('sea-duck-overlay');
+      if (el) el.style.display = 'block';
+    } else if (cardIndex === 12) {
+      const el = document.getElementById('hill-overlay-young');
+      if (el) el.style.display = 'block';
+    }
+
     const card = String(cardIndex);
     const choices = cardIndex === 10 ? ['a','b','c'] : ['a','b'];
     choices.forEach(ch => {
@@ -1459,7 +1859,7 @@ import Layout from '../layouts/Layout.astro';
   // ============================================================
   //  RUBIN HIGHLIGHT (card 3)
   // ============================================================
-  function rubinHighlight(which) {
+  function rubinHighlight(which, btn) {
     const left = document.getElementById('rubin-left');
     const right = document.getElementById('rubin-right');
     const vase = document.getElementById('rubin-vase-hl');
@@ -1471,6 +1871,10 @@ import Layout from '../layouts/Layout.astro';
       left.style.fill = '#1e1b4b';
       right.style.fill = '#1e1b4b';
       vase.style.fill = 'rgba(250,204,21,0.5)';
+    }
+    if (btn) {
+      btn.closest('.wdys-reveal-actions').querySelectorAll('.wdys-reveal-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
     }
   }
 
@@ -1524,74 +1928,6 @@ import Layout from '../layouts/Layout.astro';
   }
 
   // ============================================================
-  //  DOTS CANVAS (card 10)
-  // ============================================================
-  function initDots() {
-    const canvas = document.getElementById('dots-canvas');
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    const W = canvas.width, H = canvas.height;
-    let t = 0;
-    const R = 55;
-    const cx = W / 2, cy = H / 2;
-
-    function draw() {
-      ctx.clearRect(0, 0, W, H);
-      ctx.fillStyle = '#0f172a';
-      ctx.fillRect(0, 0, W, H);
-
-      // Dot A — moves in a circle
-      const ax = cx - R + R * Math.cos(t);
-      const ay = cy + R * Math.sin(t);
-      ctx.beginPath();
-      ctx.arc(ax, ay, 16, 0, Math.PI * 2);
-      ctx.fillStyle = '#818cf8';
-      ctx.shadowColor = '#6366f1';
-      ctx.shadowBlur = 20;
-      ctx.fill();
-
-      // Dot B — moves in opposite phase circle
-      const bx = cx + R + R * Math.cos(t + Math.PI);
-      const by = cy + R * Math.sin(t + Math.PI);
-      ctx.beginPath();
-      ctx.arc(bx, by, 16, 0, Math.PI * 2);
-      ctx.fillStyle = '#f472b6';
-      ctx.shadowColor = '#ec4899';
-      ctx.shadowBlur = 20;
-      ctx.fill();
-      ctx.shadowBlur = 0;
-
-      // Path trace
-      ctx.strokeStyle = 'rgba(129,140,248,0.12)';
-      ctx.lineWidth = 1;
-      ctx.beginPath();
-      ctx.arc(cx - R, cy, R, 0, Math.PI * 2);
-      ctx.stroke();
-      ctx.beginPath();
-      ctx.arc(cx + R, cy, R, 0, Math.PI * 2);
-      ctx.stroke();
-
-      t += 0.032;
-      requestAnimationFrame(draw);
-    }
-    draw();
-
-    // Cover slider
-    const coverSlider = document.getElementById('dots-cover');
-    const stage = document.getElementById('dots-stage');
-    if (coverSlider && stage) {
-      coverSlider.addEventListener('input', () => {
-        const pct = parseInt(coverSlider.value);
-        // Darken right side of canvas using overlay positioned over canvas
-        canvas.style.maskImage = pct > 0
-          ? `linear-gradient(to right, black ${100-pct}%, transparent ${100-pct}%)`
-          : 'none';
-        canvas.style.webkitMaskImage = canvas.style.maskImage;
-      });
-    }
-  }
-
-  // ============================================================
   //  SEASONAL DUCK/RABBIT (card 11)
   // ============================================================
   function initSeasonal() {
@@ -1626,7 +1962,6 @@ import Layout from '../layouts/Layout.astro';
     initVisitorCounter();
     updateProgress();
     initDancer();
-    initDots();
     initSeasonal();
 
     // Restore any prior votes from this session

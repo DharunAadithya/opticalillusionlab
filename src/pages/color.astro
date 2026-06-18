@@ -4,8 +4,8 @@ import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout 
-  title="Color & Colour Optical Illusions — 8 Visual Experiments | Optical Illusion Lab" 
-  description="Explore interactive color optical illusions. Vote on the famous Dress, test Adelson's checkerboard, play with simultaneous contrast, and try the afterimage experiment."
+  title="Color & Colour Optical Illusions — 7 Visual Experiments | Optical Illusion Lab" 
+  description="Explore interactive color optical illusions, test Adelson's checkerboard, play with simultaneous contrast, and try the afterimage experiment."
 >
 
   <!-- Hero Section -->
@@ -23,122 +23,21 @@ import Layout from '../layouts/Layout.astro';
         Your brain doesn't see colors — it <span class="text-pink-400 font-bold">guesses</span> them. And it's wrong more often than you think.
       </p>
       
-      <div class="flex justify-center space-x-4">
-        <a href="#dress-section" class="rounded-2xl bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-600 px-6 py-3 text-sm font-bold text-white shadow-lg hover:scale-105 transition-all">
-          Vote on The Dress 👗
-        </a>
-        <a href="#experiments-grid" class="rounded-2xl border border-white/20 bg-white/5 hover:bg-white/10 px-6 py-3 text-sm font-bold text-slate-200 hover:text-white transition-all">
+      <div class="flex justify-center">
+        <a href="#experiments-grid" class="rounded-2xl bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-600 hover:scale-105 text-white px-8 py-4 text-sm font-bold shadow-lg transition-all">
           Explore Experiments 🔬
         </a>
       </div>
     </div>
   </section>
 
-  <!-- SECTION 1: THE DRESS VOTE -->
-  <section id="dress-section" class="py-16 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto border-b border-indigo-500/10">
-    <div class="bg-slate-900/60 border border-purple-500/20 rounded-3xl p-6 sm:p-10 shadow-2xl relative overflow-hidden">
-      <div class="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-yellow-500/5 pointer-events-none"></div>
-      
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
-        <!-- Visual Display Column -->
-        <div class="flex flex-col items-center justify-center bg-slate-950/40 rounded-2xl p-6 border border-slate-800 relative min-h-[380px]">
-          <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Ambiguous Dress Display</h3>
-          
-          <div class="relative w-full max-w-[260px] aspect-[3/4] rounded-xl overflow-hidden flex items-center justify-center bg-[#777] border border-slate-700 shadow-inner">
-            <!-- Ambiguous Dress SVG -->
-            <svg id="svg-dress" class="w-full h-full select-none overflow-visible transition-all duration-300" viewBox="0 0 200 300">
-              <!-- Background split showing assumed illumination -->
-              <rect x="0" y="0" width="100" height="300" fill="#223" opacity="0.3" class="dress-light-left" />
-              <rect x="100" y="0" width="100" height="300" fill="#ffd" opacity="0.1" class="dress-light-right" />
-              
-              <!-- Dress Body -->
-              <path d="M 75,40 Q 100,30 125,40 L 135,80 Q 100,85 65,80 Z" class="dress-fabric" />
-              <path d="M 75,40 Q 65,60 65,80 L 75,80 Q 75,60 85,40 Z" class="dress-fabric" />
-              <path d="M 125,40 Q 135,60 135,80 L 125,80 Q 125,60 115,40 Z" class="dress-fabric" />
-              <path d="M 65,80 Q 100,85 135,80 L 148,150 L 160,260 L 40,260 L 52,150 Z" class="dress-fabric" />
-              
-              <!-- Lace Stripes -->
-              <path d="M 66,100 Q 100,105 134,100 L 136,115 Q 100,120 64,115 Z" class="dress-stripes" />
-              <path d="M 62,135 Q 100,140 138,135 L 140,150 Q 100,155 60,150 Z" class="dress-stripes" />
-              <path d="M 55,175 Q 100,182 145,175 L 148,190 Q 100,198 52,190 Z" class="dress-stripes" />
-              <path d="M 48,215 Q 100,224 152,215 L 155,230 Q 100,240 45,230 Z" class="dress-stripes" />
-              
-              <!-- Lighting cast overlay -->
-              <rect id="dress-overlay" x="0" y="0" width="200" height="300" fill="rgba(128,128,128,0)" style="mix-blend-mode: overlay; pointer-events: none;" />
-            </svg>
-          </div>
-          
-          <!-- Ambient light slider -->
-          <div class="w-full max-w-[260px] mt-6 space-y-2">
-            <div class="flex justify-between text-[11px] font-black text-slate-400 uppercase">
-              <span>🔵 Cool Cast (Shadow)</span>
-              <span>🌞 Warm Cast (Sunlight)</span>
-            </div>
-            <input type="range" id="dress-light-slider" min="0" max="100" value="50" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-purple-500 border border-slate-700" />
-          </div>
-        </div>
 
-        <!-- Voting / Explanation Column -->
-        <div class="space-y-6">
-          <div class="space-y-2">
-            <span class="text-xs font-bold text-pink-400 uppercase tracking-widest">Viral Experiment 👗</span>
-            <h2 class="font-display text-3xl font-black text-white">THE AMBIGUOUS DRESS</h2>
-            <p class="text-slate-300 text-sm leading-relaxed">
-              Look closely at the dress. What colors do you see? Tap your choice below to cast your live vote and reveal the statistics!
-            </p>
-          </div>
 
-          <!-- Vote buttons -->
-          <div class="grid grid-cols-2 gap-4" id="dress-vote-controls">
-            <button class="vote-btn border-2 border-blue-500/30 bg-blue-950/20 hover:bg-blue-500/20 text-blue-200 hover:text-white font-bold py-4 px-6 rounded-2xl flex flex-col items-center justify-center space-y-2 shadow-lg transition-all active:scale-95" data-choice="blue-black">
-              <span class="text-2xl">🔵</span>
-              <span class="text-sm font-black">Blue & Black</span>
-            </button>
-            <button class="vote-btn border-2 border-yellow-500/30 bg-yellow-950/20 hover:bg-yellow-500/20 text-yellow-250 hover:text-white font-bold py-4 px-6 rounded-2xl flex flex-col items-center justify-center space-y-2 shadow-lg transition-all active:scale-95" data-choice="white-gold">
-              <span class="text-2xl">⬜</span>
-              <span class="text-sm font-black">White & Gold</span>
-            </button>
-          </div>
-
-          <!-- Live percentage display (initially hidden) -->
-          <div id="dress-results" class="hidden bg-slate-950/60 p-4 rounded-2xl border border-slate-800 space-y-3">
-            <div class="flex justify-between items-center text-sm font-black text-slate-300">
-              <span>🔵 Blue & Black: <span id="pct-blue">62%</span></span>
-              <span>⬜ White & Gold: <span id="pct-white">38%</span></span>
-            </div>
-            <div class="w-full h-3 bg-slate-800 rounded-full overflow-hidden flex">
-              <div id="bar-blue" class="h-full bg-blue-500 transition-all duration-500" style="width: 62%;"></div>
-              <div id="bar-white" class="h-full bg-yellow-500 transition-all duration-500" style="width: 38%;"></div>
-            </div>
-            <p class="text-[10px] text-slate-500 text-right uppercase tracking-wider" id="vote-count-label"></p>
-          </div>
-
-          <!-- Scientific explanation -->
-          <div id="dress-explanation" class="hidden bg-purple-950/20 p-5 rounded-2xl border border-purple-500/10 space-y-3 text-xs leading-relaxed text-slate-300">
-            <p class="font-black text-pink-400 uppercase text-sm">🧠 The Mystery of Color Constancy</p>
-            <p>
-              Both interpretations are completely correct! The image is a classic example of <strong>color constancy</strong>. Because the photograph's lighting is ambiguous, your brain has to guess.
-            </p>
-            <p>
-              If your brain assumes the dress is in <strong>cool shadow</strong> (blue light), it subconsciously subtracts the blue tint, leaving you seeing <strong>white and gold</strong>. 
-            </p>
-            <p>
-              If your brain assumes the dress is under <strong>warm bright light</strong>, it subtracts the gold/yellow tint, leaving you seeing <strong>blue and black</strong>. 
-            </p>
-            <p>
-              Use the <strong>Ambient Light slider</strong> below the dress to manually inject cool/warm lighting casts and watch how the colors change!
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SECTION 2: 8 COLOR ILLUSION EXPERIMENTS -->
+  <!-- SECTION 2: 7 COLOR ILLUSION EXPERIMENTS -->
   <section id="experiments-grid" class="py-16 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto space-y-12">
     <div class="text-center space-y-2">
       <h2 class="font-display text-3xl sm:text-4xl font-black text-white">
-        8 COLOR ILLUSION EXPERIMENTS 🧪
+        7 COLOR ILLUSION EXPERIMENTS 🧪
       </h2>
       <p class="text-slate-400 max-w-md mx-auto text-sm">Interact with each visual lab to test your perceptual color limits.</p>
       <div class="mx-auto h-1 w-24 rounded-full bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-500 mt-4"></div>
@@ -159,7 +58,23 @@ import Layout from '../layouts/Layout.astro';
           </p>
         </div>
         
-        <div class="my-6 flex flex-col items-center justify-center bg-slate-950/40 rounded-xl p-4 border border-slate-800 relative min-h-[220px]">
+        <div 
+        <!-- Instruction Box -->
+        <div class="my-3 flex items-start gap-2 rounded-xl border border-indigo-500/10 bg-indigo-500/5 p-3 text-xs text-slate-350">
+          <span class="text-base leading-none">👁️</span>
+          <div>
+            <strong class="text-slate-200">👁️ WHAT TO LOOK FOR:</strong> Look at tiles A and B. Click 'Reveal Truth' to see they have identical gray colors.
+          </div>
+        </div>
+
+        <!-- Instruction Box -->
+        <div class="my-3 flex items-start gap-2 rounded-xl border border-indigo-500/10 bg-indigo-500/5 p-3 text-xs text-slate-350">
+          <span class="text-base leading-none">👁️</span>
+          <div>
+            <strong class="text-slate-200">👁️ WHAT TO LOOK FOR:</strong> Look at tiles A and B. Click 'Reveal Truth' to see they have identical gray colors.
+          </div>
+        </div>
+class="my-6 flex flex-col items-center justify-center bg-slate-950/40 rounded-xl p-4 border border-slate-800 relative min-h-[220px]">
           <svg class="w-48 h-48 select-none" viewBox="0 0 200 200">
             <!-- 5x5 checkerboard -->
             <g>
@@ -225,7 +140,23 @@ import Layout from '../layouts/Layout.astro';
           </svg>
         </div>
 
-        <div class="mt-5 flex items-center justify-between border-t border-slate-850 pt-4">
+        <div 
+        <!-- Collapsible Explanation -->
+        <details class="mt-4 border-t border-slate-800/40 pt-3 text-xs text-slate-400 select-none">
+          <summary class="font-bold cursor-pointer hover:text-purple-400">👁️ Reveal Answer & Science</summary>
+          <p class="mt-2 font-normal leading-relaxed text-slate-400">
+            The brain does not measure raw luminance; it evaluates colors relative to lighting. Because Tile B is inside the shadow, the brain scales its perceived brightness up, making it look white compared to Tile A.
+          </p>
+        </details>
+
+        <!-- Collapsible Explanation -->
+        <details class="mt-4 border-t border-slate-800/40 pt-3 text-xs text-slate-400 select-none">
+          <summary class="font-bold cursor-pointer hover:text-purple-400">👁️ Reveal Answer & Science</summary>
+          <p class="mt-2 font-normal leading-relaxed text-slate-400">
+            The brain does not measure raw luminance; it evaluates colors relative to lighting. Because Tile B is inside the shadow, the brain scales its perceived brightness up, making it look white compared to Tile A.
+          </p>
+        </details>
+class="mt-5 flex items-center justify-between border-t border-slate-850 pt-4">
           <button class="action-btn bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs py-2.5 px-4 rounded-xl shadow transition-transform active:scale-98">
           Reveal Truth 🔎
         </button>
@@ -246,7 +177,23 @@ import Layout from '../layouts/Layout.astro';
           </p>
         </div>
         
-        <div class="my-6 flex flex-col items-center justify-center bg-slate-950/40 rounded-xl p-4 border border-slate-800 relative min-h-[220px]">
+        <div 
+        <!-- Instruction Box -->
+        <div class="my-3 flex items-start gap-2 rounded-xl border border-indigo-500/10 bg-indigo-500/5 p-3 text-xs text-slate-350">
+          <span class="text-base leading-none">👁️</span>
+          <div>
+            <strong class="text-slate-200">👁️ WHAT TO LOOK FOR:</strong> Observe the spheres. Click 'Remove Colored Lines' to see that they are all the same shade of gray.
+          </div>
+        </div>
+
+        <!-- Instruction Box -->
+        <div class="my-3 flex items-start gap-2 rounded-xl border border-indigo-500/10 bg-indigo-500/5 p-3 text-xs text-slate-350">
+          <span class="text-base leading-none">👁️</span>
+          <div>
+            <strong class="text-slate-200">👁️ WHAT TO LOOK FOR:</strong> Observe the spheres. Click 'Remove Colored Lines' to see that they are all the same shade of gray.
+          </div>
+        </div>
+class="my-6 flex flex-col items-center justify-center bg-slate-950/40 rounded-xl p-4 border border-slate-800 relative min-h-[220px]">
           <svg id="svg-spheres" class="w-full max-w-[280px] h-40 select-none overflow-visible" viewBox="0 0 300 150">
             <!-- Background base stripes -->
             <rect x="0" y="0" width="300" height="150" fill="#030712" />
@@ -269,7 +216,23 @@ import Layout from '../layouts/Layout.astro';
           </svg>
         </div>
 
-        <div class="mt-5 flex items-center justify-between border-t border-slate-850 pt-4">
+        <div 
+        <!-- Collapsible Explanation -->
+        <details class="mt-4 border-t border-slate-800/40 pt-3 text-xs text-slate-400 select-none">
+          <summary class="font-bold cursor-pointer hover:text-purple-400">👁️ Reveal Answer & Science</summary>
+          <p class="mt-2 font-normal leading-relaxed text-slate-400">
+            Chromatic assimilation (neon color spreading) causes local color signals from foreground lines to bleed into the adjacent gray circles in our visual cortex, tricking us into seeing red, blue, or green spheres.
+          </p>
+        </details>
+
+        <!-- Collapsible Explanation -->
+        <details class="mt-4 border-t border-slate-800/40 pt-3 text-xs text-slate-400 select-none">
+          <summary class="font-bold cursor-pointer hover:text-purple-400">👁️ Reveal Answer & Science</summary>
+          <p class="mt-2 font-normal leading-relaxed text-slate-400">
+            Chromatic assimilation (neon color spreading) causes local color signals from foreground lines to bleed into the adjacent gray circles in our visual cortex, tricking us into seeing red, blue, or green spheres.
+          </p>
+        </details>
+class="mt-5 flex items-center justify-between border-t border-slate-850 pt-4">
           <button class="action-btn bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs py-2.5 px-4 rounded-xl shadow transition-transform active:scale-98">
           Remove Colored Lines ⚡
         </button>
@@ -278,7 +241,7 @@ import Layout from '../layouts/Layout.astro';
       </a>
 
       <!-- Experiment 3: The Impossible Gradient -->
-      <div class="bg-slate-900/60 border border-slate-800 rounded-3xl p-6 flex flex-col justify-between hover:border-purple-500/25 transition-all duration-300" data-exp="cornsweet">
+      <a href="/illusions/cornsweet-illusion" class="bg-slate-900/60 border border-slate-800 rounded-3xl p-6 flex flex-col justify-between hover:border-purple-500/40 hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(168,85,247,0.35)] cursor-pointer transition-all duration-300 block group" data-exp="cornsweet">
         <div class="space-y-3">
           <div class="flex justify-between items-center">
             <span class="text-xs font-bold text-purple-400 uppercase tracking-widest">3. Edge Contrasts</span>
@@ -290,7 +253,23 @@ import Layout from '../layouts/Layout.astro';
           </p>
         </div>
         
-        <div class="my-6 flex flex-col items-center justify-center bg-slate-950/40 rounded-xl p-4 border border-slate-800 relative min-h-[220px]">
+        <div 
+        <!-- Instruction Box -->
+        <div class="my-3 flex items-start gap-2 rounded-xl border border-indigo-500/10 bg-indigo-500/5 p-3 text-xs text-slate-350">
+          <span class="text-base leading-none">👁️</span>
+          <div>
+            <strong class="text-slate-200">👁️ WHAT TO LOOK FOR:</strong> Look at the left and right halves. Hover or click to cover the dividing edge and see they are identical.
+          </div>
+        </div>
+
+        <!-- Instruction Box -->
+        <div class="my-3 flex items-start gap-2 rounded-xl border border-indigo-500/10 bg-indigo-500/5 p-3 text-xs text-slate-350">
+          <span class="text-base leading-none">👁️</span>
+          <div>
+            <strong class="text-slate-200">👁️ WHAT TO LOOK FOR:</strong> Look at the left and right halves. Hover or click to cover the dividing edge and see they are identical.
+          </div>
+        </div>
+class="my-6 flex flex-col items-center justify-center bg-slate-950/40 rounded-xl p-4 border border-slate-800 relative min-h-[220px]">
           <div class="relative w-full max-w-[280px] h-40 flex overflow-hidden rounded-lg border border-slate-800 cursor-pointer" id="cornsweet-container">
             <!-- Left panel -->
             <div class="w-1/2 h-full bg-[#8c8c8c] relative">
@@ -308,7 +287,23 @@ import Layout from '../layouts/Layout.astro';
           </div>
         </div>
 
-        <div class="mt-5 flex items-center justify-between border-t border-slate-850 pt-4">
+        <div 
+        <!-- Collapsible Explanation -->
+        <details class="mt-4 border-t border-slate-800/40 pt-3 text-xs text-slate-400 select-none">
+          <summary class="font-bold cursor-pointer hover:text-purple-400">👁️ Reveal Answer & Science</summary>
+          <p class="mt-2 font-normal leading-relaxed text-slate-400">
+            The Cornsweet illusion shows that surface brightness is computed from edge contrast. The gradient boundary trick-forces the brain to paint the entire left half lighter and the right half darker.
+          </p>
+        </details>
+
+        <!-- Collapsible Explanation -->
+        <details class="mt-4 border-t border-slate-800/40 pt-3 text-xs text-slate-400 select-none">
+          <summary class="font-bold cursor-pointer hover:text-purple-400">👁️ Reveal Answer & Science</summary>
+          <p class="mt-2 font-normal leading-relaxed text-slate-400">
+            The Cornsweet illusion shows that surface brightness is computed from edge contrast. The gradient boundary trick-forces the brain to paint the entire left half lighter and the right half darker.
+          </p>
+        </details>
+class="mt-5 flex items-center justify-between border-t border-slate-850 pt-4">
           <button class="action-btn bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs py-2.5 px-4 rounded-xl shadow transition-transform active:scale-98">
           Cover Center Edge 🪵
         </button>
@@ -316,8 +311,12 @@ import Layout from '../layouts/Layout.astro';
         </div>
       </a>
 
+      </a>
+
+      </a>
+
       <!-- Experiment 4: White's Illusion -->
-      <a href="/illusions/wertheimer-koffka" class="bg-slate-900/60 border border-slate-800 rounded-3xl p-6 flex flex-col justify-between hover:border-purple-500/40 hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(168,85,247,0.35)] cursor-pointer transition-all duration-300 block group" data-exp="whites">
+      <a href="/illusions/whites-illusion" class="bg-slate-900/60 border border-slate-800 rounded-3xl p-6 flex flex-col justify-between hover:border-purple-500/40 hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(168,85,247,0.35)] cursor-pointer transition-all duration-300 block group" data-exp="whites">
         <div class="space-y-3">
           <div class="flex justify-between items-center">
             <span class="text-xs font-bold text-purple-400 uppercase tracking-widest">4. Lateral Inhibition</span>
@@ -329,7 +328,23 @@ import Layout from '../layouts/Layout.astro';
           </p>
         </div>
         
-        <div class="my-6 flex flex-col items-center justify-center bg-slate-950/40 rounded-xl p-4 border border-slate-800 relative min-h-[220px]">
+        <div 
+        <!-- Instruction Box -->
+        <div class="my-3 flex items-start gap-2 rounded-xl border border-indigo-500/10 bg-indigo-500/5 p-3 text-xs text-slate-350">
+          <span class="text-base leading-none">👁️</span>
+          <div>
+            <strong class="text-slate-200">👁️ WHAT TO LOOK FOR:</strong> Examine the gray bars on white and black stripes. Click 'Isolate Gray Bars' to see they are identical.
+          </div>
+        </div>
+
+        <!-- Instruction Box -->
+        <div class="my-3 flex items-start gap-2 rounded-xl border border-indigo-500/10 bg-indigo-500/5 p-3 text-xs text-slate-350">
+          <span class="text-base leading-none">👁️</span>
+          <div>
+            <strong class="text-slate-200">👁️ WHAT TO LOOK FOR:</strong> Examine the gray bars on white and black stripes. Click 'Isolate Gray Bars' to see they are identical.
+          </div>
+        </div>
+class="my-6 flex flex-col items-center justify-center bg-slate-950/40 rounded-xl p-4 border border-slate-800 relative min-h-[220px]">
           <svg id="svg-whites" class="w-full max-w-[280px] h-40 select-none border border-slate-800 rounded-lg" viewBox="0 0 200 120">
             <!-- White background -->
             <rect x="0" y="0" width="200" height="120" fill="#fff" />
@@ -350,7 +365,23 @@ import Layout from '../layouts/Layout.astro';
           </svg>
         </div>
 
-        <div class="mt-5 flex items-center justify-between border-t border-slate-850 pt-4">
+        <div 
+        <!-- Collapsible Explanation -->
+        <details class="mt-4 border-t border-slate-800/40 pt-3 text-xs text-slate-400 select-none">
+          <summary class="font-bold cursor-pointer hover:text-purple-400">👁️ Reveal Answer & Science</summary>
+          <p class="mt-2 font-normal leading-relaxed text-slate-400">
+            Gestalt grouping rules prioritize horizontal line continuity. Because the gray bars are grouped with the stripes they break, they absorb different contrast weights, overriding retinal lateral inhibition.
+          </p>
+        </details>
+
+        <!-- Collapsible Explanation -->
+        <details class="mt-4 border-t border-slate-800/40 pt-3 text-xs text-slate-400 select-none">
+          <summary class="font-bold cursor-pointer hover:text-purple-400">👁️ Reveal Answer & Science</summary>
+          <p class="mt-2 font-normal leading-relaxed text-slate-400">
+            Gestalt grouping rules prioritize horizontal line continuity. Because the gray bars are grouped with the stripes they break, they absorb different contrast weights, overriding retinal lateral inhibition.
+          </p>
+        </details>
+class="mt-5 flex items-center justify-between border-t border-slate-850 pt-4">
           <button class="action-btn bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs py-2.5 px-4 rounded-xl shadow transition-transform active:scale-98">
           Isolate Gray Bars 🦓
         </button>
@@ -359,7 +390,7 @@ import Layout from '../layouts/Layout.astro';
       </a>
 
       <!-- Experiment 5: Color From Lines -->
-      <div class="bg-slate-900/60 border border-slate-800 rounded-3xl p-6 flex flex-col justify-between hover:border-purple-500/25 transition-all duration-300" data-exp="contours">
+      <a href="/illusions/color-from-lines" class="bg-slate-900/60 border border-slate-800 rounded-3xl p-6 flex flex-col justify-between hover:border-purple-500/40 hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(168,85,247,0.35)] cursor-pointer transition-all duration-300 block group" data-exp="contours">
         <div class="space-y-3">
           <div class="flex justify-between items-center">
             <span class="text-xs font-bold text-purple-400 uppercase tracking-widest">5. Color Spreading</span>
@@ -371,7 +402,23 @@ import Layout from '../layouts/Layout.astro';
           </p>
         </div>
         
-        <div class="my-6 flex flex-col items-center justify-center bg-slate-950/40 rounded-xl p-4 border border-slate-800 relative min-h-[220px]">
+        <div 
+        <!-- Instruction Box -->
+        <div class="my-3 flex items-start gap-2 rounded-xl border border-indigo-500/10 bg-indigo-500/5 p-3 text-xs text-slate-350">
+          <span class="text-base leading-none">👁️</span>
+          <div>
+            <strong class="text-slate-200">👁️ WHAT TO LOOK FOR:</strong> Observe the yellow and blue regions. Click 'Remove Contours' to see the grid lines are completely black.
+          </div>
+        </div>
+
+        <!-- Instruction Box -->
+        <div class="my-3 flex items-start gap-2 rounded-xl border border-indigo-500/10 bg-indigo-500/5 p-3 text-xs text-slate-350">
+          <span class="text-base leading-none">👁️</span>
+          <div>
+            <strong class="text-slate-200">👁️ WHAT TO LOOK FOR:</strong> Observe the yellow and blue regions. Click 'Remove Contours' to see the grid lines are completely black.
+          </div>
+        </div>
+class="my-6 flex flex-col items-center justify-center bg-slate-950/40 rounded-xl p-4 border border-slate-800 relative min-h-[220px]">
           <svg id="svg-contours" class="w-full max-w-[280px] h-40 select-none rounded-lg border border-slate-850" viewBox="0 0 240 120">
             <!-- Black base grid lines -->
             <g stroke="#ffffff" stroke-width="1.5">
@@ -397,7 +444,23 @@ import Layout from '../layouts/Layout.astro';
           </svg>
         </div>
 
-        <div class="mt-5 flex items-center justify-between border-t border-slate-850 pt-4">
+        <div 
+        <!-- Collapsible Explanation -->
+        <details class="mt-4 border-t border-slate-800/40 pt-3 text-xs text-slate-400 select-none">
+          <summary class="font-bold cursor-pointer hover:text-purple-400">👁️ Reveal Answer & Science</summary>
+          <p class="mt-2 font-normal leading-relaxed text-slate-400">
+            The brain expects colored shadows and transparency in layered objects. It fills the color across the white spaces to create a continuous glowing layer under the black grid lines.
+          </p>
+        </details>
+
+        <!-- Collapsible Explanation -->
+        <details class="mt-4 border-t border-slate-800/40 pt-3 text-xs text-slate-400 select-none">
+          <summary class="font-bold cursor-pointer hover:text-purple-400">👁️ Reveal Answer & Science</summary>
+          <p class="mt-2 font-normal leading-relaxed text-slate-400">
+            The brain expects colored shadows and transparency in layered objects. It fills the color across the white spaces to create a continuous glowing layer under the black grid lines.
+          </p>
+        </details>
+class="mt-5 flex items-center justify-between border-t border-slate-850 pt-4">
           <button class="action-btn bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs py-2.5 px-4 rounded-xl shadow transition-transform active:scale-98">
           Remove Contours 🎨
         </button>
@@ -405,8 +468,12 @@ import Layout from '../layouts/Layout.astro';
         </div>
       </a>
 
+      </a>
+
+      </a>
+
       <!-- Experiment 6: Simultaneous Contrast -->
-      <a href="/illusions/wertheimer-koffka" class="bg-slate-900/60 border border-slate-800 rounded-3xl p-6 flex flex-col justify-between hover:border-purple-500/40 hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(168,85,247,0.35)] cursor-pointer transition-all duration-300 block group" data-exp="contrast">
+      <a href="/illusions/simultaneous-contrast" class="bg-slate-900/60 border border-slate-800 rounded-3xl p-6 flex flex-col justify-between hover:border-purple-500/40 hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(168,85,247,0.35)] cursor-pointer transition-all duration-300 block group" data-exp="contrast">
         <div class="space-y-3">
           <div class="flex justify-between items-center">
             <span class="text-xs font-bold text-purple-400 uppercase tracking-wider">6. Hue Contrast</span>
@@ -418,7 +485,23 @@ import Layout from '../layouts/Layout.astro';
           </p>
         </div>
         
-        <div class="my-6 flex flex-col items-center justify-center bg-slate-950/40 rounded-xl p-4 border border-slate-800 relative min-h-[220px]">
+        <div 
+        <!-- Instruction Box -->
+        <div class="my-3 flex items-start gap-2 rounded-xl border border-indigo-500/10 bg-indigo-500/5 p-3 text-xs text-slate-350">
+          <span class="text-base leading-none">👁️</span>
+          <div>
+            <strong class="text-slate-200">👁️ WHAT TO LOOK FOR:</strong> Stare at the orange square. Drag the background slider and see how its color appears to change.
+          </div>
+        </div>
+
+        <!-- Instruction Box -->
+        <div class="my-3 flex items-start gap-2 rounded-xl border border-indigo-500/10 bg-indigo-500/5 p-3 text-xs text-slate-350">
+          <span class="text-base leading-none">👁️</span>
+          <div>
+            <strong class="text-slate-200">👁️ WHAT TO LOOK FOR:</strong> Stare at the orange square. Drag the background slider and see how its color appears to change.
+          </div>
+        </div>
+class="my-6 flex flex-col items-center justify-center bg-slate-950/40 rounded-xl p-4 border border-slate-800 relative min-h-[220px]">
           <!-- Split screen or slider screen -->
           <div id="contrast-bg" class="w-full max-w-[280px] h-40 rounded-lg flex items-center justify-center border border-slate-800 transition-colors duration-200" style="background-color: #3b82f6;">
             <!-- Orange square -->
@@ -439,7 +522,7 @@ import Layout from '../layouts/Layout.astro';
       </div>
 
       <!-- Experiment 7: Afterimage - Stare and See -->
-      <a href="/illusions/troxler-fading" class="bg-slate-900/60 border border-slate-800 rounded-3xl p-6 flex flex-col justify-between hover:border-purple-500/40 hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(168,85,247,0.35)] cursor-pointer transition-all duration-300 block group" data-exp="afterimage">
+      <a href="/illusions/afterimage-stare" class="bg-slate-900/60 border border-slate-800 rounded-3xl p-6 flex flex-col justify-between hover:border-purple-500/40 hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(168,85,247,0.35)] cursor-pointer transition-all duration-300 block group" data-exp="afterimage">
         <div class="space-y-3">
           <div class="flex justify-between items-center">
             <span class="text-xs font-bold text-purple-400 uppercase tracking-widest">7. Receptor Fatigue</span>
@@ -451,7 +534,23 @@ import Layout from '../layouts/Layout.astro';
           </p>
         </div>
         
-        <div class="my-6 flex flex-col items-center justify-center bg-slate-950/40 rounded-xl p-4 border border-slate-800 relative min-h-[220px]">
+        <div 
+        <!-- Instruction Box -->
+        <div class="my-3 flex items-start gap-2 rounded-xl border border-indigo-500/10 bg-indigo-500/5 p-3 text-xs text-slate-350">
+          <span class="text-base leading-none">👁️</span>
+          <div>
+            <strong class="text-slate-200">👁️ WHAT TO LOOK FOR:</strong> Stare at the white center dot in the cyan cross for 30s. Look at the white box when the timer ends.
+          </div>
+        </div>
+
+        <!-- Instruction Box -->
+        <div class="my-3 flex items-start gap-2 rounded-xl border border-indigo-500/10 bg-indigo-500/5 p-3 text-xs text-slate-350">
+          <span class="text-base leading-none">👁️</span>
+          <div>
+            <strong class="text-slate-200">👁️ WHAT TO LOOK FOR:</strong> Stare at the white center dot in the cyan cross for 30s. Look at the white box when the timer ends.
+          </div>
+        </div>
+class="my-6 flex flex-col items-center justify-center bg-slate-950/40 rounded-xl p-4 border border-slate-800 relative min-h-[220px]">
           <!-- Afterimage box -->
           <div id="afterimage-screen" class="relative w-full max-w-[280px] h-40 flex items-center justify-center border border-slate-800 rounded-lg transition-colors duration-500 bg-slate-950">
             <!-- Colored cross (Cyan-Red setup: Staring at Cyan creates a Red afterimage) -->
@@ -474,7 +573,39 @@ import Layout from '../layouts/Layout.astro';
           </div>
         </div>
 
-        <div class="mt-5 flex items-center justify-between border-t border-slate-850 pt-4">
+        <div 
+        <!-- Collapsible Explanation -->
+        <details class="mt-4 border-t border-slate-800/40 pt-3 text-xs text-slate-400 select-none">
+          <summary class="font-bold cursor-pointer hover:text-purple-400">👁️ Reveal Answer & Science</summary>
+          <p class="mt-2 font-normal leading-relaxed text-slate-400">
+            Simultaneous contrast is caused by lateral inhibition in retina cells. A dark background causes adjacent cells processing the orange square to fire faster, enhancing its perceived brightness.
+          </p>
+        </details>
+
+        <!-- Collapsible Explanation -->
+        <details class="mt-4 border-t border-slate-800/40 pt-3 text-xs text-slate-400 select-none">
+          <summary class="font-bold cursor-pointer hover:text-purple-400">👁️ Reveal Answer & Science</summary>
+          <p class="mt-2 font-normal leading-relaxed text-slate-400">
+            Continuous staring exhausts the green/blue photoreceptors. Shifting gaze to white triggers the rested red receptors to fire faster, producing a complementary red/pink ghost afterimage.
+          </p>
+        </details>
+
+        <!-- Collapsible Explanation -->
+        <details class="mt-4 border-t border-slate-800/40 pt-3 text-xs text-slate-400 select-none">
+          <summary class="font-bold cursor-pointer hover:text-purple-400">👁️ Reveal Answer & Science</summary>
+          <p class="mt-2 font-normal leading-relaxed text-slate-400">
+            Simultaneous contrast is caused by lateral inhibition in retina cells. A dark background causes adjacent cells processing the orange square to fire faster, enhancing its perceived brightness.
+          </p>
+        </details>
+
+        <!-- Collapsible Explanation -->
+        <details class="mt-4 border-t border-slate-800/40 pt-3 text-xs text-slate-400 select-none">
+          <summary class="font-bold cursor-pointer hover:text-purple-400">👁️ Reveal Answer & Science</summary>
+          <p class="mt-2 font-normal leading-relaxed text-slate-400">
+            Continuous staring exhausts the green/blue photoreceptors. Shifting gaze to white triggers the rested red receptors to fire faster, producing a complementary red/pink ghost afterimage.
+          </p>
+        </details>
+class="mt-5 flex items-center justify-between border-t border-slate-850 pt-4">
           <button class="action-btn bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs py-2.5 px-4 rounded-xl shadow transition-transform active:scale-98">
           Start Afterimage Stare (30s) ⏱️
         </button>
@@ -483,7 +614,7 @@ import Layout from '../layouts/Layout.astro';
       </a>
 
       <!-- Experiment 8: Chromatic Aberration Illusion -->
-      <a href="/illusions/the-dress" class="bg-slate-900/60 border border-slate-800 rounded-3xl p-6 flex flex-col justify-between hover:border-purple-500/40 hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(168,85,247,0.35)] cursor-pointer transition-all duration-300 block group" data-exp="aberration">
+      <a href="/illusions/chromatic-aberration" class="bg-slate-900/60 border border-slate-800 rounded-3xl p-6 flex flex-col justify-between hover:border-purple-500/40 hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(168,85,247,0.35)] cursor-pointer transition-all duration-300 block group" data-exp="aberration">
         <div class="space-y-3">
           <div class="flex justify-between items-center">
             <span class="text-xs font-bold text-purple-400 uppercase tracking-widest">8. Chromostereopsis</span>
@@ -495,7 +626,23 @@ import Layout from '../layouts/Layout.astro';
           </p>
         </div>
         
-        <div class="my-6 flex flex-col items-center justify-center bg-slate-950/40 rounded-xl p-4 border border-slate-800 relative min-h-[220px]">
+        <div 
+        <!-- Instruction Box -->
+        <div class="my-3 flex items-start gap-2 rounded-xl border border-indigo-500/10 bg-indigo-500/5 p-3 text-xs text-slate-350">
+          <span class="text-base leading-none">👁️</span>
+          <div>
+            <strong class="text-slate-200">👁️ WHAT TO LOOK FOR:</strong> Focus on the white center dot. Red circles will float forward while blue circles recede behind.
+          </div>
+        </div>
+
+        <!-- Instruction Box -->
+        <div class="my-3 flex items-start gap-2 rounded-xl border border-indigo-500/10 bg-indigo-500/5 p-3 text-xs text-slate-350">
+          <span class="text-base leading-none">👁️</span>
+          <div>
+            <strong class="text-slate-200">👁️ WHAT TO LOOK FOR:</strong> Focus on the white center dot. Red circles will float forward while blue circles recede behind.
+          </div>
+        </div>
+class="my-6 flex flex-col items-center justify-center bg-slate-950/40 rounded-xl p-4 border border-slate-800 relative min-h-[220px]">
           <svg class="w-full max-w-[280px] h-40 select-none rounded-lg bg-black border border-slate-850" viewBox="0 0 240 120">
             <!-- Focus targets: thin red/blue concentric patterns -->
             <g stroke-width="2.5" fill="none">
@@ -590,131 +737,6 @@ import Layout from '../layouts/Layout.astro';
   </section>
 
   <script>
-    // ----------------------------------------------------
-    // 1. THE AMBIGUOUS DRESS WIDGET
-    // ----------------------------------------------------
-    const dressSlider = document.getElementById('dress-light-slider') as HTMLInputElement;
-    const dressFabric = document.querySelectorAll('.dress-fabric');
-    const dressStripes = document.querySelectorAll('.dress-stripes');
-    const dressOverlay = document.getElementById('dress-overlay');
-    const dressVoteControls = document.getElementById('dress-vote-controls');
-    const dressResults = document.getElementById('dress-results');
-    const dressExplanation = document.getElementById('dress-explanation');
-    const pctBlueText = document.getElementById('pct-blue');
-    const pctWhiteText = document.getElementById('pct-white');
-    const barBlue = document.getElementById('bar-blue');
-    const barWhite = document.getElementById('bar-white');
-    const voteCountLabel = document.getElementById('vote-count-label');
-
-    // Formula to interpolate colors for the dress
-    const updateDressStyle = (val: number) => {
-      // val ranges from 0 (cool cast shadow) to 100 (warm sunlight)
-      // At 0 (Blue Shadow assumption -> see White-Gold):
-      //   Fabric is a very light blue/white. HSL = (210, 15%, 88%)
-      //   Stripes are gold/brown. HSL = (42, 55%, 52%)
-      // At 100 (Gold Sunlight assumption -> see Blue-Black):
-      //   Fabric is a deep rich blue. HSL = (215, 65%, 28%)
-      //   Stripes are dark black/brown. HSL = (35, 30%, 12%)
-      
-      const fabricH = 210 + (val / 100) * 5;     // 210 to 215
-      const fabricS = 15 + (val / 100) * 50;     // 15% to 65%
-      const fabricL = 88 - (val / 100) * 60;     // 88% to 28%
-
-      const stripesH = 42 - (val / 100) * 7;     // 42 to 35
-      const stripesS = 55 - (val / 100) * 25;    // 55% to 30%
-      const stripesL = 52 - (val / 100) * 40;    // 52% to 12%
-
-      const fabricColor = `hsl(${fabricH}, ${fabricS}%, ${fabricL}%)`;
-      const stripesColor = `hsl(${stripesH}, ${stripesS}%, ${stripesL}%)`;
-
-      dressFabric.forEach(el => {
-        (el as HTMLElement).style.fill = fabricColor;
-      });
-      dressStripes.forEach(el => {
-        (el as HTMLElement).style.fill = stripesColor;
-      });
-
-      // Ambient light overlay opacity
-      if (dressOverlay) {
-        if (val < 50) {
-          // cool blue overlay
-          const op = (50 - val) / 50 * 0.35;
-          dressOverlay.setAttribute('fill', `rgba(59, 130, 246, ${op})`);
-        } else {
-          // warm gold overlay
-          const op = (val - 50) / 50 * 0.35;
-          dressOverlay.setAttribute('fill', `rgba(245, 158, 11, ${op})`);
-        }
-      }
-    };
-
-    // Set initial
-    updateDressStyle(50);
-
-    dressSlider?.addEventListener('input', (e) => {
-      const val = parseInt((e.target as HTMLInputElement).value);
-      updateDressStyle(val);
-    });
-
-    // Voting Logic
-    const initVote = () => {
-      let bVotes = parseInt(localStorage.getItem('dress_votes_blue') || '154');
-      let wVotes = parseInt(localStorage.getItem('dress_votes_white') || '96');
-      
-      const refreshResults = () => {
-        const total = bVotes + wVotes;
-        const pBlue = Math.round((bVotes / total) * 100);
-        const pWhite = 100 - pBlue;
-        
-        if (pctBlueText && pctWhiteText && barBlue && barWhite && voteCountLabel) {
-          pctBlueText.textContent = `${pBlue}%`;
-          pctWhiteText.textContent = `${pWhite}%`;
-          barBlue.style.width = `${pBlue}%`;
-          barWhite.style.width = `${pWhite}%`;
-          voteCountLabel.textContent = `Total votes: ${total} (Simulated live feed)`;
-        }
-      };
-
-      const hasVoted = localStorage.getItem('dress_has_voted') === 'true';
-      if (hasVoted) {
-        dressVoteControls?.classList.add('hidden');
-        dressResults?.classList.remove('hidden');
-        dressExplanation?.classList.remove('hidden');
-        refreshResults();
-      }
-
-      const btns = dressVoteControls?.querySelectorAll('.vote-btn');
-      btns?.forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          const choice = (e.currentTarget as HTMLElement).getAttribute('data-choice');
-          if (choice === 'blue-black') {
-            bVotes++;
-            localStorage.setItem('dress_votes_blue', bVotes.toString());
-            // Animate slider to 100 to show what the blue/black choice looks like
-            dressSlider.value = "100";
-            updateDressStyle(100);
-          } else {
-            wVotes++;
-            localStorage.setItem('dress_votes_white', wVotes.toString());
-            // Animate slider to 0 to show what the white/gold choice looks like
-            dressSlider.value = "0";
-            updateDressStyle(0);
-          }
-          
-          localStorage.setItem('dress_has_voted', 'true');
-          
-          // Cross-fade UI
-          dressVoteControls?.classList.add('hidden');
-          dressResults?.classList.remove('hidden');
-          dressExplanation?.classList.remove('hidden');
-          refreshResults();
-        });
-      });
-    };
-
-    initVote();
-
-
     // ----------------------------------------------------
     // EXPERIMENTS SCRIPTS
     // ----------------------------------------------------

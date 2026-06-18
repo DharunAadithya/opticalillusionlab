@@ -1,0 +1,443 @@
+---
+// src/pages/illusions/mcgurk-effect.astro
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout 
+  title="McGurk Effect — Audio-Visual Speech Illusion | Optical Illusion Lab" 
+  description="Experience how visual speech movements override what you hear. Synthesize a BA sound using Web Audio API and watch lips morph to hear BA, FA, or DA."
+>
+  <div class="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-12">
+    
+    <!-- Breadcrumb back navigation -->
+    <nav class="flex text-xs font-black uppercase tracking-wider text-slate-400 space-x-2 pb-2 border-b border-indigo-500/10">
+      <a href="/" class="hover:text-white transition-colors">Home</a>
+      <span>/</span>
+      <a href="/famous" class="hover:text-white transition-colors">Famous Illusions</a>
+      <span>/</span>
+      <span class="text-purple-400">McGurk Effect</span>
+    </nav>
+
+    <!-- Hero Header -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6">
+      <div class="space-y-3">
+        <div class="flex items-center space-x-2">
+          <span class="text-xs font-black px-2.5 py-0.5 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 uppercase tracking-wider">Physiological</span>
+          <span class="text-xs font-black px-2.5 py-0.5 rounded-full bg-purple-500/10 text-purple-400 border border-purple-500/20 uppercase tracking-wider">🟡 Medium</span>
+        </div>
+        <h1 class="font-display text-4xl sm:text-5xl font-black tracking-tight text-slate-900 dark:text-white">
+          The McGurk Effect
+        </h1>
+        <p class="text-slate-600 dark:text-slate-350 text-base max-w-2xl font-medium">
+          A striking cross-modal illusion where your eyes hijack your ears. The visual shape of a mouth changes the actual sound you perceive.
+        </p>
+      </div>
+
+      <!-- Share Button -->
+      <button 
+        id="share-illusion-page-btn"
+        class="relative shrink-0 flex items-center space-x-2 rounded-2xl bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-600 hover:scale-105 text-white font-black text-sm px-6 py-3.5 transition-all shadow-lg shadow-purple-500/10"
+      >
+        <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M15 8a3 3 0 1 0-2.977-2.63l-4.94 2.47a3 3 0 1 0 0 4.319l4.94 2.47a3 3 0 1 0 .895-1.789l-4.94-2.47a3.027 3.027 0 0 0 0-.74l4.94-2.47C13.456 7.68 14.19 8 15 8Z"/></svg>
+        <span>Share Page</span>
+        <span id="page-share-toast" class="absolute bottom-full right-1/2 translate-x-1/2 mb-2 px-2.5 py-1 text-[10px] font-bold text-white bg-purple-650 rounded-lg shadow-md opacity-0 pointer-events-none transition-opacity duration-200 whitespace-nowrap">Link Copied! ✓</span>
+      </button>
+    </div>
+
+    <!-- LARGE INTERACTIVE DEMO -->
+    <div class="flex flex-col items-center justify-center py-6 border-b border-indigo-500/10">
+      <div class="w-full max-w-[600px] mx-auto space-y-6">
+        <div id="mcgurk-detail-container" class="relative flex flex-col items-center justify-center h-[420px] w-full bg-slate-900/40 rounded-2xl overflow-hidden border border-indigo-500/10 p-6">
+          
+          <!-- Blind screen for audio-only mode -->
+          <div id="mcgurk-blind-screen" class="absolute inset-0 bg-slate-950 flex flex-col items-center justify-center hidden z-10 transition-opacity duration-300">
+            <span class="text-3xl">🙈</span>
+            <span class="text-xs text-slate-400 font-bold mt-2 uppercase tracking-widest">Audio-Only Mode (Eyes Closed)</span>
+          </div>
+
+          <!-- Face & Lips SVG -->
+          <svg class="w-64 h-64 select-none overflow-visible" viewBox="0 0 100 100">
+            <!-- Simplified face outline -->
+            <circle cx="50" cy="50" r="45" fill="none" stroke="#312e81" stroke-width="1" />
+            <ellipse cx="33" cy="40" rx="4" ry="2" fill="#312e81" />
+            <ellipse cx="67" cy="40" rx="4" ry="2" fill="#312e81" />
+            <!-- Nose -->
+            <path d="M 50,42 L 48,52 L 52,52 Z" fill="#312e81" />
+
+            <!-- Morphing lips grouping -->
+            <g transform="translate(0, 30)">
+              <!-- Teeth (hidden/visible dynamically) -->
+              <rect id="mcgurk-detail-teeth" x="30" y="24" width="40" height="5" fill="#ffffff" class="opacity-0 transition-opacity duration-200" />
+              <!-- Tongue (hidden/visible dynamically) -->
+              <path id="mcgurk-detail-tongue" d="M 35,32 Q 50,22 65,32 Z" fill="#fda4af" class="opacity-0 transition-opacity duration-200" />
+              
+              <!-- Lips Path: Closed / Rest state is "BA" closed posture -->
+              <path 
+                id="mcgurk-detail-lips" 
+                d="M 10,30 Q 50,15 90,30 Q 50,45 10,30 Z" 
+                fill="#f43f5e" 
+                stroke="#db2777" 
+                stroke-width="2.5" 
+                class="transition-all duration-300"
+              />
+            </g>
+          </svg>
+
+          <!-- Interactive controller -->
+          <div class="absolute bottom-4 flex flex-col items-center gap-3 bg-slate-900/95 border border-white/10 px-5 py-3 rounded-2xl w-11/12 max-w-sm z-20">
+            <!-- Visual Target Selector -->
+            <div class="flex items-center justify-between w-full text-xs font-bold text-slate-350 border-b border-white/5 pb-2">
+              <span>Choose Visual Mouth Style:</span>
+              <span id="mc-active-mode" class="font-mono text-purple-400">"BA" (Lips Closed)</span>
+            </div>
+
+            <div class="grid grid-cols-4 gap-1.5 w-full">
+              <button data-mode="BA" class="mc-mode-btn bg-purple-600 text-white font-black text-[10px] py-1.5 rounded-lg border border-purple-500/20 shadow-md">
+                BA (Lips)
+              </button>
+              <button data-mode="FA" class="mc-mode-btn bg-slate-800 hover:bg-slate-700 text-slate-200 font-black text-[10px] py-1.5 rounded-lg border border-white/5">
+                FA (Teeth)
+              </button>
+              <button data-mode="GA" class="mc-mode-btn bg-slate-800 hover:bg-slate-700 text-slate-200 font-black text-[10px] py-1.5 rounded-lg border border-white/5">
+                GA (Throat)
+              </button>
+              <button data-mode="BLIND" class="mc-mode-btn bg-slate-800 hover:bg-slate-700 text-slate-200 font-black text-[10px] py-1.5 rounded-lg border border-white/5">
+                Audio Only
+              </button>
+            </div>
+
+            <!-- Play trigger -->
+            <button 
+              id="btn-mcgurk-play" 
+              class="w-full text-center font-black text-xs px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white transition-colors shadow-md flex items-center justify-center space-x-2"
+            >
+              <svg class="h-3 w-3" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+              <span>Play Synthesized Audio</span>
+            </button>
+          </div>
+        </div>
+        <div class="text-center text-xs text-slate-500 dark:text-slate-400 italic">
+          Toggle between visual modes and click "Play Synthesized Audio". The audio is EXACTLY identical in every mode!
+        </div>
+      </div>
+    </div>
+
+    <!-- Voter / Survey Card -->
+    <div class="max-w-[600px] mx-auto bg-slate-900/60 border border-indigo-950/20 rounded-3xl p-6 space-y-4 shadow-xl">
+      <h3 class="font-display text-base font-black text-white flex items-center space-x-2">
+        <span>📊</span>
+        <span>WHAT DID YOU HEAR?</span>
+      </h3>
+      <p class="text-xs text-slate-350">
+        While watching the <strong>FA (Teeth)</strong> or <strong>GA (Throat)</strong> mouth movements, click what syllable your brain actually perceived:
+      </p>
+      <div class="grid grid-cols-4 gap-2">
+        <button class="mc-vote-btn bg-slate-800 hover:bg-slate-750 text-white font-bold text-xs py-2 rounded-xl border border-white/5">BA</button>
+        <button class="mc-vote-btn bg-slate-800 hover:bg-slate-750 text-white font-bold text-xs py-2 rounded-xl border border-white/5">DA</button>
+        <button class="mc-vote-btn bg-slate-800 hover:bg-slate-750 text-white font-bold text-xs py-2 rounded-xl border border-white/5">FA</button>
+        <button class="mc-vote-btn bg-slate-800 hover:bg-slate-750 text-white font-bold text-xs py-2 rounded-xl border border-white/5">VA</button>
+      </div>
+      <div id="mc-vote-feedback" class="hidden text-xs bg-indigo-500/10 border border-indigo-500/20 text-slate-300 p-4 rounded-2xl leading-relaxed">
+        <strong>Result:</strong> Most observers watching <strong>GA</strong> hear <strong>"DA"</strong> (the brain fusions "BA" audio and "GA" video). Observers watching <strong>FA</strong> hear <strong>"FA"</strong> or <strong>"VA"</strong> because the teeth-on-lip signal is extremely clear. However, when closing your eyes (Audio Only mode), you will hear the raw, unaltered <strong>"BA"</strong> sound! This proves your visual perception changes what you hear.
+      </div>
+    </div>
+
+    <!-- Content Split Layout -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 pt-4">
+      
+      <!-- Left 2-Columns -->
+      <div class="lg:col-span-2 space-y-10">
+        <section class="space-y-4">
+          <h2 class="font-display text-2xl font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">🎮</span>
+            <span>EXPERIENCE IT FIRST</span>
+          </h2>
+          <div class="bg-indigo-950/20 border-2 border-indigo-500/15 rounded-3xl p-6 text-slate-700 dark:text-slate-350">
+            <p class="font-bold text-sm sm:text-base text-slate-200">How to test your auditory illusion threshold:</p>
+            <ul class="list-disc pl-5 mt-3 space-y-2 text-xs sm:text-sm font-medium">
+              <li>Select <strong>Audio Only</strong> and play the sound. Close your eyes. You will hear a clear, robotic <strong>"BA"</strong> syllable.</li>
+              <li>Select <strong>BA (Lips)</strong> and click play. The mouth closes completely at the start of the sound, and you hear a normal <strong>"BA"</strong>.</li>
+              <li>Select <strong>GA (Throat)</strong> and play the sound while staring directly at the mouth. Most people hear <strong>"DA"</strong> or <strong>"GA"</strong> because the lips do not close, causing the brain to reject the bilabial "B" sound.</li>
+              <li>Select <strong>FA (Teeth)</strong> and play the sound. Watch the upper teeth touch the bottom lip. You will hear <strong>"FA"</strong> or <strong>"VA"</strong>, even though the speaker is playing the identical "BA" synthesizer!</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="space-y-4">
+          <h2 class="font-display text-2xl font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">🧠</span>
+            <span>THE SCIENCE</span>
+          </h2>
+          <div class="prose prose-indigo dark:prose-invert text-slate-700 dark:text-slate-300 leading-relaxed space-y-4 text-xs sm:text-sm font-semibold text-justify">
+            <p>
+              The <strong>McGurk Effect</strong> is a fundamental auditory-visual illusion that demonstrates that speech perception is a <strong>multimodal process</strong>. Discovered accidentally by cognitive psychologists Harry McGurk and John MacDonald in 1976, the effect occurs when conflicting auditory and visual information are integrated by the brain, resulting in the perception of a completely different syllable.
+            </p>
+            
+            <p>
+              In a standard McGurk trial:
+            </p>
+            <ul class="list-disc pl-5 space-y-2">
+              <li>
+                <strong>Auditory input:</strong> The sound of a person saying "BA" (a bilabial consonant, meaning the lips must close).
+              </li>
+              <li>
+                <strong>Visual input:</strong> An image of a mouth speaking "GA" (a velar consonant, meaning the throat moves while the mouth remains open).
+              </li>
+              <li>
+                <strong>Resulting perception:</strong> "DA" (an alveolar consonant, which represents a physical and acoustical midpoint between the lips and throat).
+              </li>
+            </ul>
+            <p>
+              This integration occurs in the <strong>Superior Temporal Sulcus (STS)</strong>, a brain region dedicated to fusing multisensory inputs. When the ears hear "BA" but the eyes see "GA," the brain faces an architectural contradiction: a bilabial "B" cannot be spoken with an open mouth. To resolve this conflict, the visual cortex overrides or biases the auditory cortex. Because "D" is articulated with the tongue on the teeth ridge, it matches both the auditory cue (a voiced plosive) and the visual cue (an open lip posture), leading to a fused perception.
+            </p>
+            <p>
+              In our simulator, we also include the "FA" configuration. Here, the visual input of teeth touching the bottom lip (a labiodental posture) is so strong that it forces the brain to interpret the acoustic plosive as a fricative "F" or "V." This demonstrates that our visual system has a powerful influence over our acoustic comprehension, explaining why face-to-face communication is so much easier in noisy environments than phone conversations.
+            </p>
+          </div>
+        </section>
+      </div>
+
+      <!-- Right Column -->
+      <div class="space-y-8">
+        <section class="rounded-3xl border border-indigo-950/20 bg-slate-900/60 p-6 space-y-4 shadow-xl">
+          <h3 class="font-display text-lg font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">💡</span>
+            <span>FUN FACTS</span>
+          </h3>
+          <ul class="space-y-4 text-xs sm:text-sm text-slate-600 dark:text-slate-350 font-semibold">
+            <li class="flex items-start space-x-2">
+              <span class="text-purple-500 font-black">•</span>
+              <span>The McGurk Effect remains active even if you are a trained phonetician and know exactly what is happening—the sensory fusion is unconscious and automatic.</span>
+            </li>
+            <li class="flex items-start space-x-2">
+              <span class="text-purple-500 font-black">•</span>
+              <span>Young children are less susceptible to the McGurk effect than adults, as their brains rely more heavily on raw acoustic cues and have not yet fully integrated visual-auditory speech associations.</span>
+            </li>
+            <li class="flex items-start space-x-2">
+              <span class="text-purple-500 font-black">•</span>
+              <span>Schizophrenic patients and individuals on the autism spectrum sometimes experience a reduced McGurk effect, indicating differences in sensory integration pathways.</span>
+            </li>
+          </ul>
+        </section>
+
+        <section class="rounded-3xl border border-indigo-950/20 bg-slate-900/60 p-6 space-y-4 shadow-xl">
+          <h3 class="font-display text-lg font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">📜</span>
+            <span>HISTORY</span>
+          </h3>
+          <p class="text-xs sm:text-sm text-slate-650 dark:text-slate-355 leading-relaxed font-semibold">
+            Harry McGurk and John MacDonald discovered the illusion while researching how children perceive language at different development stages. Their 1976 paper "Hearing Lips and Seeing Voices" published in Nature remains one of the most cited articles in cognitive neuroscience.
+          </p>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const sharePageBtn = document.getElementById('share-illusion-page-btn');
+    const pageToast = document.getElementById('page-share-toast');
+
+    sharePageBtn?.addEventListener('click', () => {
+      const pageUrl = window.location.href;
+      navigator.clipboard.writeText(pageUrl).then(() => {
+        if (pageToast) {
+          pageToast.classList.remove('opacity-0');
+          pageToast.classList.add('opacity-100');
+          setTimeout(() => {
+            pageToast.classList.remove('opacity-100');
+            pageToast.classList.add('opacity-0');
+          }, 2000);
+        }
+      });
+    });
+
+    // Audio & Lip-sync Synthesizer Logic
+    const modeBtns = document.querySelectorAll('.mc-mode-btn');
+    const playBtn = document.getElementById('btn-mcgurk-play');
+    const activeLabel = document.getElementById('mc-active-mode');
+    const blindScreen = document.getElementById('mc-blind-screen');
+
+    // SVG elements
+    const lips = document.getElementById('mcgurk-detail-lips');
+    const teeth = document.getElementById('mcgurk-detail-teeth');
+    const tongue = document.getElementById('mcgurk-detail-tongue');
+
+    // Vote UI elements
+    const voteBtns = document.querySelectorAll('.mc-vote-btn');
+    const voteFeedback = document.getElementById('mc-vote-feedback');
+
+    let currentMode = 'BA';
+
+    // Set active mode on click
+    modeBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const mode = btn.getAttribute('data-mode') || 'BA';
+        currentMode = mode;
+
+        // Reset visual button states
+        modeBtns.forEach(b => {
+          b.className = 'mc-mode-btn bg-slate-800 hover:bg-slate-700 text-slate-200 font-black text-[10px] py-1.5 rounded-lg border border-white/5';
+        });
+        btn.className = 'mc-mode-btn bg-purple-600 text-white font-black text-[10px] py-1.5 rounded-lg border border-purple-500/20 shadow-md';
+
+        // Update labels and blind screen state
+        if (activeLabel) {
+          if (mode === 'BA') activeLabel.textContent = '"BA" (Lips Closed)';
+          else if (mode === 'FA') activeLabel.textContent = '"FA" (Teeth on Lip)';
+          else if (mode === 'GA') activeLabel.textContent = '"GA" (Throat Open)';
+          else if (mode === 'BLIND') activeLabel.textContent = 'Audio Only (Blind)';
+        }
+
+        if (blindScreen) {
+          if (mode === 'BLIND') {
+            blindScreen.classList.remove('hidden');
+          } else {
+            blindScreen.classList.add('hidden');
+          }
+        }
+
+        // Set mouth rest state based on mode
+        resetMouthToRestState(mode);
+      });
+    });
+
+    function resetMouthToRestState(mode: string) {
+      if (!lips || !teeth || !tongue) return;
+
+      if (mode === 'BA') {
+        // Lips touching / closed
+        lips.setAttribute('d', 'M 10,30 Q 50,15 90,30 Q 50,45 10,30 Z');
+        teeth.classList.add('opacity-0');
+        tongue.classList.add('opacity-0');
+      } else if (mode === 'FA') {
+        // Upper teeth resting on bottom lip
+        lips.setAttribute('d', 'M 10,30 Q 50,22 90,30 Q 50,40 10,30 Z');
+        teeth.classList.remove('opacity-0');
+        tongue.classList.add('opacity-0');
+      } else if (mode === 'GA' || mode === 'BLIND') {
+        // Throat open rest state
+        lips.setAttribute('d', 'M 10,30 Q 50,10 90,30 Q 50,50 10,30 Z');
+        teeth.classList.remove('opacity-0');
+        tongue.classList.remove('opacity-0');
+      }
+    }
+
+    // Synthesize Vocal "BA" using Formant Bandpass Filters
+    function playFormantSpeechSynth() {
+      try {
+        const audioCtx = new (window.AudioContext || (window as any).webkitAudioContext)();
+        
+        // Vowel source: complex sawtooth wave rich in harmonics
+        const osc = audioCtx.createOscillator();
+        osc.type = 'sawtooth';
+        
+        // Vocal glissando: B consonant requires a rapid upward frequency sweep
+        // as the vocal tract opens (from 160Hz to 110Hz fundamental)
+        osc.frequency.setValueAtTime(155, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(105, audioCtx.currentTime + 0.1);
+
+        // Vocal Formant Bandpass Filter 1 (F1: ~700 Hz for the vowel "AH" in "BA")
+        const f1 = audioCtx.createBiquadFilter();
+        f1.type = 'bandpass';
+        f1.frequency.setValueAtTime(700, audioCtx.currentTime);
+        f1.Q.setValueAtTime(6, audioCtx.currentTime);
+
+        // Vocal Formant Bandpass Filter 2 (F2: ~1200 Hz for "AH")
+        const f2 = audioCtx.createBiquadFilter();
+        f2.type = 'bandpass';
+        f2.frequency.setValueAtTime(1220, audioCtx.currentTime);
+        f2.Q.setValueAtTime(6, audioCtx.currentTime);
+
+        // Amplification and volume envelope
+        const gainNode = audioCtx.createGain();
+        gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
+        gainNode.gain.linearRampToValueAtTime(0.5, audioCtx.currentTime + 0.03); // Quick release
+        gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.32); // Vowel decay
+
+        // Parallel routing to simulate acoustic formants
+        osc.connect(f1);
+        osc.connect(f2);
+        f1.connect(gainNode);
+        f2.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+
+        // Run
+        osc.start(audioCtx.currentTime);
+        osc.stop(audioCtx.currentTime + 0.32);
+      } catch (err) {
+        console.error("Speech synthesizer failed: ", err);
+      }
+    }
+
+    // Play button trigger
+    playBtn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+
+      // 1. Play synthesized speech sound
+      playFormantSpeechSynth();
+
+      // 2. Animate lips synchronizing with the sound envelope
+      animateLipMorphing(currentMode);
+    });
+
+    function animateLipMorphing(mode: string) {
+      if (!lips || !teeth || !tongue) return;
+
+      if (mode === 'BA') {
+        // Start closed -> open to vowel -> close
+        lips.setAttribute('d', 'M 10,30 Q 50,15 90,30 Q 50,45 10,30 Z'); // Closed
+        teeth.classList.add('opacity-0');
+        tongue.classList.add('opacity-0');
+
+        setTimeout(() => {
+          lips.setAttribute('d', 'M 10,30 Q 50,5 90,30 Q 50,55 10,30 Z'); // Open Vowel
+          teeth.classList.remove('opacity-0');
+        }, 35);
+
+        setTimeout(() => {
+          lips.setAttribute('d', 'M 10,30 Q 50,15 90,30 Q 50,45 10,30 Z'); // Close back
+          teeth.classList.add('opacity-0');
+        }, 220);
+      } 
+      else if (mode === 'FA') {
+        // Start teeth touching lip -> open slightly -> return
+        lips.setAttribute('d', 'M 10,30 Q 50,22 90,30 Q 50,40 10,30 Z'); // Teeth on lip
+        teeth.classList.remove('opacity-0');
+
+        setTimeout(() => {
+          lips.setAttribute('d', 'M 10,30 Q 50,10 90,30 Q 50,48 10,30 Z'); // Open Vowel
+        }, 35);
+
+        setTimeout(() => {
+          lips.setAttribute('d', 'M 10,30 Q 50,22 90,30 Q 50,40 10,30 Z'); // Back to teeth rest
+        }, 220);
+      } 
+      else if (mode === 'GA') {
+        // Throat open: mouth widens further back, tongue moves down
+        lips.setAttribute('d', 'M 10,30 Q 50,10 90,30 Q 50,50 10,30 Z'); // Wide rest
+        teeth.classList.remove('opacity-0');
+        tongue.classList.remove('opacity-0');
+
+        setTimeout(() => {
+          lips.setAttribute('d', 'M 10,30 Q 50,3 90,30 Q 50,58 10,30 Z'); // Fully open throat
+          tongue.setAttribute('d', 'M 35,35 Q 50,30 65,35 Z'); // Flatten tongue
+        }, 35);
+
+        setTimeout(() => {
+          lips.setAttribute('d', 'M 10,30 Q 50,10 90,30 Q 50,50 10,30 Z'); // Return to rest
+          tongue.setAttribute('d', 'M 35,32 Q 50,22 65,32 Z');
+        }, 220);
+      }
+    }
+
+    // Voting interactions
+    voteBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (voteFeedback) {
+          voteFeedback.classList.remove('hidden');
+        }
+      });
+    });
+  </script>
+</Layout>

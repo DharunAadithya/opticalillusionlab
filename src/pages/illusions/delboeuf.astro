@@ -1,0 +1,248 @@
+---
+// src/pages/illusions/delboeuf.astro
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout 
+  title="Delboeuf Circle Size Illusion — Interactive Optical Illusion | Optical Illusion Lab" 
+  description="Experience the Delboeuf size illusion. Adjust the inner circles and concentric rings to see how surrounding context alters size judgments."
+>
+  <div class="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-12">
+    
+    <!-- Breadcrumb back navigation -->
+    <nav class="flex text-xs font-black uppercase tracking-wider text-slate-400 space-x-2 pb-2 border-b border-indigo-500/10">
+      <a href="/" class="hover:text-white transition-colors">Home</a>
+      <span>/</span>
+      <a href="/famous" class="hover:text-white transition-colors">Famous Illusions</a>
+      <span>/</span>
+      <span class="text-purple-400">Delboeuf Illusion</span>
+    </nav>
+
+    <!-- Hero Header Section -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6">
+      <div class="space-y-3">
+        <div class="flex items-center space-x-2">
+          <span class="text-xs font-black px-2.5 py-0.5 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 uppercase tracking-wider">Type 1: Static Context</span>
+          <span class="text-xs font-black px-2.5 py-0.5 rounded-full bg-emerald-550/10 text-emerald-500 border border-emerald-500/20 uppercase tracking-wider">🟢 Easy</span>
+        </div>
+        <h1 class="font-display text-4xl sm:text-5xl font-black tracking-tight text-slate-900 dark:text-white">
+          Delboeuf Illusion
+        </h1>
+        <p class="text-slate-600 dark:text-slate-350 text-base max-w-2xl font-medium">
+          Concentric rings distort your size perception. A circle surrounded by a large ring looks smaller than an identical circle surrounded by a tight ring.
+        </p>
+      </div>
+
+      <!-- Share Button -->
+      <button 
+        id="share-illusion-page-btn"
+        class="relative shrink-0 flex items-center space-x-2 rounded-2xl bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-600 hover:scale-105 text-white font-black text-sm px-6 py-3.5 transition-all shadow-lg shadow-purple-500/10"
+      >
+        <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M15 8a3 3 0 1 0-2.977-2.63l-4.94 2.47a3 3 0 1 0 0 4.319l4.94 2.47a3 3 0 1 0 .895-1.789l-4.94-2.47a3.027 3.027 0 0 0 0-.74l4.94-2.47C13.456 7.68 14.19 8 15 8Z"/></svg>
+        <span>Share Page</span>
+        <span id="page-share-toast" class="absolute bottom-full right-1/2 translate-x-1/2 mb-2 px-2.5 py-1 text-[10px] font-bold text-white bg-purple-655 rounded-lg shadow-md opacity-0 pointer-events-none transition-opacity duration-200 whitespace-nowrap">Link Copied! ✓</span>
+      </button>
+    </div>
+
+    <!-- LARGE INTERACTIVE DEMO -->
+    <div class="flex flex-col items-center justify-center py-6 border-b border-indigo-500/10">
+      <div class="w-full max-w-[600px] mx-auto space-y-4">
+        
+        <!-- Instruction Box -->
+        <div class="my-3 flex items-start gap-2 rounded-xl border border-indigo-500/10 bg-indigo-500/5 p-3 text-xs text-slate-350 text-left">
+          <span class="text-base leading-none">👁️</span>
+          <div>
+            <strong class="text-slate-200">👁️ WHAT TO LOOK FOR:</strong> Compare the two central blue circles. Do they look equal? Toggle the guides to project alignment lines, or use the slider to adjust the outer rings and watch the illusion change.
+          </div>
+        </div>
+
+        <div id="delboeuf-illusion-card" class="relative flex flex-col items-center justify-center h-96 w-full bg-slate-950 rounded-xl overflow-hidden border border-indigo-500/10 p-6">
+          <span class="absolute top-3 left-3 text-[10px] font-bold px-2 py-0.5 rounded bg-slate-900/80 text-slate-400 border border-slate-700/50">This illusion uses a fixed display for accuracy.</span>
+          
+          <svg class="w-full h-56 select-none overflow-visible" viewBox="0 0 400 200" id="svg-delboeuf">
+            <!-- Grid Guide lines -->
+            <line id="delboeuf-guide-top" x1="50" y1="75" x2="350" y2="75" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="4,4" class="opacity-0 transition-opacity duration-300" />
+            <line id="delboeuf-guide-bottom" x1="50" y1="125" x2="350" y2="125" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="4,4" class="opacity-0 transition-opacity duration-300" />
+
+            <!-- Left Group (Large Outer Ring) -->
+            <g transform="translate(100, 100)">
+              <!-- Large Outer Ring -->
+              <circle id="left-outer-ring" cx="0" cy="0" r="55" fill="none" stroke="#64748b" stroke-width="3" />
+              <!-- Inner Circle -->
+              <circle cx="0" cy="0" r="25" fill="#3b82f6" />
+            </g>
+
+            <!-- Right Group (Small/Tight Outer Ring) -->
+            <g transform="translate(300, 100)">
+              <!-- Small Outer Ring -->
+              <circle id="right-outer-ring" cx="0" cy="0" r="30" fill="none" stroke="#64748b" stroke-width="3" />
+              <!-- Inner Circle -->
+              <circle cx="0" cy="0" r="25" fill="#3b82f6" />
+            </g>
+          </svg>
+
+          <!-- Control bar inside demo -->
+          <div class="absolute bottom-4 flex flex-col items-center space-y-2 w-11/12 bg-slate-900/90 border border-white/10 rounded-xl p-3 z-10 text-xs">
+            <div class="flex items-center justify-between w-full">
+              <span class="text-slate-400 font-bold">Left Outer Ring Size</span>
+              <input type="range" id="left-ring-slider" min="30" max="80" value="55" class="w-2/3 h-1 bg-slate-800 rounded-lg appearance-none accent-purple-650" />
+            </div>
+            <div class="flex space-x-2 pt-1 w-full justify-end">
+              <button id="toggle-guides-btn" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-indigo-950 text-slate-350 hover:bg-slate-800 transition-all">Reveal Truth</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Content Split Layout -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 pt-4">
+      
+      <!-- Left 2-Columns: Science and Prompt -->
+      <div class="lg:col-span-2 space-y-10">
+        <!-- EXPERIENCE IT FIRST prompt -->
+        <section class="space-y-4">
+          <h2 class="font-display text-2xl font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">🎮</span>
+            <span>EXPERIENCE IT FIRST</span>
+          </h2>
+          <div class="bg-indigo-950/20 border-2 border-indigo-500/15 rounded-3xl p-6 text-slate-700 dark:text-slate-300">
+            <p class="font-bold text-sm sm:text-base text-slate-200">Observe how surrounding shapes distort visual scale judgments:</p>
+            <ul class="list-disc pl-5 mt-3 space-y-2 text-xs sm:text-sm font-medium">
+              <li>Compare the two blue circles. The right one, tightly bordered by its outer ring, likely looks expanded (larger) to your eyes.</li>
+              <li>Use the slider to shrink the left outer ring. Notice that as the left ring approaches the size of the inner circle, the inner circle appears to "grow."</li>
+              <li>Click "Reveal Truth." The parallel alignment lines prove the two inner circles are mathematically identical in radius.</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- THE SCIENCE (400 words) -->
+        <section class="space-y-4">
+          <h2 class="font-display text-2xl font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">🧠</span>
+            <span>THE SCIENCE</span>
+          </h2>
+          <div class="prose prose-indigo dark:prose-invert text-slate-700 dark:text-slate-300 leading-relaxed space-y-4 text-xs sm:text-sm font-semibold text-justify">
+            <p>
+              The Delboeuf Illusion is a famous geometrical size-distortion optical illusion documented by Belgian philosopher Joseph Delboeuf in 1867. The illusion demonstrates how our perception of an object's physical dimensions is heavily modified by its surrounding spatial context.
+            </p>
+            <p>
+              The visual mechanism behind the Delboeuf illusion is a classic example of assimilation vs contrast. When an outer circle is placed very close to an inner circle (as seen on the right), the visual system groups them together. This triggers size assimilation: the brain integrates the boundary of the inner circle with the outer ring, causing the inner circle to be perceived as larger.
+            </p>
+            <p>
+              Conversely, when the outer ring is placed far away from the inner circle (as seen on the left), the two shapes are parsed as separate visual entities. This triggers size contrast: the brain contrasts the small inner circle against the large outer frame, causing the inner circle to look significantly smaller than it is.
+            </p>
+            <p>
+              Neurophysiologically, this distortion is mediated by lateral inhibition in primary visual area V1. Neurons processing the edges of the inner circle are inhibited by the nearby active neurons processing the outer concentric ring. This distorts the spatial coordinates mapped in the visual cortex, demonstrating that our brain does not compute absolute sizes directly, but rather relative size ratios based on contextual boundaries.
+            </p>
+          </div>
+        </section>
+      </div>
+
+      <!-- Right Column: Fun Facts and Try This -->
+      <div class="space-y-8">
+        <!-- FUN FACTS -->
+        <section class="rounded-3xl border border-indigo-950/20 bg-slate-900/60 p-6 space-y-4 shadow-xl">
+          <h3 class="font-display text-lg font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">💡</span>
+            <span>FUN FACTS</span>
+          </h3>
+          <ul class="space-y-4 text-xs sm:text-sm text-slate-650 dark:text-slate-300 font-semibold">
+            <li class="flex items-start space-x-2">
+              <span class="text-purple-500 font-black">•</span>
+              <span>The Delboeuf illusion directly impacts eating behavior! People serve themselves significantly more food on large plates (where food looks small) than on small plates (the Delboeuf Plate Illusion).</span>
+            </li>
+            <li class="flex items-start space-x-2">
+              <span class="text-purple-500 font-black">•</span>
+              <span>This illusion is structurally related to the Ebbinghaus Illusion, which uses surrounding circles instead of concentric rings.</span>
+            </li>
+            <li class="flex items-start space-x-2">
+              <span class="text-purple-500 font-black">•</span>
+              <span>The maximum size distortion occurs when the outer circle's diameter is roughly 1.5 times the inner circle's diameter.</span>
+            </li>
+          </ul>
+        </section>
+
+        <!-- TRY THIS AT HOME -->
+        <section class="rounded-3xl border border-indigo-950/20 bg-slate-900/60 p-6 space-y-4 shadow-xl">
+          <h3 class="font-display text-lg font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">🧪</span>
+            <span>TRY THIS AT HOME</span>
+          </h3>
+          <p class="text-xs sm:text-sm text-slate-650 dark:text-slate-300 leading-relaxed font-semibold">
+            Try serving soup in a small, deep bowl vs a wide, shallow plate. See how your brain perceives the portion size in both setups, showing the Delboeuf effect in real life.
+          </p>
+        </section>
+
+        <!-- DISCOVERER -->
+        <section class="rounded-3xl border border-indigo-950/20 bg-slate-900/60 p-6 space-y-4 shadow-xl">
+          <h3 class="font-display text-lg font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">📜</span>
+            <span>DISCOVERER</span>
+          </h3>
+          <div class="text-xs sm:text-sm text-slate-650 dark:text-slate-300 leading-relaxed font-semibold space-y-2">
+            <p><strong>Discoverer:</strong> Joseph Delboeuf (1867)</p>
+            <p>Joseph Delboeuf was a Belgian experimental psychologist who created this concentric ring design to study how context shapes geometrical size estimation.</p>
+          </div>
+        </section>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+    // Share Page URL
+    const sharePageBtn = document.getElementById('share-illusion-page-btn');
+    const pageToast = document.getElementById('page-share-toast');
+
+    sharePageBtn?.addEventListener('click', () => {
+      const pageUrl = window.location.href;
+      navigator.clipboard.writeText(pageUrl).then(() => {
+        if (pageToast) {
+          pageToast.classList.remove('opacity-0');
+          pageToast.classList.add('opacity-100');
+          setTimeout(() => {
+            pageToast.classList.remove('opacity-100');
+            pageToast.classList.add('opacity-0');
+          }, 2000);
+        }
+      });
+    });
+
+    // Control logic
+    const leftSlider = document.getElementById('left-ring-slider') as HTMLInputElement;
+    const leftOuterRing = document.getElementById('left-outer-ring');
+    const guideTop = document.getElementById('delboeuf-guide-top');
+    const guideBottom = document.getElementById('delboeuf-guide-bottom');
+    const toggleBtn = document.getElementById('toggle-guides-btn');
+    
+    let showingGuides = false;
+
+    leftSlider?.addEventListener('input', (e) => {
+      const val = (e.target as HTMLInputElement).value;
+      if (leftOuterRing) {
+        leftOuterRing.setAttribute('r', val);
+      }
+    });
+
+    toggleBtn?.addEventListener('click', () => {
+      showingGuides = !showingGuides;
+      if (guideTop && guideBottom) {
+        if (showingGuides) {
+          guideTop.classList.remove('opacity-0');
+          guideTop.classList.add('opacity-100');
+          guideBottom.classList.remove('opacity-0');
+          guideBottom.classList.add('opacity-100');
+          if (toggleBtn) toggleBtn.textContent = 'Hide Truth';
+        } else {
+          guideTop.classList.remove('opacity-100');
+          guideTop.classList.add('opacity-0');
+          guideBottom.classList.remove('opacity-100');
+          guideBottom.classList.add('opacity-0');
+          if (toggleBtn) toggleBtn.textContent = 'Reveal Truth';
+        }
+      }
+    });
+  </script>
+</Layout>

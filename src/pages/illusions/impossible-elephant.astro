@@ -1,0 +1,229 @@
+---
+// src/pages/illusions/impossible-elephant.astro
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout 
+  title="Impossible Elephant (L'egs-istential Dread) — Interactive Optical Illusion | Optical Illusion Lab" 
+  description="Observe Roger Shepard's Impossible Elephant. Count the legs: is it 4, 5, or a cognitive leg paradox of positive and negative spaces?"
+>
+  <div class="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-12">
+    
+    <!-- Breadcrumb back navigation -->
+    <nav class="flex text-xs font-black uppercase tracking-wider text-slate-400 space-x-2 pb-2 border-b border-indigo-500/10">
+      <a href="/" class="hover:text-white transition-colors">Home</a>
+      <span>/</span>
+      <a href="/hidden" class="hover:text-white transition-colors">Hidden & Ambiguous</a>
+      <span>/</span>
+      <span class="text-purple-400">Impossible Elephant</span>
+    </nav>
+
+    <!-- Hero Header Section -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6">
+      <div class="space-y-3">
+        <div class="flex items-center space-x-2">
+          <span class="text-xs font-black px-2.5 py-0.5 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 uppercase tracking-wider">Type 3: Ambiguous Figures</span>
+          <span class="text-xs font-black px-2.5 py-0.5 rounded-full bg-rose-500/10 text-rose-455 border border-rose-500/20 uppercase tracking-wider">🔴 Hard</span>
+        </div>
+        <h1 class="font-display text-4xl sm:text-5xl font-black tracking-tight text-slate-900 dark:text-white">
+          Impossible Elephant
+        </h1>
+        <p class="text-slate-600 dark:text-slate-350 text-base max-w-2xl font-medium">
+          Roger Shepard's famous "L'egs-istential Dread." An impossible object where the spaces between the legs end in feet, creating a paradox.
+        </p>
+      </div>
+
+      <!-- Share Button -->
+      <button 
+        id="share-illusion-page-btn"
+        class="relative shrink-0 flex items-center space-x-2 rounded-2xl bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-600 hover:scale-105 text-white font-black text-sm px-6 py-3.5 transition-all shadow-lg shadow-purple-500/10"
+      >
+        <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M15 8a3 3 0 1 0-2.977-2.63l-4.94 2.47a3 3 0 1 0 0 4.319l4.94 2.47a3 3 0 1 0 .895-1.789l-4.94-2.47a3.027 3.027 0 0 0 0-.74l4.94-2.47C13.456 7.68 14.19 8 15 8Z"/></svg>
+        <span>Share Page</span>
+        <span id="page-share-toast" class="absolute bottom-full right-1/2 translate-x-1/2 mb-2 px-2.5 py-1 text-[10px] font-bold text-white bg-purple-655 rounded-lg shadow-md opacity-0 pointer-events-none transition-opacity duration-200 whitespace-nowrap">Link Copied! ✓</span>
+      </button>
+    </div>
+
+    <!-- LARGE INTERACTIVE DEMO -->
+    <div class="flex flex-col items-center justify-center py-6 border-b border-indigo-500/10">
+      <div class="w-full max-w-[600px] mx-auto space-y-4">
+        
+        <!-- Instruction Box -->
+        <div class="my-3 flex items-start gap-2 rounded-xl border border-indigo-500/10 bg-indigo-500/5 p-3 text-xs text-slate-350 text-left">
+          <span class="text-base leading-none">👁️</span>
+          <div>
+            <strong class="text-slate-200">👁️ WHAT TO LOOK FOR:</strong> Scan the elephant's legs. How many legs can you count? Use the buttons to reveal why the contour transitions confuse your brain.
+          </div>
+        </div>
+
+        <div id="elephant-illusion" class="relative flex flex-col items-center justify-center h-96 w-full bg-slate-950 rounded-xl overflow-hidden border border-indigo-500/10 p-6">
+          <svg class="w-64 h-64 select-none" viewBox="0 0 200 200" id="svg-elephant-detail">
+            <!-- Body outline -->
+            <path d="M 50,60 C 50,40 160,40 160,70 L 160,110 C 160,110 150,115 140,110" fill="none" stroke="#e2e8f0" stroke-width="2.5" />
+            <!-- 4 Leg connections from top body -->
+            <line x1="60" y1="100" x2="60" y2="130" stroke="#e2e8f0" stroke-width="2.5" />
+            <line x1="85" y1="100" x2="85" y2="130" stroke="#e2e8f0" stroke-width="2.5" />
+            <line x1="110" y1="100" x2="110" y2="130" stroke="#e2e8f0" stroke-width="2.5" />
+            <line x1="135" y1="100" x2="135" y2="130" stroke="#e2e8f0" stroke-width="2.5" />
+            <!-- Hooves drawn out of sync at bottom -->
+            <path d="M 50,160 Q 55,160 55,155 L 55,130" fill="none" stroke="#e2e8f0" stroke-width="2.5" />
+            <path d="M 72,160 Q 77,160 77,155 L 77,130" fill="none" stroke="#e2e8f0" stroke-width="2.5" />
+            <path d="M 97,160 Q 102,160 102,155 L 102,130" fill="none" stroke="#e2e8f0" stroke-width="2.5" />
+            <path d="M 122,160 Q 127,160 127,155 L 127,130" fill="none" stroke="#e2e8f0" stroke-width="2.5" />
+            <path d="M 147,160 Q 152,160 152,155 L 152,130" fill="none" stroke="#e2e8f0" stroke-width="2.5" />
+            
+            <!-- Bottom curves of hooves -->
+            <circle cx="50" cy="160" r="3.5" fill="#e2e8f0" />
+            <circle cx="72" cy="160" r="3.5" fill="#e2e8f0" />
+            <circle cx="97" cy="160" r="3.5" fill="#e2e8f0" />
+            <circle cx="122" cy="160" r="3.5" fill="#e2e8f0" />
+            <circle cx="147" cy="160" r="3.5" fill="#e2e8f0" />
+
+            <!-- Highlight Overlay -->
+            <g id="elephant-detail-overlay" style="display:none" class="pointer-events-none">
+              <circle cx="68" cy="138" r="7" stroke="#ef4444" stroke-width="2" fill="none" />
+              <circle cx="115" cy="138" r="7" stroke="#ef4444" stroke-width="2" fill="none" />
+              <text x="100" y="25" fill="#ef4444" font-size="11" font-weight="950" text-anchor="middle">Spaces drawn as legs!</text>
+            </g>
+          </svg>
+
+          <!-- Control buttons inside demo -->
+          <div class="absolute bottom-4 flex space-x-2 bg-slate-900/90 border border-white/10 rounded-xl p-1 z-10">
+            <button id="show-highlights-btn" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-indigo-950 text-slate-350 hover:bg-slate-800 transition-all">Reveal Highlights</button>
+            <button id="reset-btn" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-indigo-950 text-slate-350 hover:bg-slate-800 transition-all">Reset Highlights</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Content Split Layout -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 pt-4">
+      
+      <!-- Left 2-Columns: Science and Prompt -->
+      <div class="lg:col-span-2 space-y-10">
+        <!-- EXPERIENCE IT FIRST prompt -->
+        <section class="space-y-4">
+          <h2 class="font-display text-2xl font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">🎮</span>
+            <span>EXPERIENCE IT FIRST</span>
+          </h2>
+          <div class="bg-indigo-950/20 border-2 border-indigo-500/15 rounded-3xl p-6 text-slate-700 dark:text-slate-300">
+            <p class="font-bold text-sm sm:text-base text-slate-200">Test your spatial logic with the drawing above:</p>
+            <ul class="list-disc pl-5 mt-3 space-y-2 text-xs sm:text-sm font-medium">
+              <li>Try tracking one leg from the body (top) down to the ground. Notice how it disappears before reaching a foot!</li>
+              <li>Now, track a foot from the ground upward. Notice how it leads into empty space between the legs rather than a solid leg structure.</li>
+              <li>This creates a continuous visual loop: your brain receives local depth cues that are consistent, but globally contradictory.</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- THE SCIENCE (400 words) -->
+        <section class="space-y-4">
+          <h2 class="font-display text-2xl font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">🧠</span>
+            <span>THE SCIENCE</span>
+          </h2>
+          <div class="prose prose-indigo dark:prose-invert text-slate-700 dark:text-slate-300 leading-relaxed space-y-4 text-xs sm:text-sm font-semibold text-justify">
+            <p>
+              The Impossible Elephant, designed by cognitive scientist Roger Shepard, is an impossible object that exploits the brain's parsing of positive vs negative space. In normal object recognition, the visual system classifies shapes as either "figures" (solid objects containing features) or "grounds" (empty space between features). Contours define the boundary between figure and ground.
+            </p>
+            <p>
+              In this drawing, the contour lines are drawn in an alternating, contradictory fashion. The top half of the legs are drawn normally: four solid columns extending down from the body. However, the bottom half (the hooves) are offset. The hooves are drawn at the locations corresponding to the *empty spaces* between the top columns.
+            </p>
+            <p>
+              As your eyes scan down from the body, your primary visual cortex (V1) tracks four solid legs. But as your focus shifts to the feet at the bottom, the brain is forced to treat the empty space between the legs as a solid object (since it terminates in a foot). This causes a figure-ground swap: what was "empty ground" at the top becomes "solid figure" at the bottom.
+            </p>
+            <p>
+              This conflict triggers cognitive dissonance in the parietal lobe, which attempts to build a coherent 3D coordinate model of the animal. Because local regions make sense individually, but the global layout is mathematically impossible, the brain gets trapped in a perceptual loop. This highlights that our visual perception is not a passive mirror of physical reality, but a top-down geometric reconstruction that can be hijacked by inconsistent boundary lines.
+            </p>
+          </div>
+        </section>
+      </div>
+
+      <!-- Right Column: Fun Facts and Try This -->
+      <div class="space-y-8">
+        <!-- FUN FACTS -->
+        <section class="rounded-3xl border border-indigo-950/20 bg-slate-900/60 p-6 space-y-4 shadow-xl">
+          <h3 class="font-display text-lg font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">💡</span>
+            <span>FUN FACTS</span>
+          </h3>
+          <ul class="space-y-4 text-xs sm:text-sm text-slate-650 dark:text-slate-300 font-semibold">
+            <li class="flex items-start space-x-2">
+              <span class="text-purple-500 font-black">•</span>
+              <span>This drawing is also known as "L'egs-istential Dread" because of the existential confusion it causes in viewers.</span>
+            </li>
+            <li class="flex items-start space-x-2">
+              <span class="text-purple-500 font-black">•</span>
+              <span>Roger Shepard, the creator, was a pioneer in cognitive science and visual spatial psychology. He was awarded the National Medal of Science.</span>
+            </li>
+            <li class="flex items-start space-x-2">
+              <span class="text-purple-500 font-black">•</span>
+              <span>Unlike the Penrose Triangle which relies on perspective angle tricks, the elephant relies on figure-ground swaps.</span>
+            </li>
+          </ul>
+        </section>
+
+        <!-- TRY THIS AT HOME -->
+        <section class="rounded-3xl border border-indigo-950/20 bg-slate-900/60 p-6 space-y-4 shadow-xl">
+          <h3 class="font-display text-lg font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">🧪</span>
+            <span>TRY THIS AT HOME</span>
+          </h3>
+          <p class="text-xs sm:text-sm text-slate-650 dark:text-slate-300 leading-relaxed font-semibold">
+            Try covering the bottom half of the elephant's legs. Notice how it looks completely normal. Now uncover the bottom and cover the top half. Again, it looks normal. The paradox only appears when you view the whole figure.
+          </p>
+        </section>
+
+        <!-- DISCOVERER -->
+        <section class="rounded-3xl border border-indigo-950/20 bg-slate-900/60 p-6 space-y-4 shadow-xl">
+          <h3 class="font-display text-lg font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">📜</span>
+            <span>DISCOVERER</span>
+          </h3>
+          <div class="text-xs sm:text-sm text-slate-650 dark:text-slate-300 leading-relaxed font-semibold space-y-2">
+            <p><strong>Creator:</strong> Roger Shepard (1990)</p>
+            <p>Roger Shepard created this image to illustrate how the brain automatically groups boundaries. It remains one of the most famous examples of impossible drawings in visual science history.</p>
+          </div>
+        </section>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+    // Share Page URL
+    const sharePageBtn = document.getElementById('share-illusion-page-btn');
+    const pageToast = document.getElementById('page-share-toast');
+
+    sharePageBtn?.addEventListener('click', () => {
+      const pageUrl = window.location.href;
+      navigator.clipboard.writeText(pageUrl).then(() => {
+        if (pageToast) {
+          pageToast.classList.remove('opacity-0');
+          pageToast.classList.add('opacity-100');
+          setTimeout(() => {
+            pageToast.classList.remove('opacity-100');
+            pageToast.classList.add('opacity-0');
+          }, 2000);
+        }
+      });
+    });
+
+    // Toggle highlights
+    const highlightsBtn = document.getElementById('show-highlights-btn');
+    const resetBtn = document.getElementById('reset-btn');
+    const overlay = document.getElementById('elephant-detail-overlay');
+
+    highlightsBtn?.addEventListener('click', () => {
+      if (overlay) overlay.style.display = 'block';
+      highlightsBtn.className = 'text-xs font-bold px-3 py-1.5 rounded-lg bg-red-650 text-white transition-all';
+    });
+
+    resetBtn?.addEventListener('click', () => {
+      if (overlay) overlay.style.display = 'none';
+      if (highlightsBtn) highlightsBtn.className = 'text-xs font-bold px-3 py-1.5 rounded-lg bg-indigo-950 text-slate-350 hover:bg-slate-800 transition-all';
+    });
+  </script>
+</Layout>

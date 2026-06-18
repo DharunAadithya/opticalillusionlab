@@ -1,0 +1,85 @@
+---
+// src/pages/illusions/ouchi-illusion.astro
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout 
+  title="Ouchi Illusion — Optical Illusion Lab" 
+  description="Explore the science, history, and visual parameters of the Ouchi Illusion optical illusion."
+>
+  <div class="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-12">
+    <!-- Breadcrumb back navigation -->
+    <nav class="flex text-xs font-black uppercase tracking-wider text-slate-400 space-x-2 pb-2 border-b border-indigo-500/10">
+      <a href="/" class="hover:text-white transition-colors">Home</a>
+      <span>/</span>
+      <span class="text-purple-400">Ouchi Illusion</span>
+    </nav>
+
+    <!-- Hero Header -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6">
+      <div class="space-y-3">
+        <div class="flex items-center space-x-2">
+          <span class="text-xs font-black px-2.5 py-0.5 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 uppercase tracking-wider">Motion</span>
+          <span class="text-xs font-black px-2.5 py-0.5 rounded-full bg-purple-500/10 text-purple-400 border border-purple-500/20 uppercase tracking-wider">🔴 Hard</span>
+        </div>
+        <h1 class="font-display text-4xl sm:text-5xl font-black tracking-tight text-slate-900 dark:text-white">
+          Ouchi Illusion
+        </h1>
+        <p class="text-slate-600 dark:text-slate-350 text-base max-w-2xl font-medium">
+          Discover how the brain interprets this fascinating motion visual puzzle.
+        </p>
+      </div>
+    </div>
+
+    <!-- LARGE INTERACTIVE DEMO -->
+    <div class="flex flex-col items-center justify-center py-6 border-b border-indigo-500/10">
+      <div class="w-full max-w-[600px] mx-auto space-y-4">
+        <div class="relative flex flex-col items-center justify-center h-96 w-full bg-slate-100 dark:bg-slate-950/40 rounded-xl overflow-hidden border border-indigo-500/10 p-6">
+          <svg class="w-48 h-48 select-none bg-slate-900 border border-slate-700" viewBox="0 0 100 100">
+            <defs>
+              <pattern id="ouchi-horiz" width="8" height="8" patternUnits="userSpaceOnUse">
+                <rect width="4" height="8" fill="#ffffff" />
+                <rect x="4" width="4" height="8" fill="#000000" />
+              </pattern>
+              <pattern id="ouchi-vert" width="8" height="8" patternUnits="userSpaceOnUse">
+                <rect width="8" height="4" fill="#ffffff" />
+                <rect y="4" width="8" height="4" fill="#000000" />
+              </pattern>
+            </defs>
+            <rect width="100" height="100" fill="url(#ouchi-horiz)" />
+            <circle cx="50" cy="50" r="25" fill="url(#ouchi-vert)" stroke="#ef4444" stroke-width="1.5" class="animate-bounce" />
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- Content Split Layout -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 pt-4">
+      <!-- Left 2-Columns -->
+      <div class="lg:col-span-2 space-y-10">
+        <section class="space-y-4">
+          <h2 class="font-display text-2xl font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">🧠</span>
+            <span>THE SCIENCE</span>
+          </h2>
+          <div class="prose prose-indigo dark:prose-invert text-slate-700 dark:text-slate-300 leading-relaxed text-xs sm:text-sm font-semibold text-justify">
+            <p>The Ouchi Illusion is a famous peripheral drift illusion named after Japanese artist Hajime Ouchi. It consists of a central circular disk of perpendicular stripes floating over a background grid. When you move your eyes or scroll the page, the central circle appears to shake, float, or slide independently of the background. This effect occurs because of how the brain processes horizontal and vertical edges. The primary visual cortex divides the image into two orthogonal motion channels. Because the eye's natural micro-movements (saccades) occur in all directions, they trigger contrasting motion signals along the horizontal and vertical boundaries. The brain fails to coordinate these perpendicular signals, leading it to segment the circle as a separate 3D layer that is sliding across the page.</p>
+          </div>
+        </section>
+      </div>
+
+      <!-- Right Column -->
+      <div class="space-y-8">
+        <section class="rounded-3xl border border-indigo-950/20 bg-slate-900/60 p-6 space-y-4 shadow-xl">
+          <h3 class="font-display text-lg font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">📜</span>
+            <span>HISTORY</span>
+          </h3>
+          <p class="text-xs sm:text-sm text-slate-650 dark:text-slate-355 leading-relaxed font-semibold">
+            First described by Hajime Ouchi (1977). It remains a fundamental demonstration of perceptual processing and cognitive framing.
+          </p>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

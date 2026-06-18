@@ -1,0 +1,269 @@
+---
+// src/pages/illusions/impossible-trident.astro
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout 
+  title="Impossible Trident (Blivet) — Interactive Optical Illusion | Optical Illusion Lab" 
+  description="Explore the Impossible Trident blivet blivet blivet paradox. Stare at the three prongs on one side that resolve into two prongs on the other."
+>
+  <div class="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-12">
+    
+    <!-- Breadcrumb back navigation -->
+    <nav class="flex text-xs font-black uppercase tracking-wider text-slate-400 space-x-2 pb-2 border-b border-indigo-500/10">
+      <a href="/" class="hover:text-white transition-colors">Home</a>
+      <span>/</span>
+      <a href="/drawings" class="hover:text-white transition-colors">Impossible Drawings</a>
+      <span>/</span>
+      <span class="text-purple-400">Impossible Trident</span>
+    </nav>
+
+    <!-- Hero Header Section -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6">
+      <div class="space-y-3">
+        <div class="flex items-center space-x-2">
+          <span class="text-xs font-black px-2.5 py-0.5 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 uppercase tracking-wider">Type 1: Static Context</span>
+          <span class="text-xs font-black px-2.5 py-0.5 rounded-full bg-yellow-500/10 text-yellow-500 border border-yellow-500/20 uppercase tracking-wider">🟡 Medium</span>
+        </div>
+        <h1 class="font-display text-4xl sm:text-5xl font-black tracking-tight text-slate-900 dark:text-white">
+          Impossible Trident (Blivet)
+        </h1>
+        <p class="text-slate-600 dark:text-slate-350 text-base max-w-2xl font-medium">
+          A mind-bending geometric figure. Three cylindrical prongs at the tips mysteriously merge into two rectangular bars at the base.
+        </p>
+      </div>
+
+      <!-- Share Button -->
+      <button 
+        id="share-illusion-page-btn"
+        class="relative shrink-0 flex items-center space-x-2 rounded-2xl bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-600 hover:scale-105 text-white font-black text-sm px-6 py-3.5 transition-all shadow-lg shadow-purple-500/10"
+      >
+        <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M15 8a3 3 0 1 0-2.977-2.63l-4.94 2.47a3 3 0 1 0 0 4.319l4.94 2.47a3 3 0 1 0 .895-1.789l-4.94-2.47a3.027 3.027 0 0 0 0-.74l4.94-2.47C13.456 7.68 14.19 8 15 8Z"/></svg>
+        <span>Share Page</span>
+        <span id="page-share-toast" class="absolute bottom-full right-1/2 translate-x-1/2 mb-2 px-2.5 py-1 text-[10px] font-bold text-white bg-purple-655 rounded-lg shadow-md opacity-0 pointer-events-none transition-opacity duration-200 whitespace-nowrap">Link Copied! ✓</span>
+      </button>
+    </div>
+
+    <!-- LARGE INTERACTIVE DEMO -->
+    <div class="flex flex-col items-center justify-center py-6 border-b border-indigo-500/10">
+      <div class="w-full max-w-[600px] mx-auto space-y-4">
+        
+        <!-- Instruction Box -->
+        <div class="my-3 flex items-start gap-2 rounded-xl border border-indigo-500/10 bg-indigo-500/5 p-3 text-xs text-slate-350 text-left">
+          <span class="text-base leading-none">👁️</span>
+          <div>
+            <strong class="text-slate-200">👁️ WHAT TO LOOK FOR:</strong> Track the outer lines from left to right. Notice how the two rectangular prongs at the base (left) split into three cylindrical tips (right). Use the buttons below to highlight the two configurations.
+          </div>
+        </div>
+
+        <div id="trident-illusion-card" class="relative flex flex-col items-center justify-center h-96 w-full bg-slate-950 rounded-xl overflow-hidden border border-indigo-500/10 p-6">
+          <svg class="w-full h-56 select-none overflow-visible" viewBox="0 0 320 160" id="svg-trident">
+            <!-- Impossible Trident Geometry Lines -->
+            <g stroke="#e2e8f0" stroke-width="2.5" fill="none" stroke-linecap="round">
+              <!-- Top bar/prong line -->
+              <path d="M 50,45 L 260,45" />
+              <!-- Bottom bar/prong line -->
+              <path d="M 50,115 L 260,115" />
+              
+              <!-- Left rectangular base arc -->
+              <path d="M 50,45 C 30,45 30,115 50,115" />
+              <path d="M 50,60 C 45,60 45,100 50,100" />
+              
+              <!-- Inner lines forming prongs -->
+              <path d="M 50,60 L 170,60 C 180,60 180,80 190,80 L 260,80" />
+              <path d="M 50,100 L 170,100 C 180,100 180,80 190,80" />
+              
+              <!-- Middle lines splitting the tubes -->
+              <path d="M 120,45 L 120,60" />
+              <path d="M 120,100 L 120,115" />
+              
+              <!-- Prong tips (cylindrical curves at the end) -->
+              <!-- Tip 1 (Top) -->
+              <path d="M 260,45 C 265,45 265,60 260,60 C 255,60 255,45 260,45 Z" fill="#312e81" />
+              <path d="M 260,60 L 170,60" />
+              
+              <!-- Tip 2 (Middle) -->
+              <path d="M 260,70 C 265,70 265,90 260,90 C 255,90 255,70 260,70 Z" fill="#312e81" />
+              <path d="M 260,70 L 190,70" />
+              <path d="M 260,90 L 190,90" />
+
+              <!-- Tip 3 (Bottom) -->
+              <path d="M 260,100 C 265,100 265,115 260,115 C 255,115 255,100 260,100 Z" fill="#312e81" />
+              <path d="M 260,100 L 170,100" />
+            </g>
+
+            <!-- Highlights Overlay: 2 rectangles view -->
+            <g id="trident-overlay-two" style="display:none" class="pointer-events-none">
+              <!-- Top bar rectangle outline -->
+              <path d="M 50,45 L 260,45 M 260,60 L 50,60 M 50,45 C 30,45 30,115 50,115" stroke="#ef4444" stroke-width="3.5" fill="none" />
+              <!-- Bottom bar rectangle outline -->
+              <path d="M 50,100 L 260,100 M 260,115 L 50,115" stroke="#ef4444" stroke-width="3.5" fill="none" />
+              <text x="160" y="25" fill="#f87171" font-size="11" font-weight="950" text-anchor="middle">2 Rectangular Bars Highlighted</text>
+            </g>
+
+            <!-- Highlights Overlay: 3 cylinders view -->
+            <g id="trident-overlay-three" style="display:none" class="pointer-events-none">
+              <!-- Cylinder 1 (top) -->
+              <path d="M 120,45 L 260,45 M 260,60 L 120,60" stroke="#3b82f6" stroke-width="3.5" fill="none" />
+              <!-- Cylinder 2 (middle) -->
+              <path d="M 190,70 L 260,70 M 260,90 L 190,90" stroke="#3b82f6" stroke-width="3.5" fill="none" />
+              <!-- Cylinder 3 (bottom) -->
+              <path d="M 120,100 L 260,100 M 260,115 L 120,115" stroke="#3b82f6" stroke-width="3.5" fill="none" />
+              <text x="160" y="25" fill="#60a5fa" font-size="11" font-weight="950" text-anchor="middle">3 Cylindrical Tubes Highlighted</text>
+            </g>
+          </svg>
+
+          <!-- Control buttons inside demo -->
+          <div class="absolute bottom-4 flex space-x-2 bg-slate-900/90 border border-white/10 rounded-xl p-1 z-10">
+            <button id="show-two-btn" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-indigo-950 text-slate-350 hover:bg-slate-800 transition-all">Show 2 Rectangles 🟥</button>
+            <button id="show-three-btn" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-indigo-950 text-slate-350 hover:bg-slate-800 transition-all">Show 3 Cylinders 🔵</button>
+            <button id="reset-btn" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-indigo-950 text-slate-350 hover:bg-slate-800 transition-all">Reset Highlights</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Content Split Layout -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 pt-4">
+      
+      <!-- Left 2-Columns: Science and Prompt -->
+      <div class="lg:col-span-2 space-y-10">
+        <!-- EXPERIENCE IT FIRST prompt -->
+        <section class="space-y-4">
+          <h2 class="font-display text-2xl font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">🎮</span>
+            <span>EXPERIENCE IT FIRST</span>
+          </h2>
+          <div class="bg-indigo-950/20 border-2 border-indigo-500/15 rounded-3xl p-6 text-slate-700 dark:text-slate-300">
+            <p class="font-bold text-sm sm:text-base text-slate-200">Observe how local perspective conflicts with global layout:</p>
+            <ul class="list-disc pl-5 mt-3 space-y-2 text-xs sm:text-sm font-medium">
+              <li>Look at the left end of the drawing. Notice how the curves create a solid, U-shaped rectangular block with two prongs.</li>
+              <li>Now look at the right end. Your eyes clearly resolve three circular tubes, complete with rounded cap cylinder curves.</li>
+              <li>Try tracking the middle prong from right to left. Notice how it dissolves into thin air, becoming the empty gap between the two left bars!</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- THE SCIENCE (400 words) -->
+        <section class="space-y-4">
+          <h2 class="font-display text-2xl font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">🧠</span>
+            <span>THE SCIENCE</span>
+          </h2>
+          <div class="prose prose-indigo dark:prose-invert text-slate-700 dark:text-slate-300 leading-relaxed space-y-4 text-xs sm:text-sm font-semibold text-justify">
+            <p>
+              The Impossible Trident, also widely referred to as a blivet, devil's tuning fork, or impossible prong blivet, is a classic example of an impossible figure. Like the Penrose Triangle, it is a 2D line drawing that tricks the visual cortex into attempting to construct a coherent 3D object model that cannot physically exist in three-dimensional space.
+            </p>
+            <p>
+              The visual system reconstructs depth cues using local boundaries, shading, and perspective junctions (such as L-junctions and Y-junctions). In primary visual areas, each part of the blivet is parsed independently. Locally, the left side is drawn as a normal, valid rectangular bracket. The right side is also locally consistent, depicting three parallel cylindrical pipes pointing to the right.
+            </p>
+            <p>
+              However, the conflict arises when the brain's parietal lobe tries to integrate these local representations into a single global coordinate map. The contours of the drawing are drawn inconsistently: the boundary lines that define the *interior space* (negative space) between the two left rectangular bars are extended to form the *solid contours* (positive space) of the middle cylindrical prong.
+            </p>
+            <p>
+              This creates a figure-ground paradox. The visual cortex experiences cognitive friction because a single line cannot function simultaneously as the outer edge of a solid prong and the boundary of an empty gap. The brain gets caught in an infinite loop of re-assigning edge ownership, highlighting that human vision is a top-down, model-building projection rather than a direct translation of 2D lines.
+            </p>
+          </div>
+        </section>
+      </div>
+
+      <!-- Right Column: Fun Facts and Try This -->
+      <div class="space-y-8">
+        <!-- FUN FACTS -->
+        <section class="rounded-3xl border border-indigo-950/20 bg-slate-900/60 p-6 space-y-4 shadow-xl">
+          <h3 class="font-display text-lg font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">💡</span>
+            <span>FUN FACTS</span>
+          </h3>
+          <ul class="space-y-4 text-xs sm:text-sm text-slate-650 dark:text-slate-300 font-semibold">
+            <li class="flex items-start space-x-2">
+              <span class="text-purple-500 font-black">•</span>
+              <span>The word "blivet" was popularized during WWII to describe an impossible situation or a highly confusing, contradictory military instruction.</span>
+            </li>
+            <li class="flex items-start space-x-2">
+              <span class="text-purple-500 font-black">•</span>
+              <span>It was first published in popular media in 1964 on the cover of "Mad Magazine" and "Analog Science Fiction" as a "three-pronged one-story blivet."</span>
+            </li>
+            <li class="flex items-start space-x-2">
+              <span class="text-purple-500 font-black">•</span>
+              <span>Visual scientists use the blivet to study how the brain segregates boundaries, showing that local depth constraints can override global consistency.</span>
+            </li>
+          </ul>
+        </section>
+
+        <!-- TRY THIS AT HOME -->
+        <section class="rounded-3xl border border-indigo-950/20 bg-slate-900/60 p-6 space-y-4 shadow-xl">
+          <h3 class="font-display text-lg font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">🧪</span>
+            <span>TRY THIS AT HOME</span>
+          </h3>
+          <p class="text-xs sm:text-sm text-slate-650 dark:text-slate-300 leading-relaxed font-semibold">
+            Try drawing a blivet yourself! Start by drawing three circles on the right, and two rectangles on the left. Connecting the inner lines is where the magic (and brain confusion) happens!
+          </p>
+        </section>
+
+        <!-- DISCOVERER -->
+        <section class="rounded-3xl border border-indigo-950/20 bg-slate-900/60 p-6 space-y-4 shadow-xl">
+          <h3 class="font-display text-lg font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">📜</span>
+            <span>DISCOVERER</span>
+          </h3>
+          <div class="text-xs sm:text-sm text-slate-650 dark:text-slate-300 leading-relaxed font-semibold space-y-2">
+            <p><strong>Discoverer:</strong> D. H. Schuster (1964)</p>
+            <p>D. H. Schuster first published a drawing of the impossible prong blivet in the American Journal of Psychology, noting it as a new class of ambiguous spatial figures.</p>
+          </div>
+        </section>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+    // Share Page URL
+    const sharePageBtn = document.getElementById('share-illusion-page-btn');
+    const pageToast = document.getElementById('page-share-toast');
+
+    sharePageBtn?.addEventListener('click', () => {
+      const pageUrl = window.location.href;
+      navigator.clipboard.writeText(pageUrl).then(() => {
+        if (pageToast) {
+          pageToast.classList.remove('opacity-0');
+          pageToast.classList.add('opacity-100');
+          setTimeout(() => {
+            pageToast.classList.remove('opacity-100');
+            pageToast.classList.add('opacity-0');
+          }, 2000);
+        }
+      });
+    });
+
+    // Toggle highlights
+    const twoBtn = document.getElementById('show-two-btn');
+    const threeBtn = document.getElementById('show-three-btn');
+    const resetBtn = document.getElementById('reset-btn');
+    const overlayTwo = document.getElementById('trident-overlay-two');
+    const overlayThree = document.getElementById('trident-overlay-three');
+
+    twoBtn?.addEventListener('click', () => {
+      if (overlayTwo) overlayTwo.style.display = 'block';
+      if (overlayThree) overlayThree.style.display = 'none';
+      twoBtn.className = 'text-xs font-bold px-3 py-1.5 rounded-lg bg-red-650 text-white transition-all';
+      if (threeBtn) threeBtn.className = 'text-xs font-bold px-3 py-1.5 rounded-lg bg-indigo-950 text-slate-350 hover:bg-slate-800 transition-all';
+    });
+
+    threeBtn?.addEventListener('click', () => {
+      if (overlayTwo) overlayTwo.style.display = 'none';
+      if (overlayThree) overlayThree.style.display = 'block';
+      if (twoBtn) twoBtn.className = 'text-xs font-bold px-3 py-1.5 rounded-lg bg-indigo-950 text-slate-350 hover:bg-slate-800 transition-all';
+      threeBtn.className = 'text-xs font-bold px-3 py-1.5 rounded-lg bg-blue-600 text-white transition-all';
+    });
+
+    resetBtn?.addEventListener('click', () => {
+      if (overlayTwo) overlayTwo.style.display = 'none';
+      if (overlayThree) overlayThree.style.display = 'none';
+      if (twoBtn) twoBtn.className = 'text-xs font-bold px-3 py-1.5 rounded-lg bg-indigo-950 text-slate-350 hover:bg-slate-800 transition-all';
+      if (threeBtn) threeBtn.className = 'text-xs font-bold px-3 py-1.5 rounded-lg bg-indigo-950 text-slate-350 hover:bg-slate-800 transition-all';
+    });
+  </script>
+</Layout>

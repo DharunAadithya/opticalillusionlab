@@ -83,9 +83,93 @@ import Layout from '../layouts/Layout.astro';
       </div>
     </form>
 
+    <!-- Suggestion Box / Form -->
+    <div class="space-y-6 bg-white dark:bg-slate-900/60 p-8 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm mt-12">
+      <div class="space-y-2">
+        <h2 class="text-xl font-bold text-slate-900 dark:text-white flex items-center space-x-2">
+          <span>💡 Suggest an Illusion</span>
+        </h2>
+        <p class="text-xs text-slate-500">Know of a mind-bending illusion we should add to our lab? Tell us about it!</p>
+      </div>
+
+      <form id="suggest-form" class="space-y-4">
+        <div class="space-y-1">
+          <label for="suggest-name" class="block text-sm font-semibold text-slate-700 dark:text-slate-300">Illusion Name</label>
+          <input 
+            type="text" 
+            id="suggest-name" 
+            required 
+            placeholder="e.g. Lilac Chaser"
+            class="w-full rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 px-4 py-3 text-sm text-slate-900 dark:text-slate-100 focus:border-purple-500 focus:outline-none transition-colors"
+          />
+        </div>
+
+        <div class="space-y-1">
+          <label for="suggest-desc" class="block text-sm font-semibold text-slate-700 dark:text-slate-300">Description</label>
+          <textarea 
+            id="suggest-desc" 
+            rows="3" 
+            required 
+            placeholder="Describe what the illusion looks like…"
+            class="w-full rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 px-4 py-3 text-sm text-slate-900 dark:text-slate-100 focus:border-purple-500 focus:outline-none transition-colors"
+          ></textarea>
+        </div>
+
+        <div class="space-y-1">
+          <label for="suggest-why" class="block text-sm font-semibold text-slate-700 dark:text-slate-300">Why is it interesting?</label>
+          <textarea 
+            id="suggest-why" 
+            rows="2" 
+            required 
+            placeholder="What is the science or why is it cool…"
+            class="w-full rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 px-4 py-3 text-sm text-slate-900 dark:text-slate-100 focus:border-purple-500 focus:outline-none transition-colors"
+          ></textarea>
+        </div>
+
+        <button 
+          type="submit" 
+          class="w-full rounded-xl bg-purple-600 hover:bg-purple-500 px-6 py-3.5 text-sm font-semibold text-white shadow-md hover:shadow-lg transition-all duration-200"
+        >
+          Submit Suggestion
+        </button>
+      </form>
+      
+      <div id="suggest-success-msg" class="hidden p-3 bg-green-500/20 text-green-400 font-bold border border-green-500/30 rounded-xl text-xs text-center">
+        Thanks! We review all suggestions. ✓
+      </div>
+    </div>
+
     <div class="text-center text-xs text-slate-500 dark:text-slate-500 space-y-1.5 pt-4">
       <p>Laboratory Email: <a href="mailto:contact@opticalillusionlab.pages.dev" class="text-purple-600 dark:text-purple-400 hover:underline">contact@opticalillusionlab.pages.dev</a></p>
       <p>Available for research queries and sensory study discussions.</p>
     </div>
   </div>
+
+  <script>
+    const suggestForm = document.getElementById('suggest-form') as HTMLFormElement;
+    const suggestSuccessMsg = document.getElementById('suggest-success-msg');
+
+    suggestForm?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const nameInput = document.getElementById('suggest-name') as HTMLInputElement;
+      const descInput = document.getElementById('suggest-desc') as HTMLTextAreaElement;
+      const whyInput = document.getElementById('suggest-why') as HTMLTextAreaElement;
+
+      const suggestions = JSON.parse(localStorage.getItem('user-suggestions') || '[]');
+      suggestions.push({ 
+        name: nameInput?.value || '', 
+        desc: descInput?.value || '', 
+        why: whyInput?.value || '', 
+        timestamp: Date.now() 
+      });
+      localStorage.setItem('user-suggestions', JSON.stringify(suggestions));
+
+      suggestForm.reset();
+      suggestSuccessMsg?.classList.remove('hidden');
+      setTimeout(() => {
+        suggestSuccessMsg?.classList.add('hidden');
+      }, 4000);
+    });
+  </script>
 </Layout>

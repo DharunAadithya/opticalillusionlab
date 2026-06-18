@@ -1,0 +1,190 @@
+---
+// src/pages/illusions/shepard-tables.astro
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout 
+  title="Shepard Tables — Interactive Optical Illusion | Optical Illusion Lab" 
+  description="Stare at two tabletops that appear to be different shapes and sizes. Animate them to overlap and prove they are identical parallelograms."
+>
+  <div class="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-12">
+    
+    <!-- Breadcrumb back navigation -->
+    <nav class="flex text-xs font-black uppercase tracking-wider text-slate-400 space-x-2 pb-2 border-b border-indigo-500/10">
+      <a href="/" class="hover:text-white transition-colors">Home</a>
+      <span>/</span>
+      <a href="/famous" class="hover:text-white transition-colors">Famous Illusions</a>
+      <span>/</span>
+      <span class="text-purple-400">Shepard Tables</span>
+    </nav>
+
+    <!-- Hero Header -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6">
+      <div class="space-y-3">
+        <div class="flex items-center space-x-2">
+          <span class="text-xs font-black px-2.5 py-0.5 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 uppercase tracking-wider">Geometric</span>
+          <span class="text-xs font-black px-2.5 py-0.5 rounded-full bg-purple-500/10 text-purple-400 border border-purple-500/20 uppercase tracking-wider">🟡 Medium</span>
+        </div>
+        <h1 class="font-display text-4xl sm:text-5xl font-black tracking-tight text-slate-900 dark:text-white">
+          Shepard Tables
+        </h1>
+        <p class="text-slate-600 dark:text-slate-350 text-base max-w-2xl font-medium">
+          Two tabletops appearing completely different dimensions. In reality, their 2D shapes on the screen are identical.
+        </p>
+      </div>
+
+      <!-- Share Button -->
+      <button 
+        id="share-illusion-page-btn"
+        class="relative shrink-0 flex items-center space-x-2 rounded-2xl bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-600 hover:scale-105 text-white font-black text-sm px-6 py-3.5 transition-all shadow-lg shadow-purple-500/10"
+      >
+        <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M15 8a3 3 0 1 0-2.977-2.63l-4.94 2.47a3 3 0 1 0 0 4.319l4.94 2.47a3 3 0 1 0 .895-1.789l-4.94-2.47a3.027 3.027 0 0 0 0-.74l4.94-2.47C13.456 7.68 14.19 8 15 8Z"/></svg>
+        <span>Share Page</span>
+        <span id="page-share-toast" class="absolute bottom-full right-1/2 translate-x-1/2 mb-2 px-2.5 py-1 text-[10px] font-bold text-white bg-purple-650 rounded-lg shadow-md opacity-0 pointer-events-none transition-opacity duration-200 whitespace-nowrap">Link Copied! ✓</span>
+      </button>
+    </div>
+
+    <!-- LARGE INTERACTIVE DEMO -->
+    <div class="flex flex-col items-center justify-center py-6 border-b border-indigo-500/10">
+      <div class="w-full max-w-[600px] mx-auto space-y-4">
+        <div id="shepard-illusion-container" class="relative flex flex-col items-center justify-center h-96 w-full bg-slate-100 dark:bg-slate-950/40 rounded-xl overflow-hidden border border-indigo-500/10 p-6">
+          <svg class="w-full h-64 p-2 select-none overflow-visible" viewBox="0 0 200 200">
+            <!-- Table 1 (Left, vertical orientation) -->
+            <g id="table-left" transform="translate(10, 0)">
+              <!-- Legs -->
+              <line x1="30" y1="100" x2="30" y2="150" stroke="#78350f" stroke-width="6" />
+              <line x1="80" y1="100" x2="80" y2="150" stroke="#78350f" stroke-width="6" />
+              <line x1="60" y1="120" x2="60" y2="160" stroke="#78350f" stroke-width="6" />
+              <!-- Top parallelogram -->
+              <polygon points="30,70 80,70 60,120 10,120" fill="#d97706" stroke="#b45309" stroke-width="2" />
+            </g>
+            <!-- Table 2 (Right, horizontal orientation) -->
+            <g id="table-right">
+              <!-- Legs -->
+              <line x1="120" y1="90" x2="120" y2="140" stroke="#78350f" stroke-width="6" />
+              <line x1="170" y1="100" x2="170" y2="150" stroke="#78350f" stroke-width="6" />
+              <line x1="140" y1="110" x2="140" y2="155" stroke="#78350f" stroke-width="6" />
+              <!-- Top parallelogram (Identical shape rotated) -->
+              <polygon id="tabletop-right" points="100,80 150,80 130,130 80,130" fill="#d97706" stroke="#b45309" stroke-width="2" class="transition-transform duration-[1500ms] ease-in-out origin-center" style="transform-origin: 115px 105px;" />
+            </g>
+          </svg>
+          <div class="absolute bottom-4">
+            <button id="btn-overlay-shepard" class="text-sm font-semibold px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white shadow-md transition-colors">
+              Verify (Overlay Tables)
+            </button>
+          </div>
+        </div>
+        <div class="text-center text-xs text-slate-500 dark:text-slate-400 italic">
+          Click the Overlay button to watch one tabletop slide and rotate on top of the other.
+        </div>
+      </div>
+    </div>
+
+    <!-- Content Split Layout -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 pt-4">
+      
+      <!-- Left 2-Columns -->
+      <div class="lg:col-span-2 space-y-10">
+        <section class="space-y-4">
+          <h2 class="font-display text-2xl font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">🎮</span>
+            <span>EXPERIENCE IT FIRST</span>
+          </h2>
+          <div class="bg-indigo-950/20 border-2 border-indigo-500/15 rounded-3xl p-6 text-slate-700 dark:text-slate-350">
+            <p class="font-bold text-sm sm:text-base text-slate-200">Before running the animation, look closely at the two tabletops:</p>
+            <ul class="list-disc pl-5 mt-3 space-y-2 text-xs sm:text-sm font-medium">
+              <li>The left table appears long and narrow, stretching far back into space.</li>
+              <li>The right table appears wide, squat, and nearly square.</li>
+              <li>Click "Verify (Overlay Tables)" and watch the right table's top parallelogram slide and rotate. You will see that it matches the left table perfectly.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="space-y-4">
+          <h2 class="font-display text-2xl font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">🧠</span>
+            <span>THE SCIENCE</span>
+          </h2>
+          <div class="prose prose-indigo dark:prose-invert text-slate-700 dark:text-slate-300 leading-relaxed space-y-4 text-xs sm:text-sm font-semibold text-justify">
+            <p>The Shepard Tables illusion, published by cognitive scientist Roger Shepard in 1990, is one of the most powerful geometrical illusions. It reveals that our visual system does not perceive raw 2D shapes on screens or paper; instead, it automatically interprets them as three-dimensional objects situated in depth.</p>
+            
+            <p>The two tabletops are represented by identical parallelograms on the 2D page, differing only by a 90-degree rotation. However, because the legs and contours suggest three-dimensional tables, our brains apply <strong>size constancy</strong> principles. The brain interprets the vertical parallelogram as pointing directly away from us in depth, and therefore extends its length in our perception. The horizontal parallelogram is interpreted as pointing across our field of view, so the brain does not apply depth scaling. This automatic, unconscious depth calculation creates a striking mismatch between the physical drawing and our conscious perception.</p>
+          </div>
+        </section>
+      </div>
+
+      <!-- Right Column -->
+      <div class="space-y-8">
+        <section class="rounded-3xl border border-indigo-950/20 bg-slate-900/60 p-6 space-y-4 shadow-xl">
+          <h3 class="font-display text-lg font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">💡</span>
+            <span>FUN FACTS</span>
+          </h3>
+          <ul class="space-y-4 text-xs sm:text-sm text-slate-600 dark:text-slate-350 font-semibold">
+            <li class="flex items-start space-x-2">
+              <span class="text-purple-500 font-black">•</span>
+              <span>Roger Shepard published this illusion in his book "Mind Sights" (1990), calling it "Turning the Tables".</span>
+            </li>
+            <li class="flex items-start space-x-2">
+              <span class="text-purple-500 font-black">•</span>
+              <span>Knowing that the shapes are identical does nothing to reduce the illusion—your visual cortex's depth-processing is fully automatic and impenetrable by conscious knowledge.</span>
+            </li>
+            <li class="flex items-start space-x-2">
+              <span class="text-purple-500 font-black">•</span>
+              <span>This illusion demonstrates the difference between "proximal stimuli" (the actual light/pixels hitting the retina) and "distal stimuli" (the objects the brain reconstructs).</span>
+            </li>
+          </ul>
+        </section>
+
+        <section class="rounded-3xl border border-indigo-950/20 bg-slate-900/60 p-6 space-y-4 shadow-xl">
+          <h3 class="font-display text-lg font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">📜</span>
+            <span>CREATOR</span>
+          </h3>
+          <p class="text-xs sm:text-sm text-slate-650 dark:text-slate-355 leading-relaxed font-semibold">
+            Roger Shepard is a renowned American cognitive scientist who pioneered research on spatial relations and mental rotation. He received the National Medal of Science in 1995 for his contributions to visual perception theory.
+          </p>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const sharePageBtn = document.getElementById('share-illusion-page-btn');
+    const pageToast = document.getElementById('page-share-toast');
+
+    sharePageBtn?.addEventListener('click', () => {
+      const pageUrl = window.location.href;
+      navigator.clipboard.writeText(pageUrl).then(() => {
+        if (pageToast) {
+          pageToast.classList.remove('opacity-0');
+          pageToast.classList.add('opacity-100');
+          setTimeout(() => {
+            pageToast.classList.remove('opacity-100');
+            pageToast.classList.add('opacity-0');
+          }, 2000);
+        }
+      });
+    });
+
+    // Shepard Tables Overlay Logic
+    const btnOverlay = document.getElementById('btn-overlay-shepard');
+    const tabletopRight = document.getElementById('tabletop-right');
+    let overlayActive = false;
+
+    btnOverlay?.addEventListener('click', () => {
+      overlayActive = !overlayActive;
+      if (tabletopRight) {
+        if (overlayActive) {
+          // Slide left and rotate to align with Table 1 parallelogram
+          // Table 1 left: cx=45, Table 2 right: cx=115. Translate left by 80px, down by 12px and rotate 45deg
+          tabletopRight.style.transform = 'translate(-80px, 12px) rotate(45deg)';
+          if (btnOverlay) btnOverlay.textContent = 'Reset Tables';
+        } else {
+          tabletopRight.style.transform = '';
+          if (btnOverlay) btnOverlay.textContent = 'Verify (Overlay Tables)';
+        }
+      }
+    });
+  </script>
+</Layout>

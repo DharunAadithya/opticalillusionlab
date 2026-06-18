@@ -437,7 +437,7 @@ import Layout from '../layouts/Layout.astro';
             <!-- Central dot -->
             <circle cx="100" cy="100" r="5" fill="#000000" />
             <!-- Fuzzy pink dots ring -->
-            <g class="kids-pink-dots transition-opacity duration-[15000ms] ease-linear">
+            <g class="kids-pink-dots">
               <circle cx="100" cy="35" r="14" fill="#ec4899" filter="url(#fuzzy-blur-kids)" />
               <circle cx="146" cy="54" r="14" fill="#ec4899" filter="url(#fuzzy-blur-kids)" />
               <circle cx="165" cy="100" r="14" fill="#ec4899" filter="url(#fuzzy-blur-kids)" />
@@ -457,7 +457,7 @@ import Layout from '../layouts/Layout.astro';
               <span class="block text-4xl">💫</span>
               <span class="block text-pink-400 font-black text-xl tracking-wider">DID THEY DISAPPEAR?!</span>
               <p class="text-xs text-slate-200 font-bold max-w-[220px]">
-                Your brain erased them! This is called 'Troxler Fading' — your brain ignores boring stuff!
+                Your brain erased them! This is 'Troxler Fading'. The pink dots never faded in the code — if they disappeared, it was 100% your brain's magic! 🧠✨
               </p>
               <button class="retry-btn mt-3 bg-slate-800 text-white font-bold text-xs px-3 py-1.5 rounded-lg border border-slate-700">Try Staring Again</button>
             </div>
@@ -532,6 +532,60 @@ import Layout from '../layouts/Layout.astro';
         </div>
       </div>
     </a>
+
+    <!-- Illusion 9: Delboeuf Circle Size -->
+    <a href="/illusions/delboeuf" class="kids-card bg-slate-900/80 border-2 border-emerald-500/30 rounded-3xl p-6 sm:p-8 shadow-2xl relative overflow-hidden transition-all duration-300 /50 block hover:-translate-y-1 hover:shadow-[0_0_25px_rgba(16,185,129,0.4)] hover:border-emerald-500/50 cursor-pointer transition-all duration-300 group" data-id="delboeuf">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+        <div class="space-y-4">
+          <div class="flex items-center space-x-2">
+            <span class="text-xs font-black px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">🟢 EASY</span>
+            <span class="text-xs font-bold text-yellow-400 uppercase tracking-wider">Size Test 📏</span>
+          </div>
+          <h2 class="font-display text-2xl sm:text-3xl font-black text-white">9. THE RING SQUEEZER 🔵</h2>
+          <p class="text-lg sm:text-xl text-slate-200 font-semibold leading-relaxed">
+            Which blue circle inside is BIGGER?
+          </p>
+          <div class="flex flex-col sm:flex-row gap-3 kids-delboeuf-buttons">
+            <button class="delboeuf-btn bg-slate-800 hover:bg-slate-750 text-emerald-300 border-2 border-emerald-500/20 font-black text-base px-4 py-3 rounded-2xl flex-1 shadow transition-all hover:scale-105 active:scale-95 font-bold">Left Circle 👈</button>
+            <button class="delboeuf-btn bg-slate-800 hover:bg-slate-750 text-emerald-300 border-2 border-emerald-500/20 font-black text-base px-4 py-3 rounded-2xl flex-1 shadow transition-all hover:scale-105 active:scale-95 font-bold">Right Circle 👉</button>
+            <button class="delboeuf-btn bg-slate-800 hover:bg-slate-750 text-emerald-300 border-2 border-emerald-500/20 font-black text-base px-4 py-3 rounded-2xl flex-1 shadow transition-all hover:scale-105 active:scale-95 font-bold">Same Size! 🤝</button>
+          </div>
+          <div class="pt-4 flex items-center justify-between border-t border-slate-700/30 mt-2">
+            <span class="text-xs font-black uppercase text-emerald-400">Step Inside the Lab</span>
+            <span class="text-sm font-black text-emerald-400 group-hover:text-emerald-300 transition-colors">Explore &rarr;</span>
+          </div>
+        </div>
+        <div class="flex flex-col items-center justify-center bg-slate-950/60 rounded-2xl p-6 border-2 border-slate-800 relative">
+          <div class="w-full max-w-[320px] h-[220px] bg-slate-950 rounded-xl flex items-center justify-center relative overflow-hidden">
+            <svg id="svg-delboeuf-kids" class="w-full h-full select-none overflow-visible" viewBox="0 0 240 160">
+              <!-- Grid lines -->
+              <line class="delboeuf-ruler stroke-yellow-400 stroke-[3] stroke-dasharray-[4,4] opacity-0 transition-opacity duration-500" x1="20" y1="64" x2="220" y2="64" />
+              <line class="delboeuf-ruler stroke-yellow-400 stroke-[3] stroke-dasharray-[4,4] opacity-0 transition-opacity duration-500" x1="20" y1="96" x2="220" y2="96" />
+
+              <g transform="translate(65, 80)">
+                <circle cx="0" cy="0" r="40" fill="none" stroke="#64748b" stroke-width="3" />
+                <circle cx="0" cy="0" r="16" fill="#3b82f6" />
+              </g>
+              <g transform="translate(175, 80)">
+                <circle cx="0" cy="0" r="22" fill="none" stroke="#64748b" stroke-width="3" />
+                <circle cx="0" cy="0" r="16" fill="#3b82f6" />
+              </g>
+            </svg>
+          </div>
+          
+          <div class="kids-wow-badge absolute inset-0 flex items-center justify-center bg-slate-950/90 hidden select-none">
+            <div class="text-center animate-bounce space-y-2 p-6">
+              <span class="block text-4xl">🔵</span>
+              <span class="block text-emerald-400 font-black text-xl tracking-wider">WOW!</span>
+              <p class="text-xs text-slate-200 font-bold max-w-[220px]">
+                Both blue circles are exactly the same size! The outer rings trick your brain by making the left one look smaller!
+              </p>
+              <button class="retry-btn mt-3 bg-slate-800 text-white font-bold text-xs px-3 py-1.5 rounded-lg border border-slate-700">Try Again</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
   <!-- Section 3: Why does your brain do this? -->
   <section class="py-16 px-4 sm:px-6 lg:px-8 bg-slate-900/40 border-t border-b border-indigo-500/20">
@@ -727,6 +781,194 @@ import Layout from '../layouts/Layout.astro';
             </div>
             <p class="text-xs text-slate-300 font-bold">Shade the lines so they look like they overlap. Mind-bending! 📐</p>
           </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Section 4.5: Home Science Experiments -->
+  <section id="kids-experiments" class="py-16 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto space-y-12 border-t border-indigo-500/20">
+    <div class="text-center space-y-2">
+      <div class="inline-flex items-center space-x-2 rounded-full border border-cyan-500/30 bg-cyan-500/15 px-4 py-1 text-xs font-black uppercase tracking-wider text-cyan-300">
+        🔬 Hands-on Science Lab 🔬
+      </div>
+      <h2 class="font-display text-3xl sm:text-4xl font-black text-white">
+        SCIENCE EXPERIMENTS AT HOME! ✂️🎨
+      </h2>
+      <p class="text-slate-350 font-bold max-w-lg mx-auto mt-2">Become a real vision scientist! Try these hands-on optical tricks using simple things around your house.</p>
+      <div class="mx-auto h-2 w-24 rounded-full bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-500 mt-4"></div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      
+      <!-- Activity 1: Make a Thaumatrope -->
+      <div class="bg-slate-900/60 border-2 border-pink-500/20 rounded-3xl p-6 flex flex-col justify-between space-y-6 relative group overflow-hidden" data-experiment="thaumatrope">
+        <div class="space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-black px-2 py-0.5 rounded-full bg-pink-500/20 text-pink-400 border border-pink-500/30">✂️ HANDS-ON</span>
+            <span class="text-xs font-bold text-slate-400">Thaumatrope</span>
+          </div>
+          <h3 class="font-display text-xl font-black text-white">1. Bird in a Cage Spinner 🐦🕸️</h3>
+          <p class="text-sm text-slate-300 font-semibold leading-relaxed">
+            A Victorian toy that blends two images into one using the speed of your eyes!
+          </p>
+          <div class="bg-slate-950/40 p-3 rounded-xl border border-slate-800 text-xs text-slate-400 space-y-1">
+            <strong>How to make it:</strong>
+            <ul class="list-decimal list-inside space-y-1">
+              <li>Cut out a paper circle.</li>
+              <li>Draw a cage on one side and a bird on the other.</li>
+              <li>Tape a straw/pencil down the center.</li>
+              <li>Spin the straw quickly between your hands!</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="flex flex-col items-center space-y-4 bg-slate-950/60 rounded-2xl p-4 border border-slate-800 relative">
+          <!-- Interactive SVG Thaumatrope -->
+          <div class="w-40 h-40 flex items-center justify-center relative bg-slate-950 rounded-xl overflow-hidden border border-slate-800">
+            <svg id="svg-thaumatrope" class="w-36 h-36 select-none overflow-visible" viewBox="0 0 200 200">
+              <!-- Outer disc border representing the paper disc -->
+              <circle cx="100" cy="100" r="80" fill="#1e293b" stroke="#334155" stroke-width="4" />
+              <!-- Strings on left and right -->
+              <line x1="0" y1="100" x2="20" y2="100" stroke="#64748b" stroke-width="2.5" />
+              <line x1="180" y1="100" x2="200" y2="100" stroke="#64748b" stroke-width="2.5" />
+              
+              <!-- Spinning Group -->
+              <g id="thaumatrope-disc" class="origin-center" style="transform-origin: 100px 100px;">
+                <!-- Side A: Cage -->
+                <g id="thaumatrope-cage" class="transition-opacity duration-300">
+                  <rect x="70" y="60" width="60" height="80" rx="8" fill="none" stroke="#94a3b8" stroke-width="3.5" />
+                  <line x1="82" y1="60" x2="82" y2="140" stroke="#475569" stroke-width="2" />
+                  <line x1="94" y1="60" x2="94" y2="140" stroke="#475569" stroke-width="2" />
+                  <line x1="106" y1="60" x2="106" y2="140" stroke="#475569" stroke-width="2" />
+                  <line x1="118" y1="60" x2="118" y2="140" stroke="#475569" stroke-width="2" />
+                  <circle cx="100" cy="50" r="5" fill="none" stroke="#94a3b8" stroke-width="3" />
+                </g>
+                <!-- Side B: Bird -->
+                <g id="thaumatrope-bird" class="transition-opacity duration-300 opacity-0">
+                  <path d="M 85,100 C 85,90 95,85 105,92 C 115,88 120,95 125,100 C 120,108 115,112 105,108 C 95,112 85,108 85,100 Z" fill="#38bdf8" />
+                  <polygon points="123,100 131,97 129,103" fill="#f97316" />
+                  <circle cx="114" cy="95" r="2" fill="#020617" />
+                  <!-- Bird branch -->
+                  <line x1="75" y1="110" x2="125" y2="110" stroke="#854d0e" stroke-width="3" stroke-linecap="round" />
+                </g>
+              </g>
+            </svg>
+            
+            <div id="thaumatrope-wow" class="absolute inset-0 flex items-center justify-center bg-slate-950/90 hidden select-none">
+              <span class="text-pink-400 font-black text-sm tracking-wider animate-bounce">🐦 BIRD IS IN THE CAGE! 🕸️</span>
+            </div>
+          </div>
+          
+          <div class="flex space-x-2 w-full">
+            <button id="btn-spin-thaumatrope" class="flex-1 bg-gradient-to-r from-pink-600 to-pink-500 hover:from-pink-500 hover:to-pink-400 text-white font-black text-xs py-2 rounded-xl shadow-md transition-all active:scale-95">Spin Disc! 🔄</button>
+            <button id="btn-flip-thaumatrope" class="bg-slate-800 hover:bg-slate-700 text-slate-350 font-black text-xs px-3 py-2 rounded-xl border border-slate-700 transition-colors">Flip ↔️</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Activity 2: Impossible Triangle Perspective -->
+      <div class="bg-slate-900/60 border-2 border-cyan-500/20 rounded-3xl p-6 flex flex-col justify-between space-y-6 relative group overflow-hidden" data-experiment="perspective">
+        <div class="space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-black px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-400 border border-cyan-500/30">📐 PERSPECTIVE</span>
+            <span class="text-xs font-bold text-slate-400">Impossible Triangle</span>
+          </div>
+          <h3 class="font-display text-xl font-black text-white">2. Impossible 3D Builder 📐</h3>
+          <p class="text-sm text-slate-300 font-semibold leading-relaxed">
+            See how rotating shapes in 3D creates an impossible illusion at a specific angle!
+          </p>
+          <div class="bg-slate-950/40 p-3 rounded-xl border border-slate-800 text-xs text-slate-400 space-y-1">
+            <strong>How to build at home:</strong>
+            <ul class="list-decimal list-inside space-y-1">
+              <li>Print the 3D Penrose template.</li>
+              <li>Cut out the folding template.</li>
+              <li>Glue the tabs to make a 3D corner shape.</li>
+              <li>Close one eye and look from the magic angle!</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="flex flex-col items-center space-y-4 bg-slate-950/60 rounded-2xl p-4 border border-slate-800 relative">
+          <!-- Interactive SVG Perspective Penrose -->
+          <div class="w-40 h-40 flex items-center justify-center relative bg-slate-950 rounded-xl overflow-hidden border border-slate-800">
+            <svg id="svg-kids-perspective" class="w-36 h-36 select-none overflow-visible" viewBox="0 0 200 200">
+              <!-- Bar 1: Bottom horizontal -->
+              <g id="perspective-bar-1" class="transition-transform duration-200">
+                <polygon points="40,150 145,150 130,135 55,135" fill="#0891b2" />
+              </g>
+              <!-- Bar 2: Slanted Left -->
+              <g id="perspective-bar-2" class="transition-transform duration-200">
+                <polygon points="40,150 55,135 95,60 80,60" fill="#06b6d4" />
+              </g>
+              <!-- Bar 3: Slanted Right (translates with perspective) -->
+              <g id="perspective-bar-3" class="transition-transform duration-200" style="transform: translate(25px, -15px);">
+                <polygon points="95,60 80,60 130,135 145,150" fill="#22d3ee" />
+              </g>
+            </svg>
+            
+            <div id="perspective-wow" class="absolute inset-0 flex items-center justify-center bg-slate-950/90 hidden select-none text-center">
+              <span class="text-cyan-400 font-black text-xs tracking-wider animate-pulse">🌟 ALIGNED!<br/>IMPOSSIBLE TRIANGLE! 🌟</span>
+            </div>
+          </div>
+          
+          <div class="w-full space-y-1">
+            <div class="flex justify-between text-[10px] font-black text-slate-450 uppercase">
+              <span>Rotate Camera:</span>
+              <span id="perspective-angle-text" class="text-cyan-400 font-mono">25°</span>
+            </div>
+            <input type="range" id="perspective-slider" min="-30" max="30" value="25" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-cyan-400" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Activity 3: Afterimage Color Stare -->
+      <div class="bg-slate-900/60 border-2 border-purple-500/20 rounded-3xl p-6 flex flex-col justify-between space-y-6 relative group overflow-hidden" data-experiment="afterimage">
+        <div class="space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-black px-2 py-0.5 rounded-full bg-purple-500/20 text-purple-400 border border-purple-500/30">👁️ AFTERIMAGE</span>
+            <span class="text-xs font-bold text-slate-400">Eye Fatigue</span>
+          </div>
+          <h3 class="font-display text-xl font-black text-white">3. Rainbow Star Stare ⏱️⭐</h3>
+          <p class="text-sm text-slate-300 font-semibold leading-relaxed">
+            Stare at the green star, and watch your brain paint a glowing pink star on a blank white page!
+          </p>
+          <div class="bg-slate-950/40 p-3 rounded-xl border border-slate-800 text-xs text-slate-400 space-y-1">
+            <strong>Try it with crayons:</strong>
+            <ul class="list-decimal list-inside space-y-1">
+              <li>Draw a bright green star on paper.</li>
+              <li>Color a tiny red dot in the middle.</li>
+              <li>Stare at the red dot for 30 seconds.</li>
+              <li>Look at blank white paper and blink!</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="flex flex-col items-center space-y-4 bg-slate-950/60 rounded-2xl p-4 border border-slate-800 relative">
+          <!-- Interactive Afterimage Screen -->
+          <div class="w-40 h-40 flex items-center justify-center relative bg-slate-950 rounded-xl overflow-hidden border border-slate-800">
+            <svg id="svg-afterimage-kids" class="w-36 h-36 select-none" viewBox="0 0 200 200">
+              <!-- Background -->
+              <rect x="0" y="0" width="200" height="200" fill="#0f172a" />
+              <!-- Green Star -->
+              <polygon points="100,20 120,70 175,70 130,105 150,160 100,125 50,160 70,105 25,70 80,70" fill="#22c55e" />
+              <!-- Center red dot -->
+              <circle cx="100" cy="95" r="5" fill="#ef4444" />
+            </svg>
+            
+            <!-- White screen for afterimage result -->
+            <div id="kids-afterimage-screen" class="absolute inset-0 bg-white flex flex-col items-center justify-center hidden p-2 text-center text-slate-900">
+              <!-- Center target dot -->
+              <div class="w-2 h-2 bg-black rounded-full mb-1"></div>
+              <span class="text-xs font-black text-pink-500 tracking-wider animate-pulse uppercase">Do you see a pink star? 🔮</span>
+              <p class="text-[9px] text-slate-500 font-bold max-w-[120px] mt-1 leading-tight">Stare at the dot and blink to see it float!</p>
+            </div>
+            
+            <div id="afterimage-kids-timer" class="absolute top-2 right-2 bg-slate-900/90 text-yellow-300 font-mono font-black text-xs px-2 py-0.5 rounded border border-white/10 hidden">20s</div>
+          </div>
+          
+          <button id="btn-stare-afterimage" class="w-full bg-gradient-to-r from-purple-600 to-purple-500 hover:from-purple-500 hover:to-purple-400 text-white font-black text-xs py-2 rounded-xl shadow-md transition-all active:scale-95">Stare Challenge (20s) ⏱️</button>
         </div>
       </div>
 
@@ -1131,7 +1373,6 @@ import Layout from '../layouts/Layout.astro';
     if (troxlerCard) {
       const startTroxlerBtn = troxlerCard.querySelector('.kids-start-troxler') as HTMLButtonElement;
       const troxlerCountdown = troxlerCard.querySelector('.kids-countdown-badge') as HTMLElement;
-      const pinkDots = troxlerCard.querySelector('.kids-pink-dots') as HTMLElement;
       const troxlerWow = troxlerCard.querySelector('.kids-wow-badge');
       
       let countdownInterval: any = null;
@@ -1150,20 +1391,18 @@ import Layout from '../layouts/Layout.astro';
         if (startTroxlerBtn) {
           startTroxlerBtn.setAttribute('disabled', 'true');
         }
-        
-        // Start fading pink dots gradually over 15s using a css transition
-        if (pinkDots) {
-          pinkDots.style.transition = 'opacity 15s linear';
-          pinkDots.style.opacity = '0';
-        }
 
+        const duration = 15000; // 15 seconds
+        const startTime = Date.now();
         countdownInterval = setInterval(() => {
-          secondsLeft--;
+          const elapsed = Date.now() - startTime;
+          const remaining = Math.max(0, duration - elapsed);
+          const secondsLeft = (remaining / 1000).toFixed(1);
           if (troxlerCountdown) {
             troxlerCountdown.textContent = `${secondsLeft}s`;
           }
           
-          if (secondsLeft <= 0) {
+          if (remaining <= 0) {
             clearInterval(countdownInterval);
             troxlerCountdown.classList.add('hidden');
             staringActive = false;
@@ -1177,16 +1416,12 @@ import Layout from '../layouts/Layout.astro';
               startTroxlerBtn.textContent = 'Restart';
             }
           }
-        }, 1000);
+        }, 100);
       });
 
       setupRetry(troxlerCard, () => {
         clearInterval(countdownInterval);
         staringActive = false;
-        if (pinkDots) {
-          pinkDots.style.transition = 'none';
-          pinkDots.style.opacity = '1';
-        }
         if (troxlerCountdown) troxlerCountdown.classList.add('hidden');
         if (startTroxlerBtn) {
           startTroxlerBtn.removeAttribute('disabled');
@@ -1222,6 +1457,165 @@ import Layout from '../layouts/Layout.astro';
           rulerGroup.style.transform = 'translateY(-160px)';
         }
         mullerBtns.forEach(b => b.removeAttribute('disabled'));
+      });
+    }
+
+    // 9. THE RING SQUEEZER (Delboeuf)
+    const delboeufCard = document.querySelector('[data-id="delboeuf"]') as HTMLElement;
+    if (delboeufCard) {
+      const delboeufBtns = delboeufCard.querySelectorAll('.kids-delboeuf-buttons button');
+      const delboeufRulers = delboeufCard.querySelectorAll('.delboeuf-ruler');
+      const delboeufWow = delboeufCard.querySelector('.kids-wow-badge');
+
+      delboeufBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          delboeufRulers.forEach(r => r.classList.remove('opacity-0'));
+          delboeufRulers.forEach(r => r.classList.add('opacity-100'));
+
+          setTimeout(() => {
+            delboeufWow?.classList.remove('hidden');
+          }, 800);
+
+          delboeufBtns.forEach(b => b.setAttribute('disabled', 'true'));
+        });
+      });
+
+      setupRetry(delboeufCard, () => {
+        delboeufRulers.forEach(r => r.classList.remove('opacity-100'));
+        delboeufRulers.forEach(r => r.classList.add('opacity-0'));
+        delboeufBtns.forEach(b => b.removeAttribute('disabled'));
+      });
+    }
+
+
+    // ----------------------------------------------------
+    // KIDS HOME EXPERIMENTS INTERACTIVITY
+    // ----------------------------------------------------
+    // 1. Thaumatrope Bird in a Cage
+    const thaumatropeCard = document.querySelector('[data-experiment="thaumatrope"]') as HTMLElement;
+    if (thaumatropeCard) {
+      const btnSpin = document.getElementById('btn-spin-thaumatrope') as HTMLButtonElement;
+      const btnFlip = document.getElementById('btn-flip-thaumatrope') as HTMLButtonElement;
+      const disc = document.getElementById('thaumatrope-disc') as SVGElement;
+      const bird = document.getElementById('thaumatrope-bird') as SVGElement;
+      const cage = document.getElementById('thaumatrope-cage') as SVGElement;
+      const wow = document.getElementById('thaumatrope-wow') as HTMLElement;
+      
+      let isSpinning = false;
+      let currentSide = 'cage'; // cage or bird
+      
+      btnFlip?.addEventListener('click', () => {
+        if (isSpinning) return;
+        currentSide = currentSide === 'cage' ? 'bird' : 'cage';
+        if (currentSide === 'cage') {
+          cage.style.opacity = '1';
+          bird.style.opacity = '0';
+        } else {
+          cage.style.opacity = '0';
+          bird.style.opacity = '1';
+        }
+      });
+      
+      btnSpin?.addEventListener('click', () => {
+        if (isSpinning) {
+          // Stop spinning
+          isSpinning = false;
+          disc.style.animation = 'none';
+          cage.style.opacity = currentSide === 'cage' ? '1' : '0';
+          bird.style.opacity = currentSide === 'bird' ? '1' : '0';
+          wow?.classList.add('hidden');
+          btnSpin.textContent = 'Spin Disc! 🔄';
+          btnFlip.removeAttribute('disabled');
+        } else {
+          // Start spinning
+          isSpinning = true;
+          disc.style.animation = 'spin-clockwise 0.15s linear infinite';
+          cage.style.opacity = '0.7';
+          bird.style.opacity = '0.7';
+          wow?.classList.remove('hidden');
+          btnSpin.textContent = 'Stop Spinning 🛑';
+          btnFlip.setAttribute('disabled', 'true');
+        }
+      });
+    }
+
+    // 2. Impossible 3D Builder
+    const perspectiveCard = document.querySelector('[data-experiment="perspective"]') as HTMLElement;
+    if (perspectiveCard) {
+      const slider = document.getElementById('perspective-slider') as HTMLInputElement;
+      const angleText = document.getElementById('perspective-angle-text') as HTMLElement;
+      const bar3 = document.getElementById('perspective-bar-3') as SVGElement;
+      const wow = document.getElementById('perspective-wow') as HTMLElement;
+      
+      slider?.addEventListener('input', (e) => {
+        const val = parseInt((e.target as HTMLInputElement).value);
+        if (angleText) angleText.textContent = `${val}°`;
+        
+        // Translate bar 3 based on slider value. At 0, offset is (0,0)
+        // At other values, offset is (val * 1px, val * -0.6px)
+        const xOffset = val * 0.8;
+        const yOffset = val * -0.5;
+        if (bar3) {
+          bar3.style.transform = `translate(${xOffset}px, ${yOffset}px)`;
+        }
+        
+        if (val === 0) {
+          wow?.classList.remove('hidden');
+        } else {
+          wow?.classList.add('hidden');
+        }
+      });
+    }
+
+    // 3. Rainbow Star Stare
+    const afterimageKidsCard = document.querySelector('[data-experiment="afterimage"]') as HTMLElement;
+    if (afterimageKidsCard) {
+      const btnStare = document.getElementById('btn-stare-afterimage') as HTMLButtonElement;
+      const timerBadge = document.getElementById('afterimage-kids-timer') as HTMLElement;
+      const screen = document.getElementById('kids-afterimage-screen') as HTMLElement;
+      const svgStar = document.getElementById('svg-afterimage-kids') as SVGElement;
+      
+      let timerVal = 20;
+      let intervalId: any = null;
+      let isStaring = false;
+      
+      btnStare?.addEventListener('click', () => {
+        if (isStaring) {
+          // Reset
+          clearInterval(intervalId);
+          isStaring = false;
+          timerVal = 20;
+          timerBadge.classList.add('hidden');
+          screen.classList.add('hidden');
+          svgStar.style.opacity = '1';
+          btnStare.textContent = 'Stare Challenge (20s) ⏱️';
+        } else {
+          isStaring = true;
+          timerVal = 20;
+          timerBadge.classList.remove('hidden');
+          timerBadge.textContent = `${timerVal}s`;
+          screen.classList.add('hidden');
+          svgStar.style.opacity = '1';
+          btnStare.textContent = 'Reset Stare 🔄';
+          
+          const duration = 20000; // 20 seconds
+          const startTime = Date.now();
+          intervalId = setInterval(() => {
+            const elapsed = Date.now() - startTime;
+            const remaining = Math.max(0, duration - elapsed);
+            const secondsLeft = (remaining / 1000).toFixed(1);
+            timerBadge.textContent = `${secondsLeft}s`;
+            
+            if (remaining <= 0) {
+              clearInterval(intervalId);
+              timerBadge.classList.add('hidden');
+              svgStar.style.opacity = '0';
+              screen.classList.remove('hidden');
+              btnStare.textContent = 'Try Stare Again 🔄';
+              isStaring = false;
+            }
+          }, 100);
+        }
       });
     }
 

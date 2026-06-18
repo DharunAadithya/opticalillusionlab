@@ -1,17 +1,6 @@
 ---
 // src/pages/illusions/adelsons-checkerboard.astro
 import Layout from '../../layouts/Layout.astro';
-
-// Math Helper: draws an SVG wedge from (cx, cy) out to radius r
-function getWedgePath(cx: number, cy: number, r: number, startAngle: number, endAngle: number) {
-  const rad = Math.PI / 180;
-  const x1 = cx + r * Math.cos(startAngle * rad);
-  const y1 = cy + r * Math.sin(startAngle * rad);
-  const x2 = cx + r * Math.cos(endAngle * rad);
-  const y2 = cy + r * Math.sin(endAngle * rad);
-  const largeArcFlag = endAngle - startAngle <= 180 ? 0 : 1;
-  return `M ${cx},${cy} L ${x1},${y1} A ${r},${r} 0 ${largeArcFlag},1 ${x2},${y2} Z`;
-}
 ---
 
 <Layout 
@@ -55,60 +44,82 @@ function getWedgePath(cx: number, cy: number, r: number, startAngle: number, end
       </button>
     </div>
 
-    <!-- LARGE INTERACTIVE DEMO (600px wide, centered) -->
+    <!-- LARGE INTERACTIVE DEMO (Fixed dark display for accuracy) -->
     <div class="flex flex-col items-center justify-center py-6 border-b border-indigo-500/10">
       <div class="w-full max-w-[600px] mx-auto space-y-4">
-        <div id="adelson-illusion" class="relative flex flex-col items-center justify-center h-96 w-full bg-slate-100 dark:bg-slate-950/40 rounded-xl overflow-hidden border border-indigo-500/10">
-          <svg class="w-72 h-72 select-none overflow-visible" viewBox="0 0 200 200">
-            <!-- Checkerboard grid (dark and light checkers) -->
-            <g class="checker-grid">
-              <!-- Row 0 -->
-              <rect x="20" y="20" width="32" height="32" fill="#7e7e7e" />
-              <rect x="20" y="52" width="32" height="32" fill="#cacaca" />
-              <rect x="20" y="84" width="32" height="32" fill="#7e7e7e" />
-              <rect x="20" y="116" width="32" height="32" fill="#cacaca" />
-              <!-- Row 1 -->
-              <rect x="52" y="20" width="32" height="32" fill="#cacaca" />
-              <rect x="52" y="52" width="32" height="32" fill="#7e7e7e" id="tile-a" />
-              <rect x="52" y="84" width="32" height="32" fill="#cacaca" />
-              <rect x="52" y="116" width="32" height="32" fill="#7e7e7e" />
-              <!-- Row 2 -->
-              <rect x="84" y="20" width="32" height="32" fill="#7e7e7e" />
-              <rect x="84" y="52" width="32" height="32" fill="#cacaca" />
-              <rect x="84" y="84" width="32" height="32" fill="#7e7e7e" />
-              <rect x="84" y="116" width="32" height="32" fill="#cacaca" id="tile-b" />
-              <!-- Row 3 -->
-              <rect x="116" y="20" width="32" height="32" fill="#cacaca" />
-              <rect x="116" y="52" width="32" height="32" fill="#7e7e7e" />
-              <rect x="116" y="84" width="32" height="32" fill="#cacaca" />
-              <rect x="116" y="116" width="32" height="32" fill="#7e7e7e" />
-            </g>
-            <!-- Cylinder casting shadow -->
-            <g class="cylinder-shadow transition-opacity duration-300">
-              <path d="M 80,80 Q 140,140 180,180" fill="none" stroke="#000000" stroke-width="60" opacity="0.375" stroke-linecap="round" />
-            </g>
-            <!-- Cylinder -->
-            <g class="cylinder">
-              <ellipse cx="140" cy="80" rx="15" ry="8" fill="#22c55e" stroke="#16a34a" stroke-width="1.5" />
-              <path d="M 125,80 L 125,140 A 15,8 0 0,0 155,140 L 155,80 Z" fill="#22c55e" stroke="#16a34a" stroke-width="1.5" />
-            </g>
-            <!-- Labels A and B -->
-            <text x="68" y="42" font-size="12" font-weight="black" fill="#ffffff" text-anchor="middle">A</text>
-            <text x="100" y="106" font-size="12" font-weight="black" fill="#ffffff" text-anchor="middle">B</text>
-            <!-- Grey Bridge connector -->
-            <path class="checker-bridge stroke-[#7e7e7e] stroke-[10] fill-none opacity-0 transition-opacity duration-300" d="M 68,36 L 100,100" />
-          </svg>
-          <div class="absolute bottom-4 flex space-x-2 bg-slate-900/90 border border-white/10 rounded-xl p-1">
-            <button class="toggle-bridge text-xs font-bold px-3 py-1.5 rounded-lg text-slate-400 hover:text-white transition-all">Reveal Truth</button>
-            <button class="toggle-shadow text-xs font-bold px-3 py-1.5 rounded-lg text-slate-400 hover:text-white transition-all">Remove Shadow</button>
+        
+        <!-- Instruction Text Box required by Section G -->
+        <div class="bg-indigo-950/40 border border-indigo-500/25 rounded-2xl p-4 text-slate-300 text-xs sm:text-sm font-semibold">
+          👁️ WHAT TO LOOK FOR: Tile A is in light. Tile B is in shadow. Tile B looks lighter, but they\'re the exact same gray. Click \'Reveal Truth\' if you don\'t believe it.
+        </div>
+
+        <div id="adelson-illusion-container" class="relative flex flex-col items-center justify-center h-96 w-full bg-slate-900 rounded-xl overflow-hidden border border-indigo-500/10 p-4">
+          
+          <!-- Wrapper for Board + cylinder + labels to keep geometry absolute -->
+          <div class="relative w-[320px] h-[320px] select-none rounded shadow-inner">
+            
+            <!-- 8x8 Checkerboard Grid -->
+            <div class="grid grid-cols-8 grid-rows-8 w-[320px] h-[320px]">
+              {Array.from({ length: 64 }).map((_, index) => {
+                const row = Math.floor(index / 8);
+                const col = index % 8;
+                const isDark = (row + col) % 2 === 0;
+                // #c8c8c8 for light, #888888 for dark (adjusted so Tile A renders as #888888 outside the shadow)
+                const bgColor = isDark ? '#888888' : '#c8c8c8';
+                return (
+                  <div 
+                    style={`background-color: ${bgColor};`} 
+                    class="w-10 h-10 transition-colors duration-300"
+                  />
+                );
+              })}
+            </div>
+
+            <!-- Shadow Overlay SVG (z-index 10) -->
+            <svg class="absolute inset-0 w-[320px] h-[320px] pointer-events-none" style="z-index: 10;">
+              <polygon 
+                id="adelson-shadow"
+                points="230,135 295,145 160,320 40,200" 
+                fill="rgba(0,0,0,0.32)" 
+                class="transition-opacity duration-300"
+              />
+            </svg>
+
+            <!-- Reveal Bridge SVG (z-index 20) -->
+            <svg class="absolute inset-0 w-[320px] h-[320px] pointer-events-none" style="z-index: 20;">
+              <line 
+                id="adelson-bridge" 
+                x1="100" y1="100" 
+                x2="180" y2="220" 
+                stroke="#888888" 
+                stroke-width="16" 
+                class="opacity-0 transition-opacity duration-300"
+              />
+            </svg>
+
+            <!-- Green Cylinder (60x140px, rounded bottom, top cap for 3D gradient effect, z-index 15) -->
+            <div class="absolute w-[60px] h-[140px] rounded-b-[20px] bg-gradient-to-r from-green-600 via-green-400 to-green-800 border border-green-700 shadow-lg" style="left: 230px; top: 10px; z-index: 15;">
+              <!-- Cylinder top cap for 3D effect -->
+              <div class="absolute top-0 left-0 w-full h-[20px] rounded-full bg-green-300 border border-green-400"></div>
+            </div>
+
+            <!-- Label A: white circle, black letter, z-index above everything (z-index 25), centered exactly on Tile A (Row 2, Col 2) -->
+            <div class="absolute w-6 h-6 rounded-full bg-white text-black flex items-center justify-center font-bold text-xs shadow-md select-none border border-black/10" style="left: 88px; top: 88px; z-index: 25;">A</div>
+
+            <!-- Label B: white circle, black letter, z-index above shadow (z-index 25), centered exactly on Tile B (Row 5, Col 4) -->
+            <div class="absolute w-6 h-6 rounded-full bg-white text-black flex items-center justify-center font-bold text-xs shadow-md select-none border border-black/10" style="left: 168px; top: 208px; z-index: 25;">B</div>
+
+          </div>
+
+          <!-- Controls inside the display card -->
+          <div class="absolute bottom-4 flex space-x-2 bg-slate-950/90 border border-white/10 rounded-xl p-1 z-30">
+            <button id="btn-toggle-bridge" class="text-xs font-bold px-3 py-1.5 rounded-lg text-slate-400 hover:text-white transition-all">Reveal Truth</button>
+            <button id="btn-toggle-shadow" class="text-xs font-bold px-3 py-1.5 rounded-lg text-slate-400 hover:text-white transition-all">Remove Shadow</button>
           </div>
         </div>
     
         <div class="text-center text-xs text-slate-500 dark:text-slate-400 italic">
-          Use the controllers inside the display card to interact with the visual triggers.
-        </div>
-        <div class="text-center text-xs text-slate-500 dark:text-slate-400 italic font-semibold">
-          Use the controllers inside the display card to interact with the visual triggers.
+          This illusion uses a fixed display for accuracy.
         </div>
       </div>
     </div>
@@ -128,8 +139,8 @@ function getWedgePath(cx: number, cy: number, r: number, startAngle: number, end
             <p class="font-bold text-sm sm:text-base text-slate-200">Before reading the neuroscience explanation below, take a moment to interact with the demo above:</p>
             <ul class="list-disc pl-5 mt-3 space-y-2 text-xs sm:text-sm font-medium">
               <li>How does the visual change when you move your eyes or look at different parts of the screen?</li>
-              <li>Use the slider or toggle buttons to reveal the actual geometric layout. Did it match what your eyes predicted?</li>
-              <li>Pay attention to whether you can consciously force your brain to switch between interpretations.</li>
+              <li>Use the buttons below the board to toggle the shadow or connect the squares with a gray bridge. Did it match what your eyes predicted?</li>
+              <li>Pay attention to whether you can consciously force your brain to see them as the same shade when the shadow is present.</li>
             </ul>
           </div>
         </section>
@@ -141,9 +152,9 @@ function getWedgePath(cx: number, cy: number, r: number, startAngle: number, end
             <span>THE SCIENCE</span>
           </h2>
           <div class="prose prose-indigo dark:prose-invert text-slate-700 dark:text-slate-300 leading-relaxed space-y-4 text-xs sm:text-sm font-semibold text-justify">
-            <p>Adelson's Checker Shadow illusion demonstrates the neural mechanics of color constancy and lightness perception. Our visual system is not built to act as a physical light meter (photometer). When light hits the retina, it stimulates photoreceptors in proportion to the raw luminance. However, if our brain relied solely on this raw sensory input, an object's color would appear to change constantly as light and shadows shifted, rendering object identification impossible.
-    
-    To solve this, the visual cortex (specifically areas V1, V2, and V4) performs complex contextual calculations. The brain identifies that a green cylinder is casting a diagonal shadow. It understands that shadows decrease the amount of light reflecting off a surface. Therefore, the brain automatically and unconsciously scales up the perceived brightness of Tile B (a light tile in shadow) to compensate, while leaving Tile A (a dark tile in direct light) unadjusted. Opponent process pathways and lateral inhibition networks in the lateral geniculate nucleus (LGN) reinforce these boundary differences. When a solid gray bridge is drawn to connect A and B, the local contrast cues are bypassed, forcing the brain to see that both tiles reflect the exact same wavelength and intensity of light.</p>
+            <p>Adelson\'s Checker Shadow illusion demonstrates the neural mechanics of color constancy and lightness perception. Our visual system is not built to act as a physical light meter (photometer). When light hits the retina, it stimulates photoreceptors in proportion to the raw luminance. However, if our brain relied solely on this raw sensory input, an object\'s color would appear to change constantly as light and shadows shifted, rendering object identification impossible.</p>
+            
+            <p>To solve this, the visual cortex (specifically areas V1, V2, and V4) performs complex contextual calculations. The brain identifies that a green cylinder is casting a diagonal shadow. It understands that shadows decrease the amount of light reflecting off a surface. Therefore, the brain automatically and unconsciously scales up the perceived brightness of Tile B (a light tile in shadow) to compensate, while leaving Tile A (a dark tile in direct light) unadjusted. Opponent process pathways and lateral inhibition networks in the lateral geniculate nucleus (LGN) reinforce these boundary differences. When a solid gray bridge is drawn to connect A and B, the local contrast cues are bypassed, forcing the brain to see that both tiles reflect the exact same wavelength and intensity of light.</p>
           </div>
         </section>
       </div>
@@ -156,28 +167,19 @@ function getWedgePath(cx: number, cy: number, r: number, startAngle: number, end
             <span class="text-purple-500">💡</span>
             <span>FUN FACTS</span>
           </h3>
-          <ul class="space-y-4 text-xs sm:text-sm text-slate-600 dark:text-slate-300 font-semibold">
-            
-              <li class="flex items-start space-x-2">
-                <span class="text-purple-500 font-black">•</span>
-                <span>Edward Adelson created the checkerboard diagram in 1995 to illustrate that visual systems calculate relative reflectance rather than absolute luminance.</span>
-              </li>
-            
-              <li class="flex items-start space-x-2">
-                <span class="text-purple-500 font-black">•</span>
-                <span>Our eyes are incapable of judging absolute HSL values; we perceive color solely by comparing neighboring wavelengths.</span>
-              </li>
-            
-              <li class="flex items-start space-x-2">
-                <span class="text-purple-500 font-black">•</span>
-                <span>The illusion is so powerful that it persists even when you know the tiles are identical, proving it operates in early visual processing channels.</span>
-              </li>
-            
-              <li class="flex items-start space-x-2">
-                <span class="text-purple-500 font-black">•</span>
-                <span>This checkerboard is used as a standard benchmark to test computer vision algorithms for shadow-invariant object detection.</span>
-              </li>
-            
+          <ul class="space-y-4 text-xs sm:text-sm text-slate-650 dark:text-slate-300 font-semibold">
+            <li class="flex items-start space-x-2">
+              <span class="text-purple-500 font-black">•</span>
+              <span>Edward Adelson created the checkerboard diagram in 1995 to illustrate that visual systems calculate relative reflectance rather than absolute luminance.</span>
+            </li>
+            <li class="flex items-start space-x-2">
+              <span class="text-purple-500 font-black">•</span>
+              <span>Our eyes are incapable of judging absolute HSL values; we perceive color solely by comparing neighboring wavelengths.</span>
+            </li>
+            <li class="flex items-start space-x-2">
+              <span class="text-purple-500 font-black">•</span>
+              <span>The illusion is so powerful that it persists even when you know the tiles are identical, proving it operates in early visual processing channels.</span>
+            </li>
           </ul>
         </section>
 
@@ -200,7 +202,7 @@ function getWedgePath(cx: number, cy: number, r: number, startAngle: number, end
           </h3>
           <div class="text-xs sm:text-sm text-slate-650 dark:text-slate-300 leading-relaxed font-semibold space-y-2">
             <p><strong>Discoverer:</strong> Edward H. Adelson (1995)</p>
-            <p>Edward Adelson, a professor of Vision Science at MIT, was investigating how the brain parses lighting, shadows, and reflection. He designed this checkerboard digitally to prove that shadow cues are processed automatically by the visual cortex to determine physical surface properties.</p>
+            <p>Edward Adelson, a professor of Vision Science at MIT, designed this checkerboard digitally to prove that shadow cues are processed automatically by the visual cortex to determine physical surface properties.</p>
           </div>
         </section>
       </div>
@@ -211,7 +213,7 @@ function getWedgePath(cx: number, cy: number, r: number, startAngle: number, end
     <section class="border-t border-indigo-500/10 pt-12 space-y-4 max-w-4xl mx-auto">
       <h3 class="font-display text-lg font-black text-white uppercase tracking-wider text-center">Educational Resources & History</h3>
       <p class="text-xs sm:text-sm text-slate-350 leading-relaxed text-justify font-semibold">
-        Adelson Checkerboard optical illusion explanation and science. Discover how color constancy and visual cortex processing in V1 and V4 override raw retinal luminance, making identical gray tiles appear completely different. Learn about Edward Adelson's famous 1995 checker shadow experiment and test it yourself with our interactive SVG checkerboard widget.
+        Adelson Checkerboard optical illusion explanation and science. Discover how color constancy and visual cortex processing in V1 and V4 override raw retinal luminance, making identical gray tiles appear completely different. Learn about Edward Adelson\'s famous 1995 checker shadow experiment and test it yourself with our interactive SVG checkerboard widget.
       </p>
     </section>
 
@@ -219,39 +221,33 @@ function getWedgePath(cx: number, cy: number, r: number, startAngle: number, end
     <section class="border-t border-indigo-500/10 pt-12 space-y-6">
       <h2 class="font-display text-2xl font-black text-slate-900 dark:text-white text-center">Related Illusions</h2>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        
-      <a 
-        href="/illusions/the-dress" 
-        class="group rounded-xl border border-indigo-950/20 bg-white dark:bg-slate-900/60 p-5 shadow-lg hover:border-purple-500/40 hover:-translate-y-1 hover:shadow-purple-500/10 transition-all duration-300"
-      >
-        <div class="text-[10px] font-bold text-purple-400 uppercase tracking-wide">Related Illusion</div>
-        <h4 class="font-display text-base font-bold text-slate-900 dark:text-white mt-1 group-hover:text-purple-400 transition-colors">
-          The Dress &rarr;
-        </h4>
-      </a>
-    
-
-      <a 
-        href="/illusions/wertheimer-koffka" 
-        class="group rounded-xl border border-indigo-950/20 bg-white dark:bg-slate-900/60 p-5 shadow-lg hover:border-purple-500/40 hover:-translate-y-1 hover:shadow-purple-500/10 transition-all duration-300"
-      >
-        <div class="text-[10px] font-bold text-purple-400 uppercase tracking-wide">Related Illusion</div>
-        <h4 class="font-display text-base font-bold text-slate-900 dark:text-white mt-1 group-hover:text-purple-400 transition-colors">
-          Wertheimer Koffka &rarr;
-        </h4>
-      </a>
-    
-
-      <a 
-        href="/illusions/color-spheres" 
-        class="group rounded-xl border border-indigo-950/20 bg-white dark:bg-slate-900/60 p-5 shadow-lg hover:border-purple-500/40 hover:-translate-y-1 hover:shadow-purple-500/10 transition-all duration-300"
-      >
-        <div class="text-[10px] font-bold text-purple-400 uppercase tracking-wide">Related Illusion</div>
-        <h4 class="font-display text-base font-bold text-slate-900 dark:text-white mt-1 group-hover:text-purple-400 transition-colors">
-          Color Spheres &rarr;
-        </h4>
-      </a>
-    
+        <a 
+          href="/illusions/simultaneous-contrast" 
+          class="group rounded-xl border border-indigo-950/20 bg-white dark:bg-slate-900/60 p-5 shadow-lg hover:border-purple-500/40 hover:-translate-y-1 hover:shadow-purple-500/10 transition-all duration-300"
+        >
+          <div class="text-[10px] font-bold text-purple-400 uppercase tracking-wide">Related Illusion</div>
+          <h4 class="font-display text-base font-bold text-slate-900 dark:text-white mt-1 group-hover:text-purple-400 transition-colors">
+            Simultaneous Contrast &rarr;
+          </h4>
+        </a>
+        <a 
+          href="/illusions/wertheimer-koffka" 
+          class="group rounded-xl border border-indigo-950/20 bg-white dark:bg-slate-900/60 p-5 shadow-lg hover:border-purple-500/40 hover:-translate-y-1 hover:shadow-purple-500/10 transition-all duration-300"
+        >
+          <div class="text-[10px] font-bold text-purple-400 uppercase tracking-wide">Related Illusion</div>
+          <h4 class="font-display text-base font-bold text-slate-900 dark:text-white mt-1 group-hover:text-purple-400 transition-colors">
+            Wertheimer Koffka &rarr;
+          </h4>
+        </a>
+        <a 
+          href="/illusions/color-spheres" 
+          class="group rounded-xl border border-indigo-950/20 bg-white dark:bg-slate-900/60 p-5 shadow-lg hover:border-purple-500/40 hover:-translate-y-1 hover:shadow-purple-500/10 transition-all duration-300"
+        >
+          <div class="text-[10px] font-bold text-purple-400 uppercase tracking-wide">Related Illusion</div>
+          <h4 class="font-display text-base font-bold text-slate-900 dark:text-white mt-1 group-hover:text-purple-400 transition-colors">
+            Color Spheres &rarr;
+          </h4>
+        </a>
       </div>
     </section>
 
@@ -276,61 +272,47 @@ function getWedgePath(cx: number, cy: number, r: number, startAngle: number, end
       });
     });
 
-    // Handle Global Speed Mult
-    const checkSpeed = () => {
-      const level = localStorage.getItem('speed-multiplier-level') || '5';
-      let multiplier = 1.0;
-      const parsed = parseInt(level);
-      if (parsed <= 5) {
-        multiplier = 0.2 + (parsed - 1) * 0.2;
-      } else {
-        multiplier = 1.0 + (parsed - 5) * 0.4;
-      }
-      document.documentElement.style.setProperty('--speed-multiplier', multiplier.toString());
-    };
-    checkSpeed();
-    window.addEventListener('storage', checkSpeed);
+    // Control selectors
+    const shadowPolygon = document.getElementById('adelson-shadow');
+    const bridgeLine = document.getElementById('adelson-bridge');
+    const toggleBridgeBtn = document.getElementById('btn-toggle-bridge');
+    const toggleShadowBtn = document.getElementById('btn-toggle-shadow');
 
-    // Prevent propagation on inner interactive controllers so we don't trigger parent clicks (if wrapped)
-    const innerControls = document.querySelectorAll('.interactive-demo-card button, .interactive-demo-card input, .interactive-demo-card select');
-    innerControls.forEach(ctrl => {
-      ctrl.addEventListener('click', (e) => e.stopPropagation());
+    let shadowVisible = true;
+    let bridgeVisible = false;
+
+    toggleBridgeBtn?.addEventListener('click', () => {
+      bridgeVisible = !bridgeVisible;
+      if (bridgeLine) {
+        bridgeLine.style.opacity = bridgeVisible ? '1' : '0';
+      }
+      if (toggleBridgeBtn) {
+        toggleBridgeBtn.textContent = bridgeVisible ? 'Hide Bridge' : 'Reveal Truth';
+        if (bridgeVisible) {
+          toggleBridgeBtn.classList.add('bg-purple-600', 'text-white');
+          toggleBridgeBtn.classList.remove('text-slate-400');
+        } else {
+          toggleBridgeBtn.classList.remove('bg-purple-600', 'text-white');
+          toggleBridgeBtn.classList.add('text-slate-400');
+        }
+      }
     });
 
-    // Local script logic from original file
-    const container = document.getElementById('adelson-illusion');
-      const bridge = container?.querySelector('.checker-bridge') as HTMLElement;
-      const shadow = container?.querySelector('.cylinder-shadow') as HTMLElement;
-      const bridgeBtn = container?.querySelector('.toggle-bridge');
-      const shadowBtn = container?.querySelector('.toggle-shadow');
-
-      let bridgeShown = false;
-      let shadowShown = true;
-
-      bridgeBtn?.addEventListener('click', () => {
-        bridgeShown = !bridgeShown;
-        if (bridge) bridge.style.opacity = bridgeShown ? '1' : '0';
-        if (bridgeBtn) {
-          bridgeBtn.textContent = bridgeShown ? 'Hide Bridge' : 'Reveal Truth';
-          if (bridgeShown) {
-            bridgeBtn.classList.add('bg-purple-600', 'text-white');
-          } else {
-            bridgeBtn.classList.remove('bg-purple-600', 'text-white');
-          }
+    toggleShadowBtn?.addEventListener('click', () => {
+      shadowVisible = !shadowVisible;
+      if (shadowPolygon) {
+        shadowPolygon.style.opacity = shadowVisible ? '1' : '0';
+      }
+      if (toggleShadowBtn) {
+        toggleShadowBtn.textContent = shadowVisible ? 'Remove Shadow' : 'Restore Shadow';
+        if (!shadowVisible) {
+          toggleShadowBtn.classList.add('bg-purple-600', 'text-white');
+          toggleShadowBtn.classList.remove('text-slate-400');
+        } else {
+          toggleShadowBtn.classList.remove('bg-purple-600', 'text-white');
+          toggleShadowBtn.classList.add('text-slate-400');
         }
-      });
-
-      shadowBtn?.addEventListener('click', () => {
-        shadowShown = !shadowShown;
-        if (shadow) shadow.style.opacity = shadowShown ? '1' : '0';
-        if (shadowBtn) {
-          shadowBtn.textContent = shadowShown ? 'Remove Shadow' : 'Restore Shadow';
-          if (!shadowShown) {
-            shadowBtn.classList.add('bg-purple-600', 'text-white');
-          } else {
-            shadowBtn.classList.remove('bg-purple-600', 'text-white');
-          }
-        }
-      });
+      }
+    });
   </script>
 </Layout>

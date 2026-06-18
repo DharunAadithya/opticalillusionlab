@@ -1,0 +1,81 @@
+---
+// src/pages/illusions/whites-illusion.astro
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout 
+  title="White's Illusion — Optical Illusion Lab" 
+  description="Explore the science, history, and visual parameters of the White's Illusion optical illusion."
+>
+  <div class="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-12">
+    <!-- Breadcrumb back navigation -->
+    <nav class="flex text-xs font-black uppercase tracking-wider text-slate-400 space-x-2 pb-2 border-b border-indigo-500/10">
+      <a href="/" class="hover:text-white transition-colors">Home</a>
+      <span>/</span>
+      <span class="text-purple-400">White's Illusion</span>
+    </nav>
+
+    <!-- Hero Header -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6">
+      <div class="space-y-3">
+        <div class="flex items-center space-x-2">
+          <span class="text-xs font-black px-2.5 py-0.5 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 uppercase tracking-wider">Color</span>
+          <span class="text-xs font-black px-2.5 py-0.5 rounded-full bg-purple-500/10 text-purple-400 border border-purple-500/20 uppercase tracking-wider">🟡 Medium</span>
+        </div>
+        <h1 class="font-display text-4xl sm:text-5xl font-black tracking-tight text-slate-900 dark:text-white">
+          White's Illusion
+        </h1>
+        <p class="text-slate-600 dark:text-slate-350 text-base max-w-2xl font-medium">
+          Discover how the brain interprets this fascinating color visual puzzle.
+        </p>
+      </div>
+    </div>
+
+    <!-- LARGE INTERACTIVE DEMO -->
+    <div class="flex flex-col items-center justify-center py-6 border-b border-indigo-500/10">
+      <div class="w-full max-w-[600px] mx-auto space-y-4">
+        <div class="relative flex flex-col items-center justify-center h-96 w-full bg-slate-100 dark:bg-slate-950/40 rounded-xl overflow-hidden border border-indigo-500/10 p-6">
+          <svg class="w-48 h-48 select-none bg-slate-100" viewBox="0 0 100 100">
+            <!-- Black and white stripes -->
+            <rect x="0" y="0" width="100" height="15" fill="#000" />
+            <rect x="0" y="30" width="100" height="15" fill="#000" />
+            <rect x="0" y="60" width="100" height="15" fill="#000" />
+            <rect x="0" y="90" width="100" height="10" fill="#000" />
+            <!-- Gray test patches -->
+            <rect x="25" y="10" width="12" height="25" fill="#7f7f7f" />
+            <rect x="65" y="25" width="12" height="25" fill="#7f7f7f" />
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- Content Split Layout -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 pt-4">
+      <!-- Left 2-Columns -->
+      <div class="lg:col-span-2 space-y-10">
+        <section class="space-y-4">
+          <h2 class="font-display text-2xl font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">🧠</span>
+            <span>THE SCIENCE</span>
+          </h2>
+          <div class="prose prose-indigo dark:prose-invert text-slate-700 dark:text-slate-300 leading-relaxed text-xs sm:text-sm font-semibold text-justify">
+            <p>White's Illusion is a powerful brightness illusion described by Michael White in 1979. It consists of identical gray rectangles placed on a background of alternating black and white stripes. Some gray blocks sit on the black stripes, while others sit on the white stripes. Surprisingly, the gray blocks on the black stripes appear significantly darker than the gray blocks on the white stripes. This is counter-intuitive because standard lateral inhibition predicts that a dark background should make the gray block appear lighter. Instead, the brain groups the gray blocks with the stripes they interrupt, demonstrating that high-level grouping and Gestalt continuity override local retinal contrast calculations.</p>
+          </div>
+        </section>
+      </div>
+
+      <!-- Right Column -->
+      <div class="space-y-8">
+        <section class="rounded-3xl border border-indigo-950/20 bg-slate-900/60 p-6 space-y-4 shadow-xl">
+          <h3 class="font-display text-lg font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">📜</span>
+            <span>HISTORY</span>
+          </h3>
+          <p class="text-xs sm:text-sm text-slate-650 dark:text-slate-355 leading-relaxed font-semibold">
+            First described by Michael White (1979). It remains a fundamental demonstration of perceptual processing and cognitive framing.
+          </p>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

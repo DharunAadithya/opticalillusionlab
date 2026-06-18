@@ -1,0 +1,263 @@
+---
+// src/pages/illusions/saxophonist-woman.astro
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout 
+  title="Saxophonist or Woman's Face — Interactive Ambiguous Optical Illusion | Optical Illusion Lab" 
+  description="Stare at the silhouette of the Saxophonist or Woman's Face. Experience the cognitive transition of figure-ground bistability."
+>
+  <div class="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-12">
+    
+    <!-- Breadcrumb back navigation -->
+    <nav class="flex text-xs font-black uppercase tracking-wider text-slate-400 space-x-2 pb-2 border-b border-indigo-500/10">
+      <a href="/" class="hover:text-white transition-colors">Home</a>
+      <span>/</span>
+      <a href="/what-do-you-see" class="hover:text-white transition-colors">What Do You See</a>
+      <span>/</span>
+      <span class="text-purple-400">Saxophonist or Woman's Face</span>
+    </nav>
+
+    <!-- Hero Header Section -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6">
+      <div class="space-y-3">
+        <div class="flex items-center space-x-2">
+          <span class="text-xs font-black px-2.5 py-0.5 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 uppercase tracking-wider">Type 3: Ambiguous Figures</span>
+          <span class="text-xs font-black px-2.5 py-0.5 rounded-full bg-rose-500/10 text-rose-455 border border-rose-500/20 uppercase tracking-wider">🔴 Hard</span>
+        </div>
+        <h1 class="font-display text-4xl sm:text-5xl font-black tracking-tight text-slate-900 dark:text-white">
+          Saxophonist or Woman?
+        </h1>
+        <p class="text-slate-600 dark:text-slate-350 text-base max-w-2xl font-medium">
+          An organic figure-ground reversal where a black silhouette depicts a jazz musician, and the surrounding white negative space forms a woman's face.
+        </p>
+      </div>
+
+      <!-- Share Button -->
+      <button 
+        id="share-illusion-page-btn"
+        class="relative shrink-0 flex items-center space-x-2 rounded-2xl bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-600 hover:scale-105 text-white font-black text-sm px-6 py-3.5 transition-all shadow-lg shadow-purple-500/10"
+      >
+        <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M15 8a3 3 0 1 0-2.977-2.63l-4.94 2.47a3 3 0 1 0 0 4.319l4.94 2.47a3 3 0 1 0 .895-1.789l-4.94-2.47a3.027 3.027 0 0 0 0-.74l4.94-2.47C13.456 7.68 14.19 8 15 8Z"/></svg>
+        <span>Share Page</span>
+        <span id="page-share-toast" class="absolute bottom-full right-1/2 translate-x-1/2 mb-2 px-2.5 py-1 text-[10px] font-bold text-white bg-purple-655 rounded-lg shadow-md opacity-0 pointer-events-none transition-opacity duration-200 whitespace-nowrap">Link Copied! ✓</span>
+      </button>
+    </div>
+
+    <!-- LARGE INTERACTIVE DEMO -->
+    <div class="flex flex-col items-center justify-center py-6 border-b border-indigo-500/10">
+      <div class="w-full max-w-[600px] mx-auto space-y-4">
+        
+        <!-- Instruction Box -->
+        <div class="my-3 flex items-start gap-2 rounded-xl border border-indigo-500/10 bg-indigo-500/5 p-3 text-xs text-slate-350 text-left">
+          <span class="text-base leading-none">👁️</span>
+          <div>
+            <strong class="text-slate-200">👁️ WHAT TO LOOK FOR:</strong> Stare at the image. Toggle the buttons to highlight the contours. The left side (white) shapes the profile of a jazz player, while the right side (dark purple) outlines a woman's facial silhouette looking left.
+          </div>
+        </div>
+
+        <div id="sax-woman-illusion" class="relative flex flex-col items-center justify-center h-[400px] w-full bg-slate-950 rounded-xl overflow-hidden border border-indigo-500/10 p-6">
+          <svg class="w-64 h-64 select-none" viewBox="0 0 200 280" xmlns="http://www.w3.org/2000/svg">
+            <rect width="200" height="280" fill="#1e1b4b" rx="8"/>
+            <!-- Saxophonist hat / woman's forehead hair -->
+            <path fill="#e2e8f0" d="M 20,0 L 120,0 Q 118,20 100,30 Q 80,38 65,30 Q 50,22 45,10 Z"/>
+            <!-- Shared contour path -->
+            <path fill="#e2e8f0"
+              d="M 20,0 L 20,280 L 100,280
+                 Q 95,260 88,245
+                 Q 78,228 68,218
+                 Q 55,205 50,188
+                 Q 42,165 45,145
+                 Q 47,128 55,115
+                 Q 62,102 65,88
+                 Q 70,72 65,55
+                 Q 58,38 45,30
+                 Q 30,20 20,10 Z"/>
+            <!-- Saxophone bell (right/dark area) = woman's hair flowing down -->
+            <path fill="#312e81"
+              d="M 100,280 L 200,280 L 200,0 L 120,0
+                 Q 128,22 135,45
+                 Q 140,65 138,85
+                 Q 135,108 128,122
+                 Q 118,140 115,158
+                 Q 110,178 115,198
+                 Q 122,220 135,238
+                 Q 150,258 155,280 Z"/>
+            <!-- Sax player's eye -->
+            <circle cx="55" cy="82" r="5" fill="#1e1b4b"/>
+            <circle cx="55" cy="82" r="2" fill="white"/>
+            <!-- Mouth/embouchure detail -->
+            <ellipse cx="40" cy="148" rx="12" ry="7" fill="#312e81" opacity="0.7"/>
+            <!-- Keys on saxophone = necklace on woman -->
+            <circle cx="110" cy="165" r="5" fill="#fbbf24" opacity="0.8"/>
+            <circle cx="112" cy="180" r="4" fill="#fbbf24" opacity="0.7"/>
+            <circle cx="108" cy="195" r="4.5" fill="#fbbf24" opacity="0.8"/>
+
+            <!-- Saxophonist Overlay -->
+            <g id="sax-detail-overlay-sax" style="display:none" class="pointer-events-none">
+              <path d="M 20,0 L 20,280 L 100,280 M 100,280 Q 95,260 88,245 Q 78,228 68,218 Q 55,205 50,188 Q 42,165 45,145 Q 47,128 55,115 Q 62,102 65,88 Q 70,72 65,55 Q 58,38 45,30 Q 30,20 20,10" fill="none" stroke="#3b82f6" stroke-width="3.5" />
+              <circle cx="55" cy="82" r="8" fill="none" stroke="#3b82f6" stroke-width="2.5" />
+              <text x="140" y="30" fill="#60a5fa" font-size="11" font-weight="950" text-anchor="middle">Sax Player Profile</text>
+            </g>
+            <!-- Woman Overlay -->
+            <g id="sax-detail-overlay-woman" style="display:none" class="pointer-events-none">
+              <path d="M 100,280 Q 95,260 88,245 Q 78,228 68,218 Q 55,205 50,188 Q 42,165 45,145 Q 47,128 55,115 Q 62,102 65,88 Q 70,72 65,55 Q 58,38 45,30 Q 30,20 20,10" fill="none" stroke="#ef4444" stroke-width="3.5" />
+              <circle cx="55" cy="82" r="8" fill="none" stroke="#ef4444" stroke-width="2.5" />
+              <text x="140" y="30" fill="#f87171" font-size="11" font-weight="950" text-anchor="middle">Woman Face Profile</text>
+            </g>
+          </svg>
+
+          <!-- Control buttons inside demo -->
+          <div class="absolute bottom-4 flex space-x-2 bg-slate-900/90 border border-white/10 rounded-xl p-1 z-10">
+            <button id="show-sax-btn" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-indigo-950 text-slate-350 hover:bg-slate-800 transition-all">Show Saxophonist 🎷</button>
+            <button id="show-woman-btn" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-indigo-950 text-slate-350 hover:bg-slate-800 transition-all">Show Woman 👩</button>
+            <button id="reset-btn" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-indigo-950 text-slate-350 hover:bg-slate-800 transition-all">Reset Highlights</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Content Split Layout -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 pt-4">
+      
+      <!-- Left 2-Columns: Science and Prompt -->
+      <div class="lg:col-span-2 space-y-10">
+        <!-- EXPERIENCE IT FIRST prompt -->
+        <section class="space-y-4">
+          <h2 class="font-display text-2xl font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">🎮</span>
+            <span>EXPERIENCE IT FIRST</span>
+          </h2>
+          <div class="bg-indigo-950/20 border-2 border-indigo-500/15 rounded-3xl p-6 text-slate-700 dark:text-slate-300">
+            <p class="font-bold text-sm sm:text-base text-slate-200">Observe how figure-ground boundaries swap dynamically:</p>
+            <ul class="list-disc pl-5 mt-3 space-y-2 text-xs sm:text-sm font-medium">
+              <li>Observe the yellow buttons/necklace. Does interpreting them as keys vs jewelry trigger a perceptual swap?</li>
+              <li>Stare at the central black outline. When you categorize the left white region as 'the object', the saxophonist emerges. When you categorize the right dark region as 'the object', the woman's face emerges.</li>
+              <li>Notice how the eye shape (white circle) changes function: it is the musician's closed eye or a highlight on the woman's cheek.</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- THE SCIENCE (400 words) -->
+        <section class="space-y-4">
+          <h2 class="font-display text-2xl font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">🧠</span>
+            <span>THE SCIENCE</span>
+          </h2>
+          <div class="prose prose-indigo dark:prose-invert text-slate-700 dark:text-slate-300 leading-relaxed space-y-4 text-xs sm:text-sm font-semibold text-justify">
+            <p>
+              The Saxophonist or Woman's Face optical illusion is a masterclass in figure-ground organization and bistable boundary assignment. Originally conceived as a graphic design challenge, it provides key insights into how the human brain processes edge information and segregates objects from their background context.
+            </p>
+            <p>
+              When visual signals enter the primary visual cortex (V1), neurons extract the locations and orientations of edges. Here, the central edge is identified as a continuous, organic curved line. However, an edge by itself is ambiguous: it represents the boundary between two adjacent regions. To recognize what the regions represent, the visual system must assign ownership of the edge to one side or the other.
+            </p>
+            <p>
+              This process of edge assignment occurs in higher visual areas, specifically area V2 and the ventral object pathway (LOC). If the brain assigns edge ownership to the left side, the left white region becomes the "figure," showing a waddled, shaded profile of a saxophone player. The right side is perceived as empty "ground" (the background shadow).
+            </p>
+            <p>
+              Conversely, if the brain assigns edge ownership to the right side, the dark-blue region becomes the "figure," outlining a woman's face looking left. The left region is now relegated to background space. Because a single boundary can only be assigned to one figure at any given moment, the brain cannot perceive both interpretations simultaneously. Instead, your consciousness cycles between the two hypotheses, illustrating that what we "see" is a top-down model constructed by the brain, not a simple copy of the external world.
+            </p>
+          </div>
+        </section>
+      </div>
+
+      <!-- Right Column: Fun Facts and Try This -->
+      <div class="space-y-8">
+        <!-- FUN FACTS -->
+        <section class="rounded-3xl border border-indigo-950/20 bg-slate-900/60 p-6 space-y-4 shadow-xl">
+          <h3 class="font-display text-lg font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">💡</span>
+            <span>FUN FACTS</span>
+          </h3>
+          <ul class="space-y-4 text-xs sm:text-sm text-slate-650 dark:text-slate-300 font-semibold">
+            <li class="flex items-start space-x-2">
+              <span class="text-purple-500 font-black">•</span>
+              <span>The illusion uses shared borders where the nose/lips of the musician form the nose/lips of the woman.</span>
+            </li>
+            <li class="flex items-start space-x-2">
+              <span class="text-purple-500 font-black">•</span>
+              <span>This is highly popular in art classes to teach students about negative space, showing that background spaces carry meaningful shapes.</span>
+            </li>
+            <li class="flex items-start space-x-2">
+              <span class="text-purple-500 font-black">•</span>
+              <span>Top-down priming plays a major role: reading the word "musician" before viewing increases the probability of seeing the saxophonist first.</span>
+            </li>
+          </ul>
+        </section>
+
+        <!-- TRY THIS AT HOME -->
+        <section class="rounded-3xl border border-indigo-950/20 bg-slate-900/60 p-6 space-y-4 shadow-xl">
+          <h3 class="font-display text-lg font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">🧪</span>
+            <span>TRY THIS AT HOME</span>
+          </h3>
+          <p class="text-xs sm:text-sm text-slate-650 dark:text-slate-300 leading-relaxed font-semibold">
+            Try covering the left half of the image with your hand. Observe how the remaining right half immediately stabilizes as a woman's face and hair, losing all ambiguity.
+          </p>
+        </section>
+
+        <!-- DISCOVERER -->
+        <section class="rounded-3xl border border-indigo-950/20 bg-slate-900/60 p-6 space-y-4 shadow-xl">
+          <h3 class="font-display text-lg font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">📜</span>
+            <span>DISCOVERER</span>
+          </h3>
+          <div class="text-xs sm:text-sm text-slate-650 dark:text-slate-300 leading-relaxed font-semibold space-y-2">
+            <p><strong>Creator:</strong> Jack Botwinick (1961)</p>
+            <p>Jack Botwinick designed this drawing to test visual perception threshold shifts. It has since become a standard figure in Gestalt psychology textbooks.</p>
+          </div>
+        </section>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+    // Share Page URL
+    const sharePageBtn = document.getElementById('share-illusion-page-btn');
+    const pageToast = document.getElementById('page-share-toast');
+
+    sharePageBtn?.addEventListener('click', () => {
+      const pageUrl = window.location.href;
+      navigator.clipboard.writeText(pageUrl).then(() => {
+        if (pageToast) {
+          pageToast.classList.remove('opacity-0');
+          pageToast.classList.add('opacity-100');
+          setTimeout(() => {
+            pageToast.classList.remove('opacity-100');
+            pageToast.classList.add('opacity-0');
+          }, 2000);
+        }
+      });
+    });
+
+    // Toggle highlights
+    const saxBtn = document.getElementById('show-sax-btn');
+    const womanBtn = document.getElementById('show-woman-btn');
+    const resetBtn = document.getElementById('reset-btn');
+    const saxOverlay = document.getElementById('sax-detail-overlay-sax');
+    const womanOverlay = document.getElementById('sax-detail-overlay-woman');
+
+    saxBtn?.addEventListener('click', () => {
+      if (saxOverlay) saxOverlay.style.display = 'block';
+      if (womanOverlay) womanOverlay.style.display = 'none';
+      saxBtn.className = 'text-xs font-bold px-3 py-1.5 rounded-lg bg-blue-600 text-white transition-all';
+      if (womanBtn) womanBtn.className = 'text-xs font-bold px-3 py-1.5 rounded-lg bg-indigo-950 text-slate-350 hover:bg-slate-800 transition-all';
+    });
+
+    womanBtn?.addEventListener('click', () => {
+      if (saxOverlay) saxOverlay.style.display = 'none';
+      if (womanOverlay) womanOverlay.style.display = 'block';
+      if (saxBtn) saxBtn.className = 'text-xs font-bold px-3 py-1.5 rounded-lg bg-indigo-950 text-slate-350 hover:bg-slate-800 transition-all';
+      womanBtn.className = 'text-xs font-bold px-3 py-1.5 rounded-lg bg-red-650 text-white transition-all';
+    });
+
+    resetBtn?.addEventListener('click', () => {
+      if (saxOverlay) saxOverlay.style.display = 'none';
+      if (womanOverlay) womanOverlay.style.display = 'none';
+      if (saxBtn) saxBtn.className = 'text-xs font-bold px-3 py-1.5 rounded-lg bg-indigo-950 text-slate-350 hover:bg-slate-800 transition-all';
+      if (womanBtn) womanBtn.className = 'text-xs font-bold px-3 py-1.5 rounded-lg bg-indigo-950 text-slate-350 hover:bg-slate-800 transition-all';
+    });
+  </script>
+</Layout>

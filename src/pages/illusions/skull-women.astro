@@ -1,0 +1,255 @@
+---
+// src/pages/illusions/skull-women.astro
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout 
+  title="Skull or Two Women (All is Vanity) — Interactive Ambiguous Illusion | Optical Illusion Lab" 
+  description="Explore Charles Allan Gilbert's famous All is Vanity bistable illusion. Squint to see a large skull, or step closer to see two women sitting at a table."
+>
+  <div class="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-12">
+    
+    <!-- Breadcrumb back navigation -->
+    <nav class="flex text-xs font-black uppercase tracking-wider text-slate-400 space-x-2 pb-2 border-b border-indigo-500/10">
+      <a href="/" class="hover:text-white transition-colors">Home</a>
+      <span>/</span>
+      <a href="/what-do-you-see" class="hover:text-white transition-colors">What Do You See</a>
+      <span>/</span>
+      <span class="text-purple-400">Skull or Two Women</span>
+    </nav>
+
+    <!-- Hero Header Section -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6">
+      <div class="space-y-3">
+        <div class="flex items-center space-x-2">
+          <span class="text-xs font-black px-2.5 py-0.5 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 uppercase tracking-wider">Type 3: Ambiguous Figures</span>
+          <span class="text-xs font-black px-2.5 py-0.5 rounded-full bg-yellow-500/10 text-yellow-500 border border-yellow-500/20 uppercase tracking-wider">🟡 Medium</span>
+        </div>
+        <h1 class="font-display text-4xl sm:text-5xl font-black tracking-tight text-slate-900 dark:text-white">
+          All is Vanity (Skull or Women)
+        </h1>
+        <p class="text-slate-600 dark:text-slate-350 text-base max-w-2xl font-medium">
+          A classic bistable drawing from 1892. At a distance, it is a giant skull; up close, it is two girls sitting at a vanity table.
+        </p>
+      </div>
+
+      <!-- Share Button -->
+      <button 
+        id="share-illusion-page-btn"
+        class="relative shrink-0 flex items-center space-x-2 rounded-2xl bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-600 hover:scale-105 text-white font-black text-sm px-6 py-3.5 transition-all shadow-lg shadow-purple-500/10"
+      >
+        <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M15 8a3 3 0 1 0-2.977-2.63l-4.94 2.47a3 3 0 1 0 0 4.319l4.94 2.47a3 3 0 1 0 .895-1.789l-4.94-2.47a3.027 3.027 0 0 0 0-.74l4.94-2.47C13.456 7.68 14.19 8 15 8Z"/></svg>
+        <span>Share Page</span>
+        <span id="page-share-toast" class="absolute bottom-full right-1/2 translate-x-1/2 mb-2 px-2.5 py-1 text-[10px] font-bold text-white bg-purple-655 rounded-lg shadow-md opacity-0 pointer-events-none transition-opacity duration-200 whitespace-nowrap">Link Copied! ✓</span>
+      </button>
+    </div>
+
+    <!-- LARGE INTERACTIVE DEMO -->
+    <div class="flex flex-col items-center justify-center py-6 border-b border-indigo-500/10">
+      <div class="w-full max-w-[600px] mx-auto space-y-4">
+        
+        <!-- Instruction Box -->
+        <div class="my-3 flex items-start gap-2 rounded-xl border border-indigo-500/10 bg-indigo-500/5 p-3 text-xs text-slate-350 text-left">
+          <span class="text-base leading-none">👁️</span>
+          <div>
+            <strong class="text-slate-200">👁️ WHAT TO LOOK FOR:</strong> Stare at the image. Squint your eyes or stand back to perceive the skull structure. Toggle the controls to highlight the skull contours or the outline of the two seated girls.
+          </div>
+        </div>
+
+        <div id="skull-women-illusion" class="relative flex flex-col items-center justify-center h-[400px] w-full bg-slate-950 rounded-xl overflow-hidden border border-indigo-500/10 p-6">
+          <span class="absolute top-3 left-3 text-[10px] font-bold px-2 py-0.5 rounded bg-slate-900/80 text-slate-400 border border-slate-700/50">This illusion uses a fixed display for accuracy.</span>
+          
+          <svg class="w-64 h-64 select-none" viewBox="0 0 240 280" xmlns="http://www.w3.org/2000/svg">
+            <!-- Background dark -->
+            <rect width="240" height="280" fill="#0f172a" rx="8"/>
+            <!-- Skull top/cranium = arch of room / window -->
+            <ellipse fill="#e2e8f0" cx="120" cy="95" rx="72" ry="68"/>
+            <!-- Skull eye socket left = seated woman left (dark dress/shadow) -->
+            <ellipse fill="#0f172a" cx="88" cy="105" rx="22" ry="18"/>
+            <!-- Skull eye socket right = seated woman right -->
+            <ellipse fill="#0f172a" cx="152" cy="105" rx="22" ry="18"/>
+            <!-- Skull nasal cavity = gap between the two women -->
+            <rect fill="#0f172a" x="107" y="132" width="26" height="22" rx="4"/>
+            <!-- Skull teeth row = table edge -->
+            <rect fill="#e2e8f0" x="58" y="162" width="124" height="14" rx="2"/>
+            <!-- Tooth divisions -->
+            <line x1="80" y1="162" x2="80" y2="176" stroke="#0f172a" stroke-width="2"/>
+            <line x1="100" y1="162" x2="100" y2="176" stroke="#0f172a" stroke-width="2"/>
+            <line x1="120" y1="162" x2="120" y2="176" stroke="#0f172a" stroke-width="2"/>
+            <line x1="140" y1="162" x2="140" y2="176" stroke="#0f172a" stroke-width="2"/>
+            <line x1="160" y1="162" x2="160" y2="176" stroke="#0f172a" stroke-width="2"/>
+            <!-- Left woman silhouette -->
+            <path fill="#e2e8f0" d="M 55,95 Q 60,80 72,78 Q 80,88 75,105 Q 68,118 65,135 Q 60,155 58,162 L 42,162 Q 44,145 48,128 Q 52,112 55,95 Z"/>
+            <!-- Right woman silhouette -->
+            <path fill="#e2e8f0" d="M 185,95 Q 180,80 168,78 Q 160,88 165,105 Q 172,118 175,135 Q 180,155 182,162 L 198,162 Q 196,145 192,128 Q 188,112 185,95 Z"/>
+            <!-- Candle on table / nose bridge detail -->
+            <rect fill="#eab308" x="116" y="148" width="8" height="16" rx="1"/>
+            <ellipse fill="#fef08a" cx="120" cy="147" rx="4" ry="3"/>
+
+            <!-- Skull Overlay -->
+            <g id="sw-detail-overlay-skull" style="display:none" class="pointer-events-none">
+              <ellipse cx="120" cy="125" rx="76" ry="90" fill="none" stroke="#ef4444" stroke-width="3.5" />
+              <text x="120" y="25" fill="#f87171" font-size="12" font-weight="950" text-anchor="middle">Large Skull Outline</text>
+            </g>
+            <!-- Women Overlay -->
+            <g id="sw-detail-overlay-women" style="display:none" class="pointer-events-none">
+              <path d="M 55,95 Q 60,80 72,78 Q 80,88 75,105 Q 68,118 65,135 Q 60,155 58,162 L 42,162 Q 44,145 48,128 Q 52,112 55,95 Z" fill="none" stroke="#3b82f6" stroke-width="3.5" />
+              <path d="M 185,95 Q 180,80 168,78 Q 160,88 165,105 Q 172,118 175,135 Q 180,155 182,162 L 198,162 Q 196,145 192,128 Q 188,112 185,95 Z" fill="none" stroke="#3b82f6" stroke-width="3.5" />
+              <text x="120" y="45" fill="#60a5fa" font-size="12" font-weight="950" text-anchor="middle">Two Seated Women</text>
+            </g>
+          </svg>
+
+          <!-- Control buttons inside demo -->
+          <div class="absolute bottom-4 flex space-x-2 bg-slate-900/90 border border-white/10 rounded-xl p-1 z-10">
+            <button id="show-skull-btn" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-indigo-950 text-slate-350 hover:bg-slate-800 transition-all">Show Skull 💀</button>
+            <button id="show-women-btn" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-indigo-950 text-slate-350 hover:bg-slate-800 transition-all">Show Women 👩</button>
+            <button id="reset-btn" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-indigo-950 text-slate-350 hover:bg-slate-800 transition-all">Reset Highlights</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Content Split Layout -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 pt-4">
+      
+      <!-- Left 2-Columns: Science and Prompt -->
+      <div class="lg:col-span-2 space-y-10">
+        <!-- EXPERIENCE IT FIRST prompt -->
+        <section class="space-y-4">
+          <h2 class="font-display text-2xl font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">🎮</span>
+            <span>EXPERIENCE IT FIRST</span>
+          </h2>
+          <div class="bg-indigo-950/20 border-2 border-indigo-500/15 rounded-3xl p-6 text-slate-700 dark:text-slate-300">
+            <p class="font-bold text-sm sm:text-base text-slate-200">Observe how your brain resolves this visual ambiguity:</p>
+            <ul class="list-disc pl-5 mt-3 space-y-2 text-xs sm:text-sm font-medium">
+              <li>Squint your eyes or walk back a few steps. Notice how the details of the dresses and vanity table merge into the teeth and jaws of the skull.</li>
+              <li>How does the candle flame in the center function? In the skull interpretation, it serves as the bridge of the nose; in the scene, it's a candle on the vanity.</li>
+              <li>Notice how spatial frequency determines which image dominates. High spatial frequencies (up close) reveal details of the women. Low spatial frequencies (far away) reveal the skull.</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- THE SCIENCE (400 words) -->
+        <section class="space-y-4">
+          <h2 class="font-display text-2xl font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">🧠</span>
+            <span>THE SCIENCE</span>
+          </h2>
+          <div class="prose prose-indigo dark:prose-invert text-slate-700 dark:text-slate-300 leading-relaxed space-y-4 text-xs sm:text-sm font-semibold text-justify">
+            <p>
+              Charles Allan Gilbert's "All is Vanity" is a classic example of a bistable illusion based on spatial frequency filtering. In the human visual system, details are processed in parallel pathways depending on how close or far apart the visual cycles are. High-spatial-frequency pathways (processed by parvocellular pathways in the LGN) carry sharp borders, fine details, and color. Low-spatial-frequency pathways (processed by magnocellular pathways) carry coarse outlines, shadows, and motion cues.
+            </p>
+            <p>
+              When you stand close to the drawing, your visual cortex has access to high spatial frequencies. This allows the LOC (lateral occipital complex) to group the lines into two distinct women facing each other, looking at mirrors on a table. The white background represents the window/table, and the details of the dresses are highly visible.
+            </p>
+            <p>
+              However, when you stand far away, or squint your eyes, the high-spatial-frequency details are filtered out. The visual cortex is left with only low-frequency components: the dark shadows of the women's dresses merge into the eye sockets of a skull, and the table outline forms the teeth row. The brain, attempting to recognize a cohesive structure, resolves this coarse outline as a giant skull.
+            </p>
+            <p>
+              This demonstrates that object recognition is an active predictive process: the brain applies semantic filters to group visual elements based on spatial constraints. Because the skull and scene are mutually exclusive interpretations of the same visual space, they compete in the visual cortex, flipping back and forth as neural populations adapt.
+            </p>
+          </div>
+        </section>
+      </div>
+
+      <!-- Right Column: Fun Facts and Try This -->
+      <div class="space-y-8">
+        <!-- FUN FACTS -->
+        <section class="rounded-3xl border border-indigo-950/20 bg-slate-900/60 p-6 space-y-4 shadow-xl">
+          <h3 class="font-display text-lg font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">💡</span>
+            <span>FUN FACTS</span>
+          </h3>
+          <ul class="space-y-4 text-xs sm:text-sm text-slate-650 dark:text-slate-300 font-semibold">
+            <li class="flex items-start space-x-2">
+              <span class="text-purple-500 font-black">•</span>
+              <span>"All is Vanity" is a double-entendre referring both to the vanity table where the women sit and the biblical concept of vanity (memento mori).</span>
+            </li>
+            <li class="flex items-start space-x-2">
+              <span class="text-purple-500 font-black">•</span>
+              <span>Charles Allan Gilbert was only 18 years old when he drew this masterpiece in 1892.</span>
+            </li>
+            <li class="flex items-start space-x-2">
+              <span class="text-purple-500 font-black">•</span>
+              <span>It was sold to Life magazine in 1902 and quickly became a global sensation in visual science.</span>
+            </li>
+          </ul>
+        </section>
+
+        <!-- TRY THIS AT HOME -->
+        <section class="rounded-3xl border border-indigo-950/20 bg-slate-900/60 p-6 space-y-4 shadow-xl">
+          <h3 class="font-display text-lg font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">🧪</span>
+            <span>TRY THIS AT HOME</span>
+          </h3>
+          <p class="text-xs sm:text-sm text-slate-650 dark:text-slate-300 leading-relaxed font-semibold">
+            Try looking at the image on your phone, then move the phone slowly away from your eyes. Pinpoint the exact distance where the women disappear and the skull takes over.
+          </p>
+        </section>
+
+        <!-- DISCOVERER -->
+        <section class="rounded-3xl border border-indigo-950/20 bg-slate-900/60 p-6 space-y-4 shadow-xl">
+          <h3 class="font-display text-lg font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">📜</span>
+            <span>DISCOVERER</span>
+          </h3>
+          <div class="text-xs sm:text-sm text-slate-650 dark:text-slate-300 leading-relaxed font-semibold space-y-2">
+            <p><strong>Discoverer:</strong> C. Allan Gilbert (1892)</p>
+            <p>Charles Allan Gilbert was an American illustrator who pioneered using bistable vanity scenes as vanity/death allegories, a theme that has since been adapted by Salvador Dalí and other surrealist artists.</p>
+          </div>
+        </section>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+    // Share Page URL
+    const sharePageBtn = document.getElementById('share-illusion-page-btn');
+    const pageToast = document.getElementById('page-share-toast');
+
+    sharePageBtn?.addEventListener('click', () => {
+      const pageUrl = window.location.href;
+      navigator.clipboard.writeText(pageUrl).then(() => {
+        if (pageToast) {
+          pageToast.classList.remove('opacity-0');
+          pageToast.classList.add('opacity-100');
+          setTimeout(() => {
+            pageToast.classList.remove('opacity-100');
+            pageToast.classList.add('opacity-0');
+          }, 2000);
+        }
+      });
+    });
+
+    // Toggle highlights
+    const skullBtn = document.getElementById('show-skull-btn');
+    const womenBtn = document.getElementById('show-women-btn');
+    const resetBtn = document.getElementById('reset-btn');
+    const skullOverlay = document.getElementById('sw-detail-overlay-skull');
+    const womenOverlay = document.getElementById('sw-detail-overlay-women');
+
+    skullBtn?.addEventListener('click', () => {
+      if (skullOverlay) skullOverlay.style.display = 'block';
+      if (womenOverlay) womenOverlay.style.display = 'none';
+      skullBtn.className = 'text-xs font-bold px-3 py-1.5 rounded-lg bg-red-600 text-white transition-all';
+      if (womenBtn) womenBtn.className = 'text-xs font-bold px-3 py-1.5 rounded-lg bg-indigo-950 text-slate-350 hover:bg-slate-800 transition-all';
+    });
+
+    womenBtn?.addEventListener('click', () => {
+      if (skullOverlay) skullOverlay.style.display = 'none';
+      if (womenOverlay) womenOverlay.style.display = 'block';
+      if (skullBtn) skullBtn.className = 'text-xs font-bold px-3 py-1.5 rounded-lg bg-indigo-950 text-slate-350 hover:bg-slate-800 transition-all';
+      womenBtn.className = 'text-xs font-bold px-3 py-1.5 rounded-lg bg-blue-600 text-white transition-all';
+    });
+
+    resetBtn?.addEventListener('click', () => {
+      if (skullOverlay) skullOverlay.style.display = 'none';
+      if (womenOverlay) womenOverlay.style.display = 'none';
+      if (skullBtn) skullBtn.className = 'text-xs font-bold px-3 py-1.5 rounded-lg bg-indigo-950 text-slate-350 hover:bg-slate-800 transition-all';
+      if (womenBtn) womenBtn.className = 'text-xs font-bold px-3 py-1.5 rounded-lg bg-indigo-950 text-slate-350 hover:bg-slate-800 transition-all';
+    });
+  </script>
+</Layout>

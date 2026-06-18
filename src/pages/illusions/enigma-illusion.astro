@@ -1,0 +1,77 @@
+---
+// src/pages/illusions/enigma-illusion.astro
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout 
+  title="Enigma Illusion — Optical Illusion Lab" 
+  description="Explore the science, history, and visual parameters of the Enigma Illusion optical illusion."
+>
+  <div class="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-12">
+    <!-- Breadcrumb back navigation -->
+    <nav class="flex text-xs font-black uppercase tracking-wider text-slate-400 space-x-2 pb-2 border-b border-indigo-500/10">
+      <a href="/" class="hover:text-white transition-colors">Home</a>
+      <span>/</span>
+      <span class="text-purple-400">Enigma Illusion</span>
+    </nav>
+
+    <!-- Hero Header -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6">
+      <div class="space-y-3">
+        <div class="flex items-center space-x-2">
+          <span class="text-xs font-black px-2.5 py-0.5 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 uppercase tracking-wider">Motion</span>
+          <span class="text-xs font-black px-2.5 py-0.5 rounded-full bg-purple-500/10 text-purple-400 border border-purple-500/20 uppercase tracking-wider">💀 Expert</span>
+        </div>
+        <h1 class="font-display text-4xl sm:text-5xl font-black tracking-tight text-slate-900 dark:text-white">
+          Enigma Illusion
+        </h1>
+        <p class="text-slate-600 dark:text-slate-350 text-base max-w-2xl font-medium">
+          Discover how the brain interprets this fascinating motion visual puzzle.
+        </p>
+      </div>
+    </div>
+
+    <!-- LARGE INTERACTIVE DEMO -->
+    <div class="flex flex-col items-center justify-center py-6 border-b border-indigo-500/10">
+      <div class="w-full max-w-[600px] mx-auto space-y-4">
+        <div class="relative flex flex-col items-center justify-center h-96 w-full bg-slate-100 dark:bg-slate-950/40 rounded-xl overflow-hidden border border-indigo-500/10 p-6">
+          <svg class="w-48 h-48 select-none bg-slate-900" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="45" fill="none" stroke="#ffffff" stroke-dasharray="1,2" stroke-width="40" />
+            <circle cx="50" cy="50" r="30" fill="none" stroke="#eab308" stroke-width="4" class="animate-pulse" />
+            <circle cx="50" cy="50" r="20" fill="none" stroke="#3b82f6" stroke-width="3" />
+            <circle cx="50" cy="50" r="4" fill="#ef4444" />
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- Content Split Layout -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 pt-4">
+      <!-- Left 2-Columns -->
+      <div class="lg:col-span-2 space-y-10">
+        <section class="space-y-4">
+          <h2 class="font-display text-2xl font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">🧠</span>
+            <span>THE SCIENCE</span>
+          </h2>
+          <div class="prose prose-indigo dark:prose-invert text-slate-700 dark:text-slate-300 leading-relaxed text-xs sm:text-sm font-semibold text-justify">
+            <p>The Enigma Illusion, designed by Isia Leviant in 1981, features radiating spokes overlaying concentric rings. When looking at the image, observers report a rapid, circular flow or shimmering movement along the rings, despite the visual being entirely static. For decades, visual scientists debated whether the effect originated in the retina or the brain. In 2008, neuroscientists discovered that the illusion is driven by tiny, involuntary eye movements called micro-saccades. These movements shift the radial lines across the retina, generating transient signals that the visual cortex (area MT) interprets as continuous motion along the circular rings. This demonstrates how motor activity and sensory processing are deeply integrated in visual comprehension.</p>
+          </div>
+        </section>
+      </div>
+
+      <!-- Right Column -->
+      <div class="space-y-8">
+        <section class="rounded-3xl border border-indigo-950/20 bg-slate-900/60 p-6 space-y-4 shadow-xl">
+          <h3 class="font-display text-lg font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">📜</span>
+            <span>HISTORY</span>
+          </h3>
+          <p class="text-xs sm:text-sm text-slate-650 dark:text-slate-355 leading-relaxed font-semibold">
+            First described by Isia Leviant (1981). It remains a fundamental demonstration of perceptual processing and cognitive framing.
+          </p>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

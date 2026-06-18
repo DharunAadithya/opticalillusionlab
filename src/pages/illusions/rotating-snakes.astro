@@ -2,47 +2,62 @@
 // src/pages/illusions/rotating-snakes.astro
 import Layout from '../../layouts/Layout.astro';
 
-// Math Helper: draws an SVG wedge from (cx, cy) out to radius r
-function getWedgePath(cx: number, cy: number, r: number, startAngle: number, endAngle: number) {
-  const rad = Math.PI / 180;
-  const x1 = cx + r * Math.cos(startAngle * rad);
-  const y1 = cy + r * Math.sin(startAngle * rad);
-  const x2 = cx + r * Math.cos(endAngle * rad);
-  const y2 = cy + r * Math.sin(endAngle * rad);
-  const largeArcFlag = endAngle - startAngle <= 180 ? 0 : 1;
-  return `M ${cx},${cy} L ${x1},${y1} A ${r},${r} 0 ${largeArcFlag},1 ${x2},${y2} Z`;
-}
-
-// Generate concentric ring sectors for Moving Circles & Rotating Snakes
-function generateRingSectors(cx: number, cy: number, r: number, count: number, reversed: boolean) {
+function generateRingSectors(cx: number, cy: number, rOuter: number, rInner: number, count: number, reversed: boolean) {
   const sectors = [];
   const colors = [
-    'fill-slate-950 dark:fill-slate-900',          // Black
-    'fill-indigo-600 dark:fill-indigo-500',       // Blue
-    'fill-white dark:fill-slate-100',              // White
-    'fill-yellow-400 dark:fill-yellow-300'         // Yellow
+    '#000000', // Black
+    '#64748b', // Gray
+    '#ffffff', // White
+    '#eab308'  // Yellow
   ];
   if (reversed) {
     colors.reverse();
   }
+  const rad = Math.PI / 180;
   for (let i = 0; i < count; i++) {
     const baseAngle = (i * 360) / count;
     const step = 360 / count / 4;
     for (let c = 0; c < 4; c++) {
+      const startAngle = baseAngle + c * step;
+      const endAngle = baseAngle + (c + 1) * step;
+      
+      const x1_out = cx + rOuter * Math.cos(startAngle * rad);
+      const y1_out = cy + rOuter * Math.sin(startAngle * rad);
+      const x2_out = cx + rOuter * Math.cos(endAngle * rad);
+      const y2_out = cy + rOuter * Math.sin(endAngle * rad);
+      
+      const x1_in = cx + rInner * Math.cos(startAngle * rad);
+      const y1_in = cy + rInner * Math.sin(startAngle * rad);
+      const x2_in = cx + rInner * Math.cos(endAngle * rad);
+      const y2_in = cy + rInner * Math.sin(endAngle * rad);
+      
+      const path = `M ${x1_in},${y1_in} L ${x1_out},${y1_out} A ${rOuter},${rOuter} 0 0,1 ${x2_out},${y2_out} L ${x2_in},${y2_in} A ${rInner},${rInner} 0 0,0 ${x1_in},${y1_in} Z`;
+      
       sectors.push({
-        path: getWedgePath(cx, cy, r, baseAngle + c * step, baseAngle + (c + 1) * step),
+        path,
         color: colors[c]
       });
     }
   }
   return sectors;
 }
+
+const r1 = generateRingSectors(100, 100, 95, 80, 24, false);
+const r2 = generateRingSectors(100, 100, 80, 66, 20, true);
+const r3 = generateRingSectors(100, 100, 66, 52, 16, false);
+const r4 = generateRingSectors(100, 100, 52, 38, 12, true);
+const r5 = generateRingSectors(100, 100, 38, 24, 8, false);
+const r6 = generateRingSectors(100, 100, 24, 10, 6, true);
 ---
 
 <Layout 
   title="Rotating Snakes — Interactive Optical Illusion | Optical Illusion Lab" 
   description="A grid of circular snake coils. Move your eyes around to see them slither and turn in opposite directions."
 >
+  <style>
+    /* Rotating Snakes is 100% static in code. There are no animations. */
+  </style>
+
   <div class="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-12">
     
     <!-- Breadcrumb back navigation to Section -->
@@ -83,46 +98,65 @@ function generateRingSectors(cx: number, cy: number, r: number, count: number, r
     <!-- LARGE INTERACTIVE DEMO (600px wide, centered) -->
     <div class="flex flex-col items-center justify-center py-6 border-b border-indigo-500/10">
       <div class="w-full max-w-[600px] mx-auto space-y-4">
-        <div id="snakes-illusion" class="relative flex flex-col items-center justify-center h-96 w-full bg-slate-100 dark:bg-slate-950/40 rounded-xl overflow-hidden border border-indigo-500/10">
-          <div class="grid grid-cols-2 gap-8 max-w-[280px]">
+        <div id="snakes-illusion" class="relative flex flex-col items-center justify-center min-h-[440px] py-8 w-full bg-slate-900 rounded-xl overflow-hidden border border-indigo-500/10">
+          <div class="grid grid-cols-2 gap-8 md:gap-16 max-w-[340px] md:max-w-[400px]">
             {Array.from({ length: 4 }).map((_, idx) => {
-              const isClockwise = idx % 2 === 0;
-              const oRing = generateRingSectors(100, 100, 80, 12, isClockwise);
-              const iRing = generateRingSectors(100, 100, 50, 8, !isClockwise);
               return (
                 <svg 
-                  class="snake-wheel w-28 h-28 origin-center transition-transform select-none" 
+                  class="snake-wheel w-36 h-36 origin-center select-none overflow-visible" 
                   viewBox="0 0 200 200"
-                  style="animation: spin-clockwise calc(15s / var(--speed-multiplier, 1)) linear infinite; animation-play-state: paused;"
-                  data-dir={isClockwise ? "cw" : "ccw"}
                 >
-                  <g class="outer-snakes">
-                    {oRing.map(sect => (
-                      <path d={sect.path} class={sect.color} stroke="none" />
+                  <!-- Ring 1 (CW) -->
+                  <g class="snake-ring ring-cw ring-1 origin-center" style="transform-origin: 100px 100px;">
+                    {r1.map(sect => (
+                      <path d={sect.path} fill={sect.color} />
                     ))}
                   </g>
-                  <g class="inner-snakes">
-                    {iRing.map(sect => (
-                      <path d={sect.path} class={sect.color} stroke="none" />
+                  <!-- Ring 2 (CCW) -->
+                  <g class="snake-ring ring-ccw ring-2 origin-center" style="transform-origin: 100px 100px;">
+                    {r2.map(sect => (
+                      <path d={sect.path} fill={sect.color} />
                     ))}
                   </g>
-                  <circle cx="100" cy="100" r="22" class="fill-slate-100 dark:fill-slate-950 transition-colors" />
+                  <!-- Ring 3 (CW) -->
+                  <g class="snake-ring ring-cw ring-3 origin-center" style="transform-origin: 100px 100px;">
+                    {r3.map(sect => (
+                      <path d={sect.path} fill={sect.color} />
+                    ))}
+                  </g>
+                  <!-- Ring 4 (CCW) -->
+                  <g class="snake-ring ring-ccw ring-4 origin-center" style="transform-origin: 100px 100px;">
+                    {r4.map(sect => (
+                      <path d={sect.path} fill={sect.color} />
+                    ))}
+                  </g>
+                  <!-- Ring 5 (CW) -->
+                  <g class="snake-ring ring-cw ring-5 origin-center" style="transform-origin: 100px 100px;">
+                    {r5.map(sect => (
+                      <path d={sect.path} fill={sect.color} />
+                    ))}
+                  </g>
+                  <!-- Ring 6 (CCW) -->
+                  <g class="snake-ring ring-ccw ring-6 origin-center" style="transform-origin: 100px 100px;">
+                    {r6.map(sect => (
+                      <path d={sect.path} fill={sect.color} />
+                    ))}
+                  </g>
+                  
+                  <!-- Stare Challenge Center Dot -->
+                  <circle cx="100" cy="100" r="5" fill="#f43f5e" stroke="#ffffff" stroke-width="1.5" />
                 </svg>
               )
             })}
           </div>
-          <div class="absolute bottom-4">
-            <button class="toggle-snakes text-sm font-semibold px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white shadow-md transition-colors">
-              Start Real Spin
-            </button>
+          <div class="absolute bottom-4 flex flex-col items-center space-y-1.5 text-center px-4 bg-slate-950/80 rounded-xl py-2.5 border border-white/10 max-w-[85%] select-none">
+            <span class="text-[10px] text-purple-400 font-black tracking-widest uppercase">🎯 Try This: Scan your eyes around the page. The wheels will appear to spin.</span>
+            <span class="text-xs text-amber-400 font-bold block">Freeze-frame proof: This image has zero animation. Inspect the element if you don't believe it!</span>
           </div>
         </div>
     
         <div class="text-center text-xs text-slate-500 dark:text-slate-400 italic">
-          Use the controllers inside the display card to interact with the visual triggers.
-        </div>
-        <div class="text-center text-xs text-slate-500 dark:text-slate-400 italic font-semibold">
-          Use the controllers inside the display card to interact with the visual triggers.
+          This illusion uses a fixed display for accuracy.
         </div>
       </div>
     </div>
@@ -246,12 +280,12 @@ function generateRingSectors(cx: number, cy: number, r: number, count: number, r
     
 
       <a 
-        href="/illusions/motion-binding" 
+        href="/illusions/moving-circles" 
         class="group rounded-xl border border-indigo-950/20 bg-white dark:bg-slate-900/60 p-5 shadow-lg hover:border-purple-500/40 hover:-translate-y-1 hover:shadow-purple-500/10 transition-all duration-300"
       >
         <div class="text-[10px] font-bold text-purple-400 uppercase tracking-wide">Related Illusion</div>
         <h4 class="font-display text-base font-bold text-slate-900 dark:text-white mt-1 group-hover:text-purple-400 transition-colors">
-          Motion Binding &rarr;
+          Moving Circles &rarr;
         </h4>
       </a>
     
@@ -319,26 +353,5 @@ function generateRingSectors(cx: number, cy: number, r: number, count: number, r
     
     
     // Embed specific illusion script logic
-    
-      const snakesContainer = document.getElementById('snakes-illusion');
-      const toggleSnakesBtn = snakesContainer?.querySelector('.toggle-snakes');
-      const snakeWheels = snakesContainer?.querySelectorAll('.snake-wheel');
-      let snakesSpinning = false;
-
-      toggleSnakesBtn?.addEventListener('click', () => {
-        snakesSpinning = !snakesSpinning;
-        snakeWheels?.forEach(wheel => {
-          const dir = wheel.getAttribute('data-dir');
-          if (snakesSpinning) {
-            (wheel as SVGElement).style.animationName = dir === 'cw' ? 'spin-clockwise' : 'spin-counter';
-            (wheel as SVGElement).style.animationPlayState = 'running';
-          } else {
-            (wheel as SVGElement).style.animationPlayState = 'paused';
-          }
-        });
-        if (toggleSnakesBtn) {
-          toggleSnakesBtn.textContent = snakesSpinning ? 'Stop Rotation' : 'Start Real Spin';
-        }
-      });
   </script>
 </Layout>

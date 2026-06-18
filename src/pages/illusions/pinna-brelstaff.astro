@@ -58,7 +58,7 @@ function getWedgePath(cx: number, cy: number, r: number, startAngle: number, end
     <!-- LARGE INTERACTIVE DEMO (600px wide, centered) -->
     <div class="flex flex-col items-center justify-center py-6 border-b border-indigo-500/10">
       <div class="w-full max-w-[600px] mx-auto space-y-4">
-        <div id="pinna-illusion" class="relative flex flex-col items-center justify-center h-96 w-full bg-slate-100 dark:bg-slate-950/40 rounded-xl overflow-hidden border border-indigo-500/10 p-4">
+        <div id="pinna-illusion" class="relative flex flex-col items-center justify-center h-96 w-full bg-slate-900 rounded-xl overflow-hidden border border-indigo-500/10 p-4">
           <svg class="pinna-svg w-72 h-72 select-none overflow-visible" viewBox="0 0 200 200">
             <circle cx="100" cy="100" r="3" fill="currentColor" />
             <!-- Inner Ring (16 chevrons tilted counter-clockwise) -->
@@ -108,17 +108,14 @@ function getWedgePath(cx: number, cy: number, r: number, startAngle: number, end
               <g transform="translate(172.4, 80.6) rotate(345)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#000000" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#ffffff" /></g>
             </g>
           </svg>
-          <div class="absolute bottom-4 flex flex-col items-center bg-slate-950/80 px-3 py-1.5 rounded-lg border border-white/10 z-10 text-center">
-            <span class="text-[9px] text-slate-400 font-bold uppercase mb-1">Move your eyes around the image — don't stare at one point</span>
-            <button class="toggle-pinna-spin text-xs font-bold px-3 py-1 rounded bg-purple-600 hover:bg-purple-500 text-white transition-colors">Start Spin (Prove static is same)</button>
+          <div class="absolute bottom-4 flex flex-col items-center bg-slate-950/80 px-4 py-2.5 rounded-xl border border-white/10 z-10 text-center max-w-[85%] select-none">
+            <span class="text-[10px] text-purple-400 font-black tracking-widest uppercase mb-1">🎯 Try This: Move your head closer/further from the screen while staring at the center.</span>
+            <span class="text-xs text-amber-400 font-bold block">Freeze-frame proof: This image has zero animation. Inspect the element if you don't believe it!</span>
           </div>
         </div>
     
         <div class="text-center text-xs text-slate-500 dark:text-slate-400 italic">
-          Use the controllers inside the display card to interact with the visual triggers.
-        </div>
-        <div class="text-center text-xs text-slate-500 dark:text-slate-400 italic font-semibold">
-          Use the controllers inside the display card to interact with the visual triggers.
+          This illusion uses a fixed display for accuracy.
         </div>
       </div>
     </div>
@@ -242,12 +239,12 @@ function getWedgePath(cx: number, cy: number, r: number, startAngle: number, end
     
 
       <a 
-        href="/illusions/motion-binding" 
+        href="/illusions/moving-circles" 
         class="group rounded-xl border border-indigo-950/20 bg-white dark:bg-slate-900/60 p-5 shadow-lg hover:border-purple-500/40 hover:-translate-y-1 hover:shadow-purple-500/10 transition-all duration-300"
       >
         <div class="text-[10px] font-bold text-purple-400 uppercase tracking-wide">Related Illusion</div>
         <h4 class="font-display text-base font-bold text-slate-900 dark:text-white mt-1 group-hover:text-purple-400 transition-colors">
-          Motion Binding &rarr;
+          Moving Circles &rarr;
         </h4>
       </a>
     
@@ -307,26 +304,5 @@ function getWedgePath(cx: number, cy: number, r: number, startAngle: number, end
       ctrl.addEventListener('click', (e) => e.stopPropagation());
     });
 
-    // Local script logic from original file
-    const container = document.getElementById('pinna-illusion');
-      const ring1 = container?.querySelector('.pinna-ring-1') as SVGElement;
-      const ring2 = container?.querySelector('.pinna-ring-2') as SVGElement;
-      const btn = container?.querySelector('.toggle-pinna-spin');
-      let spinning = false;
-
-      btn?.addEventListener('click', () => {
-        spinning = !spinning;
-        if (ring1 && ring2) {
-          if (spinning) {
-            ring1.style.animation = 'spin-clockwise calc(20s / var(--speed-multiplier, 1)) linear infinite';
-            ring2.style.animation = 'spin-counter calc(25s / var(--speed-multiplier, 1)) linear infinite';
-            if (btn) btn.textContent = 'Stop Spin';
-          } else {
-            ring1.style.animation = '';
-            ring2.style.animation = '';
-            if (btn) btn.textContent = 'Start Spin (Prove static is same)';
-          }
-        }
-      });
   </script>
 </Layout>

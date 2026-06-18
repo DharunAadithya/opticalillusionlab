@@ -1,22 +1,11 @@
 ---
 // src/pages/illusions/troxler-fading.astro
 import Layout from '../../layouts/Layout.astro';
-
-// Math Helper: draws an SVG wedge from (cx, cy) out to radius r
-function getWedgePath(cx: number, cy: number, r: number, startAngle: number, endAngle: number) {
-  const rad = Math.PI / 180;
-  const x1 = cx + r * Math.cos(startAngle * rad);
-  const y1 = cy + r * Math.sin(startAngle * rad);
-  const x2 = cx + r * Math.cos(endAngle * rad);
-  const y2 = cy + r * Math.sin(endAngle * rad);
-  const largeArcFlag = endAngle - startAngle <= 180 ? 0 : 1;
-  return `M ${cx},${cy} L ${x1},${y1} A ${r},${r} 0 ${largeArcFlag},1 ${x2},${y2} Z`;
-}
 ---
 
 <Layout 
   title="Troxler Fading — Interactive Optical Illusion | Optical Illusion Lab" 
-  description="Stare at the central cross for 20 seconds. The pink dots will disappear, replaced by a non-existent green dot."
+  description="Stare at the central cross for 20 seconds. The pink dots will disappear from your peripheral vision due to neural adaptation."
 >
   <div class="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-12">
     
@@ -40,7 +29,7 @@ function getWedgePath(cx: number, cy: number, r: number, startAngle: number, end
           Troxler Fading
         </h1>
         <p class="text-slate-600 dark:text-slate-350 text-base max-w-2xl font-medium">
-          Stare at the central cross for 20 seconds. The pink dots will disappear, replaced by a non-existent green dot.
+          Stare at the central cross for 20 seconds. The pink dots will fade away from your peripheral vision, leaving a blank field.
         </p>
       </div>
 
@@ -58,28 +47,53 @@ function getWedgePath(cx: number, cy: number, r: number, startAngle: number, end
     <!-- LARGE INTERACTIVE DEMO (600px wide, centered) -->
     <div class="flex flex-col items-center justify-center py-6 border-b border-indigo-500/10">
       <div class="w-full max-w-[600px] mx-auto space-y-4">
+        
+        <!-- Instruction Text Box required by Section G -->
+        <div class="bg-indigo-950/40 border border-indigo-500/25 rounded-2xl p-4 text-slate-300 text-xs sm:text-sm font-semibold">
+          👁️ WHAT TO LOOK FOR: Stare continuously at the central white cross. Do not blink or move your eyes. Within 10 to 20 seconds, the surrounding blurry pink circles will start to fade and completely disappear from your vision.
+        </div>
+
         <div id="troxler-illusion" class="relative flex flex-col items-center justify-center h-96 w-full bg-slate-900 rounded-xl overflow-hidden border border-indigo-500/10 p-4">
           <svg class="w-64 h-64 select-none overflow-visible" viewBox="0 0 200 200">
-            <!-- Center black cross -->
+            <defs>
+              <filter id="fuzzy-blur">
+                <feGaussianBlur stdDeviation="3" />
+              </filter>
+            </defs>
+
+            <!-- Center white cross -->
             <line x1="95" y1="100" x2="105" y2="100" stroke="#ffffff" stroke-width="2" />
             <line x1="100" y1="95" x2="100" y2="105" stroke="#ffffff" stroke-width="2" />
             
-            <!-- Circle of 12 Lilac/Pink dots -->
+            <!-- Circle of 12 Lilac/Pink dots (#ff1493) -->
             <g class="troxler-dots">
-              <circle cx="160" cy="100" r="8" fill="#db2777" class="troxler-dot transition-opacity duration-150" />
-              <circle cx="151.96" cy="130" r="8" fill="#db2777" class="troxler-dot transition-opacity duration-150" />
-              <circle cx="130" cy="151.96" r="8" fill="#db2777" class="troxler-dot transition-opacity duration-150" />
-              <circle cx="100" cy="160" r="8" fill="#db2777" class="troxler-dot transition-opacity duration-150" />
-              <circle cx="70" cy="151.96" r="8" fill="#db2777" class="troxler-dot transition-opacity duration-150" />
-              <circle cx="48.04" cy="130" r="8" fill="#db2777" class="troxler-dot transition-opacity duration-150" />
-              <circle cx="40" cy="100" r="8" fill="#db2777" class="troxler-dot transition-opacity duration-150" />
-              <circle cx="48.04" cy="70" r="8" fill="#db2777" class="troxler-dot transition-opacity duration-150" />
-              <circle cx="70" cy="48.04" r="8" fill="#db2777" class="troxler-dot transition-opacity duration-150" />
-              <circle cx="100" cy="40" r="8" fill="#db2777" class="troxler-dot transition-opacity duration-150" />
-              <circle cx="130" cy="48.04" r="8" fill="#db2777" class="troxler-dot transition-opacity duration-150" />
-              <circle cx="151.96" cy="70" r="8" fill="#db2777" class="troxler-dot transition-opacity duration-150" />
+              <circle cx="160" cy="100" r="8" fill="#ff1493" class="troxler-dot" filter="url(#fuzzy-blur)" />
+              <circle cx="151.96" cy="130" r="8" fill="#ff1493" class="troxler-dot" filter="url(#fuzzy-blur)" />
+              <circle cx="130" cy="151.96" r="8" fill="#ff1493" class="troxler-dot" filter="url(#fuzzy-blur)" />
+              <circle cx="100" cy="160" r="8" fill="#ff1493" class="troxler-dot" filter="url(#fuzzy-blur)" />
+              <circle cx="70" cy="151.96" r="8" fill="#ff1493" class="troxler-dot" filter="url(#fuzzy-blur)" />
+              <circle cx="48.04" cy="130" r="8" fill="#ff1493" class="troxler-dot" filter="url(#fuzzy-blur)" />
+              <circle cx="40" cy="100" r="8" fill="#ff1493" class="troxler-dot" filter="url(#fuzzy-blur)" />
+              <circle cx="48.04" cy="70" r="8" fill="#ff1493" class="troxler-dot" filter="url(#fuzzy-blur)" />
+              <circle cx="70" cy="48.04" r="8" fill="#ff1493" class="troxler-dot" filter="url(#fuzzy-blur)" />
+              <circle cx="100" cy="40" r="8" fill="#ff1493" class="troxler-dot" filter="url(#fuzzy-blur)" />
+              <circle cx="130" cy="48.04" r="8" fill="#ff1493" class="troxler-dot" filter="url(#fuzzy-blur)" />
+              <circle cx="151.96" cy="70" r="8" fill="#ff1493" class="troxler-dot" filter="url(#fuzzy-blur)" />
             </g>
           </svg>
+          
+          <!-- SVG Progress Ring indicator for visual flair -->
+          <svg class="absolute inset-0 w-full h-full pointer-events-none select-none -rotate-90" viewBox="0 0 200 200">
+            <circle cx="100" cy="100" r="82" stroke="rgba(168,85,247,0.15)" stroke-width="2" fill="none" />
+            <circle id="troxler-progress-ring" cx="100" cy="100" r="82" stroke="url(#purple-gradient)" stroke-width="2" fill="none" stroke-dasharray="515.2" stroke-dashoffset="515.2" stroke-linecap="round" class="transition-all duration-100 ease-linear" />
+            <defs>
+              <linearGradient id="purple-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#ec4899" />
+                <stop offset="100%" stop-color="#8b5cf6" />
+              </linearGradient>
+            </defs>
+          </svg>
+
           <div class="absolute bottom-4 flex flex-col items-center space-y-1 bg-slate-950/80 px-4 py-2 rounded-xl backdrop-blur border border-white/10">
             <span class="text-[10px] text-slate-400 font-bold uppercase">Stare at the cross for 20 seconds</span>
             <div class="flex items-center space-x-2">
@@ -88,12 +102,32 @@ function getWedgePath(cx: number, cy: number, r: number, startAngle: number, end
             </div>
           </div>
         </div>
-    
-        <div class="text-center text-xs text-slate-500 dark:text-slate-400 italic">
-          Use the controllers inside the display card to interact with the visual triggers.
+
+        <!-- Experience Feedback Panel (hidden by default) -->
+        <div id="experience-feedback-panel" class="hidden w-full p-6 bg-slate-900/90 border border-white/10 rounded-2xl text-left space-y-4 shadow-xl">
+          <h4 class="text-xs font-black uppercase text-purple-400 font-display">Stare Experience</h4>
+          
+          <div class="text-xs space-y-4">
+            <p class="text-slate-300 leading-relaxed font-medium">
+              If a dot seemed to fade, vanish, or change color in your vision, that happened in your retina, not in this code — feel free to inspect the HTML. Effect strength varies by person; some need 30+ seconds, some won't notice it at all.
+            </p>
+
+            <div class="space-y-2">
+              <p class="text-sm font-bold text-slate-200">How long did it take you to notice something change?</p>
+              <div class="flex flex-wrap gap-2">
+                <button class="feedback-time-btn bg-slate-800 hover:bg-purple-650 text-white font-bold px-3 py-1.5 rounded-lg transition-all" data-value="under-10">Under 10s</button>
+                <button class="feedback-time-btn bg-slate-800 hover:bg-purple-650 text-white font-bold px-3 py-1.5 rounded-lg transition-all" data-value="10-20">10-20s</button>
+                <button class="feedback-time-btn bg-slate-800 hover:bg-purple-650 text-white font-bold px-3 py-1.5 rounded-lg transition-all" data-value="didnt-notice">Didn't notice</button>
+              </div>
+              <p id="feedback-response-text" class="hidden text-xs text-purple-450 font-bold mt-2"></p>
+            </div>
+            
+            <button id="btn-reset-experience" class="w-full border border-purple-500/30 text-purple-400 hover:bg-purple-500/10 font-bold text-xs py-2 rounded-xl transition-all">Try Again 🔄</button>
+          </div>
         </div>
-        <div class="text-center text-xs text-slate-500 dark:text-slate-400 italic font-semibold">
-          Use the controllers inside the display card to interact with the visual triggers.
+
+        <div class="text-center text-xs text-slate-500 dark:text-slate-400 italic">
+          This illusion uses a fixed display for accuracy.
         </div>
       </div>
     </div>
@@ -113,8 +147,8 @@ function getWedgePath(cx: number, cy: number, r: number, startAngle: number, end
             <p class="font-bold text-sm sm:text-base text-slate-200">Before reading the neuroscience explanation below, take a moment to interact with the demo above:</p>
             <ul class="list-disc pl-5 mt-3 space-y-2 text-xs sm:text-sm font-medium">
               <li>How does the visual change when you move your eyes or look at different parts of the screen?</li>
-              <li>Use the slider or toggle buttons to reveal the actual geometric layout. Did it match what your eyes predicted?</li>
-              <li>Pay attention to whether you can consciously force your brain to switch between interpretations.</li>
+              <li>Try the stare test by clicking "Start Timer" and locking your gaze on the central cross. Did the dots fade away?</li>
+              <li>Observe what happens the moment you blink or shift your gaze after the circles have faded.</li>
             </ul>
           </div>
         </section>
@@ -126,9 +160,9 @@ function getWedgePath(cx: number, cy: number, r: number, startAngle: number, end
             <span>THE SCIENCE</span>
           </h2>
           <div class="prose prose-indigo dark:prose-invert text-slate-700 dark:text-slate-300 leading-relaxed space-y-4 text-xs sm:text-sm font-semibold text-justify">
-            <p>Troxler's Fading illustrates neural adaptation and sensory filtering in peripheral vision. When you stare at the central cross, the surrounding blurry pink dots gradually fade and disappear, leaving a completely blank gray canvas.
+            <p>Troxler\'s Fading illustrates neural adaptation and sensory filtering in peripheral vision. When you stare at the central cross, the surrounding blurry pink dots gradually fade and disappear, leaving a completely blank gray canvas.</p>
     
-    Our visual system is designed to detect changes in our environment rather than static, unchanging stimuli. When you fixate on the cross, the photoreceptors in your peripheral retina receive a constant, unchanging input of pink color. Over time, these receptors suffer from <strong>neural adaptation</strong> (sensory fatigue) and stop responding, causing the pink dots to fade. Because the dots are blurry, they do not stimulate micro-saccades, which would otherwise refresh the retinal signal. Additionally, as the pink dots disappear, opponent color cells in the retina trigger a green afterimage in the empty spaces.</p>
+            <p>Our visual system is designed to detect changes in our environment rather than static, unchanging stimuli. When you fixate on the cross, the photoreceptors in your peripheral retina receive a constant, unchanging input of pink color. Over time, these receptors suffer from neural adaptation (sensory fatigue) and stop responding, causing the pink dots to fade. Because the dots are blurry, they do not stimulate micro-saccades, which would otherwise refresh the retinal signal. Additionally, as the pink dots disappear, opponent color cells in the retina trigger a green afterimage in the empty spaces.</p>
           </div>
         </section>
       </div>
@@ -141,28 +175,19 @@ function getWedgePath(cx: number, cy: number, r: number, startAngle: number, end
             <span class="text-purple-500">💡</span>
             <span>FUN FACTS</span>
           </h3>
-          <ul class="space-y-4 text-xs sm:text-sm text-slate-600 dark:text-slate-300 font-semibold">
-            
-              <li class="flex items-start space-x-2">
-                <span class="text-purple-500 font-black">•</span>
-                <span>Discovered by Swiss physician Ignaz Paul Vital Troxler in 1804.</span>
-              </li>
-            
-              <li class="flex items-start space-x-2">
-                <span class="text-purple-500 font-black">•</span>
-                <span>It is the physiological explanation for why we do not see the blood vessels on our own retina, which lie directly in front of our photoreceptors.</span>
-              </li>
-            
-              <li class="flex items-start space-x-2">
-                <span class="text-purple-500 font-black">•</span>
-                <span>The fading works best with blurry outer shapes, as sharp borders stimulate tiny involuntary eye movements (micro-saccades) that refresh the signal.</span>
-              </li>
-            
-              <li class="flex items-start space-x-2">
-                <span class="text-purple-500 font-black">•</span>
-                <span>Staring at the center of our interactive widget starts a countdown that slowly fades the opacity to simulate Troxler adaptation.</span>
-              </li>
-            
+          <ul class="space-y-4 text-xs sm:text-sm text-slate-650 dark:text-slate-300 font-semibold">
+            <li class="flex items-start space-x-2">
+              <span class="text-purple-500 font-black">•</span>
+              <span>Discovered by Swiss physician Ignaz Paul Vital Troxler in 1804.</span>
+            </li>
+            <li class="flex items-start space-x-2">
+              <span class="text-purple-500 font-black">•</span>
+              <span>It is the physiological explanation for why we do not see the blood vessels on our own retina, which lie directly in front of our photoreceptors.</span>
+            </li>
+            <li class="flex items-start space-x-2">
+              <span class="text-purple-500 font-black">•</span>
+              <span>The fading works best with blurry outer shapes, as sharp borders stimulate tiny involuntary eye movements (micro-saccades) that refresh the signal.</span>
+            </li>
           </ul>
         </section>
 
@@ -185,7 +210,7 @@ function getWedgePath(cx: number, cy: number, r: number, startAngle: number, end
           </h3>
           <div class="text-xs sm:text-sm text-slate-650 dark:text-slate-300 leading-relaxed font-semibold space-y-2">
             <p><strong>Discoverer:</strong> Ignaz Paul Vital Troxler (1804)</p>
-            <p>Ignaz Troxler, a Swiss physician and philosopher, was investigating how visual focus affects peripheral awareness. He noticed that when he stared at a fixed point on a wall, the surrounding spots and textures would dissolve. He published the findings, creating the foundation of visual adaptation science.</p>
+            <p>Ignaz Troxler, a Swiss physician and philosopher, published the findings in 1804, establishing the foundation of visual adaptation science.</p>
           </div>
         </section>
       </div>
@@ -196,7 +221,7 @@ function getWedgePath(cx: number, cy: number, r: number, startAngle: number, end
     <section class="border-t border-indigo-500/10 pt-12 space-y-4 max-w-4xl mx-auto">
       <h3 class="font-display text-lg font-black text-white uppercase tracking-wider text-center">Educational Resources & History</h3>
       <p class="text-xs sm:text-sm text-slate-350 leading-relaxed text-justify font-semibold">
-        Troxler Fading adaptation optical illusion explanation. Discover Ignaz Troxler's 1804 visual fading discovery, the role of neural adaptation in peripheral vision, and try our interactive countdown stare widget.
+        Troxler Fading adaptation optical illusion explanation. Discover Ignaz Troxler\'s 1804 visual fading discovery, the role of neural adaptation in peripheral vision, and try our interactive countdown stare widget.
       </p>
     </section>
 
@@ -204,39 +229,33 @@ function getWedgePath(cx: number, cy: number, r: number, startAngle: number, end
     <section class="border-t border-indigo-500/10 pt-12 space-y-6">
       <h2 class="font-display text-2xl font-black text-slate-900 dark:text-white text-center">Related Illusions</h2>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        
-      <a 
-        href="/illusions/hermann-grid" 
-        class="group rounded-xl border border-indigo-950/20 bg-white dark:bg-slate-900/60 p-5 shadow-lg hover:border-purple-500/40 hover:-translate-y-1 hover:shadow-purple-500/10 transition-all duration-300"
-      >
-        <div class="text-[10px] font-bold text-purple-400 uppercase tracking-wide">Related Illusion</div>
-        <h4 class="font-display text-base font-bold text-slate-900 dark:text-white mt-1 group-hover:text-purple-400 transition-colors">
-          Hermann Grid &rarr;
-        </h4>
-      </a>
-    
-
-      <a 
-        href="/illusions/rotating-snakes" 
-        class="group rounded-xl border border-indigo-950/20 bg-white dark:bg-slate-900/60 p-5 shadow-lg hover:border-purple-500/40 hover:-translate-y-1 hover:shadow-purple-500/10 transition-all duration-300"
-      >
-        <div class="text-[10px] font-bold text-purple-400 uppercase tracking-wide">Related Illusion</div>
-        <h4 class="font-display text-base font-bold text-slate-900 dark:text-white mt-1 group-hover:text-purple-400 transition-colors">
-          Rotating Snakes &rarr;
-        </h4>
-      </a>
-    
-
-      <a 
-        href="/illusions/motion-aftereffect" 
-        class="group rounded-xl border border-indigo-950/20 bg-white dark:bg-slate-900/60 p-5 shadow-lg hover:border-purple-500/40 hover:-translate-y-1 hover:shadow-purple-500/10 transition-all duration-300"
-      >
-        <div class="text-[10px] font-bold text-purple-400 uppercase tracking-wide">Related Illusion</div>
-        <h4 class="font-display text-base font-bold text-slate-900 dark:text-white mt-1 group-hover:text-purple-400 transition-colors">
-          motion-aftereffect &rarr;
-        </h4>
-      </a>
-    
+        <a 
+          href="/illusions/hermann-grid" 
+          class="group rounded-xl border border-indigo-950/20 bg-white dark:bg-slate-900/60 p-5 shadow-lg hover:border-purple-500/40 hover:-translate-y-1 hover:shadow-purple-500/10 transition-all duration-300"
+        >
+          <div class="text-[10px] font-bold text-purple-400 uppercase tracking-wide">Related Illusion</div>
+          <h4 class="font-display text-base font-bold text-slate-900 dark:text-white mt-1 group-hover:text-purple-400 transition-colors">
+            Hermann Grid &rarr;
+          </h4>
+        </a>
+        <a 
+          href="/illusions/rotating-snakes" 
+          class="group rounded-xl border border-indigo-950/20 bg-white dark:bg-slate-900/60 p-5 shadow-lg hover:border-purple-500/40 hover:-translate-y-1 hover:shadow-purple-500/10 transition-all duration-300"
+        >
+          <div class="text-[10px] font-bold text-purple-400 uppercase tracking-wide">Related Illusion</div>
+          <h4 class="font-display text-base font-bold text-slate-900 dark:text-white mt-1 group-hover:text-purple-400 transition-colors">
+            Rotating Snakes &rarr;
+          </h4>
+        </a>
+        <a 
+          href="/illusions/motion-aftereffect" 
+          class="group rounded-xl border border-indigo-950/20 bg-white dark:bg-slate-900/60 p-5 shadow-lg hover:border-purple-500/40 hover:-translate-y-1 hover:shadow-purple-500/10 transition-all duration-300"
+        >
+          <div class="text-[10px] font-bold text-purple-400 uppercase tracking-wide">Related Illusion</div>
+          <h4 class="font-display text-base font-bold text-slate-900 dark:text-white mt-1 group-hover:text-purple-400 transition-colors">
+            Motion Aftereffect &rarr;
+          </h4>
+        </a>
       </div>
     </section>
 
@@ -261,78 +280,105 @@ function getWedgePath(cx: number, cy: number, r: number, startAngle: number, end
       });
     });
 
-    // Handle Global Speed Mult
-    const checkSpeed = () => {
-      const level = localStorage.getItem('speed-multiplier-level') || '5';
-      let multiplier = 1.0;
-      const parsed = parseInt(level);
-      if (parsed <= 5) {
-        multiplier = 0.2 + (parsed - 1) * 0.2;
-      } else {
-        multiplier = 1.0 + (parsed - 5) * 0.4;
-      }
-      document.documentElement.style.setProperty('--speed-multiplier', multiplier.toString());
-    };
-    checkSpeed();
-    window.addEventListener('storage', checkSpeed);
-
-    // Prevent propagation on inner interactive controllers so we don't trigger parent clicks (if wrapped)
-    const innerControls = document.querySelectorAll('.interactive-demo-card button, .interactive-demo-card input, .interactive-demo-card select');
-    innerControls.forEach(ctrl => {
-      ctrl.addEventListener('click', (e) => e.stopPropagation());
-    });
-
     // Local script logic from original file
     const container = document.getElementById('troxler-illusion');
-      const dots = container?.querySelectorAll('.troxler-dot');
-      const startBtn = container?.querySelector('.start-troxler');
-      const timeDisplay = container?.querySelector('.troxler-time');
-      
-      let dotsInterval: any = null;
-      let timerInterval: any = null;
-      let currentMissing = 0;
-      let secondsLeft = 20.0;
-      let isRunning = false;
+    const progressRing = document.getElementById('troxler-progress-ring') as SVGElement;
+    const startBtn = container?.querySelector('.start-troxler');
+    const timeDisplay = container?.querySelector('.troxler-time');
 
-      const runTroxlerDots = () => {
-        dotsInterval = setInterval(() => {
-          dots?.forEach((dot, idx) => {
-            if (idx === currentMissing) {
-              (dot as HTMLElement).style.opacity = '0';
-            } else {
-              (dot as HTMLElement).style.opacity = '1';
-            }
-          });
-          currentMissing = (currentMissing + 1) % 12;
-        }, 150);
-      };
+    const feedbackPanel = document.getElementById('experience-feedback-panel');
+    const feedbackResponseText = document.getElementById('feedback-response-text');
+    const timeButtons = document.querySelectorAll('.feedback-time-btn');
+    const resetExpBtn = document.getElementById('btn-reset-experience');
+    
+    let timerInterval: any = null;
+    let secondsLeft = 20.0;
+    let isRunning = false;
 
-      startBtn?.addEventListener('click', () => {
-        if (isRunning) {
-          clearInterval(dotsInterval);
-          clearInterval(timerInterval);
-          dots?.forEach(dot => (dot as HTMLElement).style.opacity = '1');
-          secondsLeft = 20.0;
-          if (timeDisplay) timeDisplay.textContent = '20.0s';
-          if (startBtn) startBtn.textContent = 'Start Timer';
-          isRunning = false;
-          return;
+    const stopAll = () => {
+      clearInterval(timerInterval);
+      if (progressRing) {
+        progressRing.style.strokeDashoffset = '515.2';
+      }
+      secondsLeft = 20.0;
+      if (timeDisplay) timeDisplay.textContent = '20.0s';
+      if (startBtn) startBtn.textContent = 'Start Timer';
+      isRunning = false;
+
+      feedbackPanel?.classList.add('hidden');
+      if (feedbackResponseText) {
+        feedbackResponseText.textContent = '';
+        feedbackResponseText.classList.add('hidden');
+      }
+      timeButtons.forEach(btn => {
+        btn.classList.remove('bg-purple-650', 'ring-2', 'ring-purple-400');
+        btn.classList.add('bg-slate-800');
+      });
+    };
+
+    startBtn?.addEventListener('click', () => {
+      if (isRunning) {
+        stopAll();
+        return;
+      }
+
+      isRunning = true;
+      if (startBtn) startBtn.textContent = 'Reset';
+
+      // Hide feedback panel on new run
+      feedbackPanel?.classList.add('hidden');
+      if (feedbackResponseText) {
+        feedbackResponseText.textContent = '';
+        feedbackResponseText.classList.add('hidden');
+      }
+
+      const startTime = Date.now();
+      timerInterval = setInterval(() => {
+        const elapsed = (Date.now() - startTime) / 1000;
+        secondsLeft = 20.0 - elapsed;
+        
+        // Update progress ring offset (circumference 515.2)
+        if (progressRing) {
+          const percent = Math.min(elapsed / 20.0, 1.0);
+          progressRing.style.strokeDashoffset = (515.2 - percent * 515.2).toString();
         }
 
-        isRunning = true;
-        if (startBtn) startBtn.textContent = 'Reset';
-        runTroxlerDots();
+        if (secondsLeft <= 0) {
+          secondsLeft = 0;
+          clearInterval(timerInterval);
+          // Show feedback panel
+          feedbackPanel?.classList.remove('hidden');
+        }
+        if (timeDisplay) timeDisplay.textContent = `${secondsLeft.toFixed(1)}s`;
+      }, 100);
+    });
 
-        const startTime = Date.now();
-        timerInterval = setInterval(() => {
-          const elapsed = (Date.now() - startTime) / 1000;
-          secondsLeft = 20.0 - elapsed;
-          if (secondsLeft <= 0) {
-            secondsLeft = 0;
-            clearInterval(timerInterval);
+    timeButtons.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        timeButtons.forEach(b => {
+          b.classList.remove('bg-purple-650', 'ring-2', 'ring-purple-400');
+          b.classList.add('bg-slate-800');
+        });
+        const clicked = e.currentTarget as HTMLButtonElement;
+        clicked.classList.remove('bg-slate-800');
+        clicked.classList.add('bg-purple-650', 'ring-2', 'ring-purple-400');
+        
+        const val = clicked.getAttribute('data-value');
+        if (feedbackResponseText) {
+          feedbackResponseText.classList.remove('hidden');
+          if (val === 'under-10') {
+            feedbackResponseText.textContent = 'Fading occurred quickly! This indicates your neural receptors adapted rapidly to the static stimuli.';
+          } else if (val === '10-20') {
+            feedbackResponseText.textContent = 'A steady 10-20 seconds is the typical threshold for micro-saccades to stabilize and trigger peripheral adaptation.';
+          } else {
+            feedbackResponseText.textContent = 'No fading? Try sitting closer, increasing screen brightness, and focusing strictly without blinking!';
           }
-          if (timeDisplay) timeDisplay.textContent = `${secondsLeft.toFixed(1)}s`;
-        }, 100);
+        }
       });
+    });
+
+    resetExpBtn?.addEventListener('click', () => {
+      stopAll();
+    });
   </script>
 </Layout>

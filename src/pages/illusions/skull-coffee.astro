@@ -1,0 +1,251 @@
+---
+// src/pages/illusions/skull-coffee.astro
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout 
+  title="Coffee Skull — Interactive Ambiguous Optical Illusion | Optical Illusion Lab" 
+  description="Stare at this cup of coffee: does the froth pattern represent delicious espresso foam or a human skull? Test your brain's bistable perception."
+>
+  <div class="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-12">
+    
+    <!-- Breadcrumb back navigation -->
+    <nav class="flex text-xs font-black uppercase tracking-wider text-slate-400 space-x-2 pb-2 border-b border-indigo-500/10">
+      <a href="/" class="hover:text-white transition-colors">Home</a>
+      <span>/</span>
+      <a href="/hidden" class="hover:text-white transition-colors">Hidden & Ambiguous</a>
+      <span>/</span>
+      <span class="text-purple-400">Coffee Skull</span>
+    </nav>
+
+    <!-- Hero Header Section -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6">
+      <div class="space-y-3">
+        <div class="flex items-center space-x-2">
+          <span class="text-xs font-black px-2.5 py-0.5 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 uppercase tracking-wider">Type 3: Ambiguous Figures</span>
+          <span class="text-xs font-black px-2.5 py-0.5 rounded-full bg-rose-500/10 text-rose-455 border border-rose-500/20 uppercase tracking-wider">🔴 Hard</span>
+        </div>
+        <h1 class="font-display text-4xl sm:text-5xl font-black tracking-tight text-slate-900 dark:text-white">
+          Coffee Skull
+        </h1>
+        <p class="text-slate-600 dark:text-slate-355 text-base max-w-2xl font-medium">
+          A modern photograph-inspired bistable illusion. The froth patterns inside an espresso mug outline a human skull.
+        </p>
+      </div>
+
+      <!-- Share Button -->
+      <button 
+        id="share-illusion-page-btn"
+        class="relative shrink-0 flex items-center space-x-2 rounded-2xl bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-600 hover:scale-105 text-white font-black text-sm px-6 py-3.5 transition-all shadow-lg shadow-purple-500/10"
+      >
+        <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M15 8a3 3 0 1 0-2.977-2.63l-4.94 2.47a3 3 0 1 0 0 4.319l4.94 2.47a3 3 0 1 0 .895-1.789l-4.94-2.47a3.027 3.027 0 0 0 0-.74l4.94-2.47C13.456 7.68 14.19 8 15 8Z"/></svg>
+        <span>Share Page</span>
+        <span id="page-share-toast" class="absolute bottom-full right-1/2 translate-x-1/2 mb-2 px-2.5 py-1 text-[10px] font-bold text-white bg-purple-655 rounded-lg shadow-md opacity-0 pointer-events-none transition-opacity duration-200 whitespace-nowrap">Link Copied! ✓</span>
+      </button>
+    </div>
+
+    <!-- LARGE INTERACTIVE DEMO -->
+    <div class="flex flex-col items-center justify-center py-6 border-b border-indigo-500/10">
+      <div class="w-full max-w-[600px] mx-auto space-y-4">
+        
+        <!-- Instruction Box -->
+        <div class="my-3 flex items-start gap-2 rounded-xl border border-indigo-500/10 bg-indigo-500/5 p-3 text-xs text-slate-350 text-left">
+          <span class="text-base leading-none">👁️</span>
+          <div>
+            <strong class="text-slate-200">👁️ WHAT TO LOOK FOR:</strong> Stare at the coffee cup. Use the buttons below to toggle visual overlays highlighting the coffee froth structure vs the human skull contour.
+          </div>
+        </div>
+
+        <div id="coffee-skull-illusion" class="relative flex flex-col items-center justify-center h-[400px] w-full bg-slate-950 rounded-xl overflow-hidden border border-indigo-500/10 p-6">
+          <svg class="w-64 h-64 select-none" viewBox="0 0 200 200" id="svg-coffee-skull-detail">
+            <!-- Outer cup edge -->
+            <circle cx="100" cy="100" r="80" fill="none" stroke="#e2e8f0" stroke-width="3.5" />
+            <circle cx="100" cy="100" r="70" fill="url(#coffee-foam-grad-detail)" />
+            
+            <!-- Skull eye cavities / Coffee pools -->
+            <circle cx="80" cy="85" r="14" fill="#582f0e" />
+            <circle cx="120" cy="85" r="14" fill="#582f0e" />
+            <path d="M 92,110 L 108,110 L 100,122 Z" fill="#582f0e" /> <!-- Nose cavity -->
+            
+            <!-- Teeth dashes -->
+            <line x1="88" y1="140" x2="88" y2="148" stroke="#582f0e" stroke-width="2" />
+            <line x1="96" y1="140" x2="96" y2="148" stroke="#582f0e" stroke-width="2" />
+            <line x1="104" y1="140" x2="104" y2="148" stroke="#582f0e" stroke-width="2" />
+            <line x1="112" y1="140" x2="112" y2="148" stroke="#582f0e" stroke-width="2" />
+
+            <!-- Coffee Foam Overlay -->
+            <g id="coffee-detail-overlay-foam" style="display:none" class="pointer-events-none">
+              <circle cx="100" cy="100" r="70" fill="none" stroke="#3b82f6" stroke-width="3" />
+              <text x="100" y="30" fill="#60a5fa" font-size="11" font-weight="950" text-anchor="middle">Coffee Cup & Froth</text>
+            </g>
+            <!-- Skull Overlay -->
+            <g id="coffee-detail-overlay-skull" style="display:none" class="pointer-events-none">
+              <circle cx="80" cy="85" r="16" fill="none" stroke="#ef4444" stroke-width="2.5" />
+              <circle cx="120" cy="85" r="16" fill="none" stroke="#ef4444" stroke-width="2.5" />
+              <path d="M 90,108 L 110,108 L 100,124 Z" fill="none" stroke="#ef4444" stroke-width="2" />
+              <path d="M 60,85 C 60,40 140,40 140,85 C 140,110 130,120 130,135 L 70,135 C 70,120 60,110 60,85 Z" fill="none" stroke="#ef4444" stroke-width="3" />
+              <text x="100" y="30" fill="#f87171" font-size="11" font-weight="950" text-anchor="middle">Skull Contour</text>
+            </g>
+
+            <defs>
+              <radialGradient id="coffee-foam-grad-detail" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#ddb892" />
+                <stop offset="100%" stop-color="#ede0d4" />
+              </radialGradient>
+            </defs>
+          </svg>
+
+          <!-- Control buttons inside demo -->
+          <div class="absolute bottom-4 flex space-x-2 bg-slate-900/90 border border-white/10 rounded-xl p-1 z-10">
+            <button id="show-foam-btn" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-indigo-950 text-slate-350 hover:bg-slate-800 transition-all">Show Foam ☕</button>
+            <button id="show-skull-btn" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-indigo-950 text-slate-350 hover:bg-slate-800 transition-all">Show Skull 💀</button>
+            <button id="reset-btn" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-indigo-950 text-slate-350 hover:bg-slate-800 transition-all">Reset Highlights</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Content Split Layout -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 pt-4">
+      
+      <!-- Left 2-Columns: Science and Prompt -->
+      <div class="lg:col-span-2 space-y-10">
+        <!-- EXPERIENCE IT FIRST prompt -->
+        <section class="space-y-4">
+          <h2 class="font-display text-2xl font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">🎮</span>
+            <span>EXPERIENCE IT FIRST</span>
+          </h2>
+          <div class="bg-indigo-950/20 border-2 border-indigo-500/15 rounded-3xl p-6 text-slate-700 dark:text-slate-300">
+            <p class="font-bold text-sm sm:text-base text-slate-200">Observe how figure-ground boundaries swap dynamically:</p>
+            <ul class="list-disc pl-5 mt-3 space-y-2 text-xs sm:text-sm font-medium">
+              <li>Observe the dark brown patches. Notice how they immediately align as eyes and nose cavities when you switch your mind to the "skull" category.</li>
+              <li>Toggle the highlights to see how the white milk foam outlines the cup structure, showing a cup of latte art vs a human skeleton head.</li>
+              <li>Can you switch interpretations instantly, or is there a noticeable delay as your brain re-labels the contours?</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- THE SCIENCE (400 words) -->
+        <section class="space-y-4">
+          <h2 class="font-display text-2xl font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">🧠</span>
+            <span>THE SCIENCE</span>
+          </h2>
+          <div class="prose prose-indigo dark:prose-invert text-slate-700 dark:text-slate-300 leading-relaxed space-y-4 text-xs sm:text-sm font-semibold text-justify">
+            <p>
+              The Coffee Skull is a modern ambiguous bistable illusion that exploits pareidolia — the human brain's hyper-active tendency to perceive meaningful patterns (especially faces) in random, abstract layouts. Originally inspired by accidental latte art configurations, it provides visual researchers with a clean model for testing top-down categorization.
+            </p>
+            <p>
+              When we look at this coffee mug, our retina registers sharp contrast zones: dark brown pools of espresso liquid surrounded by light, creamy milk foam. The primary visual cortex (V1) maps these high-contrast contours, passing the orientation signals forward to the temporal lobe's visual pathways.
+            </p>
+            <p>
+              Here, the inferior temporal cortex and the fusiform face area (FFA) process the visual shape. Because the arrangement of dark brown circles (eye sockets) and the central triangle (nasal cavity) matches the structural template of a human face/skull, the FFA fires rapidly, flagging the image as "face-like." This top-down priming overrides the simple "hot beverage" categorization, forcing you to perceive a skull.
+            </p>
+            <p>
+              Once categorized as a skull, lateral inhibition in visual area V4 suppresses the features that define simple froth ripples. Over time, however, the neurons representing the skull fatigue. The competing semantic network (interpreting the design as random bubbles or traditional latte art patterns) takes over, causing your perception to flip. This bistable loop illustrates that our visual system doesn't just display pixels — it continuously categorizes sensory data.
+            </p>
+          </div>
+        </section>
+      </div>
+
+      <!-- Right Column: Fun Facts and Try This -->
+      <div class="space-y-8">
+        <!-- FUN FACTS -->
+        <section class="rounded-3xl border border-indigo-950/20 bg-slate-900/60 p-6 space-y-4 shadow-xl">
+          <h3 class="font-display text-lg font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">💡</span>
+            <span>FUN FACTS</span>
+          </h3>
+          <ul class="space-y-4 text-xs sm:text-sm text-slate-650 dark:text-slate-300 font-semibold">
+            <li class="flex items-start space-x-2">
+              <span class="text-purple-500 font-black">•</span>
+              <span>This belongs to the "pareidolia" class of illusions, where random noise is resolved as human faces.</span>
+            </li>
+            <li class="flex items-start space-x-2">
+              <span class="text-purple-500 font-black">•</span>
+              <span>Visual scientists believe pareidolia evolved as a survival mechanism, allowing early humans to spot hidden predators in grass or trees.</span>
+            </li>
+            <li class="flex items-start space-x-2">
+              <span class="text-purple-500 font-black">•</span>
+              <span>The brain processes face-like pareidolia triggers in the FFA within 170 milliseconds, nearly as fast as real faces!</span>
+            </li>
+          </ul>
+        </section>
+
+        <!-- TRY THIS AT HOME -->
+        <section class="rounded-3xl border border-indigo-950/20 bg-slate-900/60 p-6 space-y-4 shadow-xl">
+          <h3 class="font-display text-lg font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">🧪</span>
+            <span>TRY THIS AT HOME</span>
+          </h3>
+          <p class="text-xs sm:text-sm text-slate-650 dark:text-slate-300 leading-relaxed font-semibold">
+            Next time you order a cappuccino, look at the foam. Can you find face-like configurations or animal shapes in the bubbles? This is active pareidolia!
+          </p>
+        </section>
+
+        <!-- DISCOVERER -->
+        <section class="rounded-3xl border border-indigo-950/20 bg-slate-900/60 p-6 space-y-4 shadow-xl">
+          <h3 class="font-display text-lg font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">📜</span>
+            <span>DISCOVERER</span>
+          </h3>
+          <div class="text-xs sm:text-sm text-slate-650 dark:text-slate-300 leading-relaxed font-semibold space-y-2">
+            <p><strong>Creator:</strong> Barista & Illusion Artists (2010s)</p>
+            <p>Created as a visual challenge to show how simple alterations to standard latte designs can hijack face-detection pathways.</p>
+          </div>
+        </section>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+    // Share Page URL
+    const sharePageBtn = document.getElementById('share-illusion-page-btn');
+    const pageToast = document.getElementById('page-share-toast');
+
+    sharePageBtn?.addEventListener('click', () => {
+      const pageUrl = window.location.href;
+      navigator.clipboard.writeText(pageUrl).then(() => {
+        if (pageToast) {
+          pageToast.classList.remove('opacity-0');
+          pageToast.classList.add('opacity-100');
+          setTimeout(() => {
+            pageToast.classList.remove('opacity-100');
+            pageToast.classList.add('opacity-0');
+          }, 2000);
+        }
+      });
+    });
+
+    // Toggle highlights
+    const foamBtn = document.getElementById('show-foam-btn');
+    const skullBtn = document.getElementById('show-skull-btn');
+    const resetBtn = document.getElementById('reset-btn');
+    const foamOverlay = document.getElementById('coffee-detail-overlay-foam');
+    const skullOverlay = document.getElementById('coffee-detail-overlay-skull');
+
+    foamBtn?.addEventListener('click', () => {
+      if (foamOverlay) foamOverlay.style.display = 'block';
+      if (skullOverlay) skullOverlay.style.display = 'none';
+      foamBtn.className = 'text-xs font-bold px-3 py-1.5 rounded-lg bg-blue-600 text-white transition-all';
+      if (skullBtn) skullBtn.className = 'text-xs font-bold px-3 py-1.5 rounded-lg bg-indigo-950 text-slate-350 hover:bg-slate-800 transition-all';
+    });
+
+    skullBtn?.addEventListener('click', () => {
+      if (foamOverlay) foamOverlay.style.display = 'none';
+      if (skullOverlay) skullOverlay.style.display = 'block';
+      if (foamBtn) foamBtn.className = 'text-xs font-bold px-3 py-1.5 rounded-lg bg-indigo-950 text-slate-350 hover:bg-slate-800 transition-all';
+      skullBtn.className = 'text-xs font-bold px-3 py-1.5 rounded-lg bg-red-650 text-white transition-all';
+    });
+
+    resetBtn?.addEventListener('click', () => {
+      if (foamOverlay) foamOverlay.style.display = 'none';
+      if (skullOverlay) skullOverlay.style.display = 'none';
+      if (foamBtn) foamBtn.className = 'text-xs font-bold px-3 py-1.5 rounded-lg bg-indigo-950 text-slate-350 hover:bg-slate-800 transition-all';
+      if (skullBtn) skullBtn.className = 'text-xs font-bold px-3 py-1.5 rounded-lg bg-indigo-950 text-slate-350 hover:bg-slate-800 transition-all';
+    });
+  </script>
+</Layout>

@@ -1,0 +1,87 @@
+---
+// src/pages/illusions/cornsweet-illusion.astro
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout 
+  title="Cornsweet Illusion — Optical Illusion Lab" 
+  description="Explore the science, history, and visual parameters of the Cornsweet Illusion optical illusion."
+>
+  <div class="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-12">
+    <!-- Breadcrumb back navigation -->
+    <nav class="flex text-xs font-black uppercase tracking-wider text-slate-400 space-x-2 pb-2 border-b border-indigo-500/10">
+      <a href="/" class="hover:text-white transition-colors">Home</a>
+      <span>/</span>
+      <span class="text-purple-400">Cornsweet Illusion</span>
+    </nav>
+
+    <!-- Hero Header -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6">
+      <div class="space-y-3">
+        <div class="flex items-center space-x-2">
+          <span class="text-xs font-black px-2.5 py-0.5 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 uppercase tracking-wider">Color</span>
+          <span class="text-xs font-black px-2.5 py-0.5 rounded-full bg-purple-500/10 text-purple-400 border border-purple-500/20 uppercase tracking-wider">🟢 Easy</span>
+        </div>
+        <h1 class="font-display text-4xl sm:text-5xl font-black tracking-tight text-slate-900 dark:text-white">
+          Cornsweet Illusion
+        </h1>
+        <p class="text-slate-600 dark:text-slate-350 text-base max-w-2xl font-medium">
+          Discover how the brain interprets this fascinating color visual puzzle.
+        </p>
+      </div>
+    </div>
+
+    <!-- LARGE INTERACTIVE DEMO -->
+    <div class="flex flex-col items-center justify-center py-6 border-b border-indigo-500/10">
+      <div class="w-full max-w-[600px] mx-auto space-y-4">
+        <div class="relative flex flex-col items-center justify-center h-96 w-full bg-slate-100 dark:bg-slate-950/40 rounded-xl overflow-hidden border border-indigo-500/10 p-6">
+          <svg class="w-64 h-40 select-none rounded-lg border border-slate-800" viewBox="0 0 200 120">
+            <rect x="0" y="0" width="100" height="120" fill="#8c8c8c" />
+            <rect x="100" y="0" width="100" height="120" fill="#8c8c8c" />
+            <path d="M 80,0 L 100,0 L 100,120 L 80,120 Z" fill="url(#left-grad)" />
+            <path d="M 100,0 L 120,0 L 120,120 L 100,120 Z" fill="url(#right-grad)" />
+            <defs>
+              <linearGradient id="left-grad" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="#8c8c8c" />
+                <stop offset="100%" stop-color="#606060" />
+              </linearGradient>
+              <linearGradient id="right-grad" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="#b8b8b8" />
+                <stop offset="100%" stop-color="#8c8c8c" />
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- Content Split Layout -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 pt-4">
+      <!-- Left 2-Columns -->
+      <div class="lg:col-span-2 space-y-10">
+        <section class="space-y-4">
+          <h2 class="font-display text-2xl font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">🧠</span>
+            <span>THE SCIENCE</span>
+          </h2>
+          <div class="prose prose-indigo dark:prose-invert text-slate-700 dark:text-slate-300 leading-relaxed text-xs sm:text-sm font-semibold text-justify">
+            <p>The Cornsweet Illusion, also known as the Craik-O'Brien-Cornsweet illusion, is a classic demonstration of how the brain perceives brightness based on edges rather than absolute luminance. In this illusion, two adjacent areas of identical gray value appear to differ in brightness because of a central boundary gradient. One side of the boundary slopes from gray to dark, while the adjacent side slopes from light to gray. The visual cortex, specifically areas V1 and V2, processes the high-contrast transition at the edge and uses it to estimate the brightness of the entire surface. The brain automatically propagates the local edge contrast outward across the uniform regions, leading to the perception of a gradient where none exists. This highlights that human vision is optimized for edge detection and contrast enhancement to help distinguish objects from backgrounds under varying lighting conditions.</p>
+          </div>
+        </section>
+      </div>
+
+      <!-- Right Column -->
+      <div class="space-y-8">
+        <section class="rounded-3xl border border-indigo-950/20 bg-slate-900/60 p-6 space-y-4 shadow-xl">
+          <h3 class="font-display text-lg font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">📜</span>
+            <span>HISTORY</span>
+          </h3>
+          <p class="text-xs sm:text-sm text-slate-650 dark:text-slate-355 leading-relaxed font-semibold">
+            First described by Tom Cornsweet (1970). It remains a fundamental demonstration of perceptual processing and cognitive framing.
+          </p>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

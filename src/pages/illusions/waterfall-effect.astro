@@ -1,0 +1,293 @@
+---
+// src/pages/illusions/waterfall-effect.astro
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout 
+  title="Waterfall Effect — Interactive Optical Illusion | Optical Illusion Lab" 
+  description="Stare at the spinning wheel for 30 seconds. When it stops, watch the static segments crawl backwards!"
+>
+  <div class="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-12">
+    
+    <!-- Breadcrumb back navigation -->
+    <nav class="flex text-xs font-black uppercase tracking-wider text-slate-400 space-x-2 pb-2 border-b border-indigo-500/10">
+      <a href="/" class="hover:text-white transition-colors">Home</a>
+      <span>/</span>
+      <a href="/moving" class="hover:text-white transition-colors">Moving Illusions</a>
+      <span>/</span>
+      <span class="text-purple-400">Waterfall Effect</span>
+    </nav>
+
+    <!-- Hero Header -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6">
+      <div class="space-y-3">
+        <div class="flex items-center space-x-2">
+          <span class="text-xs font-black px-2.5 py-0.5 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 uppercase tracking-wider">Motion</span>
+          <span class="text-xs font-black px-2.5 py-0.5 rounded-full bg-purple-500/10 text-purple-400 border border-purple-500/20 uppercase tracking-wider">🟢 Easy</span>
+        </div>
+        <h1 class="font-display text-4xl sm:text-5xl font-black tracking-tight text-slate-900 dark:text-white">
+          Waterfall Effect
+        </h1>
+        <p class="text-slate-600 dark:text-slate-350 text-base max-w-2xl font-medium">
+          Stare at the spinning disk sectors for 30 seconds. When the motion freezes, the stationary pattern will appear to spin in reverse.
+        </p>
+      </div>
+
+      <!-- Share Button -->
+      <button 
+        id="share-illusion-page-btn"
+        class="relative shrink-0 flex items-center space-x-2 rounded-2xl bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-600 hover:scale-105 text-white font-black text-sm px-6 py-3.5 transition-all shadow-lg shadow-purple-500/10"
+      >
+        <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M15 8a3 3 0 1 0-2.977-2.63l-4.94 2.47a3 3 0 1 0 0 4.319l4.94 2.47a3 3 0 1 0 .895-1.789l-4.94-2.47a3.027 3.027 0 0 0 0-.74l4.94-2.47C13.456 7.68 14.19 8 15 8Z"/></svg>
+        <span>Share Page</span>
+        <span id="page-share-toast" class="absolute bottom-full right-1/2 translate-x-1/2 mb-2 px-2.5 py-1 text-[10px] font-bold text-white bg-purple-650 rounded-lg shadow-md opacity-0 pointer-events-none transition-opacity duration-200 whitespace-nowrap">Link Copied! ✓</span>
+      </button>
+    </div>
+
+    <!-- LARGE INTERACTIVE DEMO -->
+    <div class="flex flex-col items-center justify-center py-6 border-b border-indigo-500/10">
+      <div class="w-full max-w-[600px] mx-auto space-y-4">
+        <div id="waterfall-illusion-container" class="relative flex flex-col items-center justify-center h-96 w-full bg-[#1e293b] border border-slate-700 rounded-xl overflow-hidden p-8">
+          
+          <!-- Segmented Disk SVG -->
+          <svg id="svg-waterfall-disk" class="w-48 h-48 select-none transition-transform duration-500" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="45" fill="none" stroke="#3b82f6" stroke-width="3" />
+            <!-- Sectors to make rotation highly visible -->
+            <path d="M 50,50 L 50,5 A 45,45 0 0,1 81.8,18.2 Z" fill="#3b82f6" opacity="0.4" />
+            <path d="M 50,50 L 95,50 A 45,45 0 0,1 81.8,81.8 Z" fill="#3b82f6" opacity="0.4" />
+            <path d="M 50,50 L 50,95 A 45,45 0 0,1 18.2,81.8 Z" fill="#3b82f6" opacity="0.4" />
+            <path d="M 50,50 L 5,50 A 45,45 0 0,1 18.2,18.2 Z" fill="#3b82f6" opacity="0.4" />
+            
+            <path d="M 50,50 L 72.5,27.5 A 45,45 0 0,1 95,50 Z" fill="#60a5fa" opacity="0.2" />
+            <path d="M 50,50 L 72.5,72.5 A 45,45 0 0,1 50,95 Z" fill="#60a5fa" opacity="0.2" />
+            <path d="M 50,50 L 27.5,72.5 A 45,45 0 0,1 5,50 Z" fill="#60a5fa" opacity="0.2" />
+            <path d="M 50,50 L 27.5,27.5 A 45,45 0 0,1 50,5 Z" fill="#60a5fa" opacity="0.2" />
+            
+            <!-- Red center fixation point -->
+            <circle cx="50" cy="50" r="3.5" fill="#ef4444" />
+          </svg>
+
+          <!-- Text overlay indicating frozen state -->
+          <div id="waterfall-freeze-overlay" class="absolute top-4 left-4 bg-blue-900/90 text-white font-black text-[10px] px-3 py-1.5 rounded-full border border-blue-500/20 uppercase tracking-widest hidden animate-pulse">
+            Disk Frozen! Stare at center 🌀
+          </div>
+
+          <div class="absolute bottom-4 flex flex-col items-center space-y-2 bg-slate-950/90 px-5 py-3 rounded-2xl border border-white/10 text-center w-11/12 max-w-xs">
+            <!-- Progress Bar -->
+            <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden mb-1 hidden" id="waterfall-progress-bar-container">
+              <div id="waterfall-progress-fill" class="bg-blue-500 h-full w-full transition-all duration-100"></div>
+            </div>
+            <div class="flex items-center justify-between w-full">
+              <button id="btn-start-waterfall" class="text-xs font-black px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white transition-all shadow-md">Start Spinning (30s)</button>
+              <span id="waterfall-timer-text" class="font-mono text-xs text-blue-400 font-black">30.0s</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Experience Feedback Panel (hidden by default) -->
+        <div id="experience-feedback-panel" class="hidden w-full p-6 bg-slate-900/90 border border-white/10 rounded-2xl text-left space-y-4 shadow-xl">
+          <h4 class="text-xs font-black uppercase text-blue-400">Stare Experience Verdict</h4>
+          <p class="text-[11px] text-slate-350 font-semibold leading-relaxed">
+            Did the waterfall effect work for you? Did you notice the static segments crawl or spin in reverse once the disk stopped?
+          </p>
+          <div class="flex gap-2">
+            <button id="btn-work-yes" class="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs py-2 rounded-xl transition-all">Yes, it worked! 👍</button>
+            <button id="btn-work-no" class="flex-1 bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs py-2 rounded-xl transition-all">No, it didn't... 👎</button>
+          </div>
+          
+          <!-- Result/Troubleshooting section -->
+          <div id="feedback-verdict" class="hidden text-xs space-y-2 border-t border-slate-800 pt-3">
+            <div id="verdict-yes-content" class="hidden text-emerald-450 font-semibold leading-relaxed space-y-2">
+              <p>✓ Awesome! Your visual cortex adapted exactly as predicted.</p>
+              <div class="p-3 bg-emerald-500/5 border border-emerald-500/20 rounded-lg text-[10px] text-slate-350 space-y-2">
+                <p><strong>Neurological Explanation:</strong> Staring at the rotating disk adapts direction-selective neurons in the middle temporal visual area (MT/V5). The downward-motion-sensitive neurons fatigue and drop below baseline activity. When the disk freezes, the resting activity of opposing upward-motion-sensitive neurons is relatively higher. The brain translates this discrepancy as movement, making the static sectors drift in reverse.</p>
+              </div>
+            </div>
+            <div id="verdict-no-content" class="hidden text-slate-350 leading-relaxed space-y-2">
+              <p class="text-rose-400 font-bold">✗ Keep Trying!</p>
+              <div class="p-3 bg-rose-500/5 border border-rose-500/20 rounded-lg text-[10px] space-y-1">
+                <strong class="text-white">Troubleshooting Tips:</strong>
+                <ul class="list-disc pl-4 space-y-1 text-slate-300">
+                  <li>Keep your gaze locked strictly on the central red dot of the disk during the 30-second countdown.</li>
+                  <li>Try not to blink or look away—eye movements refresh the retinal image and diminish the adaptation of motion-sensitive neurons.</li>
+                  <li>When the disk stops, keep looking at the red dot and wait for the drifting effect to emerge.</li>
+                  <li>Increase screen brightness and sit closer to the screen.</li>
+                </ul>
+              </div>
+            </div>
+            <button id="btn-reset-experience" class="w-full border border-blue-500/30 text-blue-400 hover:bg-blue-500/10 font-bold text-[10px] py-1.5 rounded-xl transition-all">Try Again 🔄</button>
+          </div>
+        </div>
+
+        <div class="text-center text-xs text-slate-500 dark:text-slate-400 italic">
+          Use the "Start Spinning" controller to run the 30-second motion-induction timer.
+        </div>
+      </div>
+    </div>
+
+    <!-- Content Split Layout -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 pt-4">
+      <!-- Left 2-Columns -->
+      <div class="lg:col-span-2 space-y-10">
+        <section class="space-y-4">
+          <h2 class="font-display text-2xl font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-blue-500">🎮</span>
+            <span>EXPERIENCE IT FIRST</span>
+          </h2>
+          <div class="bg-indigo-950/20 border-2 border-indigo-500/15 rounded-3xl p-6 text-slate-700 dark:text-slate-300">
+            <p class="font-bold text-sm sm:text-base text-slate-200">Follow these steps to experience the Waterfall Effect:</p>
+            <ul class="list-disc pl-5 mt-3 space-y-2 text-xs sm:text-sm font-medium">
+              <li>Click the "Start Spinning" button to activate the rapid rotation.</li>
+              <li>Focus your gaze entirely on the red dot at the center of the disk. Keep your head and eyes completely still.</li>
+              <li>When the timer hits 0s, the disk will freeze instantly.</li>
+              <li>Keep looking at the red center dot. The stationary disk will appear to rotate in the opposite direction.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="space-y-4">
+          <h2 class="font-display text-2xl font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-blue-500">🧠</span>
+            <span>THE SCIENCE</span>
+          </h2>
+          <div class="prose prose-indigo dark:prose-invert text-slate-700 dark:text-slate-300 leading-relaxed text-xs sm:text-sm font-semibold text-justify">
+            <p>The Waterfall Effect is one of the classic motion aftereffects in visual psychology. When a person stares continuously at a downward moving stimulus, such as a cascading waterfall, the motion-sensitive neurons in the visual cortex (specifically area MT/V5) that detect downward movement become adapted and fatigued. When the observer then looks at a stationary object, the downward-detecting neurons fire at a rate below their normal baseline. Consequently, the upward-detecting neurons, which are fully rested, fire relatively faster in comparison. The brain interprets this imbalance as upward motion, causing the stationary scene to appear to drift upward. This demonstrates that human motion perception is coded via opponent-process channels that continuously calibrate our balance of sight.</p>
+          </div>
+        </section>
+      </div>
+
+      <!-- Right Column -->
+      <div class="space-y-8">
+        <section class="rounded-3xl border border-indigo-950/20 bg-slate-900/60 p-6 space-y-4 shadow-xl">
+          <h3 class="font-display text-lg font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-blue-500">📜</span>
+            <span>HISTORY</span>
+          </h3>
+          <p class="text-xs sm:text-sm text-slate-650 dark:text-slate-355 leading-relaxed font-semibold">
+            First described by Robert Addams (1834). He observed the Waterfall of Foyers in Scotland, noting that when he shifted his gaze to the adjacent stationary rocks, they appeared to crawl upwards. This remains a bedrock demo of comparative neural channels in neuroscience.
+          </p>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const sharePageBtn = document.getElementById('share-illusion-page-btn');
+    const pageToast = document.getElementById('page-share-toast');
+
+    sharePageBtn?.addEventListener('click', () => {
+      const pageUrl = window.location.href;
+      navigator.clipboard.writeText(pageUrl).then(() => {
+        if (pageToast) {
+          pageToast.classList.remove('opacity-0');
+          pageToast.classList.add('opacity-100');
+          setTimeout(() => {
+            pageToast.classList.remove('opacity-100');
+            pageToast.classList.add('opacity-0');
+          }, 2000);
+        }
+      });
+    });
+
+    // Interactive Waterfall Stare Logic
+    const startBtn = document.getElementById('btn-start-waterfall') as HTMLButtonElement;
+    const timerText = document.getElementById('waterfall-timer-text') as HTMLElement;
+    const progressFill = document.getElementById('waterfall-progress-fill') as HTMLElement;
+    const progressContainer = document.getElementById('waterfall-progress-bar-container');
+    const disk = document.getElementById('svg-waterfall-disk');
+    const freezeOverlay = document.getElementById('waterfall-freeze-overlay');
+
+    const feedbackPanel = document.getElementById('experience-feedback-panel');
+    const btnYes = document.getElementById('btn-work-yes');
+    const btnNo = document.getElementById('btn-work-no');
+    const feedbackVerdict = document.getElementById('feedback-verdict');
+    const yesContent = document.getElementById('verdict-yes-content');
+    const noContent = document.getElementById('verdict-no-content');
+    const resetExpBtn = document.getElementById('btn-reset-experience');
+
+    let secondsLeft = 30.0;
+    let timerId: any = null;
+    let spinningActive = false;
+
+    const hideFeedback = () => {
+      feedbackPanel?.classList.add('hidden');
+      feedbackVerdict?.classList.add('hidden');
+      yesContent?.classList.add('hidden');
+      noContent?.classList.add('hidden');
+    };
+
+    const stopSpinning = () => {
+      clearInterval(timerId);
+      spinningActive = false;
+      secondsLeft = 30.0;
+      timerText.textContent = '30.0s';
+      progressContainer?.classList.add('hidden');
+      disk?.classList.remove('animate-spin');
+      disk?.style.removeProperty('animation');
+      freezeOverlay?.classList.add('hidden');
+      startBtn.textContent = 'Start Spinning (30s)';
+      hideFeedback();
+    };
+
+    startBtn?.addEventListener('click', () => {
+      if (spinningActive) {
+        stopSpinning();
+      } else {
+        spinningActive = true;
+        secondsLeft = 30.0;
+        timerText.textContent = '30.0s';
+        progressContainer?.classList.remove('hidden');
+        freezeOverlay?.classList.add('hidden');
+        
+        // Add fast spin class
+        disk?.classList.add('animate-spin');
+        disk!.style.animationDuration = '1.2s';
+        disk!.style.animationTimingFunction = 'linear';
+        disk!.style.animationIterationCount = 'infinite';
+
+        startBtn.textContent = 'Reset Spin 🔄';
+        hideFeedback();
+
+        const startTime = Date.now();
+        timerId = setInterval(() => {
+          const elapsed = (Date.now() - startTime) / 1000;
+          secondsLeft = 30.0 - elapsed;
+          if (secondsLeft <= 0) {
+            secondsLeft = 0;
+            clearInterval(timerId);
+            timerText.textContent = '0.0s';
+            progressContainer?.classList.add('hidden');
+            
+            disk?.classList.remove('animate-spin');
+            disk?.style.removeProperty('animation');
+            
+            freezeOverlay?.classList.remove('hidden');
+            startBtn.textContent = 'Try Stare Again 🔄';
+            spinningActive = false;
+            
+            // Show feedback panel
+            feedbackPanel?.classList.remove('hidden');
+          }
+          if (timerText) timerText.textContent = `${secondsLeft.toFixed(1)}s`;
+          if (progressFill) progressFill.style.width = `${(secondsLeft / 30.0) * 100}%`;
+        }, 100);
+      }
+    });
+
+    btnYes?.addEventListener('click', () => {
+      feedbackVerdict?.classList.remove('hidden');
+      yesContent?.classList.remove('hidden');
+      noContent?.classList.add('hidden');
+    });
+
+    btnNo?.addEventListener('click', () => {
+      feedbackVerdict?.classList.remove('hidden');
+      noContent?.classList.remove('hidden');
+      yesContent?.classList.add('hidden');
+    });
+
+    resetExpBtn?.addEventListener('click', () => {
+      stopSpinning();
+    });
+  </script>
+</Layout>

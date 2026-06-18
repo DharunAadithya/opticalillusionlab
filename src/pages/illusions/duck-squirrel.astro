@@ -1,0 +1,243 @@
+---
+// src/pages/illusions/duck-squirrel.astro
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout 
+  title="Duck or Squirrel — Interactive Ambiguous Optical Illusion | Optical Illusion Lab" 
+  description="Stare at this ambiguous bistable outline: does it depict a duck facing left, or a squirrel facing right? Experience Gestalt bistability."
+>
+  <div class="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-12">
+    
+    <!-- Breadcrumb back navigation -->
+    <nav class="flex text-xs font-black uppercase tracking-wider text-slate-400 space-x-2 pb-2 border-b border-indigo-500/10">
+      <a href="/" class="hover:text-white transition-colors">Home</a>
+      <span>/</span>
+      <a href="/what-do-you-see" class="hover:text-white transition-colors">What Do You See</a>
+      <span>/</span>
+      <span class="text-purple-400">Duck or Squirrel</span>
+    </nav>
+
+    <!-- Hero Header Section -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6">
+      <div class="space-y-3">
+        <div class="flex items-center space-x-2">
+          <span class="text-xs font-black px-2.5 py-0.5 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 uppercase tracking-wider">Type 3: Ambiguous Figures</span>
+          <span class="text-xs font-black px-2.5 py-0.5 rounded-full bg-rose-500/10 text-rose-450 border border-rose-500/20 uppercase tracking-wider">🔴 Hard</span>
+        </div>
+        <h1 class="font-display text-4xl sm:text-5xl font-black tracking-tight text-slate-900 dark:text-white">
+          Duck or Squirrel?
+        </h1>
+        <p class="text-slate-600 dark:text-slate-350 text-base max-w-2xl font-medium">
+          A modern classic of ambiguous figures where a single contour represents completely different animal shapes depending on which end you focus on.
+        </p>
+      </div>
+
+      <!-- Share Button -->
+      <button 
+        id="share-illusion-page-btn"
+        class="relative shrink-0 flex items-center space-x-2 rounded-2xl bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-600 hover:scale-105 text-white font-black text-sm px-6 py-3.5 transition-all shadow-lg shadow-purple-500/10"
+      >
+        <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M15 8a3 3 0 1 0-2.977-2.63l-4.94 2.47a3 3 0 1 0 0 4.319l4.94 2.47a3 3 0 1 0 .895-1.789l-4.94-2.47a3.027 3.027 0 0 0 0-.74l4.94-2.47C13.456 7.68 14.19 8 15 8Z"/></svg>
+        <span>Share Page</span>
+        <span id="page-share-toast" class="absolute bottom-full right-1/2 translate-x-1/2 mb-2 px-2.5 py-1 text-[10px] font-bold text-white bg-purple-650 rounded-lg shadow-md opacity-0 pointer-events-none transition-opacity duration-200 whitespace-nowrap">Link Copied! ✓</span>
+      </button>
+    </div>
+
+    <!-- LARGE INTERACTIVE DEMO -->
+    <div class="flex flex-col items-center justify-center py-6 border-b border-indigo-500/10">
+      <div class="w-full max-w-[600px] mx-auto space-y-4">
+        
+        <!-- Instruction Box -->
+        <div class="my-3 flex items-start gap-2 rounded-xl border border-indigo-500/10 bg-indigo-500/5 p-3 text-xs text-slate-350 text-left">
+          <span class="text-base leading-none">👁️</span>
+          <div>
+            <strong class="text-slate-200">👁️ WHAT TO LOOK FOR:</strong> Stare at the image. Use the toggles below to highlight the contours that define the duck (facing left, beak at the top-left) or the squirrel (facing right, tail on the right).
+          </div>
+        </div>
+
+        <div id="duck-squirrel-illusion" class="relative flex flex-col items-center justify-center h-96 w-full bg-slate-950 rounded-xl overflow-hidden border border-indigo-500/10 p-6">
+          <svg class="w-64 h-64 select-none" viewBox="0 0 260 220" xmlns="http://www.w3.org/2000/svg">
+            <!-- Body shared -->
+            <ellipse class="fill-slate-800 dark:fill-slate-800" cx="125" cy="125" rx="58" ry="42"/>
+            <!-- Head -->
+            <ellipse class="fill-slate-800 dark:fill-slate-800" cx="80" cy="100" rx="30" ry="26"/>
+            <!-- Duck bill / Squirrel face snout -->
+            <path class="fill-slate-700 dark:fill-slate-700" d="M 52,90 Q 30,82 18,98 Q 28,113 52,108 Z"/>
+            <!-- Squirrel bushy tail / Duck wing -->
+            <path class="fill-slate-700 dark:fill-slate-700" d="M 170,75 Q 210,55 228,82 Q 240,100 225,122 Q 205,145 175,138 Q 155,128 165,110 Q 172,95 170,75 Z"/>
+            <!-- Squirrel ear / Duck head feather -->
+            <path class="fill-slate-800 dark:fill-slate-800" d="M 72,75 Q 70,55 82,52 Q 92,52 90,72 Z"/>
+            <!-- Eye -->
+            <circle cx="68" cy="92" r="5" fill="white"/>
+            <circle cx="68" cy="92" r="2.5" fill="#1e293b"/>
+            <circle cx="69" cy="91" r="1" fill="white"/>
+            <!-- Legs / feet -->
+            <path class="fill-slate-700 dark:fill-slate-700" d="M 108,165 Q 112,180 122,183 Q 130,178 128,165 Z"/>
+            <path class="fill-slate-700 dark:fill-slate-700" d="M 128,165 Q 132,180 142,182 Q 150,176 148,165 Z"/>
+
+            <!-- Duck Overlay -->
+            <g id="ds-detail-duck-overlay" style="display:none" class="pointer-events-none">
+              <path d="M 52,90 Q 30,82 18,98 Q 28,113 52,108 Z" fill="none" stroke="#3b82f6" stroke-width="3" />
+              <path d="M 170,75 Q 210,55 228,82 Q 240,100 225,122 Q 205,145 175,138 Q 155,128 165,110 Q 172,95 170,75 Z" fill="none" stroke="#3b82f6" stroke-width="3" />
+              <text x="125" y="30" fill="#60a5fa" font-size="12" font-weight="950" text-anchor="middle">Duck: Wing & Beak</text>
+            </g>
+            <!-- Squirrel Overlay -->
+            <g id="ds-detail-squirrel-overlay" style="display:none" class="pointer-events-none">
+              <path d="M 170,75 Q 210,55 228,82 Q 240,100 225,122 Q 205,145 175,138 Q 155,128 165,110 Q 172,95 170,75 Z" fill="none" stroke="#ef4444" stroke-width="3" />
+              <path d="M 72,75 Q 70,55 82,52 Q 92,52 90,72 Z" fill="none" stroke="#ef4444" stroke-width="3" />
+              <text x="125" y="30" fill="#f87171" font-size="12" font-weight="950" text-anchor="middle">Squirrel: Tail & Ears</text>
+            </g>
+          </svg>
+
+          <!-- Control buttons inside demo -->
+          <div class="absolute bottom-4 flex space-x-2 bg-slate-900/90 border border-white/10 rounded-xl p-1 z-10">
+            <button id="show-duck-btn" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-indigo-950 text-slate-350 hover:bg-slate-800 transition-all">Show Duck 🦆</button>
+            <button id="show-squirrel-btn" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-indigo-950 text-slate-350 hover:bg-slate-800 transition-all">Show Squirrel 🐿️</button>
+            <button id="reset-btn" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-indigo-950 text-slate-350 hover:bg-slate-800 transition-all">Reset Highlights</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Content Split Layout -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 pt-4">
+      
+      <!-- Left 2-Columns: Science and Prompt -->
+      <div class="lg:col-span-2 space-y-10">
+        <!-- EXPERIENCE IT FIRST prompt -->
+        <section class="space-y-4">
+          <h2 class="font-display text-2xl font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">🎮</span>
+            <span>EXPERIENCE IT FIRST</span>
+          </h2>
+          <div class="bg-indigo-950/20 border-2 border-indigo-500/15 rounded-3xl p-6 text-slate-700 dark:text-slate-300">
+            <p class="font-bold text-sm sm:text-base text-slate-200">Observe how your brain resolves this visual ambiguity:</p>
+            <ul class="list-disc pl-5 mt-3 space-y-2 text-xs sm:text-sm font-medium">
+              <li>When you first look at the image, which animal did you see? For most, top-down priming determines the winner.</li>
+              <li>Try focusing on the left protrusion (the beak/snout) vs the right protrusion (the wing/tail). Notice how the entire animal shape swaps in your awareness.</li>
+              <li>Can you consciously force your brain to perceive both at the exact same moment? Cognitive science shows this is impossible.</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- THE SCIENCE (400 words) -->
+        <section class="space-y-4">
+          <h2 class="font-display text-2xl font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">🧠</span>
+            <span>THE SCIENCE</span>
+          </h2>
+          <div class="prose prose-indigo dark:prose-invert text-slate-700 dark:text-slate-300 leading-relaxed space-y-4 text-xs sm:text-sm font-semibold text-justify">
+            <p>
+              The Duck or Squirrel optical illusion is a prime example of an ambiguous bistable figure. In this illusion, the human visual system is presented with conflicting visual information. The contour lines are mathematically shared between two potential objects. Specifically, the curves representing the duck's beak on the left also represent the snout and paws of a squirrel. Conversely, the large wing shape on the right doubles as the squirrel's classic bushy tail.
+            </p>
+            <p>
+              When light enters the eye and hits the retina, it triggers neural impulses that travel to the primary visual cortex (V1). V1 extracts basic contours, edges, and orientations. However, V1 alone cannot determine whether the drawing is a duck or a squirrel. This high-level task is performed in the temporal lobe, specifically the lateral occipital complex (LOC), which is responsible for object recognition. The LOC compares the shape against semantic templates stored in memory.
+            </p>
+            <p>
+              Because both templates (duck and squirrel) match the physical contours perfectly, the brain faces a dilemma. It resolves this through neural competition: when one interpretation is active, it actively inhibits the other. This prevents you from seeing both animals simultaneously. The spontaneous switching between the two interpretations, known as bistable perception, is driven by neural fatigue. As the neurons coding for the "duck" interpretation grow tired, the competing "squirrel" neurons take over, flipping your conscious perception.
+            </p>
+          </div>
+        </section>
+      </div>
+
+      <!-- Right Column: Fun Facts and Try This -->
+      <div class="space-y-8">
+        <!-- FUN FACTS -->
+        <section class="rounded-3xl border border-indigo-950/20 bg-slate-900/60 p-6 space-y-4 shadow-xl">
+          <h3 class="font-display text-lg font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">💡</span>
+            <span>FUN FACTS</span>
+          </h3>
+          <ul class="space-y-4 text-xs sm:text-sm text-slate-650 dark:text-slate-300 font-semibold">
+            <li class="flex items-start space-x-2">
+              <span class="text-purple-500 font-black">•</span>
+              <span>Less than 40% of viewers can spontaneously spot both animals without being told what they are.</span>
+            </li>
+            <li class="flex items-start space-x-2">
+              <span class="text-purple-500 font-black">•</span>
+              <span>Bistable art like this is used by cognitive researchers to study how consciousness shifts without any change to the physical stimulus.</span>
+            </li>
+            <li class="flex items-start space-x-2">
+              <span class="text-purple-500 font-black">•</span>
+              <span>Gaze direction heavily dictates the winner: looking at the left side primes the duck, while looking right primes the squirrel.</span>
+            </li>
+          </ul>
+        </section>
+
+        <!-- TRY THIS AT HOME -->
+        <section class="rounded-3xl border border-indigo-950/20 bg-slate-900/60 p-6 space-y-4 shadow-xl">
+          <h3 class="font-display text-lg font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">🧪</span>
+            <span>TRY THIS AT HOME</span>
+          </h3>
+          <p class="text-xs sm:text-sm text-slate-650 dark:text-slate-300 leading-relaxed font-semibold">
+            Show this image to a friend. Ask them to describe what they see. If they see a duck, tell them "look at the squirrel's tail on the right." Watch how long it takes for their visual cortex to re-organize the shapes!
+          </p>
+        </section>
+
+        <!-- DISCOVERER -->
+        <section class="rounded-3xl border border-indigo-950/20 bg-slate-900/60 p-6 space-y-4 shadow-xl">
+          <h3 class="font-display text-lg font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">📜</span>
+            <span>DISCOVERER</span>
+          </h3>
+          <div class="text-xs sm:text-sm text-slate-650 dark:text-slate-300 leading-relaxed font-semibold space-y-2">
+            <p><strong>Creator:</strong> Modern Bistable Artists</p>
+            <p>This drawing is a modern evolution of the classic Jastrow Duck-Rabbit. While Jastrow focused on simple orientation shifts, the Duck-Squirrel integrates complex interlocking silhouettes to challenge figure-ground segmentation.</p>
+          </div>
+        </section>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+    // Share Page URL
+    const sharePageBtn = document.getElementById('share-illusion-page-btn');
+    const pageToast = document.getElementById('page-share-toast');
+
+    sharePageBtn?.addEventListener('click', () => {
+      const pageUrl = window.location.href;
+      navigator.clipboard.writeText(pageUrl).then(() => {
+        if (pageToast) {
+          pageToast.classList.remove('opacity-0');
+          pageToast.classList.add('opacity-100');
+          setTimeout(() => {
+            pageToast.classList.remove('opacity-100');
+            pageToast.classList.add('opacity-0');
+          }, 2000);
+        }
+      });
+    });
+
+    // Toggle highlights
+    const duckBtn = document.getElementById('show-duck-btn');
+    const squirrelBtn = document.getElementById('show-squirrel-btn');
+    const resetBtn = document.getElementById('reset-btn');
+    const duckOverlay = document.getElementById('ds-detail-duck-overlay');
+    const squirrelOverlay = document.getElementById('ds-detail-squirrel-overlay');
+
+    duckBtn?.addEventListener('click', () => {
+      if (duckOverlay) duckOverlay.style.display = 'block';
+      if (squirrelOverlay) squirrelOverlay.style.display = 'none';
+      duckBtn.className = 'text-xs font-bold px-3 py-1.5 rounded-lg bg-blue-600 text-white transition-all';
+      if (squirrelBtn) squirrelBtn.className = 'text-xs font-bold px-3 py-1.5 rounded-lg bg-indigo-950 text-slate-350 hover:bg-slate-800 transition-all';
+    });
+
+    squirrelBtn?.addEventListener('click', () => {
+      if (duckOverlay) duckOverlay.style.display = 'none';
+      if (squirrelOverlay) squirrelOverlay.style.display = 'block';
+      if (duckBtn) duckBtn.className = 'text-xs font-bold px-3 py-1.5 rounded-lg bg-indigo-950 text-slate-350 hover:bg-slate-800 transition-all';
+      squirrelBtn.className = 'text-xs font-bold px-3 py-1.5 rounded-lg bg-red-650 text-white transition-all';
+    });
+
+    resetBtn?.addEventListener('click', () => {
+      if (duckOverlay) duckOverlay.style.display = 'none';
+      if (squirrelOverlay) squirrelOverlay.style.display = 'none';
+      if (duckBtn) duckBtn.className = 'text-xs font-bold px-3 py-1.5 rounded-lg bg-indigo-950 text-slate-350 hover:bg-slate-800 transition-all';
+      if (squirrelBtn) squirrelBtn.className = 'text-xs font-bold px-3 py-1.5 rounded-lg bg-indigo-950 text-slate-350 hover:bg-slate-800 transition-all';
+    });
+  </script>
+</Layout>
