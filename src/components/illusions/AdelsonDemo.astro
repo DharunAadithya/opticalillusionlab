@@ -1,0 +1,167 @@
+---
+interface Props {
+  isCard?: boolean;
+}
+
+const { isCard = false } = Astro.props;
+
+// 8x8 Grid generation
+// Dark base color: #787878, Light base color: #d2d2d2
+const grid = [];
+for (let row = 0; row < 8; row++) {
+  for (let col = 0; col < 8; col++) {
+    const isDark = (row + col) % 2 === 0;
+    const baseColor = isDark ? '#787878' : '#d2d2d2';
+    grid.push({ row, col, baseColor });
+  }
+}
+---
+
+<div class="adelson-container flex flex-col items-center w-full select-none" data-is-card={isCard ? "true" : "false"}>
+  <div class="relative flex flex-col items-center justify-center bg-slate-900 rounded-xl overflow-hidden border border-slate-800 shadow-inner w-full min-h-[300px] md:min-h-[360px] p-6 pb-20">
+    <svg class="w-full max-w-[280px] h-auto aspect-square select-none overflow-visible shadow-lg" viewBox="0 0 320 320">
+      <defs>
+        <!-- Radial gradient for a 3D looking cylinder -->
+        <linearGradient id="cylinder-grad-adelson" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#4ade80" />
+          <stop offset="40%" stop-color="#22c55e" />
+          <stop offset="80%" stop-color="#15803d" />
+          <stop offset="100%" stop-color="#14532d" />
+        </linearGradient>
+      </defs>
+
+      <!-- Draw 8x8 Grid (excluding Tile B at Row 4, Col 5) -->
+      {grid.map(tile => {
+        if (tile.row === 4 && tile.col === 5) return null;
+        return (
+          <rect 
+            x={tile.col * 40} 
+            y={tile.row * 40} 
+            width="40" 
+            height="40" 
+            fill={tile.baseColor}
+            stroke={tile.baseColor}
+            stroke-width="0.1"
+          />
+        );
+      })}
+
+      <!-- Shadow cast by the cylinder (drawn over checkerboard, but under Tile B) -->
+      <polygon 
+        class="adelson-shadow fill-black pointer-events-none transition-opacity duration-300" 
+        points="150,120 310,120 270,240 110,240" 
+        opacity="0.4"
+      />
+
+      <!-- Draw Tile B on top of shadow so it is not darkened, maintaining exact #787878 on screen -->
+      <rect 
+        class="tile-b"
+        x="200" 
+        y="160" 
+        width="40" 
+        height="40" 
+        fill="#787878"
+        stroke="#787878"
+        stroke-width="0.1"
+      />
+
+      <!-- Cylinder casting the shadow, positioned top-right (does not overlap Tile B or label B) -->
+      <g class="cylinder pointer-events-none">
+        <!-- Cylinder top ellipse -->
+        <ellipse cx="280" cy="50" rx="20" ry="8" fill="#a7f3d0" stroke="#15803d" stroke-width="1" />
+        <!-- Cylinder body -->
+        <path d="M260,50 L260,120 A20,8 0 0,0 300,120 L300,50 Z" fill="url(#cylinder-grad-adelson)" stroke="#15803d" stroke-width="1" />
+        <!-- Base shadow ellipse -->
+        <ellipse cx="280" cy="120" rx="20" ry="8" fill="none" stroke="#15803d" stroke-width="1" />
+      </g>
+
+      <!-- Letter Labels - drawn AFTER the shadow so they are on top -->
+      <g class="labels pointer-events-none">
+        <!-- Label A at Row 1, Col 1 -->
+        <circle cx="60" cy="60" r="10" fill="white" stroke="#334155" stroke-width="1" />
+        <text x="60" y="64" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="black" text-anchor="middle">A</text>
+
+        <!-- Label B at Row 4, Col 5 (Fully visible, centered, z-index top, no overlap from cylinder) -->
+        <circle cx="220" cy="180" r="10" fill="white" stroke="#334155" stroke-width="1" />
+        <text x="220" y="184" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="black" text-anchor="middle">B</text>
+      </g>
+    </svg>
+
+    <!-- Interactive Toggles -->
+    <div class="absolute bottom-3 left-0 right-0 flex justify-center gap-3 px-4 z-20">
+      <button class="btn-reveal-truth bg-[#7C3AED] hover:bg-[#6D28D9] text-white text-[10px] font-black px-4 py-2 rounded-lg border-none transition-colors shadow cursor-pointer">
+        Reveal Truth
+      </button>
+      <button class="btn-remove-shadow bg-[#7C3AED] hover:bg-[#6D28D9] text-white text-[10px] font-black px-4 py-2 rounded-lg border-none transition-colors shadow cursor-pointer">
+        Remove Shadow
+      </button>
+    </div>
+
+    <!-- Swatches Overlay (Hidden by default) -->
+    <div class="adelson-swatches-overlay hidden absolute inset-0 bg-slate-950/95 z-30 flex flex-col items-center justify-center p-6 rounded-xl">
+      <h3 class="text-sm font-bold text-white mb-4">Isolated Swatches of A and B</h3>
+      <div class="flex gap-8 mb-6">
+        <div class="flex flex-col items-center gap-2">
+          <div class="w-16 h-16 rounded border border-slate-700" style="background-color: #787878;"></div>
+          <span class="text-xs font-bold text-slate-300">Swatch A</span>
+        </div>
+        <div class="flex flex-col items-center gap-2">
+          <div class="w-16 h-16 rounded border border-slate-700" style="background-color: #787878;"></div>
+          <span class="text-xs font-bold text-slate-300">Swatch B</span>
+        </div>
+      </div>
+      <p class="text-[11px] text-slate-400 text-center max-w-xs mb-4">
+        Both swatches are filled with the exact same color hex <code class="text-purple-400">#787878</code>.
+      </p>
+      <button class="btn-close-swatches bg-[#7C3AED] hover:bg-[#6D28D9] text-white text-[10px] font-black px-4 py-2 rounded-lg border-none transition-colors shadow cursor-pointer">
+        Back to Checkerboard
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  function initAdelson() {
+    const containers = document.querySelectorAll('.adelson-container');
+    containers.forEach(container => {
+      if (container.getAttribute('data-initialized') === 'true') return;
+      container.setAttribute('data-initialized', 'true');
+
+      const btnReveal = container.querySelector('.btn-reveal-truth');
+      const btnShadow = container.querySelector('.btn-remove-shadow');
+      const btnClose = container.querySelector('.btn-close-swatches');
+      
+      const shadow = container.querySelector('.adelson-shadow') as HTMLElement;
+      const overlay = container.querySelector('.adelson-swatches-overlay') as HTMLElement;
+
+      let shadowActive = true;
+
+      btnReveal?.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        overlay?.classList.remove('hidden');
+      });
+
+      btnClose?.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        overlay?.classList.add('hidden');
+      });
+
+      btnShadow?.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        shadowActive = !shadowActive;
+        if (shadow) {
+          shadow.style.opacity = shadowActive ? '0.4' : '0';
+        }
+        if (btnShadow) {
+          btnShadow.textContent = shadowActive ? 'Remove Shadow' : 'Restore Shadow';
+        }
+      });
+    });
+  }
+
+  initAdelson();
+  document.addEventListener('astro:page-load', initAdelson);
+</script>

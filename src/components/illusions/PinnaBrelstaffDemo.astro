@@ -1,0 +1,72 @@
+---
+interface Props {
+  isCard?: boolean;
+}
+
+const { isCard = false } = Astro.props;
+
+// Inner ring calculation (Radius = 55, 18 tiles)
+const innerTiles = Array.from({ length: 18 }).map((_, i) => {
+  const theta = (i * 360) / 18;
+  const rad = (theta * Math.PI) / 180;
+  const cx = 100 + 53 * Math.cos(rad);
+  const cy = 100 + 53 * Math.sin(rad);
+  const tilt = theta + 25; // +25 degrees CW relative to radial angle
+  return { cx, cy, tilt };
+});
+
+// Outer ring calculation (Radius = 78, 26 tiles)
+const outerTiles = Array.from({ length: 26 }).map((_, i) => {
+  const theta = (i * 360) / 26;
+  const rad = (theta * Math.PI) / 180;
+  const cx = 100 + 78 * Math.cos(rad);
+  const cy = 100 + 78 * Math.sin(rad);
+  const tilt = theta - 25; // -25 degrees CCW relative to radial angle
+  return { cx, cy, tilt };
+});
+---
+
+<div class="pinna-container flex flex-col items-center w-full select-none" data-is-card={isCard ? "true" : "false"}>
+  
+  <!-- Image area completely clear of text overlay -->
+  <div class="relative flex flex-col items-center justify-center bg-[#c0c0c0] rounded-xl overflow-hidden border border-slate-300 dark:border-slate-800 shadow-inner w-full min-h-[280px] md:min-h-[340px] p-6">
+    <svg class="w-full max-w-[260px] h-auto aspect-square select-none overflow-visible" viewBox="0 0 200 200">
+      <!-- Dead center small black dot -->
+      <circle cx="100" cy="100" r="3" fill="#000000" />
+
+      <!-- Inner Ring -->
+      {innerTiles.map(tile => (
+        <g transform={`translate(${tile.cx}, ${tile.cy}) rotate(${tile.tilt})`}>
+          <!-- Base square fill (soft gray) -->
+          <rect x="-4" y="-4" width="8" height="8" fill="#8e8e8e" />
+          <!-- White top-left border line -->
+          <path d="M -4,4 L -4,-4 L 4,-4" stroke="#ffffff" stroke-width="1.2" fill="none" stroke-linecap="square" />
+          <!-- Black bottom-right border line -->
+          <path d="M -4,4 L 4,4 L 4,-4" stroke="#222222" stroke-width="1.2" fill="none" stroke-linecap="square" />
+        </g>
+      ))}
+
+      <!-- Outer Ring -->
+      {outerTiles.map(tile => (
+        <g transform={`translate(${tile.cx}, ${tile.cy}) rotate(${tile.tilt})`}>
+          <!-- Base square fill (soft gray) -->
+          <rect x="-4" y="-4" width="8" height="8" fill="#8e8e8e" />
+          <!-- White top-left border line -->
+          <path d="M -4,4 L -4,-4 L 4,-4" stroke="#ffffff" stroke-width="1.2" fill="none" stroke-linecap="square" />
+          <!-- Black bottom-right border line -->
+          <path d="M -4,4 L 4,4 L 4,-4" stroke="#222222" stroke-width="1.2" fill="none" stroke-linecap="square" />
+        </g>
+      ))}
+    </svg>
+  </div>
+
+  <!-- Instruction text completely below the image -->
+  {!isCard && (
+    <div class="mt-4 p-4 bg-indigo-950/20 border border-indigo-500/15 rounded-xl text-left text-xs text-slate-300 w-full max-w-md">
+      <strong class="text-slate-200 block mb-1">👁️ HOW TO EXPERIENCE IT:</strong>
+      <p class="leading-relaxed">
+        Stare at the black center dot. Slowly move your head closer to the screen and then pull back. As you move closer, the inner ring will appear to rotate counter-clockwise while the outer ring rotates clockwise. When you pull back, they reverse directions!
+      </p>
+    </div>
+  )}
+</div>

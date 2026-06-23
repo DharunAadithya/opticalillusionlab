@@ -1,15 +1,17 @@
 ---
 // src/pages/color.astro
 import Layout from '../layouts/Layout.astro';
+import AdelsonDemo from '../components/illusions/AdelsonDemo.astro';
+import ColorSpheresDemo from '../components/illusions/ColorSpheresDemo.astro';
 ---
 
 <Layout 
-  title="Color & Colour Optical Illusions — 7 Visual Experiments | Optical Illusion Lab" 
+  title="Color & Colour Optical Illusions — 5 Visual Experiments | Optical Illusion Lab" 
   description="Explore interactive color optical illusions, test Adelson's checkerboard, play with simultaneous contrast, and try the afterimage experiment."
 >
 
   <!-- Hero Section -->
-  <section class="relative overflow-hidden py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-slate-900 via-purple-950 to-slate-950 text-white border-b border-indigo-500/10">
+  <section class="relative overflow-hidden py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-slate-100 via-purple-50 to-white dark:from-slate-900 dark:via-purple-950 dark:to-slate-950 text-slate-900 dark:text-white border-b border-indigo-500/10">
     <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(168,85,247,0.15),transparent_50%)]"></div>
     
     <div class="relative mx-auto max-w-4xl text-center space-y-6">
@@ -19,7 +21,7 @@ import Layout from '../layouts/Layout.astro';
       <h1 class="font-display text-4xl sm:text-6xl font-black tracking-tight bg-gradient-to-r from-pink-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">
         Color & Colour Optical Illusions
       </h1>
-      <p class="mx-auto max-w-2xl text-lg sm:text-xl text-slate-200 font-medium leading-relaxed">
+      <p class="mx-auto max-w-2xl text-lg sm:text-xl text-slate-600 dark:text-slate-200 font-medium leading-relaxed">
         Your brain doesn't see colors — it <span class="text-pink-400 font-bold">guesses</span> them. And it's wrong more often than you think.
       </p>
       
@@ -33,114 +35,40 @@ import Layout from '../layouts/Layout.astro';
 
 
 
-  <!-- SECTION 2: 7 COLOR ILLUSION EXPERIMENTS -->
+  <!-- SECTION 2: 5 COLOR ILLUSION EXPERIMENTS -->
   <section id="experiments-grid" class="py-16 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto space-y-12">
     <div class="text-center space-y-2">
-      <h2 class="font-display text-3xl sm:text-4xl font-black text-white">
-        7 COLOR ILLUSION EXPERIMENTS 🧪
+      <h2 class="font-display text-3xl sm:text-4xl font-black text-slate-900 dark:text-white">
+        5 COLOR ILLUSION EXPERIMENTS 🧪
       </h2>
-      <p class="text-slate-400 max-w-md mx-auto text-sm">Interact with each visual lab to test your perceptual color limits.</p>
+      <p class="text-slate-600 dark:text-slate-400 max-w-md mx-auto text-sm">Interact with each visual lab to test your perceptual color limits.</p>
       <div class="mx-auto h-1 w-24 rounded-full bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-500 mt-4"></div>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
       
       <!-- Experiment 1: Same Gray, Different World -->
-      <a href="/illusions/adelsons-checkerboard" class="bg-slate-900/60 border border-slate-800 rounded-3xl p-6 flex flex-col justify-between hover:border-purple-500/40 hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(168,85,247,0.35)] cursor-pointer transition-all duration-300 block group" data-exp="checkerboard">
+      <a href="/illusions/adelsons-checkerboard" class="bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 flex flex-col justify-between hover:border-purple-500/40 hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(168,85,247,0.35)] cursor-pointer transition-all duration-300 block group" data-exp="checkerboard">
         <div class="space-y-3">
           <div class="flex justify-between items-center">
             <span class="text-xs font-bold text-purple-400 uppercase tracking-widest">1. Shadows & Contrast</span>
             <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-yellow-500/10 text-yellow-450 border border-yellow-500/20">🟡 MEDIUM</span>
           </div>
-          <h3 class="font-display text-xl font-bold text-white">SAME GRAY, DIFFERENT WORLD 🏁</h3>
-          <p class="text-slate-300 text-xs leading-relaxed">
+          <h3 class="font-display text-xl font-bold text-slate-900 dark:text-white">SAME GRAY, DIFFERENT WORLD 🏁</h3>
+          <p class="text-slate-600 dark:text-slate-300 text-xs leading-relaxed">
             Tile A (in the light) and Tile B (in the shadow) look completely different. But they are the exact same gray color!
           </p>
         </div>
         
-        <div 
         <!-- Instruction Box -->
         <div class="my-3 flex items-start gap-2 rounded-xl border border-indigo-500/10 bg-indigo-500/5 p-3 text-xs text-slate-350">
           <span class="text-base leading-none">👁️</span>
           <div>
-            <strong class="text-slate-200">👁️ WHAT TO LOOK FOR:</strong> Look at tiles A and B. Click 'Reveal Truth' to see they have identical gray colors.
+            <strong class="text-slate-200">👁️ WHAT TO LOOK FOR:</strong> Look at tiles A and B. Click 'Reveal Truth' or 'Remove Shadow' to check if they have the same shade of gray.
           </div>
         </div>
+        <AdelsonDemo isCard={true} />
 
-        <!-- Instruction Box -->
-        <div class="my-3 flex items-start gap-2 rounded-xl border border-indigo-500/10 bg-indigo-500/5 p-3 text-xs text-slate-350">
-          <span class="text-base leading-none">👁️</span>
-          <div>
-            <strong class="text-slate-200">👁️ WHAT TO LOOK FOR:</strong> Look at tiles A and B. Click 'Reveal Truth' to see they have identical gray colors.
-          </div>
-        </div>
-class="my-6 flex flex-col items-center justify-center bg-slate-950/40 rounded-xl p-4 border border-slate-800 relative min-h-[220px]">
-          <svg class="w-48 h-48 select-none" viewBox="0 0 200 200">
-            <!-- 5x5 checkerboard -->
-            <g>
-              <!-- Row 0 -->
-              <rect x="20" y="20" width="30" height="30" fill="#2c2c2c" />
-              <rect x="50" y="20" width="30" height="30" fill="#d0d0d0" />
-              <rect x="80" y="20" width="30" height="30" fill="#2c2c2c" />
-              <rect x="110" y="20" width="30" height="30" fill="#d0d0d0" />
-              <rect x="140" y="20" width="30" height="30" fill="#2c2c2c" />
-              
-              <!-- Row 1 -->
-              <rect x="20" y="50" width="30" height="30" fill="#d0d0d0" />
-              <rect x="50" y="50" width="30" height="30" fill="#2c2c2c" id="tile-a-box" /> <!-- TILE A -->
-              <rect x="80" y="50" width="30" height="30" fill="#d0d0d0" />
-              <rect x="110" y="50" width="30" height="30" fill="#2c2c2c" />
-              <rect x="140" y="50" width="30" height="30" fill="#d0d0d0" />
-
-              <!-- Row 2 -->
-              <rect x="20" y="80" width="30" height="30" fill="#2c2c2c" />
-              <rect x="50" y="80" width="30" height="30" fill="#d0d0d0" />
-              <rect x="80" y="80" width="30" height="30" fill="#2c2c2c" />
-              <rect x="110" y="80" width="30" height="30" fill="#d0d0d0" />
-              <rect x="140" y="80" width="30" height="30" fill="#2c2c2c" />
-
-              <!-- Row 3 -->
-              <rect x="20" y="110" width="30" height="30" fill="#d0d0d0" />
-              <rect x="50" y="110" width="30" height="30" fill="#2c2c2c" />
-              <rect x="80" y="110" width="30" height="30" fill="#d0d0d0" />
-              <rect x="110" y="110" width="30" height="30" fill="#2c2c2c" id="tile-b-box" /> <!-- TILE B -->
-              <rect x="140" y="110" width="30" height="30" fill="#d0d0d0" />
-
-              <!-- Row 4 -->
-              <rect x="20" y="140" width="30" height="30" fill="#2c2c2c" />
-              <rect x="50" y="140" width="30" height="30" fill="#d0d0d0" />
-              <rect x="80" y="140" width="30" height="30" fill="#2c2c2c" />
-              <rect x="110" y="140" width="30" height="30" fill="#d0d0d0" />
-              <rect x="140" y="140" width="30" height="30" fill="#2c2c2c" />
-            </g>
-
-            <!-- Shadow overlay -->
-            <path d="M 90,20 L 200,20 L 200,200 L 90,200 Z" fill="#000" opacity="0.45" style="pointer-events: none;" />
-
-            <!-- Override actual tile colors so they match exactly in physical rendering -->
-            <!-- Tile A (dark tile in bright light): #787878 -->
-            <rect x="50" y="50" width="30" height="30" fill="#787878" />
-            <!-- Tile B (light tile in shadow): #787878 -->
-            <rect x="110" y="110" width="30" height="30" fill="#787878" />
-
-            <!-- Labels A and B -->
-            <text x="65" y="70" fill="#fff" font-size="12" font-weight="bold" text-anchor="middle">A</text>
-            <text x="125" y="130" fill="#111" font-size="12" font-weight="bold" text-anchor="middle">B</text>
-
-            <!-- Green cylinder casting shadow -->
-            <g transform="translate(140, 10)">
-              <ellipse cx="20" cy="15" rx="15" ry="6" fill="#22c55e" />
-              <rect x="5" y="15" width="30" height="45" fill="#15803d" />
-              <ellipse cx="20" cy="60" rx="15" ry="6" fill="#15803d" />
-              <ellipse cx="20" cy="15" rx="15" ry="6" fill="#4ade80" />
-            </g>
-
-            <!-- Connecting Bridge (hidden initially) -->
-            <path id="checkers-bridge" class="stroke-[#787878] stroke-[12] fill-none opacity-0 transition-opacity duration-300" d="M 65,65 L 125,125" />
-          </svg>
-        </div>
-
-        <div 
         <!-- Collapsible Explanation -->
         <details class="mt-4 border-t border-slate-800/40 pt-3 text-xs text-slate-400 select-none">
           <summary class="font-bold cursor-pointer hover:text-purple-400">👁️ Reveal Answer & Science</summary>
@@ -149,35 +77,24 @@ class="my-6 flex flex-col items-center justify-center bg-slate-950/40 rounded-xl
           </p>
         </details>
 
-        <!-- Collapsible Explanation -->
-        <details class="mt-4 border-t border-slate-800/40 pt-3 text-xs text-slate-400 select-none">
-          <summary class="font-bold cursor-pointer hover:text-purple-400">👁️ Reveal Answer & Science</summary>
-          <p class="mt-2 font-normal leading-relaxed text-slate-400">
-            The brain does not measure raw luminance; it evaluates colors relative to lighting. Because Tile B is inside the shadow, the brain scales its perceived brightness up, making it look white compared to Tile A.
-          </p>
-        </details>
-class="mt-5 flex items-center justify-between border-t border-slate-850 pt-4">
-          <button class="action-btn bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs py-2.5 px-4 rounded-xl shadow transition-transform active:scale-98">
-          Reveal Truth 🔎
-        </button>
+        <div class="mt-5 flex items-center justify-between border-t border-slate-850 pt-4">
           <span class="text-xs font-black text-purple-400 group-hover:text-purple-300 transition-colors">Explore &rarr;</span>
         </div>
       </a>
 
       <!-- Experiment 2: All Gray Circles -->
-      <a href="/illusions/color-spheres" class="bg-slate-900/60 border border-slate-800 rounded-3xl p-6 flex flex-col justify-between hover:border-purple-500/40 hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(168,85,247,0.35)] cursor-pointer transition-all duration-300 block group" data-exp="spheres">
+      <a href="/illusions/color-spheres" class="bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 flex flex-col justify-between hover:border-purple-500/40 hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(168,85,247,0.35)] cursor-pointer transition-all duration-300 block group" data-exp="spheres">
         <div class="space-y-3">
           <div class="flex justify-between items-center">
             <span class="text-xs font-bold text-purple-400 uppercase tracking-widest">2. Chromatic Assimilation</span>
             <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-red-550/10 text-red-400 border border-red-500/20">🔴 HARD</span>
           </div>
-          <h3 class="font-display text-xl font-bold text-white">ALL GRAY CIRCLES 🔵🟢🔴</h3>
-          <p class="text-slate-300 text-xs leading-relaxed">
+          <h3 class="font-display text-xl font-bold text-slate-900 dark:text-white">ALL GRAY CIRCLES 🔵🟢🔴</h3>
+          <p class="text-slate-600 dark:text-slate-300 text-xs leading-relaxed">
             These circles appear red, blue, and green. But they are actually completely identical gray! Hover or toggle to remove the lines.
           </p>
         </div>
         
-        <div 
         <!-- Instruction Box -->
         <div class="my-3 flex items-start gap-2 rounded-xl border border-indigo-500/10 bg-indigo-500/5 p-3 text-xs text-slate-350">
           <span class="text-base leading-none">👁️</span>
@@ -185,38 +102,8 @@ class="mt-5 flex items-center justify-between border-t border-slate-850 pt-4">
             <strong class="text-slate-200">👁️ WHAT TO LOOK FOR:</strong> Observe the spheres. Click 'Remove Colored Lines' to see that they are all the same shade of gray.
           </div>
         </div>
+        <ColorSpheresDemo isCard={true} />
 
-        <!-- Instruction Box -->
-        <div class="my-3 flex items-start gap-2 rounded-xl border border-indigo-500/10 bg-indigo-500/5 p-3 text-xs text-slate-350">
-          <span class="text-base leading-none">👁️</span>
-          <div>
-            <strong class="text-slate-200">👁️ WHAT TO LOOK FOR:</strong> Observe the spheres. Click 'Remove Colored Lines' to see that they are all the same shade of gray.
-          </div>
-        </div>
-class="my-6 flex flex-col items-center justify-center bg-slate-950/40 rounded-xl p-4 border border-slate-800 relative min-h-[220px]">
-          <svg id="svg-spheres" class="w-full max-w-[280px] h-40 select-none overflow-visible" viewBox="0 0 300 150">
-            <!-- Background base stripes -->
-            <rect x="0" y="0" width="300" height="150" fill="#030712" />
-            
-            <!-- 3 Spheres (placed behind assimilation lines) -->
-            <circle cx="60" cy="75" r="24" fill="#7f7f7f" />
-            <circle cx="150" cy="75" r="24" fill="#7f7f7f" />
-            <circle cx="240" cy="75" r="24" fill="#7f7f7f" />
-            
-            <!-- Grid lines overlay -->
-            <g class="assimilation-lines transition-opacity duration-300">
-              <!-- Grid lines crossing spheres -->
-              <!-- Sphere 1 (looks red because red lines cross it, green lines go behind) -->
-              {Array.from({ length: 15 }).map((_, idx) => {
-                const y = idx * 10 + 5;
-                const strokeColor = idx % 3 === 0 ? '#ef4444' : idx % 3 === 1 ? '#3b82f6' : '#22c55e';
-                return <line x1="0" y1={y} x2="300" y2={y} stroke={strokeColor} stroke-width="3.5" />
-              })}
-            </g>
-          </svg>
-        </div>
-
-        <div 
         <!-- Collapsible Explanation -->
         <details class="mt-4 border-t border-slate-800/40 pt-3 text-xs text-slate-400 select-none">
           <summary class="font-bold cursor-pointer hover:text-purple-400">👁️ Reveal Answer & Science</summary>
@@ -225,110 +112,26 @@ class="my-6 flex flex-col items-center justify-center bg-slate-950/40 rounded-xl
           </p>
         </details>
 
-        <!-- Collapsible Explanation -->
-        <details class="mt-4 border-t border-slate-800/40 pt-3 text-xs text-slate-400 select-none">
-          <summary class="font-bold cursor-pointer hover:text-purple-400">👁️ Reveal Answer & Science</summary>
-          <p class="mt-2 font-normal leading-relaxed text-slate-400">
-            Chromatic assimilation (neon color spreading) causes local color signals from foreground lines to bleed into the adjacent gray circles in our visual cortex, tricking us into seeing red, blue, or green spheres.
-          </p>
-        </details>
-class="mt-5 flex items-center justify-between border-t border-slate-850 pt-4">
-          <button class="action-btn bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs py-2.5 px-4 rounded-xl shadow transition-transform active:scale-98">
-          Remove Colored Lines ⚡
-        </button>
+        <div class="mt-5 flex items-center justify-between border-t border-slate-850 pt-4">
           <span class="text-xs font-black text-purple-400 group-hover:text-purple-300 transition-colors">Explore &rarr;</span>
         </div>
       </a>
 
-      <!-- Experiment 3: The Impossible Gradient -->
-      <a href="/illusions/cornsweet-illusion" class="bg-slate-900/60 border border-slate-800 rounded-3xl p-6 flex flex-col justify-between hover:border-purple-500/40 hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(168,85,247,0.35)] cursor-pointer transition-all duration-300 block group" data-exp="cornsweet">
+
+
+      <!-- Experiment 3: White's Illusion -->
+      <a href="/illusions/whites-illusion" class="bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 flex flex-col justify-between hover:border-purple-500/40 hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(168,85,247,0.35)] cursor-pointer transition-all duration-300 block group" data-exp="whites">
         <div class="space-y-3">
           <div class="flex justify-between items-center">
-            <span class="text-xs font-bold text-purple-400 uppercase tracking-widest">3. Edge Contrasts</span>
-            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-green-500/15 text-green-400 border border-green-500/20">🟢 EASY</span>
-          </div>
-          <h3 class="font-display text-xl font-bold text-white">THE IMPOSSIBLE GRADIENT 🌓</h3>
-          <p class="text-slate-300 text-xs leading-relaxed">
-            The left half looks lighter than the right. But they are the exact same gray! Hover/click the center boundary to hide it.
-          </p>
-        </div>
-        
-        <div 
-        <!-- Instruction Box -->
-        <div class="my-3 flex items-start gap-2 rounded-xl border border-indigo-500/10 bg-indigo-500/5 p-3 text-xs text-slate-350">
-          <span class="text-base leading-none">👁️</span>
-          <div>
-            <strong class="text-slate-200">👁️ WHAT TO LOOK FOR:</strong> Look at the left and right halves. Hover or click to cover the dividing edge and see they are identical.
-          </div>
-        </div>
-
-        <!-- Instruction Box -->
-        <div class="my-3 flex items-start gap-2 rounded-xl border border-indigo-500/10 bg-indigo-500/5 p-3 text-xs text-slate-350">
-          <span class="text-base leading-none">👁️</span>
-          <div>
-            <strong class="text-slate-200">👁️ WHAT TO LOOK FOR:</strong> Look at the left and right halves. Hover or click to cover the dividing edge and see they are identical.
-          </div>
-        </div>
-class="my-6 flex flex-col items-center justify-center bg-slate-950/40 rounded-xl p-4 border border-slate-800 relative min-h-[220px]">
-          <div class="relative w-full max-w-[280px] h-40 flex overflow-hidden rounded-lg border border-slate-800 cursor-pointer" id="cornsweet-container">
-            <!-- Left panel -->
-            <div class="w-1/2 h-full bg-[#8c8c8c] relative">
-              <!-- Right edge of left panel has a dark gradient edge -->
-              <div class="absolute inset-y-0 right-0 w-12 bg-gradient-to-r from-transparent to-[#606060] transition-opacity duration-300 cornsweet-gradient"></div>
-            </div>
-            <!-- Right panel -->
-            <div class="w-1/2 h-full bg-[#8c8c8c] relative">
-              <!-- Left edge of right panel has a light gradient edge -->
-              <div class="absolute inset-y-0 left-0 w-12 bg-gradient-to-r from-[#b8b8b8] to-transparent transition-opacity duration-300 cornsweet-gradient"></div>
-            </div>
-            
-            <!-- Hide cover bar -->
-            <div id="cornsweet-divider-cover" class="absolute inset-y-0 left-[134px] w-3 bg-[#111] opacity-0 transition-opacity duration-350 pointer-events-none"></div>
-          </div>
-        </div>
-
-        <div 
-        <!-- Collapsible Explanation -->
-        <details class="mt-4 border-t border-slate-800/40 pt-3 text-xs text-slate-400 select-none">
-          <summary class="font-bold cursor-pointer hover:text-purple-400">👁️ Reveal Answer & Science</summary>
-          <p class="mt-2 font-normal leading-relaxed text-slate-400">
-            The Cornsweet illusion shows that surface brightness is computed from edge contrast. The gradient boundary trick-forces the brain to paint the entire left half lighter and the right half darker.
-          </p>
-        </details>
-
-        <!-- Collapsible Explanation -->
-        <details class="mt-4 border-t border-slate-800/40 pt-3 text-xs text-slate-400 select-none">
-          <summary class="font-bold cursor-pointer hover:text-purple-400">👁️ Reveal Answer & Science</summary>
-          <p class="mt-2 font-normal leading-relaxed text-slate-400">
-            The Cornsweet illusion shows that surface brightness is computed from edge contrast. The gradient boundary trick-forces the brain to paint the entire left half lighter and the right half darker.
-          </p>
-        </details>
-class="mt-5 flex items-center justify-between border-t border-slate-850 pt-4">
-          <button class="action-btn bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs py-2.5 px-4 rounded-xl shadow transition-transform active:scale-98">
-          Cover Center Edge 🪵
-        </button>
-          <span class="text-xs font-black text-purple-400 group-hover:text-purple-300 transition-colors">Explore &rarr;</span>
-        </div>
-      </a>
-
-      </a>
-
-      </a>
-
-      <!-- Experiment 4: White's Illusion -->
-      <a href="/illusions/whites-illusion" class="bg-slate-900/60 border border-slate-800 rounded-3xl p-6 flex flex-col justify-between hover:border-purple-500/40 hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(168,85,247,0.35)] cursor-pointer transition-all duration-300 block group" data-exp="whites">
-        <div class="space-y-3">
-          <div class="flex justify-between items-center">
-            <span class="text-xs font-bold text-purple-400 uppercase tracking-widest">4. Lateral Inhibition</span>
+            <span class="text-xs font-bold text-purple-400 uppercase tracking-widest">3. Lateral Inhibition</span>
             <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-yellow-500/10 text-yellow-450 border border-yellow-500/20">🟡 MEDIUM</span>
           </div>
-          <h3 class="font-display text-xl font-bold text-white">WHITE'S ILLUSION 🦓</h3>
-          <p class="text-slate-300 text-xs leading-relaxed">
+          <h3 class="font-display text-xl font-bold text-slate-900 dark:text-white">WHITE'S ILLUSION 🦓</h3>
+          <p class="text-slate-600 dark:text-slate-300 text-xs leading-relaxed">
             The gray bars look totally different depending on whether they sit on the black or white stripes. Isolate them to prove they match!
           </p>
         </div>
         
-        <div 
         <!-- Instruction Box -->
         <div class="my-3 flex items-start gap-2 rounded-xl border border-indigo-500/10 bg-indigo-500/5 p-3 text-xs text-slate-350">
           <span class="text-base leading-none">👁️</span>
@@ -336,15 +139,7 @@ class="mt-5 flex items-center justify-between border-t border-slate-850 pt-4">
             <strong class="text-slate-200">👁️ WHAT TO LOOK FOR:</strong> Examine the gray bars on white and black stripes. Click 'Isolate Gray Bars' to see they are identical.
           </div>
         </div>
-
-        <!-- Instruction Box -->
-        <div class="my-3 flex items-start gap-2 rounded-xl border border-indigo-500/10 bg-indigo-500/5 p-3 text-xs text-slate-350">
-          <span class="text-base leading-none">👁️</span>
-          <div>
-            <strong class="text-slate-200">👁️ WHAT TO LOOK FOR:</strong> Examine the gray bars on white and black stripes. Click 'Isolate Gray Bars' to see they are identical.
-          </div>
-        </div>
-class="my-6 flex flex-col items-center justify-center bg-slate-950/40 rounded-xl p-4 border border-slate-800 relative min-h-[220px]">
+        <div class="my-6 flex flex-col items-center justify-center bg-slate-950/40 rounded-xl p-4 border border-slate-800 relative min-h-[220px]">
           <svg id="svg-whites" class="w-full max-w-[280px] h-40 select-none border border-slate-800 rounded-lg" viewBox="0 0 200 120">
             <!-- White background -->
             <rect x="0" y="0" width="200" height="120" fill="#fff" />
@@ -365,7 +160,6 @@ class="my-6 flex flex-col items-center justify-center bg-slate-950/40 rounded-xl
           </svg>
         </div>
 
-        <div 
         <!-- Collapsible Explanation -->
         <details class="mt-4 border-t border-slate-800/40 pt-3 text-xs text-slate-400 select-none">
           <summary class="font-bold cursor-pointer hover:text-purple-400">👁️ Reveal Answer & Science</summary>
@@ -374,14 +168,7 @@ class="my-6 flex flex-col items-center justify-center bg-slate-950/40 rounded-xl
           </p>
         </details>
 
-        <!-- Collapsible Explanation -->
-        <details class="mt-4 border-t border-slate-800/40 pt-3 text-xs text-slate-400 select-none">
-          <summary class="font-bold cursor-pointer hover:text-purple-400">👁️ Reveal Answer & Science</summary>
-          <p class="mt-2 font-normal leading-relaxed text-slate-400">
-            Gestalt grouping rules prioritize horizontal line continuity. Because the gray bars are grouped with the stripes they break, they absorb different contrast weights, overriding retinal lateral inhibition.
-          </p>
-        </details>
-class="mt-5 flex items-center justify-between border-t border-slate-850 pt-4">
+        <div class="mt-5 flex items-center justify-between border-t border-slate-850 pt-4">
           <button class="action-btn bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs py-2.5 px-4 rounded-xl shadow transition-transform active:scale-98">
           Isolate Gray Bars 🦓
         </button>
@@ -389,103 +176,21 @@ class="mt-5 flex items-center justify-between border-t border-slate-850 pt-4">
         </div>
       </a>
 
-      <!-- Experiment 5: Color From Lines -->
-      <a href="/illusions/color-from-lines" class="bg-slate-900/60 border border-slate-800 rounded-3xl p-6 flex flex-col justify-between hover:border-purple-500/40 hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(168,85,247,0.35)] cursor-pointer transition-all duration-300 block group" data-exp="contours">
+
+
+      <!-- Experiment 4: Simultaneous Contrast -->
+      <a href="/illusions/simultaneous-contrast" class="bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 flex flex-col justify-between hover:border-purple-500/40 hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(168,85,247,0.35)] cursor-pointer transition-all duration-300 block group" data-exp="contrast">
         <div class="space-y-3">
           <div class="flex justify-between items-center">
-            <span class="text-xs font-bold text-purple-400 uppercase tracking-widest">5. Color Spreading</span>
-            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-red-550/10 text-red-400 border border-red-500/20">🔴 HARD</span>
-          </div>
-          <h3 class="font-display text-xl font-bold text-white">COLOR FROM LINES 🖍️</h3>
-          <p class="text-slate-300 text-xs leading-relaxed">
-            Black lines appear blue in the yellow section, and red in the blue section. But all lines are completely black! Hover or click to reveal.
-          </p>
-        </div>
-        
-        <div 
-        <!-- Instruction Box -->
-        <div class="my-3 flex items-start gap-2 rounded-xl border border-indigo-500/10 bg-indigo-500/5 p-3 text-xs text-slate-350">
-          <span class="text-base leading-none">👁️</span>
-          <div>
-            <strong class="text-slate-200">👁️ WHAT TO LOOK FOR:</strong> Observe the yellow and blue regions. Click 'Remove Contours' to see the grid lines are completely black.
-          </div>
-        </div>
-
-        <!-- Instruction Box -->
-        <div class="my-3 flex items-start gap-2 rounded-xl border border-indigo-500/10 bg-indigo-500/5 p-3 text-xs text-slate-350">
-          <span class="text-base leading-none">👁️</span>
-          <div>
-            <strong class="text-slate-200">👁️ WHAT TO LOOK FOR:</strong> Observe the yellow and blue regions. Click 'Remove Contours' to see the grid lines are completely black.
-          </div>
-        </div>
-class="my-6 flex flex-col items-center justify-center bg-slate-950/40 rounded-xl p-4 border border-slate-800 relative min-h-[220px]">
-          <svg id="svg-contours" class="w-full max-w-[280px] h-40 select-none rounded-lg border border-slate-850" viewBox="0 0 240 120">
-            <!-- Black base grid lines -->
-            <g stroke="#ffffff" stroke-width="1.5">
-              {Array.from({ length: 12 }).map((_, idx) => (
-                <line x1={idx * 20 + 10} y1="0" x2={idx * 20 + 10} y2="120" />
-              ))}
-            </g>
-            
-            <!-- Surrounding colored contour shapes (which bleed color visually) -->
-            <g class="contour-fills transition-opacity duration-300" opacity="0.8">
-              <!-- Yellow shape left -->
-              <rect x="20" y="20" width="70" height="80" fill="#eab308" opacity="0.3" rx="10" />
-              <!-- Blue shape right -->
-              <rect x="150" y="20" width="70" height="80" fill="#3b82f6" opacity="0.3" rx="10" />
-            </g>
-            
-            <!-- Horizontal crossing grid lines -->
-            <g stroke="#ffffff" stroke-width="1.5">
-              {Array.from({ length: 6 }).map((_, idx) => (
-                <line x1="0" y1={idx * 20 + 10} x2="240" y2={idx * 20 + 10} />
-              ))}
-            </g>
-          </svg>
-        </div>
-
-        <div 
-        <!-- Collapsible Explanation -->
-        <details class="mt-4 border-t border-slate-800/40 pt-3 text-xs text-slate-400 select-none">
-          <summary class="font-bold cursor-pointer hover:text-purple-400">👁️ Reveal Answer & Science</summary>
-          <p class="mt-2 font-normal leading-relaxed text-slate-400">
-            The brain expects colored shadows and transparency in layered objects. It fills the color across the white spaces to create a continuous glowing layer under the black grid lines.
-          </p>
-        </details>
-
-        <!-- Collapsible Explanation -->
-        <details class="mt-4 border-t border-slate-800/40 pt-3 text-xs text-slate-400 select-none">
-          <summary class="font-bold cursor-pointer hover:text-purple-400">👁️ Reveal Answer & Science</summary>
-          <p class="mt-2 font-normal leading-relaxed text-slate-400">
-            The brain expects colored shadows and transparency in layered objects. It fills the color across the white spaces to create a continuous glowing layer under the black grid lines.
-          </p>
-        </details>
-class="mt-5 flex items-center justify-between border-t border-slate-850 pt-4">
-          <button class="action-btn bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs py-2.5 px-4 rounded-xl shadow transition-transform active:scale-98">
-          Remove Contours 🎨
-        </button>
-          <span class="text-xs font-black text-purple-400 group-hover:text-purple-300 transition-colors">Explore &rarr;</span>
-        </div>
-      </a>
-
-      </a>
-
-      </a>
-
-      <!-- Experiment 6: Simultaneous Contrast -->
-      <a href="/illusions/simultaneous-contrast" class="bg-slate-900/60 border border-slate-800 rounded-3xl p-6 flex flex-col justify-between hover:border-purple-500/40 hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(168,85,247,0.35)] cursor-pointer transition-all duration-300 block group" data-exp="contrast">
-        <div class="space-y-3">
-          <div class="flex justify-between items-center">
-            <span class="text-xs font-bold text-purple-400 uppercase tracking-wider">6. Hue Contrast</span>
+            <span class="text-xs font-bold text-purple-400 uppercase tracking-wider">4. Hue Contrast</span>
             <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-green-500/15 text-green-400 border border-green-500/20">🟢 EASY</span>
           </div>
-          <h3 class="font-display text-xl font-bold text-white">SIMULTANEOUS CONTRAST 🟧</h3>
-          <p class="text-slate-300 text-xs leading-relaxed">
+          <h3 class="font-display text-xl font-bold text-slate-900 dark:text-white">SIMULTANEOUS CONTRAST 🟧</h3>
+          <p class="text-slate-600 dark:text-slate-300 text-xs leading-relaxed">
             The orange square in the middle looks different on blue vs red backgrounds. Drag the slider to shift the background color!
           </p>
         </div>
         
-        <div 
         <!-- Instruction Box -->
         <div class="my-3 flex items-start gap-2 rounded-xl border border-indigo-500/10 bg-indigo-500/5 p-3 text-xs text-slate-350">
           <span class="text-base leading-none">👁️</span>
@@ -493,15 +198,7 @@ class="mt-5 flex items-center justify-between border-t border-slate-850 pt-4">
             <strong class="text-slate-200">👁️ WHAT TO LOOK FOR:</strong> Stare at the orange square. Drag the background slider and see how its color appears to change.
           </div>
         </div>
-
-        <!-- Instruction Box -->
-        <div class="my-3 flex items-start gap-2 rounded-xl border border-indigo-500/10 bg-indigo-500/5 p-3 text-xs text-slate-350">
-          <span class="text-base leading-none">👁️</span>
-          <div>
-            <strong class="text-slate-200">👁️ WHAT TO LOOK FOR:</strong> Stare at the orange square. Drag the background slider and see how its color appears to change.
-          </div>
-        </div>
-class="my-6 flex flex-col items-center justify-center bg-slate-950/40 rounded-xl p-4 border border-slate-800 relative min-h-[220px]">
+        <div class="my-6 flex flex-col items-center justify-center bg-slate-950/40 rounded-xl p-4 border border-slate-800 relative min-h-[220px]">
           <!-- Split screen or slider screen -->
           <div id="contrast-bg" class="w-full max-w-[280px] h-40 rounded-lg flex items-center justify-center border border-slate-800 transition-colors duration-200" style="background-color: #3b82f6;">
             <!-- Orange square -->
@@ -519,22 +216,24 @@ class="my-6 flex flex-col items-center justify-center bg-slate-950/40 rounded-xl
         </div>
 
         <div class="text-[10px] text-slate-400 font-bold uppercase tracking-wider text-center">Drag slider to shift background color! 🎛️</div>
-      </div>
+              <div class="mt-5 flex items-center justify-between border-t border-slate-850 pt-4">
+          <span class="text-xs font-black text-purple-400 group-hover:text-purple-300 transition-colors">Explore &rarr;</span>
+        </div>
+      </a>
 
-      <!-- Experiment 7: Afterimage - Stare and See -->
-      <a href="/illusions/afterimage-stare" class="bg-slate-900/60 border border-slate-800 rounded-3xl p-6 flex flex-col justify-between hover:border-purple-500/40 hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(168,85,247,0.35)] cursor-pointer transition-all duration-300 block group" data-exp="afterimage">
+      <!-- Experiment 5: Afterimage - Stare and See -->
+      <a href="/illusions/afterimage-stare" class="bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 flex flex-col justify-between hover:border-purple-500/40 hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(168,85,247,0.35)] cursor-pointer transition-all duration-300 block group" data-exp="afterimage">
         <div class="space-y-3">
           <div class="flex justify-between items-center">
-            <span class="text-xs font-bold text-purple-400 uppercase tracking-widest">7. Receptor Fatigue</span>
+            <span class="text-xs font-bold text-purple-400 uppercase tracking-widest">5. Receptor Fatigue</span>
             <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-red-550/10 text-red-400 border border-red-500/20">🔴 HARD</span>
           </div>
-          <h3 class="font-display text-xl font-bold text-white">AFTERIMAGE — STARE AND SEE ⏱️</h3>
-          <p class="text-slate-300 text-xs leading-relaxed">
+          <h3 class="font-display text-xl font-bold text-slate-900 dark:text-white">AFTERIMAGE — STARE AND SEE ⏱️</h3>
+          <p class="text-slate-600 dark:text-slate-300 text-xs leading-relaxed">
             Stare at the center of the colored cross for 30 seconds. When the timer hits zero, a ghostly complementary afterimage will float on the white screen!
           </p>
         </div>
         
-        <div 
         <!-- Instruction Box -->
         <div class="my-3 flex items-start gap-2 rounded-xl border border-indigo-500/10 bg-indigo-500/5 p-3 text-xs text-slate-350">
           <span class="text-base leading-none">👁️</span>
@@ -542,15 +241,7 @@ class="my-6 flex flex-col items-center justify-center bg-slate-950/40 rounded-xl
             <strong class="text-slate-200">👁️ WHAT TO LOOK FOR:</strong> Stare at the white center dot in the cyan cross for 30s. Look at the white box when the timer ends.
           </div>
         </div>
-
-        <!-- Instruction Box -->
-        <div class="my-3 flex items-start gap-2 rounded-xl border border-indigo-500/10 bg-indigo-500/5 p-3 text-xs text-slate-350">
-          <span class="text-base leading-none">👁️</span>
-          <div>
-            <strong class="text-slate-200">👁️ WHAT TO LOOK FOR:</strong> Stare at the white center dot in the cyan cross for 30s. Look at the white box when the timer ends.
-          </div>
-        </div>
-class="my-6 flex flex-col items-center justify-center bg-slate-950/40 rounded-xl p-4 border border-slate-800 relative min-h-[220px]">
+        <div class="my-6 flex flex-col items-center justify-center bg-slate-950/40 rounded-xl p-4 border border-slate-800 relative min-h-[220px]">
           <!-- Afterimage box -->
           <div id="afterimage-screen" class="relative w-full max-w-[280px] h-40 flex items-center justify-center border border-slate-800 rounded-lg transition-colors duration-500 bg-slate-950">
             <!-- Colored cross (Cyan-Red setup: Staring at Cyan creates a Red afterimage) -->
@@ -565,7 +256,7 @@ class="my-6 flex flex-col items-center justify-center bg-slate-950/40 rounded-xl
                 <!-- Tiny target dot -->
                 <div class="w-1.5 h-1.5 bg-slate-800 rounded-full"></div>
               </div>
-              <p class="text-[10px] font-bold text-purple-600 uppercase tracking-wider animate-pulse">You're seeing a red afterimage! 🔮</p>
+              <p class="text-[10px] font-bold text-slate-600 uppercase tracking-wider">If you see a ghost image, it is generated by your retina — not drawn here.</p>
             </div>
             
             <!-- Countdown overlay -->
@@ -573,7 +264,6 @@ class="my-6 flex flex-col items-center justify-center bg-slate-950/40 rounded-xl
           </div>
         </div>
 
-        <div 
         <!-- Collapsible Explanation -->
         <details class="mt-4 border-t border-slate-800/40 pt-3 text-xs text-slate-400 select-none">
           <summary class="font-bold cursor-pointer hover:text-purple-400">👁️ Reveal Answer & Science</summary>
@@ -582,30 +272,8 @@ class="my-6 flex flex-col items-center justify-center bg-slate-950/40 rounded-xl
           </p>
         </details>
 
-        <!-- Collapsible Explanation -->
-        <details class="mt-4 border-t border-slate-800/40 pt-3 text-xs text-slate-400 select-none">
-          <summary class="font-bold cursor-pointer hover:text-purple-400">👁️ Reveal Answer & Science</summary>
-          <p class="mt-2 font-normal leading-relaxed text-slate-400">
-            Continuous staring exhausts the green/blue photoreceptors. Shifting gaze to white triggers the rested red receptors to fire faster, producing a complementary red/pink ghost afterimage.
-          </p>
-        </details>
 
-        <!-- Collapsible Explanation -->
-        <details class="mt-4 border-t border-slate-800/40 pt-3 text-xs text-slate-400 select-none">
-          <summary class="font-bold cursor-pointer hover:text-purple-400">👁️ Reveal Answer & Science</summary>
-          <p class="mt-2 font-normal leading-relaxed text-slate-400">
-            Simultaneous contrast is caused by lateral inhibition in retina cells. A dark background causes adjacent cells processing the orange square to fire faster, enhancing its perceived brightness.
-          </p>
-        </details>
-
-        <!-- Collapsible Explanation -->
-        <details class="mt-4 border-t border-slate-800/40 pt-3 text-xs text-slate-400 select-none">
-          <summary class="font-bold cursor-pointer hover:text-purple-400">👁️ Reveal Answer & Science</summary>
-          <p class="mt-2 font-normal leading-relaxed text-slate-400">
-            Continuous staring exhausts the green/blue photoreceptors. Shifting gaze to white triggers the rested red receptors to fire faster, producing a complementary red/pink ghost afterimage.
-          </p>
-        </details>
-class="mt-5 flex items-center justify-between border-t border-slate-850 pt-4">
+        <div class="mt-5 flex items-center justify-between border-t border-slate-850 pt-4">
           <button class="action-btn bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs py-2.5 px-4 rounded-xl shadow transition-transform active:scale-98">
           Start Afterimage Stare (30s) ⏱️
         </button>
@@ -613,61 +281,7 @@ class="mt-5 flex items-center justify-between border-t border-slate-850 pt-4">
         </div>
       </a>
 
-      <!-- Experiment 8: Chromatic Aberration Illusion -->
-      <a href="/illusions/chromatic-aberration" class="bg-slate-900/60 border border-slate-800 rounded-3xl p-6 flex flex-col justify-between hover:border-purple-500/40 hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(168,85,247,0.35)] cursor-pointer transition-all duration-300 block group" data-exp="aberration">
-        <div class="space-y-3">
-          <div class="flex justify-between items-center">
-            <span class="text-xs font-bold text-purple-400 uppercase tracking-widest">8. Chromostereopsis</span>
-            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-yellow-500/10 text-yellow-450 border border-yellow-500/20">🟡 MEDIUM</span>
-          </div>
-          <h3 class="font-display text-xl font-bold text-white">CHROMATIC ABERRATION 🕶️</h3>
-          <p class="text-slate-300 text-xs leading-relaxed">
-            Red and blue lines on a black background can't be focused by your eye at the same time. The red appears to float forward while the blue recedes behind!
-          </p>
-        </div>
-        
-        <div 
-        <!-- Instruction Box -->
-        <div class="my-3 flex items-start gap-2 rounded-xl border border-indigo-500/10 bg-indigo-500/5 p-3 text-xs text-slate-350">
-          <span class="text-base leading-none">👁️</span>
-          <div>
-            <strong class="text-slate-200">👁️ WHAT TO LOOK FOR:</strong> Focus on the white center dot. Red circles will float forward while blue circles recede behind.
-          </div>
-        </div>
 
-        <!-- Instruction Box -->
-        <div class="my-3 flex items-start gap-2 rounded-xl border border-indigo-500/10 bg-indigo-500/5 p-3 text-xs text-slate-350">
-          <span class="text-base leading-none">👁️</span>
-          <div>
-            <strong class="text-slate-200">👁️ WHAT TO LOOK FOR:</strong> Focus on the white center dot. Red circles will float forward while blue circles recede behind.
-          </div>
-        </div>
-class="my-6 flex flex-col items-center justify-center bg-slate-950/40 rounded-xl p-4 border border-slate-800 relative min-h-[220px]">
-          <svg class="w-full max-w-[280px] h-40 select-none rounded-lg bg-black border border-slate-850" viewBox="0 0 240 120">
-            <!-- Focus targets: thin red/blue concentric patterns -->
-            <g stroke-width="2.5" fill="none">
-              <!-- Blue ring -->
-              <circle cx="120" cy="60" r="45" stroke="#3b82f6" />
-              <!-- Red ring -->
-              <circle cx="120" cy="60" r="30" stroke="#ef4444" />
-              
-              <!-- Alternating lines radiating outward -->
-              <path d="M 120,60 L 120,5" stroke="#ef4444" />
-              <path d="M 120,60 L 120,115" stroke="#3b82f6" />
-              <path d="M 120,60 L 65,60" stroke="#ef4444" />
-              <path d="M 120,60 L 175,60" stroke="#3b82f6" />
-
-              <path d="M 120,60 L 80,20" stroke="#3b82f6" />
-              <path d="M 120,60 L 160,100" stroke="#ef4444" />
-              <path d="M 120,60 L 160,20" stroke="#ef4444" />
-              <path d="M 120,60 L 80,100" stroke="#3b82f6" />
-            </g>
-            <circle cx="120" cy="60" r="4" fill="#ffffff" />
-          </svg>
-        </div>
-
-        <div class="text-[10px] text-slate-400 font-bold uppercase tracking-wider text-center">3D depth from pure color — no shading needed! 🕶️</div>
-      </div>
 
     </div>
   </section>
@@ -741,63 +355,6 @@ class="my-6 flex flex-col items-center justify-center bg-slate-950/40 rounded-xl
     // EXPERIMENTS SCRIPTS
     // ----------------------------------------------------
 
-    // 1. SAME GRAY, DIFFERENT WORLD
-    const cbCard = document.querySelector('[data-exp="checkerboard"]');
-    const cbBtn = cbCard?.querySelector('.action-btn') as HTMLButtonElement;
-    const cbBridge = cbCard?.querySelector('#checkers-bridge') as SVGElement;
-    let cbRevealed = false;
-
-    cbBtn?.addEventListener('click', () => {
-      cbRevealed = !cbRevealed;
-      if (cbBridge) {
-        cbBridge.style.opacity = cbRevealed ? '1' : '0';
-      }
-      cbBtn.textContent = cbRevealed ? "Hide Bridge 🏁" : "Reveal Truth 🔎";
-    });
-
-    // 2. ALL GRAY CIRCLES
-    const spheresCard = document.querySelector('[data-exp="spheres"]');
-    const spheresBtn = spheresCard?.querySelector('.action-btn') as HTMLButtonElement;
-    const assimilationLines = spheresCard?.querySelector('.assimilation-lines') as SVGElement;
-    let spheresRevealed = false;
-
-    spheresBtn?.addEventListener('click', () => {
-      spheresRevealed = !spheresRevealed;
-      if (assimilationLines) {
-        assimilationLines.style.opacity = spheresRevealed ? '0.05' : '1';
-      }
-      spheresBtn.textContent = spheresRevealed ? "Show Colored Lines 🔵" : "Remove Colored Lines ⚡";
-    });
-
-    // 3. THE IMPOSSIBLE GRADIENT
-    const cornsweetCard = document.querySelector('[data-exp="cornsweet"]');
-    const cornsweetBtn = cornsweetCard?.querySelector('.action-btn') as HTMLButtonElement;
-    const cornsweetGradients = cornsweetCard?.querySelectorAll('.cornsweet-gradient');
-    const cornsweetCover = cornsweetCard?.querySelector('#cornsweet-divider-cover') as HTMLElement;
-    const cornsweetContainer = cornsweetCard?.querySelector('#cornsweet-container');
-    let cornsweetRevealed = false;
-
-    const toggleCornsweet = (state: boolean) => {
-      cornsweetRevealed = state;
-      if (cornsweetCover) {
-        cornsweetCover.style.opacity = cornsweetRevealed ? '1' : '0';
-      }
-      if (cornsweetGradients) {
-        cornsweetGradients.forEach(el => {
-          (el as HTMLElement).style.opacity = cornsweetRevealed ? '0' : '1';
-        });
-      }
-      if (cornsweetBtn) {
-        cornsweetBtn.textContent = cornsweetRevealed ? "Show Center Edge 🌓" : "Cover Center Edge 🪵";
-      }
-    };
-
-    cornsweetBtn?.addEventListener('click', () => toggleCornsweet(!cornsweetRevealed));
-    
-    // Also toggle on hover over container
-    cornsweetContainer?.addEventListener('mouseenter', () => toggleCornsweet(true));
-    cornsweetContainer?.addEventListener('mouseleave', () => toggleCornsweet(false));
-
     // 4. WHITE'S ILLUSION
     const whitesCard = document.querySelector('[data-exp="whites"]');
     const whitesBtn = whitesCard?.querySelector('.action-btn') as HTMLButtonElement;
@@ -812,19 +369,7 @@ class="my-6 flex flex-col items-center justify-center bg-slate-950/40 rounded-xl
       whitesBtn.textContent = whitesRevealed ? "Show Background Stripes 🦓" : "Isolate Gray Bars 🦓";
     });
 
-    // 5. COLOR FROM LINES
-    const contoursCard = document.querySelector('[data-exp="contours"]');
-    const contoursBtn = contoursCard?.querySelector('.action-btn') as HTMLButtonElement;
-    const contourFills = contoursCard?.querySelector('.contour-fills') as SVGElement;
-    let contoursRevealed = false;
 
-    contoursBtn?.addEventListener('click', () => {
-      contoursRevealed = !contoursRevealed;
-      if (contourFills) {
-        contourFills.style.opacity = contoursRevealed ? '0' : '0.8';
-      }
-      contoursBtn.textContent = contoursRevealed ? "Show Contours 🎨" : "Remove Contours 🎨";
-    });
 
     // 6. SIMULTANEOUS CONTRAST
     const contrastCard = document.querySelector('[data-exp="contrast"]');

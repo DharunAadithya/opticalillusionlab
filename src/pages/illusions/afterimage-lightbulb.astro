@@ -1,6 +1,7 @@
 ---
 // src/pages/illusions/afterimage-lightbulb.astro
 import Layout from '../../layouts/Layout.astro';
+import AfterimageBulbDemo from '../../components/illusions/AfterimageBulbDemo.astro';
 ---
 
 <Layout 
@@ -45,67 +46,8 @@ import Layout from '../../layouts/Layout.astro';
     <!-- LARGE INTERACTIVE DEMO -->
     <div class="flex flex-col items-center justify-center py-6 border-b border-indigo-500/10">
       <div class="w-full max-w-[600px] mx-auto space-y-4">
-        <div id="bulb-illusion-container" class="relative flex flex-col items-center justify-center h-96 w-full bg-white border border-slate-200 rounded-xl overflow-hidden p-8">
-          
-          <!-- Light bulb SVG -->
-          <svg id="svg-afterimage-bulb" class="w-48 h-48 select-none" viewBox="0 0 100 100">
-            <!-- Light bulb silhouette -->
-            <path d="M 50,15 C 33,15 25,27 25,45 C 25,58 35,68 40,75 L 40,85 L 60,85 L 60,75 C 65,68 75,58 75,45 C 75,27 67,15 50,15 Z" fill="#000000" />
-            <!-- Metal screw threads -->
-            <rect x="42.5" y="86" width="15" height="3" fill="#64748b" rx="0.5" />
-            <rect x="44" y="90" width="12" height="3" fill="#64748b" rx="0.5" />
-            <ellipse cx="50" cy="94" rx="4" ry="1.5" fill="#475569" />
-            <!-- Center red staring point -->
-            <circle cx="50" cy="45" r="3.5" fill="#ff0000" />
-          </svg>
-
-          <!-- White screen overlay -->
-          <div id="afterimage-screen" class="absolute inset-0 bg-white flex flex-col items-center justify-center hidden p-8 border-4 border-dashed border-red-500 transition-colors animate-pulse text-center">
-            <!-- Staring dot for afterimage anchoring -->
-            <div class="w-2.5 h-2.5 bg-black rounded-full mb-3"></div>
-            <span class="text-slate-900 font-black text-2xl tracking-wider uppercase">Look Here! 💡</span>
-            <p class="text-sm text-slate-500 font-bold max-w-sm mt-2">Stare at the black dot and blink. Do you see a glowing yellow light bulb floating in your vision?</p>
-          </div>
-
-          <div class="absolute bottom-4 flex flex-col items-center space-y-2 bg-slate-950/80 px-5 py-3 rounded-2xl border border-white/10 text-center w-11/12 max-w-xs">
-            <!-- Progress Bar -->
-            <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden mb-1 hidden" id="bulb-progress-bar-container">
-              <div id="bulb-progress-fill" class="bg-emerald-500 h-full w-full transition-all duration-100"></div>
-            </div>
-            <div class="flex items-center justify-between w-full">
-              <button id="btn-start-bulb" class="text-xs font-black px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white transition-all shadow-md">Start Staring (30s)</button>
-              <span id="bulb-timer-text" class="font-mono text-xs text-emerald-400 font-black">30.0s</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Experience Feedback Panel (hidden by default) -->
-        <div id="experience-feedback-panel" class="hidden w-full p-6 bg-slate-900/90 border border-white/10 rounded-2xl text-left space-y-4 shadow-xl">
-          <h4 class="text-xs font-black uppercase text-emerald-400 font-display">Stare Experience Verdict</h4>
-          
-          <div class="text-xs space-y-4">
-            <div class="space-y-2">
-              <p class="text-sm font-bold text-slate-200">What did you perceive?</p>
-              <div class="p-4 bg-emerald-500/5 border border-emerald-500/20 rounded-xl text-xs text-slate-350 font-medium leading-relaxed">
-                <span class="text-emerald-450 font-bold block mb-1">✓ Neurological Reality Check:</span>
-                If you saw a glowing yellow light bulb floating on the white screen, <strong>that happened entirely inside your desensitized photoreceptors and visual cortex!</strong> The screen simply displays a plain white background with a black anchor dot.
-              </div>
-            </div>
-            
-            <div class="p-4 bg-slate-950/60 border border-slate-800 rounded-xl text-xs space-y-2 leading-relaxed">
-              <strong class="text-slate-200 font-display">Troubleshooting (If you did not see the effect):</strong>
-              <ul class="list-disc pl-4 space-y-1 text-slate-400 font-medium">
-                <li>Keep your gaze locked strictly on the red center dot of the light bulb during the 30-second stare period.</li>
-                <li>Do not blink or move your eyes at all while the timer runs—even tiny micro-movements refresh the retinal image and prevent desensitization.</li>
-                <li>Once the white screen appears, blink rapidly to help refresh and isolate the afterimage against the white background.</li>
-                <li>Ensure your screen brightness is sufficiently high (at least 60%) and you are in a moderately lit room.</li>
-              </ul>
-            </div>
-            
-            <button id="btn-reset-experience" class="w-full border border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/10 font-bold text-xs py-2 rounded-xl transition-all">Try Again 🔄</button>
-          </div>
-        </div>
-
+        <AfterimageBulbDemo isCard={false} />
+    
         <div class="text-center text-xs text-slate-500 dark:text-slate-400 italic">
           This illusion uses a fixed high-contrast display for best effect.
         </div>
@@ -198,77 +140,6 @@ import Layout from '../../layouts/Layout.astro';
           }, 2000);
         }
       });
-    });
-
-    // Interactive Bulb Logic
-    const startBtn = document.getElementById('btn-start-bulb') as HTMLButtonElement;
-    const timerText = document.getElementById('bulb-timer-text') as HTMLElement;
-    const progressFill = document.getElementById('bulb-progress-fill') as HTMLElement;
-    const progressContainer = document.getElementById('bulb-progress-bar-container');
-    const screen = document.getElementById('afterimage-screen');
-    const svgBulb = document.getElementById('svg-afterimage-bulb');
-
-    const feedbackPanel = document.getElementById('experience-feedback-panel');
-    const resetExpBtn = document.getElementById('btn-reset-experience');
-
-    let secondsLeft = 30.0;
-    let timerId: any = null;
-    let staringActive = false;
-
-    const hideFeedback = () => {
-      feedbackPanel?.classList.add('hidden');
-    };
-
-    const stopBulb = () => {
-      clearInterval(timerId);
-      staringActive = false;
-      secondsLeft = 30.0;
-      timerText.textContent = '30.0s';
-      progressContainer?.classList.add('hidden');
-      screen?.classList.add('hidden');
-      svgBulb?.classList.remove('hidden');
-      startBtn.textContent = 'Start Staring (30s)';
-      hideFeedback();
-    };
-
-    startBtn?.addEventListener('click', () => {
-      if (staringActive) {
-        stopBulb();
-      } else {
-        staringActive = true;
-        secondsLeft = 30.0;
-        timerText.textContent = '30.0s';
-        progressContainer?.classList.remove('hidden');
-        screen?.classList.add('hidden');
-        svgBulb?.classList.remove('hidden');
-        startBtn.textContent = 'Reset Stare 🔄';
-        hideFeedback();
-
-        const startTime = Date.now();
-        timerId = setInterval(() => {
-          const elapsed = (Date.now() - startTime) / 1000;
-          secondsLeft = 30.0 - elapsed;
-          if (secondsLeft <= 0) {
-            secondsLeft = 0;
-            clearInterval(timerId);
-            timerText.textContent = '0.0s';
-            progressContainer?.classList.add('hidden');
-            svgBulb?.classList.add('hidden');
-            screen?.classList.remove('hidden');
-            startBtn.textContent = 'Try Stare Again 🔄';
-            staringActive = false;
-            
-            // Show feedback panel
-            feedbackPanel?.classList.remove('hidden');
-          }
-          if (timerText) timerText.textContent = `${secondsLeft.toFixed(1)}s`;
-          if (progressFill) progressFill.style.width = `${(secondsLeft / 30.0) * 100}%`;
-        }, 100);
-      }
-    });
-
-    resetExpBtn?.addEventListener('click', () => {
-      stopBulb();
     });
   </script>
 </Layout>

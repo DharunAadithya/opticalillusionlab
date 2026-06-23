@@ -1,0 +1,150 @@
+---
+interface Props {
+  isCard?: boolean;
+}
+
+const { isCard = false } = Astro.props;
+---
+
+<div class="trident-container flex flex-col items-center w-full select-none" data-is-card={isCard ? "true" : "false"}>
+  <div class="relative flex flex-col items-center justify-center bg-white rounded-xl overflow-hidden border border-slate-200 shadow-inner w-full min-h-[300px] p-6 pb-20">
+    
+    <!-- SVG Area (400x200 px) -->
+    <svg class="w-full max-w-[360px] h-auto aspect-[2/1] select-none overflow-visible" viewBox="0 0 400 200">
+      <defs>
+        <!-- Premium drop shadow for the trident -->
+        <filter id="trident-shadow" x="-10%" y="-10%" width="120%" height="120%">
+          <feDropShadow dx="2" dy="4" stdDeviation="4" flood-color="#3730a3" flood-opacity="0.18" />
+        </filter>
+
+        <!-- Vertical gradient shading for 3D cylinders -->
+        <linearGradient id="cylinder-shading" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#3730A3" />
+          <stop offset="30%" stop-color="#818CF8" />
+          <stop offset="70%" stop-color="#818CF8" />
+          <stop offset="100%" stop-color="#3730A3" />
+        </linearGradient>
+
+        <!-- Horizontal fade for transition area -->
+        <linearGradient id="transition-shading" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#4F46E5" />
+          <stop offset="100%" stop-color="url(#cylinder-shading)" />
+        </linearGradient>
+      </defs>
+
+      <g filter="url(#trident-shadow)">
+        <!-- 1. Fills -->
+        <!-- Left handle solid fill (#4F46E5) -->
+        <path 
+          d="M 50,40 L 120,40 L 120,90 L 80,90 C 70,90 70,110 80,110 L 120,110 L 120,160 L 50,160 C 17,160 17,40 50,40 Z" 
+          fill="#4F46E5" 
+          stroke="none" 
+        />
+        
+        <!-- Cylinder 1 fill (Top) -->
+        <path 
+          d="M 120,40 L 340,40 A 5,15 0 0,1 340,70 L 220,70 C 190,70 160,90 120,90 Z" 
+          fill="url(#cylinder-shading)" 
+          stroke="none" 
+        />
+        
+        <!-- Cylinder 2 fill (Middle) -->
+        <path 
+          d="M 120,90 C 160,90 190,85 220,85 L 340,85 A 5,15 0 0,1 340,115 L 220,115 C 190,115 160,110 120,110 Z" 
+          fill="url(#cylinder-shading)" 
+          stroke="none" 
+        />
+        
+        <!-- Cylinder 3 fill (Bottom) -->
+        <path 
+          d="M 120,110 C 160,110 190,130 220,130 L 340,130 A 5,15 0 0,1 340,160 L 120,160 Z" 
+          fill="url(#cylinder-shading)" 
+          stroke="none" 
+        />
+
+        <!-- 2. Inner/Outer Outlines (Thick dark blue strokes) -->
+        <path d="M 50,40 L 340,40" stroke="#3730A3" stroke-width="3.5" stroke-linecap="round" fill="none" />
+        <path d="M 50,160 L 340,160" stroke="#3730A3" stroke-width="3.5" stroke-linecap="round" fill="none" />
+        <path d="M 50,40 C 17,40 17,160 50,160" stroke="#3730A3" stroke-width="3.5" stroke-linecap="round" fill="none" />
+
+        <path d="M 120,90 L 80,90 C 70,90 70,110 80,110 L 120,110" stroke="#3730A3" stroke-width="3.5" stroke-linecap="round" fill="none" />
+        
+        <!-- Impossible Morphing Curves -->
+        <path d="M 340,70 L 220,70 C 190,70 160,90 120,90" stroke="#3730A3" stroke-width="3.5" stroke-linecap="round" fill="none" />
+        <path d="M 340,85 L 220,85 C 190,85 160,90 120,90" stroke="#3730A3" stroke-width="3.5" stroke-linecap="round" fill="none" />
+        <path d="M 340,115 L 220,115 C 190,115 160,110 120,110" stroke="#3730A3" stroke-width="3.5" stroke-linecap="round" fill="none" />
+        <path d="M 340,130 L 220,130 C 190,130 160,110 120,110" stroke="#3730A3" stroke-width="3.5" stroke-linecap="round" fill="none" />
+
+        <!-- 3D Hollow cylinder caps on the right -->
+        <ellipse cx="340" cy="55" rx="5" ry="15" fill="#6366F1" stroke="#3730A3" stroke-width="3" />
+        <ellipse cx="340" cy="100" rx="5" ry="15" fill="#6366F1" stroke="#3730A3" stroke-width="3" />
+        <ellipse cx="340" cy="145" rx="5" ry="15" fill="#6366F1" stroke="#3730A3" stroke-width="3" />
+      </g>
+
+      <!-- 3. Colored Tracing Paths (Toggled on click) -->
+      <!-- Red Prong Path (Top prong + Cylinder 1) -->
+      <path 
+        class="trident-trace hidden stroke-rose-500 stroke-[4.5] stroke-dasharray-[5,4] stroke-linecap-round fill-none" 
+        d="M 50,40 L 340,40 A 5,15 0 0,1 340,70 L 220,70 C 190,70 160,90 120,90 L 80,90" 
+      />
+
+      <!-- Green Prong Path (Slot corner + Cylinder 2 + Slot corner) -->
+      <path 
+        class="trident-trace hidden stroke-emerald-500 stroke-[4.5] stroke-dasharray-[5,4] stroke-linecap-round fill-none" 
+        d="M 120,90 C 160,90 190,85 220,85 L 340,85 A 5,15 0 0,1 340,115 L 220,115 C 190,115 160,110 120,110" 
+      />
+
+      <!-- Blue Prong Path (Slot corner + Cylinder 3 + Bottom edge) -->
+      <path 
+        class="trident-trace hidden stroke-blue-500 stroke-[4.5] stroke-dasharray-[5,4] stroke-linecap-round fill-none" 
+        d="M 80,110 L 120,110 C 160,110 190,130 220,130 L 340,130 A 5,15 0 0,1 340,160 L 50,160" 
+      />
+    </svg>
+
+    <!-- Controls Panel -->
+    <div class="absolute bottom-2 left-0 right-0 flex justify-center gap-2 px-4 z-20">
+      <button class="btn-trace-trident bg-[#7C3AED] hover:bg-[#6D28D9] text-white text-[11px] font-bold px-5 py-2.5 rounded-lg border-none transition-colors shadow-sm cursor-pointer">
+        Trace Prongs
+      </button>
+    </div>
+  </div>
+
+  <!-- Instructions -->
+  <div class="mt-3 p-3 bg-white/40 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 rounded-xl text-center w-full max-w-md">
+    <p class="text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
+      <strong>Instruction:</strong> Look at the left (two flat prongs) and the right (three cylinders). Click "Trace Prongs" to follow each line path and observe the impossible transition.
+    </p>
+  </div>
+</div>
+
+<script>
+  function initTrident() {
+    const containers = document.querySelectorAll('.trident-container');
+    containers.forEach(container => {
+      if (container.getAttribute('data-initialized') === 'true') return;
+      container.setAttribute('data-initialized', 'true');
+
+      const btnTrace = container.querySelector('.btn-trace-trident');
+      const traces = container.querySelectorAll('.trident-trace');
+
+      let traceActive = false;
+
+      btnTrace?.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        traceActive = !traceActive;
+
+        traces.forEach(t => {
+          t.classList.toggle('hidden', !traceActive);
+        });
+
+        if (btnTrace) {
+          btnTrace.textContent = traceActive ? 'Hide Traces' : 'Trace Prongs';
+        }
+      });
+    });
+  }
+
+  initTrident();
+  document.addEventListener('astro:page-load', initTrident);
+</script>

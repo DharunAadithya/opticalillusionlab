@@ -1,6 +1,7 @@
 ---
 // src/pages/illusions/penrose-stairs.astro
 import Layout from '../../layouts/Layout.astro';
+import PenroseStairsDemo from '../../components/illusions/PenroseStairsDemo.astro';
 ---
 
 <Layout 
@@ -47,30 +48,7 @@ import Layout from '../../layouts/Layout.astro';
     <!-- LARGE INTERACTIVE DEMO -->
     <div class="flex flex-col items-center justify-center py-6 border-b border-indigo-500/10">
       <div class="w-full max-w-[600px] mx-auto space-y-4">
-        <div id="stairs-illusion" class="relative flex flex-col items-center justify-center h-96 w-full bg-slate-100 dark:bg-slate-950/40 rounded-xl overflow-hidden border border-indigo-500/10 p-6">
-          <svg class="w-full h-64 p-2 select-none" viewBox="0 0 200 200">
-            <!-- Isometric Stairs loop -->
-            <g transform="translate(100, 105) scale(0.95)" stroke="currentColor" stroke-width="2.5" fill="none" class="text-slate-900 dark:text-slate-200">
-              <!-- Top Left Stairs -->
-              <path d="M -40,-40 L -20,-30 L -20,-50 L 0,-40 L 0,-60 L 20,-50 M -40,-20 L -40,-40" />
-              <!-- Top Right Stairs -->
-              <path d="M 20,-50 L 40,-40 L 40,-20 L 20,-30 M 40,-40 L 60,-30 L 60,-10 L 40,-20" />
-              <!-- Bottom Right Stairs -->
-              <path d="M 60,-10 L 40,0 L 40,20 L 60,10 M 40,0 L 20,10 L 20,30 L 40,20" />
-              <!-- Bottom Left Stairs -->
-              <path d="M 20,30 L -20,10 L -20,-10 L -40,-20 L -40,-40 M -20,10 L 0,0 L 0,-20 L 20,-10" />
-            </g>
-            <!-- Walking dot -->
-            <circle id="stairs-dot" cx="100" cy="100" r="6" fill="#ef4444" stroke="#ffffff" stroke-width="1.5" />
-          </svg>
-          <div class="absolute bottom-4 w-11/12 px-6 flex flex-col space-y-2 bg-white/80 dark:bg-slate-900/80 p-3 rounded-2xl backdrop-blur border border-slate-200 dark:border-white/5">
-            <div class="flex items-center justify-between text-xs text-slate-500 font-bold uppercase">
-              <span>Walking Speed</span>
-              <span id="speed-indicator" class="text-purple-500 font-mono">Level 5</span>
-            </div>
-            <input type="range" min="1" max="10" value="5" id="stairs-speed-slider" class="w-full h-1 bg-slate-200 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-purple-600 focus:outline-none" />
-          </div>
-        </div>
+        <PenroseStairsDemo isCard={false} />
         <div class="text-center text-xs text-slate-500 dark:text-slate-400 italic">
           Use the walking speed slider to accelerate the red marker climbing the steps.
         </div>
@@ -147,6 +125,7 @@ import Layout from '../../layouts/Layout.astro';
   </div>
 
   <script>
+    // Share Page URL
     const sharePageBtn = document.getElementById('share-illusion-page-btn');
     const pageToast = document.getElementById('page-share-toast');
 
@@ -164,44 +143,19 @@ import Layout from '../../layouts/Layout.astro';
       });
     });
 
-    // Stairs Walking Interactivity
-    const speedSlider = document.getElementById('stairs-speed-slider') as HTMLInputElement;
-    const speedText = document.getElementById('speed-indicator');
-    const dot = document.getElementById('stairs-dot');
-
-    let stairsStep = 0;
-    // walk coordinates coordinates in isometric loop space
-    const stairsPoints = [
-      {cx: 100, cy: 55}, // top
-      {cx: 120, cy: 65},
-      {cx: 140, cy: 75}, // right
-      {cx: 120, cy: 85},
-      {cx: 100, cy: 95}, // bottom right
-      {cx: 80, cy: 105}, // bottom left
-      {cx: 60, cy: 95},
-      {cx: 80, cy: 75}  // top left
-    ];
-
-    let intervalId: any = null;
-
-    const runStairsAnimation = () => {
-      if (intervalId) clearInterval(intervalId);
-      const val = speedSlider ? parseInt(speedSlider.value) : 5;
-      if (speedText) speedText.textContent = `Level ${val}`;
-
-      const intervalMs = Math.max(80, 1000 - (val * 90));
-
-      intervalId = setInterval(() => {
-        stairsStep = (stairsStep + 1) % stairsPoints.length;
-        const pt = stairsPoints[stairsStep];
-        if (dot) {
-          dot.setAttribute('cx', pt.cx.toString());
-          dot.setAttribute('cy', pt.cy.toString());
-        }
-      }, intervalMs);
+    // Handle Global Speed Mult
+    const checkSpeed = () => {
+      const level = localStorage.getItem('speed-multiplier-level') || '5';
+      let multiplier = 1.0;
+      const parsed = parseInt(level);
+      if (parsed <= 5) {
+        multiplier = 0.2 + (parsed - 1) * 0.2;
+      } else {
+        multiplier = 1.0 + (parsed - 5) * 0.4;
+      }
+      document.documentElement.style.setProperty('--speed-multiplier', multiplier.toString());
     };
-
-    speedSlider?.addEventListener('input', runStairsAnimation);
-    runStairsAnimation();
+    checkSpeed();
+    window.addEventListener('storage', checkSpeed);
   </script>
 </Layout>

@@ -1651,6 +1651,26 @@ import Layout from '../layouts/Layout.astro';
       });
     };
 
+    // Make cards clickable
+    const makeCardsClickable = () => {
+      document.querySelectorAll('.illusion-container').forEach(card => {
+        card.style.cursor = 'pointer';
+        card.addEventListener('click', (e) => {
+          const target = e.target as HTMLElement;
+          if (target.closest('button, input, select, details, summary, a, svg, iframe')) {
+            return;
+          }
+          const link = card.querySelector('a[href^="/illusions/"]');
+          if (link) {
+            const href = link.getAttribute('href');
+            if (href) {
+              window.location.href = href;
+            }
+          }
+        });
+      });
+    };
+
     // Load scripts
     startGlobalTimer();
     loadPersonalBests();
@@ -1658,6 +1678,7 @@ import Layout from '../layouts/Layout.astro';
     initVotingAndReveals();
     initSpecialDemos();
     initShareButtons();
+    makeCardsClickable();
   </script>
 
 </Layout>

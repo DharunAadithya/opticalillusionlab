@@ -164,10 +164,12 @@ import Layout from '../../layouts/Layout.astro';
     btnToggleDuck?.addEventListener('click', () => {
       const shown = overlayDuck?.classList.contains('opacity-100');
       if (shown) {
-        overlayDuck?.classList.replace('opacity-100', 'opacity-0');
+        overlayDuck?.classList.remove('opacity-100');
+        overlayDuck?.classList.add('opacity-0');
         if (btnToggleDuck) btnToggleDuck.textContent = "Show Duck 🦆";
       } else {
-        overlayDuck?.classList.replace('opacity-0', 'opacity-100');
+        overlayDuck?.classList.remove('opacity-0');
+        overlayDuck?.classList.add('opacity-100');
         if (btnToggleDuck) btnToggleDuck.textContent = "Hide Duck 🦆";
       }
     });
@@ -175,10 +177,12 @@ import Layout from '../../layouts/Layout.astro';
     btnToggleRabbit?.addEventListener('click', () => {
       const shown = overlayRabbit?.classList.contains('opacity-100');
       if (shown) {
-        overlayRabbit?.classList.replace('opacity-100', 'opacity-0');
+        overlayRabbit?.classList.remove('opacity-100');
+        overlayRabbit?.classList.add('opacity-0');
         if (btnToggleRabbit) btnToggleRabbit.textContent = "Show Rabbit 🐇";
       } else {
-        overlayRabbit?.classList.replace('opacity-0', 'opacity-100');
+        overlayRabbit?.classList.remove('opacity-0');
+        overlayRabbit?.classList.add('opacity-100');
         if (btnToggleRabbit) btnToggleRabbit.textContent = "Hide Rabbit 🐇";
       }
     });

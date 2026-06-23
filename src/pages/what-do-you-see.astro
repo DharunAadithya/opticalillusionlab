@@ -4,8 +4,8 @@ import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout
-  title="What Do You See First? 12 Ambiguous Illusions | Optical Illusion Lab"
-  description="These images have two completely valid interpretations. Which one your brain picks first reveals something fascinating about you. Take the 12-illusion perception test and discover your Brain Type."
+  title="What Do You See First? 10 Ambiguous Illusions | Optical Illusion Lab"
+  description="These images have two completely valid interpretations. Which one your brain picks first reveals something fascinating about you. Take the 10-illusion perception test and discover your Brain Type."
 >
 
   <!-- Hero Section -->
@@ -44,7 +44,7 @@ import Layout from '../layouts/Layout.astro';
         <div class="wdys-progress-track">
           <div class="wdys-progress-fill" id="progress-bar" style="width:0%"></div>
         </div>
-        <span class="wdys-progress-label" id="progress-label">0 / 12 answered</span>
+        <span class="wdys-progress-label" id="progress-label">0 / 10 answered</span>
       </div>
     </div>
   </section>
@@ -812,79 +812,6 @@ import Layout from '../layouts/Layout.astro';
         </div>
 </div>
 
-      <!-- ===== CARD 9: NECKER CUBE ===== -->
-      <div class="wdys-card border-l-4 border-l-yellow-500" id="card-9" data-index="9">
-        <div class="wdys-card-header">
-          <div class="wdys-tags"><span class="wdys-tag-medium">🟡 Medium</span><span class="wdys-tag-type">3D Depth Bistable</span></div>
-          <h2 class="wdys-card-title">9. Necker Cube</h2>
-          <p class="wdys-card-desc">Louis Albert Necker discovered in 1832 that a wireframe cube spontaneously "flips" between two 3D orientations. Your brain can only hold one at a time.</p>
-        </div>
-
-        
-        <!-- Instruction Box -->
-        <div class="my-3 flex items-start gap-2 rounded-xl border border-indigo-500/10 bg-indigo-500/5 p-3 text-xs text-slate-350 text-left">
-          <span class="text-base leading-none">👁️</span>
-          <div>
-            <strong class="text-slate-200">👁️ WHAT TO LOOK FOR:</strong> Look at the wireframe cube. Which face is in the front? Watch it flip in your mind's eye.
-          </div>
-        </div>
-<div class="wdys-demo-area">
-          <div class="necker-wrap">
-            <svg id="svg-necker" class="wdys-svg" viewBox="0 0 220 200" xmlns="http://www.w3.org/2000/svg">
-              <!-- Necker cube wireframe — classic orientation -->
-              <!-- Back face -->
-              <rect id="necker-back" x="68" y="38" width="100" height="100" fill="none" stroke="#6366f1" stroke-width="2" stroke-dasharray="6,4"/>
-              <!-- Front face -->
-              <rect id="necker-front" x="50" y="58" width="100" height="100" fill="none" stroke="#e2e8f0" stroke-width="2.5"/>
-              <!-- Connecting edges -->
-              <line x1="50" y1="58" x2="68" y2="38" stroke="#94a3b8" stroke-width="1.8"/>
-              <line x1="150" y1="58" x2="168" y2="38" stroke="#94a3b8" stroke-width="1.8"/>
-              <line x1="50" y1="158" x2="68" y2="138" stroke="#94a3b8" stroke-width="1.8"/>
-              <line x1="150" y1="158" x2="168" y2="138" stroke="#94a3b8" stroke-width="1.8"/>
-              <!-- Center dot -->
-              <circle id="necker-dot" cx="110" cy="98" r="4" fill="#f59e0b"/>
-              <!-- Interpretation label -->
-              <text id="necker-label" x="110" y="192" text-anchor="middle" fill="#94a3b8" font-size="11" font-family="sans-serif">Stare at the dot · cube will flip</text>
-            </svg>
-            <button class="wdys-reveal-btn necker-flip-btn" id="necker-flip-btn" onclick="neckerFlip()">🔄 Force Flip</button>
-          </div>
-        </div>
-
-        <div class="wdys-vote-section">
-          <p class="wdys-vote-prompt">Which face is pointing toward you?</p>
-          <div class="wdys-vote-buttons">
-            <button class="wdys-vote-btn" data-card="9" data-choice="a">📦 Bottom-Left face</button>
-            <button class="wdys-vote-btn" data-card="9" data-choice="b">📦 Top-Right face</button>
-          </div>
-          <div class="wdys-reveal-bar" id="reveal-9" style="display:none">
-            <div class="wdys-result-bar-row">
-              <span class="wdys-result-label">📦 Bottom-Left</span>
-              <div class="wdys-bar-track"><div class="wdys-bar-fill wdys-bar-a" id="bar-9-a" style="width:0%"></div></div>
-              <span class="wdys-pct" id="pct-9-a">—</span>
-            </div>
-            <div class="wdys-result-bar-row">
-              <span class="wdys-result-label">📦 Top-Right</span>
-              <div class="wdys-bar-track"><div class="wdys-bar-fill wdys-bar-b" id="bar-9-b" style="width:0%"></div></div>
-              <span class="wdys-pct" id="pct-9-b">—</span>
-            </div>
-            <p class="wdys-insight">Both orientations are equally valid! The cube reversal happens every ~3-5 seconds for most people. Interestingly, you can learn to control which orientation you see with practice.</p>
-          </div>
-        </div>
-      
-        <!-- Collapsible Explanation -->
-        <details class="w-full mt-4 border-t border-slate-800/40 pt-3 text-xs text-slate-400 select-none text-left">
-          <summary class="font-bold cursor-pointer hover:text-purple-400">👁️ Reveal Answer & Science</summary>
-          <p class="mt-2 font-normal leading-relaxed text-slate-400">
-            The Necker Cube is a wireframe bistable projection. With no depth markers, both the front and back planes are equally plausible, causing the visual system to constantly toggle the cube's orientation in 3D space.
-          </p>
-        </details>
-
-        <!-- Explore Link -->
-        <div class="w-full mt-4 pt-4 border-t border-slate-500/10 flex justify-between items-center text-xs font-black text-indigo-400 hover:text-indigo-300 transition-colors">
-          <span>Explore Science & Facts</span>
-          <a href="/illusions/necker-cube" class="hover:underline">Explore &rarr;</a>
-        </div>
-</div>
 
 
       <!-- ===== CARD 11: RABBIT OR DUCK — SEASONAL ===== -->
@@ -1094,7 +1021,7 @@ import Layout from '../layouts/Layout.astro';
   <section id="results-section" class="wdys-results-section" style="display:none">
     <div class="wdys-results-inner">
       <h2 class="wdys-results-title">🧠 Your Brain Profile</h2>
-      <p class="wdys-results-sub">Based on your 12 first-impression choices:</p>
+      <p class="wdys-results-sub">Based on your 10 first-impression choices:</p>
       <div class="wdys-brain-card" id="brain-result-card">
         <div class="wdys-brain-icon" id="brain-icon">🧠</div>
         <h3 class="wdys-brain-type" id="brain-type-label">Analyzing...</h3>
@@ -1509,10 +1436,6 @@ import Layout from '../layouts/Layout.astro';
     }
     .dancer-label { font-size: 0.78rem; color: #94a3b8; display: flex; align-items: center; gap: 0.4rem; }
 
-    /* ===================== NECKER ===================== */
-    .necker-wrap { display: flex; flex-direction: column; align-items: center; gap: 0.75rem; }
-    .necker-flip-btn { margin-top: 0.25rem; }
-
     /* ===================== DOTS ===================== */
     .dots-stage { position: relative; }
     .dots-cover-overlay {
@@ -1667,7 +1590,7 @@ import Layout from '../layouts/Layout.astro';
   //  PROGRESS TRACKER
   // ============================================================
   let answeredCount = 0;
-  const TOTAL = 12;
+  const TOTAL = 10;
 
   function updateProgress() {
     const pct = Math.round((answeredCount / TOTAL) * 100);
@@ -1797,25 +1720,26 @@ import Layout from '../layouts/Layout.astro';
     const votes = loadVotes();
     // Tally "a" vs "b" choices — "a" = first/creative, "b" = second/analytical
     let aCount = 0, bCount = 0;
-    for (let i = 1; i <= 12; i++) {
-      const v = votes[String(i)];
+    const visibleCards = ['1', '2', '3', '4', '5', '6', '7', '8', '11', '12'];
+    visibleCards.forEach(card => {
+      const v = votes[card];
       if (v === 'a') aCount++;
       else if (v === 'b' || v === 'c') bCount++;
-    }
+    });
 
     const icon = document.getElementById('brain-icon');
     const label = document.getElementById('brain-type-label');
     const desc = document.getElementById('brain-desc');
 
-    if (aCount >= 9) {
+    if (aCount >= 8) {
       icon.textContent = '🎨';
       label.textContent = 'Right-Brain Creative Tendency';
       desc.textContent = 'You consistently gravitate toward the first, often more visually intuitive interpretation. Your visual cortex shows strong top-down creative priming — you tend to see the "big picture" before the details. Artists, musicians, and lateral thinkers share this pattern.';
-    } else if (bCount >= 9) {
+    } else if (bCount >= 8) {
       icon.textContent = '🔬';
       label.textContent = 'Left-Brain Analytical Tendency';
       desc.textContent = 'You consistently select the second interpretation — often the more contextual, detail-oriented reading. Your visual system excels at bottom-up feature analysis before pattern completion. Scientists, engineers, and systematic thinkers share this perceptual style.';
-    } else if (Math.abs(aCount - bCount) <= 3) {
+    } else if (Math.abs(aCount - bCount) <= 2) {
       icon.textContent = '⚖️';
       label.textContent = 'Whole-Brain Integrative Thinker';
       desc.textContent = 'Your first impressions are beautifully balanced — you switch fluidly between creative and analytical interpretations. Neuroscience calls this high perceptual flexibility. You can train yourself to see both versions of any ambiguous figure with ease.';
@@ -1830,7 +1754,7 @@ import Layout from '../layouts/Layout.astro';
     }
 
     document.getElementById('score-breakdown').innerHTML =
-      `<span>🎨 First-choice: ${aCount}</span><span>🔬 Second/Third-choice: ${bCount}</span><span>Total answered: ${aCount + bCount} / 12</span>`;
+      `<span>🎨 First-choice: ${aCount}</span><span>🔬 Second/Third-choice: ${bCount}</span><span>Total answered: ${aCount + bCount} / 10</span>`;
   }
 
   function shareResult() {
@@ -1878,32 +1802,7 @@ import Layout from '../layouts/Layout.astro';
     }
   }
 
-  // ============================================================
-  //  NECKER CUBE FLIP (card 9)
-  // ============================================================
-  let neckerFlipped = false;
-  function neckerFlip() {
-    neckerFlipped = !neckerFlipped;
-    const front = document.getElementById('necker-front');
-    const back = document.getElementById('necker-back');
-    if (neckerFlipped) {
-      front.style.stroke = '#6366f1';
-      front.style.strokeDasharray = '6,4';
-      back.style.stroke = '#e2e8f0';
-      back.style.strokeDasharray = 'none';
-    } else {
-      front.style.stroke = '#e2e8f0';
-      front.style.strokeDasharray = 'none';
-      back.style.stroke = '#6366f1';
-      back.style.strokeDasharray = '6,4';
-    }
-  }
-  // Auto-flip timer
-  setInterval(() => {
-    const votes = loadVotes();
-    if (!votes['9']) return; // only animate after voting
-    neckerFlip();
-  }, 4200);
+
 
   // ============================================================
   //  SPINNING DANCER (card 8)
@@ -1987,6 +1886,25 @@ import Layout from '../layouts/Layout.astro';
       document.getElementById('results-section').style.display = 'block';
       showResults();
     }
+
+    // Make cards clickable
+    const wdysCards = document.querySelectorAll('.wdys-card');
+    wdysCards.forEach(card => {
+      card.style.cursor = 'pointer';
+      card.addEventListener('click', (e) => {
+        const target = e.target as HTMLElement;
+        if (target.closest('button, input, select, details, summary, a, svg, iframe')) {
+          return;
+        }
+        const link = card.querySelector('a') || card.querySelector('a[href^="/illusions/"]');
+        if (link) {
+          const href = link.getAttribute('href');
+          if (href) {
+            window.location.href = href;
+          }
+        }
+      });
+    });
 
     // Attach vote listeners
     document.querySelectorAll('.wdys-vote-btn').forEach(btn => {

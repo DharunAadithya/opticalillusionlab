@@ -1,6 +1,7 @@
 ---
 // src/pages/illusions/ponzo-illusion.astro
 import Layout from '../../layouts/Layout.astro';
+import PonzoDemo from '../../components/illusions/PonzoDemo.astro';
 
 // Math Helper: draws an SVG wedge from (cx, cy) out to radius r
 function getWedgePath(cx: number, cy: number, r: number, startAngle: number, endAngle: number) {
@@ -58,31 +59,7 @@ function getWedgePath(cx: number, cy: number, r: number, startAngle: number, end
     <!-- LARGE INTERACTIVE DEMO (600px wide, centered) -->
     <div class="flex flex-col items-center justify-center py-6 border-b border-indigo-500/10">
       <div class="w-full max-w-[600px] mx-auto space-y-4">
-        <div id="ponzo-illusion" class="relative flex flex-col items-center justify-center h-96 w-full bg-slate-100 dark:bg-slate-950/40 rounded-xl overflow-hidden border border-indigo-500/10">
-          <svg class="w-full h-80 p-6 select-none" viewBox="0 0 200 200">
-            <line x1="25" y1="180" x2="90" y2="20" stroke="#94a3b8" stroke-width="4" stroke-linecap="round" />
-            <line x1="175" y1="180" x2="110" y2="20" stroke="#94a3b8" stroke-width="4" stroke-linecap="round" />
-            
-            <line x1="32" y1="160" x2="168" y2="160" stroke="#cbd5e1" stroke-width="2" />
-            <line x1="45" y1="130" x2="155" y2="130" stroke="#cbd5e1" stroke-width="2" />
-            <line x1="58" y1="100" x2="142" y2="100" stroke="#cbd5e1" stroke-width="2" />
-            <line x1="70" y1="75" x2="130" y2="75" stroke="#cbd5e1" stroke-width="2" />
-            <line x1="82" y1="50" x2="118" y2="50" stroke="#cbd5e1" stroke-width="2" />
-            
-            <line class="ponzo-guide opacity-0 transition-opacity duration-300" x1="75" y1="10" x2="75" y2="190" stroke="#a855f7" stroke-width="1.5" stroke-dasharray="3,3" />
-            <line class="ponzo-guide opacity-0 transition-opacity duration-300" x1="125" y1="10" x2="125" y2="190" stroke="#a855f7" stroke-width="1.5" stroke-dasharray="3,3" />
-
-            <!-- Yellow bars -->
-            <rect class="ponzo-bar-bottom transition-all duration-500" x="75" y="142" width="50" height="8" fill="#eab308" rx="1.5" />
-            <rect class="ponzo-bar-top transition-all duration-500" x="75" y="60" width="50" height="8" fill="#eab308" rx="1.5" />
-          </svg>
-          
-          <div class="absolute bottom-4">
-            <button class="toggle-ponzo text-sm font-semibold px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white shadow-md transition-colors">
-              Reveal Truth
-            </button>
-          </div>
-        </div>
+        <PonzoDemo isCard={false} />
     
         <div class="text-center text-xs text-slate-500 dark:text-slate-400 italic">
           Use the controllers inside the display card to interact with the visual triggers.
@@ -223,12 +200,12 @@ function getWedgePath(cx: number, cy: number, r: number, startAngle: number, end
     
 
       <a 
-        href="/illusions/ames-room" 
+        href="/illusions/hermann-grid" 
         class="group rounded-xl border border-indigo-950/20 bg-white dark:bg-slate-900/60 p-5 shadow-lg hover:border-purple-500/40 hover:-translate-y-1 hover:shadow-purple-500/10 transition-all duration-300"
       >
         <div class="text-[10px] font-bold text-purple-400 uppercase tracking-wide">Related Illusion</div>
         <h4 class="font-display text-base font-bold text-slate-900 dark:text-white mt-1 group-hover:text-purple-400 transition-colors">
-          Ames Room &rarr;
+          Hermann Grid &rarr;
         </h4>
       </a>
     
@@ -270,49 +247,5 @@ function getWedgePath(cx: number, cy: number, r: number, startAngle: number, end
     };
     checkSpeed();
     window.addEventListener('storage', checkSpeed);
-
-    // Prevent propagation on inner interactive controllers so we don't trigger parent clicks (if wrapped)
-    const innerControls = document.querySelectorAll('.interactive-demo-card button, .interactive-demo-card input, .interactive-demo-card select');
-    innerControls.forEach(ctrl => {
-      ctrl.addEventListener('click', (e) => e.stopPropagation());
-    });
-
-    // Local script logic from original file
-    // Share Page Link copying
-    
-
-    // Custom CSS animations variable bindings
-    
-    
-    // Embed specific illusion script logic
-    
-      const ponzoContainer = document.getElementById('ponzo-illusion');
-      const togglePonzoBtn = ponzoContainer?.querySelector('.toggle-ponzo');
-      const topBar = ponzoContainer?.querySelector('.ponzo-bar-top');
-      const bottomBar = ponzoContainer?.querySelector('.ponzo-bar-bottom');
-      const guides = ponzoContainer?.querySelectorAll('.ponzo-guide');
-      
-      let truthShown = false;
-
-      togglePonzoBtn?.addEventListener('click', () => {
-        truthShown = !truthShown;
-        
-        if (truthShown) {
-          // Slide top bar down next to the bottom one
-          topBar?.setAttribute('transform', 'translate(0, 74)');
-          guides?.forEach(g => {
-            g.classList.remove('opacity-0');
-            g.classList.add('opacity-100');
-          });
-          if (togglePonzoBtn) togglePonzoBtn.textContent = 'Reset';
-        } else {
-          topBar?.removeAttribute('transform');
-          guides?.forEach(g => {
-            g.classList.remove('opacity-100');
-            g.classList.add('opacity-0');
-          });
-          if (togglePonzoBtn) togglePonzoBtn.textContent = 'Reveal Truth';
-        }
-      });
   </script>
 </Layout>

@@ -1,0 +1,120 @@
+---
+interface Props {
+  isCard?: boolean;
+}
+
+const { isCard = false } = Astro.props;
+---
+
+<div class="delboeuf-container flex flex-col items-center w-full select-none" data-is-card={isCard ? "true" : "false"}>
+  <div class="relative flex flex-col items-center justify-center bg-slate-50 dark:bg-slate-900/40 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-inner w-full min-h-[300px] md:min-h-[360px] p-6 pb-24">
+    
+    <!-- SVG Area -->
+    <svg class="w-full max-w-[280px] h-auto aspect-square select-none overflow-visible rounded-xl shadow-sm border border-slate-200 dark:border-slate-850 bg-white dark:bg-slate-950 p-4" viewBox="0 0 200 100">
+      <!-- Horizontal measuring guidelines (glowing red) proving inner circles are exactly equal -->
+      <line class="delboeuf-guide opacity-0 transition-opacity duration-300" x1="10" y1="38" x2="190" y2="38" stroke="#f43f5e" stroke-width="1.5" stroke-dasharray="3,3" />
+      <line class="delboeuf-guide opacity-0 transition-opacity duration-300" x1="10" y1="62" x2="190" y2="62" stroke="#f43f5e" stroke-width="1.5" stroke-dasharray="3,3" />
+
+      <!-- Left Circle (large outer ring, r=30) -->
+      <g transform="translate(60, 50)" class="left-group">
+        <circle class="outer-ring-l transition-opacity duration-300" cx="0" cy="0" r="30" fill="none" stroke="#475569" stroke-width="3.5" />
+        <circle cx="0" cy="0" r="12" fill="#4f46e5" />
+      </g>
+      
+      <!-- Right Circle (adjustable outer ring, default r=16) -->
+      <g transform="translate(140, 50)" class="right-group">
+        <circle class="outer-ring-r transition-all duration-100" cx="0" cy="0" r="16" fill="none" stroke="#475569" stroke-width="3.5" />
+        <circle cx="0" cy="0" r="12" fill="#4f46e5" />
+      </g>
+    </svg>
+
+    <!-- Controls Panel -->
+    <div class="absolute bottom-2 w-11/12 px-4 flex flex-col gap-1.5 bg-white/95 dark:bg-slate-900/90 p-2.5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm z-20">
+      <div class="flex items-center justify-between gap-2">
+        <button class="btn-toggle-delboeuf text-[11px] font-bold px-5 py-2.5 rounded-lg border-none bg-[#7C3AED] hover:bg-[#6D28D9] text-white shadow-sm transition-all flex-1 text-center cursor-pointer">
+          Hide Outer Rings
+        </button>
+        <button class="btn-toggle-delboeuf-guides text-[11px] font-bold px-5 py-2.5 rounded-lg border-none bg-[#7C3AED] hover:bg-[#6D28D9] text-white shadow-sm transition-all flex-1 text-center cursor-pointer">
+          Reveal Equality
+        </button>
+      </div>
+
+      <div class="flex items-center gap-2 w-full mt-1.5">
+        <span class="text-[9px] text-slate-500 dark:text-slate-400 font-bold uppercase whitespace-nowrap">Right Ring Size:</span>
+        <input type="range" min="14" max="38" value="16" class="delboeuf-slider w-full h-1 bg-slate-200 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-indigo-600 focus:outline-none" />
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function initDelboeuf() {
+    const containers = document.querySelectorAll('.delboeuf-container');
+    containers.forEach(container => {
+      if (container.getAttribute('data-initialized') === 'true') return;
+      container.setAttribute('data-initialized', 'true');
+
+      const outerL = container.querySelector('.outer-ring-l') as HTMLElement;
+      const outerR = container.querySelector('.outer-ring-r') as HTMLElement;
+      const guides = container.querySelectorAll('.delboeuf-guide');
+      const btnToggleRings = container.querySelector('.btn-toggle-delboeuf');
+      const btnToggleGuides = container.querySelector('.btn-toggle-delboeuf-guides');
+      const slider = container.querySelector('.delboeuf-slider') as HTMLInputElement;
+
+      let ringsHidden = false;
+      let guidesActive = false;
+
+      // Toggle outer rings
+      btnToggleRings?.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        ringsHidden = !ringsHidden;
+
+        if (ringsHidden) {
+          if (outerL) outerL.style.opacity = '0';
+          if (outerR) outerR.style.opacity = '0';
+          btnToggleRings.textContent = 'Show Outer Rings';
+          slider.setAttribute('disabled', 'true');
+          slider.classList.add('opacity-40');
+        } else {
+          if (outerL) outerL.style.opacity = '1';
+          if (outerR) outerR.style.opacity = '1';
+          btnToggleRings.textContent = 'Hide Outer Rings';
+          slider.removeAttribute('disabled');
+          slider.classList.remove('opacity-40');
+        }
+      });
+
+      // Toggle guidelines
+      btnToggleGuides?.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        guidesActive = !guidesActive;
+
+        guides.forEach(g => {
+          if (guidesActive) {
+            g.classList.remove('opacity-0');
+            g.classList.add('opacity-100');
+          } else {
+            g.classList.remove('opacity-100');
+            g.classList.add('opacity-0');
+          }
+        });
+
+        if (btnToggleGuides) {
+          btnToggleGuides.textContent = guidesActive ? 'Hide Guidelines' : 'Reveal Equality';
+        }
+      });
+
+      // Slider resize
+      slider?.addEventListener('input', (e) => {
+        if (ringsHidden) return;
+        const val = (e.target as HTMLInputElement).value;
+        if (outerR) outerR.setAttribute('r', val);
+      });
+    });
+  }
+
+  initDelboeuf();
+  document.addEventListener('astro:page-load', initDelboeuf);
+</script>

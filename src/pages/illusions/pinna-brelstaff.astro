@@ -1,6 +1,7 @@
 ---
 // src/pages/illusions/pinna-brelstaff.astro
 import Layout from '../../layouts/Layout.astro';
+import PinnaBrelstaffDemo from '../../components/illusions/PinnaBrelstaffDemo.astro';
 
 // Math Helper: draws an SVG wedge from (cx, cy) out to radius r
 function getWedgePath(cx: number, cy: number, r: number, startAngle: number, endAngle: number) {
@@ -58,61 +59,7 @@ function getWedgePath(cx: number, cy: number, r: number, startAngle: number, end
     <!-- LARGE INTERACTIVE DEMO (600px wide, centered) -->
     <div class="flex flex-col items-center justify-center py-6 border-b border-indigo-500/10">
       <div class="w-full max-w-[600px] mx-auto space-y-4">
-        <div id="pinna-illusion" class="relative flex flex-col items-center justify-center h-96 w-full bg-slate-900 rounded-xl overflow-hidden border border-indigo-500/10 p-4">
-          <svg class="pinna-svg w-72 h-72 select-none overflow-visible" viewBox="0 0 200 200">
-            <circle cx="100" cy="100" r="3" fill="currentColor" />
-            <!-- Inner Ring (16 chevrons tilted counter-clockwise) -->
-            <g class="pinna-ring-1 origin-center" style="transform-origin: 100px 100px;">
-              <g transform="translate(145, 100) rotate(0)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#ffffff" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#000000" /></g>
-              <g transform="translate(141.5, 117.2) rotate(22.5)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#ffffff" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#000000" /></g>
-              <g transform="translate(131.8, 131.8) rotate(45)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#ffffff" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#000000" /></g>
-              <g transform="translate(117.2, 141.5) rotate(67.5)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#ffffff" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#000000" /></g>
-              <g transform="translate(100, 145) rotate(90)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#ffffff" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#000000" /></g>
-              <g transform="translate(82.8, 141.5) rotate(112.5)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#ffffff" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#000000" /></g>
-              <g transform="translate(68.2, 131.8) rotate(135)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#ffffff" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#000000" /></g>
-              <g transform="translate(58.5, 117.2) rotate(157.5)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#ffffff" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#000000" /></g>
-              <g transform="translate(55, 100) rotate(180)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#ffffff" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#000000" /></g>
-              <g transform="translate(58.5, 82.8) rotate(202.5)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#ffffff" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#000000" /></g>
-              <g transform="translate(68.2, 68.2) rotate(225)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#ffffff" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#000000" /></g>
-              <g transform="translate(82.8, 58.5) rotate(247.5)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#ffffff" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#000000" /></g>
-              <g transform="translate(100, 55) rotate(270)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#ffffff" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#000000" /></g>
-              <g transform="translate(117.2, 58.5) rotate(292.5)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#ffffff" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#000000" /></g>
-              <g transform="translate(131.8, 68.2) rotate(315)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#ffffff" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#000000" /></g>
-              <g transform="translate(141.5, 82.8) rotate(337.5)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#ffffff" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#000000" /></g>
-            </g>
-            <!-- Outer Ring (24 chevrons tilted clockwise) -->
-            <g class="pinna-ring-2 origin-center" style="transform-origin: 100px 100px;">
-              <g transform="translate(175, 100) rotate(0)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#000000" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#ffffff" /></g>
-              <g transform="translate(172.4, 119.4) rotate(15)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#000000" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#ffffff" /></g>
-              <g transform="translate(164.9, 137.5) rotate(30)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#000000" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#ffffff" /></g>
-              <g transform="translate(153, 153) rotate(45)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#000000" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#ffffff" /></g>
-              <g transform="translate(137.5, 164.9) rotate(60)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#000000" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#ffffff" /></g>
-              <g transform="translate(119.4, 172.4) rotate(75)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#000000" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#ffffff" /></g>
-              <g transform="translate(100, 175) rotate(90)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#000000" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#ffffff" /></g>
-              <g transform="translate(80.6, 172.4) rotate(105)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#000000" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#ffffff" /></g>
-              <g transform="translate(62.5, 164.9) rotate(120)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#000000" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#ffffff" /></g>
-              <g transform="translate(47, 153) rotate(135)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#000000" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#ffffff" /></g>
-              <g transform="translate(35.1, 137.5) rotate(150)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#000000" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#ffffff" /></g>
-              <g transform="translate(27.6, 119.4) rotate(165)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#000000" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#ffffff" /></g>
-              <g transform="translate(25, 100) rotate(180)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#000000" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#ffffff" /></g>
-              <g transform="translate(27.6, 80.6) rotate(195)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#000000" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#ffffff" /></g>
-              <g transform="translate(35.1, 62.5) rotate(210)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#000000" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#ffffff" /></g>
-              <g transform="translate(47, 47) rotate(225)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#000000" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#ffffff" /></g>
-              <g transform="translate(62.5, 35.1) rotate(240)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#000000" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#ffffff" /></g>
-              <g transform="translate(80.6, 27.6) rotate(255)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#000000" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#ffffff" /></g>
-              <g transform="translate(100, 25) rotate(270)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#000000" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#ffffff" /></g>
-              <g transform="translate(119.4, 27.6) rotate(285)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#000000" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#ffffff" /></g>
-              <g transform="translate(137.5, 35.1) rotate(300)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#000000" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#ffffff" /></g>
-              <g transform="translate(153, 47) rotate(315)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#000000" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#ffffff" /></g>
-              <g transform="translate(164.9, 62.5) rotate(330)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#000000" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#ffffff" /></g>
-              <g transform="translate(172.4, 80.6) rotate(345)"><path d="M -5,-3 L 5,-3 L 2,3 L -8,3 Z" fill="#000000" /><path d="M -5,-3 L 5,-3 L 2,-9 L -8,-9 Z" fill="#ffffff" /></g>
-            </g>
-          </svg>
-          <div class="absolute bottom-4 flex flex-col items-center bg-slate-950/80 px-4 py-2.5 rounded-xl border border-white/10 z-10 text-center max-w-[85%] select-none">
-            <span class="text-[10px] text-purple-400 font-black tracking-widest uppercase mb-1">🎯 Try This: Move your head closer/further from the screen while staring at the center.</span>
-            <span class="text-xs text-amber-400 font-bold block">Freeze-frame proof: This image has zero animation. Inspect the element if you don't believe it!</span>
-          </div>
-        </div>
+        <PinnaBrelstaffDemo isCard={false} />
     
         <div class="text-center text-xs text-slate-500 dark:text-slate-400 italic">
           This illusion uses a fixed display for accuracy.
@@ -239,23 +186,23 @@ function getWedgePath(cx: number, cy: number, r: number, startAngle: number, end
     
 
       <a 
-        href="/illusions/moving-circles" 
+        href="/illusions/afterimage-lightbulb" 
         class="group rounded-xl border border-indigo-950/20 bg-white dark:bg-slate-900/60 p-5 shadow-lg hover:border-purple-500/40 hover:-translate-y-1 hover:shadow-purple-500/10 transition-all duration-300"
       >
         <div class="text-[10px] font-bold text-purple-400 uppercase tracking-wide">Related Illusion</div>
         <h4 class="font-display text-base font-bold text-slate-900 dark:text-white mt-1 group-hover:text-purple-400 transition-colors">
-          Moving Circles &rarr;
+          Afterimage Light Bulb &rarr;
         </h4>
       </a>
     
 
       <a 
-        href="/illusions/breathing-square" 
+        href="/illusions/troxler-fading" 
         class="group rounded-xl border border-indigo-950/20 bg-white dark:bg-slate-900/60 p-5 shadow-lg hover:border-purple-500/40 hover:-translate-y-1 hover:shadow-purple-500/10 transition-all duration-300"
       >
         <div class="text-[10px] font-bold text-purple-400 uppercase tracking-wide">Related Illusion</div>
         <h4 class="font-display text-base font-bold text-slate-900 dark:text-white mt-1 group-hover:text-purple-400 transition-colors">
-          Breathing Square &rarr;
+          Troxler Fading &rarr;
         </h4>
       </a>
     

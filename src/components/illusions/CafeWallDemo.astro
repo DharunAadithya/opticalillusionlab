@@ -1,0 +1,132 @@
+---
+interface Props {
+  isCard?: boolean;
+}
+
+const { isCard = false } = Astro.props;
+---
+
+<style>
+  .cafe-grid {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 240px;
+    background-color: var(--grout-color, #7f7f7f);
+    gap: var(--grout-height, 2px);
+    padding: var(--grout-height, 2px) 0;
+    overflow: hidden;
+  }
+  .cafe-row {
+    display: flex;
+    width: 320px;
+    transition: transform 0.3s ease-out;
+  }
+</style>
+
+<div class="cafe-container flex flex-col items-center w-full select-none" data-is-card={isCard ? "true" : "false"}>
+  <div class="relative flex flex-col items-center justify-center bg-slate-100 dark:bg-slate-950/20 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-inner w-full min-h-[300px] md:min-h-[360px] p-6 pb-20">
+    
+    <!-- Grid -->
+    <div class="cafe-grid border border-slate-350 dark:border-slate-800 rounded shadow-md">
+      {Array.from({ length: 6 }).map((_, rIndex) => {
+        const isEven = rIndex % 2 === 0;
+        const shift = isEven ? '12px' : '0px';
+        return (
+          <div 
+            class="cafe-row" 
+            style={{ transform: `translateX(${shift})` }}
+            data-even={isEven ? "true" : "false"}
+          >
+            {Array.from({ length: 12 }).map((_, sIndex) => (
+              <div class={`w-6 h-6 shrink-0 ${sIndex % 2 === 0 ? 'bg-slate-950' : 'bg-white'}`}></div>
+            ))}
+          </div>
+        )
+      })}
+    </div>
+
+    <!-- Controls Panel -->
+    <div class="absolute bottom-2 w-11/12 px-4 flex flex-col gap-1 bg-white/90 dark:bg-slate-900/90 p-2 rounded-xl backdrop-blur border border-slate-200 dark:border-white/5 shadow-sm z-20">
+      <div class="flex items-center justify-between text-[9px] text-slate-500 font-bold uppercase">
+        <span>Shift Offset</span>
+        <span class="cafe-shift-val text-purple-400 font-mono">12px</span>
+      </div>
+      <input type="range" min="0" max="24" value="12" class="cafe-slider w-full h-1 bg-slate-200 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-purple-600 focus:outline-none" />
+      
+      <div class="flex items-center justify-between text-[9px] text-slate-500 font-bold uppercase">
+        <span>Grout thickness</span>
+        <span class="cafe-thickness-val text-purple-400 font-mono">2px</span>
+      </div>
+      <input type="range" min="1" max="6" value="2" class="cafe-thickness-slider w-full h-1 bg-slate-200 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-purple-600 focus:outline-none" />
+
+      <div class="flex items-center justify-between mt-1">
+        <span class="text-[9px] text-slate-500 font-bold uppercase">Grout Color</span>
+        <div class="flex gap-1.5">
+          <button data-color="#7f7f7f" class="btn-grout-color w-3.5 h-3.5 rounded-full bg-[#7f7f7f] border border-white/20 ring-2 ring-purple-500" title="Classic Gray"></button>
+          <button data-color="#ffffff" class="btn-grout-color w-3.5 h-3.5 rounded-full bg-[#ffffff] border border-slate-300" title="White"></button>
+          <button data-color="#020617" class="btn-grout-color w-3.5 h-3.5 rounded-full bg-[#020617] border border-white/20" title="Dark Navy"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function initCafeWall() {
+    const containers = document.querySelectorAll('.cafe-container');
+    containers.forEach(container => {
+      if (container.getAttribute('data-initialized') === 'true') return;
+      container.setAttribute('data-initialized', 'true');
+
+      const grid = container.querySelector('.cafe-grid') as HTMLElement;
+      const rows = container.querySelectorAll('.cafe-row');
+      
+      const sliderShift = container.querySelector('.cafe-slider') as HTMLInputElement;
+      const valShift = container.querySelector('.cafe-shift-val') as HTMLElement;
+
+      const sliderThickness = container.querySelector('.cafe-thickness-slider') as HTMLInputElement;
+      const valThickness = container.querySelector('.cafe-thickness-val') as HTMLElement;
+
+      const colorBtns = container.querySelectorAll('.btn-grout-color');
+
+      // Adjust shift
+      sliderShift?.addEventListener('input', (e) => {
+        const val = (e.target as HTMLInputElement).value;
+        if (valShift) valShift.textContent = val + 'px';
+
+        rows.forEach(row => {
+          const isEven = row.getAttribute('data-even') === 'true';
+          const shift = isEven ? val + 'px' : '0px';
+          (row as HTMLElement).style.transform = `translateX(${shift})`;
+        });
+      });
+
+      // Adjust thickness
+      sliderThickness?.addEventListener('input', (e) => {
+        const val = (e.target as HTMLInputElement).value;
+        if (valThickness) valThickness.textContent = val + 'px';
+        grid.style.setProperty('--grout-height', val + 'px');
+      });
+
+      // Adjust grout color
+      colorBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+
+          colorBtns.forEach(b => b.classList.remove('ring-2', 'ring-purple-500'));
+          
+          const clicked = e.currentTarget as HTMLButtonElement;
+          clicked.classList.add('ring-2', 'ring-purple-500');
+
+          const color = clicked.getAttribute('data-color') || '#7f7f7f';
+          grid.style.setProperty('--grout-color', color);
+        });
+      });
+    });
+  }
+
+  initCafeWall();
+  document.addEventListener('astro:page-load', initCafeWall);
+</script>

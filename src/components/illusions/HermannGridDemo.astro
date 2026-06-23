@@ -1,0 +1,111 @@
+---
+interface Props {
+  isCard?: boolean;
+}
+
+const { isCard = false } = Astro.props;
+
+// Generate 8x8 Grid Squares
+// Square size = 50px, Alley width = 14px, spacing = 64px
+const gridSize = 8;
+const squareSize = 50;
+const spacing = 64;
+const padding = 10;
+
+const squares = [];
+for (let r = 0; r < gridSize; r++) {
+  for (let c = 0; c < gridSize; c++) {
+    squares.push({
+      x: padding + c * spacing,
+      y: padding + r * spacing
+    });
+  }
+}
+
+// Generate intersection coordinates for markers (7x7 intersections)
+const markers = [];
+for (let r = 0; r < gridSize - 1; r++) {
+  for (let c = 0; c < gridSize - 1; c++) {
+    markers.push({
+      x: padding + squareSize + c * spacing + 7, // Center of 14px alley
+      y: padding + squareSize + r * spacing + 7
+    });
+  }
+}
+---
+
+<div class="hermann-container flex flex-col items-center w-full select-none" data-is-card={isCard ? "true" : "false"}>
+  
+  <div class="relative flex flex-col items-center justify-center bg-white rounded-xl overflow-hidden border border-slate-300 shadow-inner w-full min-h-[420px] p-6 pb-20">
+    
+    <!-- SVG Area (Exactly 518x518 px, White background, black squares) -->
+    <svg class="w-full max-w-[360px] h-auto aspect-square select-none overflow-visible" viewBox="0 0 518 518">
+      <!-- Pure White Background -->
+      <rect x="0" y="0" width="518" height="518" fill="#ffffff" />
+
+      <!-- Grid Blocks (Pure Black, 50x50px) -->
+      <g class="hermann-blocks fill-[#000000]">
+        {squares.map(sq => (
+          <rect x={sq.x} y={sq.y} width={squareSize} height={squareSize} class="transition-all duration-200" />
+        ))}
+      </g>
+
+      <!-- Guidelines markers (Red circles at intersections, hidden by default) -->
+      <g class="hermann-markers opacity-0 transition-opacity duration-300 pointer-events-none">
+        {markers.map(m => (
+          <circle cx={m.x} cy={m.y} r="5" fill="#f43f5e" filter="drop-shadow(0 0 2px rgba(244, 63, 94, 0.6))" />
+        ))}
+      </g>
+    </svg>
+
+    <!-- Controls Panel -->
+    <div class="absolute bottom-3 z-20 flex gap-2">
+      <button class="btn-toggle-hermann text-[10px] font-bold px-3 py-1.5 rounded-lg border border-slate-350 bg-white hover:bg-slate-50 text-slate-700 transition-all shadow-sm">
+        Show Intersections
+      </button>
+    </div>
+  </div>
+
+  <!-- Instructions -->
+  <div class="mt-3 p-3 bg-white/40 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 rounded-xl text-center w-full max-w-md">
+    <p class="text-xs text-slate-755 dark:text-slate-300 leading-relaxed">
+      <strong>Instruction:</strong> Don't look directly at any intersection — look at the center of any black square and count the gray dots in your peripheral vision. Click "Show Intersections" to cover them with red dots, proving no gray exists.
+    </p>
+  </div>
+</div>
+
+<script>
+  function initHermann() {
+    const containers = document.querySelectorAll('.hermann-container');
+    containers.forEach(container => {
+      if (container.getAttribute('data-initialized') === 'true') return;
+      container.setAttribute('data-initialized', 'true');
+
+      const markers = container.querySelector('.hermann-markers') as HTMLElement;
+      const btnToggle = container.querySelector('.btn-toggle-hermann');
+
+      let markersActive = false;
+
+      btnToggle?.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        markersActive = !markersActive;
+
+        if (markersActive) {
+          markers.classList.remove('opacity-0');
+          markers.classList.add('opacity-100');
+          btnToggle.textContent = 'Hide Intersections';
+          btnToggle.classList.add('bg-purple-650', 'text-white');
+        } else {
+          markers.classList.remove('opacity-100');
+          markers.classList.add('opacity-0');
+          btnToggle.textContent = 'Show Intersections';
+          btnToggle.classList.remove('bg-purple-650', 'text-white');
+        }
+      });
+    });
+  }
+
+  initHermann();
+  document.addEventListener('astro:page-load', initHermann);
+</script>

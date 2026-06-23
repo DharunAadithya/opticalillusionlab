@@ -1,6 +1,7 @@
 ---
 // src/pages/illusions/delboeuf.astro
 import Layout from '../../layouts/Layout.astro';
+import DelboeufDemo from '../../components/illusions/DelboeufDemo.astro';
 ---
 
 <Layout 
@@ -56,42 +57,7 @@ import Layout from '../../layouts/Layout.astro';
           </div>
         </div>
 
-        <div id="delboeuf-illusion-card" class="relative flex flex-col items-center justify-center h-96 w-full bg-slate-950 rounded-xl overflow-hidden border border-indigo-500/10 p-6">
-          <span class="absolute top-3 left-3 text-[10px] font-bold px-2 py-0.5 rounded bg-slate-900/80 text-slate-400 border border-slate-700/50">This illusion uses a fixed display for accuracy.</span>
-          
-          <svg class="w-full h-56 select-none overflow-visible" viewBox="0 0 400 200" id="svg-delboeuf">
-            <!-- Grid Guide lines -->
-            <line id="delboeuf-guide-top" x1="50" y1="75" x2="350" y2="75" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="4,4" class="opacity-0 transition-opacity duration-300" />
-            <line id="delboeuf-guide-bottom" x1="50" y1="125" x2="350" y2="125" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="4,4" class="opacity-0 transition-opacity duration-300" />
-
-            <!-- Left Group (Large Outer Ring) -->
-            <g transform="translate(100, 100)">
-              <!-- Large Outer Ring -->
-              <circle id="left-outer-ring" cx="0" cy="0" r="55" fill="none" stroke="#64748b" stroke-width="3" />
-              <!-- Inner Circle -->
-              <circle cx="0" cy="0" r="25" fill="#3b82f6" />
-            </g>
-
-            <!-- Right Group (Small/Tight Outer Ring) -->
-            <g transform="translate(300, 100)">
-              <!-- Small Outer Ring -->
-              <circle id="right-outer-ring" cx="0" cy="0" r="30" fill="none" stroke="#64748b" stroke-width="3" />
-              <!-- Inner Circle -->
-              <circle cx="0" cy="0" r="25" fill="#3b82f6" />
-            </g>
-          </svg>
-
-          <!-- Control bar inside demo -->
-          <div class="absolute bottom-4 flex flex-col items-center space-y-2 w-11/12 bg-slate-900/90 border border-white/10 rounded-xl p-3 z-10 text-xs">
-            <div class="flex items-center justify-between w-full">
-              <span class="text-slate-400 font-bold">Left Outer Ring Size</span>
-              <input type="range" id="left-ring-slider" min="30" max="80" value="55" class="w-2/3 h-1 bg-slate-800 rounded-lg appearance-none accent-purple-650" />
-            </div>
-            <div class="flex space-x-2 pt-1 w-full justify-end">
-              <button id="toggle-guides-btn" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-indigo-950 text-slate-350 hover:bg-slate-800 transition-all">Reveal Truth</button>
-            </div>
-          </div>
-        </div>
+        <DelboeufDemo isCard={false} />
       </div>
     </div>
 
@@ -210,39 +176,19 @@ import Layout from '../../layouts/Layout.astro';
       });
     });
 
-    // Control logic
-    const leftSlider = document.getElementById('left-ring-slider') as HTMLInputElement;
-    const leftOuterRing = document.getElementById('left-outer-ring');
-    const guideTop = document.getElementById('delboeuf-guide-top');
-    const guideBottom = document.getElementById('delboeuf-guide-bottom');
-    const toggleBtn = document.getElementById('toggle-guides-btn');
-    
-    let showingGuides = false;
-
-    leftSlider?.addEventListener('input', (e) => {
-      const val = (e.target as HTMLInputElement).value;
-      if (leftOuterRing) {
-        leftOuterRing.setAttribute('r', val);
+    // Handle Global Speed Mult
+    const checkSpeed = () => {
+      const level = localStorage.getItem('speed-multiplier-level') || '5';
+      let multiplier = 1.0;
+      const parsed = parseInt(level);
+      if (parsed <= 5) {
+        multiplier = 0.2 + (parsed - 1) * 0.2;
+      } else {
+        multiplier = 1.0 + (parsed - 5) * 0.4;
       }
-    });
-
-    toggleBtn?.addEventListener('click', () => {
-      showingGuides = !showingGuides;
-      if (guideTop && guideBottom) {
-        if (showingGuides) {
-          guideTop.classList.remove('opacity-0');
-          guideTop.classList.add('opacity-100');
-          guideBottom.classList.remove('opacity-0');
-          guideBottom.classList.add('opacity-100');
-          if (toggleBtn) toggleBtn.textContent = 'Hide Truth';
-        } else {
-          guideTop.classList.remove('opacity-100');
-          guideTop.classList.add('opacity-0');
-          guideBottom.classList.remove('opacity-100');
-          guideBottom.classList.add('opacity-0');
-          if (toggleBtn) toggleBtn.textContent = 'Reveal Truth';
-        }
-      }
-    });
+      document.documentElement.style.setProperty('--speed-multiplier', multiplier.toString());
+    };
+    checkSpeed();
+    window.addEventListener('storage', checkSpeed);
   </script>
 </Layout>

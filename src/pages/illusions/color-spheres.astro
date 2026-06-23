@@ -1,6 +1,7 @@
 ---
 // src/pages/illusions/color-spheres.astro
 import Layout from '../../layouts/Layout.astro';
+import ColorSpheresDemo from '../../components/illusions/ColorSpheresDemo.astro';
 
 // Math Helper: draws an SVG wedge from (cx, cy) out to radius r
 function getWedgePath(cx: number, cy: number, r: number, startAngle: number, endAngle: number) {
@@ -58,46 +59,7 @@ function getWedgePath(cx: number, cy: number, r: number, startAngle: number, end
     <!-- LARGE INTERACTIVE DEMO (600px wide, centered) -->
     <div class="flex flex-col items-center justify-center py-6 border-b border-indigo-500/10">
       <div class="w-full max-w-[600px] mx-auto space-y-4">
-        <div id="spheres-illusion" class="relative flex flex-col items-center justify-center h-96 w-full bg-slate-900 rounded-xl overflow-hidden border border-indigo-500/10 p-4">
-          <svg class="w-72 h-72 select-none overflow-visible" viewBox="0 0 200 200">
-            <!-- 9 identical Gray spheres in a 3x3 grid -->
-            <g class="spheres">
-              <circle cx="50" cy="50" r="16" fill="#8a8a8a" />
-              <circle cx="100" cy="50" r="16" fill="#8a8a8a" />
-              <circle cx="150" cy="50" r="16" fill="#8a8a8a" />
-              <circle cx="50" cy="100" r="16" fill="#8a8a8a" />
-              <circle cx="100" cy="100" r="16" fill="#8a8a8a" />
-              <circle cx="150" cy="100" r="16" fill="#8a8a8a" />
-              <circle cx="50" cy="150" r="16" fill="#8a8a8a" />
-              <circle cx="100" cy="150" r="16" fill="#8a8a8a" />
-              <circle cx="150" cy="150" r="16" fill="#8a8a8a" />
-            </g>
-            <!-- Colored stripes overlaying -->
-            <g class="spheres-stripes transition-opacity duration-300">
-              <!-- Row 1: Red stripes pass OVER (looks red) -->
-              <line x1="10" y1="34" x2="190" y2="34" stroke="#ef4444" stroke-width="2.5" />
-              <line x1="10" y1="42" x2="190" y2="42" stroke="#ef4444" stroke-width="2.5" />
-              <line x1="10" y1="50" x2="190" y2="50" stroke="#ef4444" stroke-width="2.5" />
-              <line x1="10" y1="58" x2="190" y2="58" stroke="#ef4444" stroke-width="2.5" />
-              <line x1="10" y1="66" x2="190" y2="66" stroke="#ef4444" stroke-width="2.5" />
-              <!-- Row 2: Green stripes pass OVER (looks green) -->
-              <line x1="10" y1="84" x2="190" y2="84" stroke="#22c55e" stroke-width="2.5" />
-              <line x1="10" y1="92" x2="190" y2="92" stroke="#22c55e" stroke-width="2.5" />
-              <line x1="10" y1="100" x2="190" y2="100" stroke="#22c55e" stroke-width="2.5" />
-              <line x1="10" y1="108" x2="190" y2="108" stroke="#22c55e" stroke-width="2.5" />
-              <line x1="10" y1="116" x2="190" y2="116" stroke="#22c55e" stroke-width="2.5" />
-              <!-- Row 3: Blue stripes pass OVER (looks blue) -->
-              <line x1="10" y1="134" x2="190" y2="134" stroke="#3b82f6" stroke-width="2.5" />
-              <line x1="10" y1="142" x2="190" y2="142" stroke="#3b82f6" stroke-width="2.5" />
-              <line x1="10" y1="150" x2="190" y2="150" stroke="#3b82f6" stroke-width="2.5" />
-              <line x1="10" y1="158" x2="190" y2="158" stroke="#3b82f6" stroke-width="2.5" />
-              <line x1="10" y1="166" x2="190" y2="166" stroke="#3b82f6" stroke-width="2.5" />
-            </g>
-          </svg>
-          <div class="absolute bottom-4 text-xs font-bold text-slate-400 bg-slate-950/80 px-3 py-1.5 rounded-lg backdrop-blur">
-            Hover display to hide colored stripes
-          </div>
-        </div>
+        <ColorSpheresDemo isCard={false} />
     
         <div class="text-center text-xs text-slate-500 dark:text-slate-400 italic">
           Use the controllers inside the display card to interact with the visual triggers.
@@ -291,21 +253,5 @@ function getWedgePath(cx: number, cy: number, r: number, startAngle: number, end
     innerControls.forEach(ctrl => {
       ctrl.addEventListener('click', (e) => e.stopPropagation());
     });
-
-    // Local script logic from original file
-    const container = document.getElementById('spheres-illusion');
-      const stripes = container?.querySelector('.spheres-stripes') as HTMLElement;
-      container?.addEventListener('mouseenter', () => {
-        if (stripes) stripes.style.opacity = '0';
-      });
-      container?.addEventListener('mouseleave', () => {
-        if (stripes) stripes.style.opacity = '1';
-      });
-      container?.addEventListener('touchstart', () => {
-        if (stripes) stripes.style.opacity = '0';
-      });
-      container?.addEventListener('touchend', () => {
-        if (stripes) stripes.style.opacity = '1';
-      });
   </script>
 </Layout>

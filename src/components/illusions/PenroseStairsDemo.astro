@@ -1,0 +1,170 @@
+---
+interface Props {
+  isCard?: boolean;
+}
+
+const { isCard = false } = Astro.props;
+
+// Generate 12 isometric steps forming a closed loop on screen
+// We use a symmetric loop layout with z-height going up and down
+// so the screen coordinates close perfectly.
+const coords3d = [
+  { x: 0, y: 0, z: 0 },
+  { x: 1, y: 0, z: 1 },
+  { x: 2, y: 0, z: 2 },
+  { x: 3, y: 0, z: 3 },
+  { x: 3, y: 1, z: 4 },
+  { x: 3, y: 2, z: 5 },
+  { x: 3, y: 3, z: 6 },
+  { x: 2, y: 3, z: 5 },
+  { x: 1, y: 3, z: 4 },
+  { x: 0, y: 3, z: 3 },
+  { x: 0, y: 2, z: 2 },
+  { x: 0, y: 1, z: 1 }
+];
+
+// Isometric grid scales
+const Sx = 30;
+const Sy = 15;
+const Sz = 10;
+
+const steps = coords3d.map((pt, idx) => {
+  // Center coordinate of the step tread on a 400x400 canvas
+  const cx = 200 + Sx * (pt.x - pt.y);
+  const cy = 200 + Sy * (pt.x + pt.y) - Sz * pt.z;
+  
+  // Shading:
+  // - Top: #DDDDDD (Treads)
+  // - Left riser: #999999 (front) or #666666 (shadow)
+  // - Right riser: #666666 (shadow) or #999999 (front)
+  const w = 20; // rhombus half-width
+  const h = 10; // rhombus half-height
+  const rh = 15; // Riser height
+
+  const treadPoints = `${cx},${cy - h} ${cx + w},${cy} ${cx},${cy + h} ${cx - w},${cy}`;
+  
+  // Left riser face
+  const leftRiser = `${cx - w},${cy} ${cx},${cy + h} ${cx},${cy + h + rh} ${cx - w},${cy + rh}`;
+  
+  // Right riser face
+  const rightRiser = `${cx},${cy + h} ${cx + w},${cy} ${cx + w},${cy + rh} ${cx},${cy + h + rh}`;
+
+  // Color shading logic
+  const leftRiserColor = (idx >= 3 && idx <= 8) ? "#666666" : "#999999";
+  const rightRiserColor = (idx >= 3 && idx <= 8) ? "#999999" : "#666666";
+
+  return {
+    cx,
+    cy,
+    treadPoints,
+    leftRiser,
+    rightRiser,
+    leftRiserColor,
+    rightRiserColor,
+    idx
+  };
+});
+---
+
+<div class="stairs-container flex flex-col items-center w-full select-none" data-is-card={isCard ? "true" : "false"}>
+  
+  <div class="relative flex flex-col items-center justify-center bg-white rounded-xl overflow-hidden border border-slate-200 shadow-inner w-full min-h-[420px] p-6 pb-24">
+    
+    <!-- SVG Area (400x400 px) -->
+    <svg class="w-full max-w-[360px] h-auto aspect-square select-none overflow-visible" viewBox="0 0 400 400">
+      <defs>
+        <!-- Dotted path arrow marker -->
+        <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#7C3AED" />
+        </marker>
+        <!-- Isometric grid background -->
+        <pattern id="isometric-pattern" width="60" height="34.64" patternUnits="userSpaceOnUse" viewBox="0 0 60 34.64">
+          <path d="M 30 0 L 60 17.32 L 30 34.64 L 0 17.32 Z" fill="none" stroke="#e2e8f0" stroke-width="0.5" />
+          <line x1="30" y1="0" x2="30" y2="34.64" stroke="#e2e8f0" stroke-width="0.5" />
+        </pattern>
+      </defs>
+
+      <!-- Grid layer toggled via Show Grid button -->
+      <rect class="stairs-grid hidden w-full h-full pointer-events-none" fill="url(#isometric-pattern)" width="400" height="400" />
+
+      <!-- Impossible Staircase Block -->
+      <g class="stairs-block">
+        <!-- Solid supporting base column for visual solidity -->
+        <polygon points="140,210 170,205 170,300 140,300" fill="#666666" opacity="0.8" />
+        <polygon points="170,205 200,200 200,300 170,300" fill="#999999" opacity="0.8" />
+
+        {steps.map(step => (
+          <g class={`step-group step-${step.idx}`}>
+            <!-- Left-facing riser -->
+            <polygon points={step.leftRiser} fill={step.leftRiserColor} stroke="#444444" stroke-width="0.3" />
+            <!-- Right-facing riser -->
+            <polygon points={step.rightRiser} fill={step.rightRiserColor} stroke="#444444" stroke-width="0.3" />
+            <!-- Tread -->
+            <polygon points={step.treadPoints} fill="#DDDDDD" stroke="#888888" stroke-width="0.3" />
+          </g>
+        ))}
+      </g>
+
+      <!-- Dotted Tracing Path representing the endless loop -->
+      <path 
+        class="stairs-trace hidden stroke-[#7C3AED] stroke-[3] stroke-dasharray-[5,5] fill-none" 
+        d="M200,190 L230,195 L260,200 L290,205 L260,210 L230,215 L200,220 L170,215 L140,210 L110,205 L140,200 L170,195 Z"
+        marker-end="url(#arrow)"
+      />
+    </svg>
+
+    <!-- Controls Panel -->
+    <div class="absolute bottom-3 left-0 right-0 flex justify-center gap-3 px-4 z-20">
+      <button class="btn-toggle-grid bg-[#7C3AED] hover:bg-[#6D28D9] text-white text-[11px] font-bold px-5 py-2.5 rounded-lg border-none transition-colors shadow-sm cursor-pointer">
+        Show Grid
+      </button>
+      <button class="btn-trace-stairs bg-[#7C3AED] hover:bg-[#6D28D9] text-white text-[11px] font-bold px-5 py-2.5 rounded-lg border-none transition-colors shadow-sm cursor-pointer">
+        Trace Path
+      </button>
+    </div>
+  </div>
+
+  <!-- Instructions -->
+  <div class="mt-3 p-3 bg-white/40 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 rounded-xl text-center w-full max-w-md">
+    <p class="text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
+      <strong>Instruction:</strong> Observe the staircase. It climbs endlessly upward in a closed loop. Click "Trace Path" to show the endless loop path.
+    </p>
+  </div>
+</div>
+
+<script>
+  function initStairs() {
+    const containers = document.querySelectorAll('.stairs-container');
+    containers.forEach(container => {
+      if (container.getAttribute('data-initialized') === 'true') return;
+      container.setAttribute('data-initialized', 'true');
+
+      const btnGrid = container.querySelector('.btn-toggle-grid');
+      const btnTrace = container.querySelector('.btn-trace-stairs');
+      const grid = container.querySelector('.stairs-grid');
+      const trace = container.querySelector('.stairs-trace');
+
+      let gridActive = false;
+      let traceActive = false;
+
+      btnGrid?.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        gridActive = !gridActive;
+        if (grid) grid.classList.toggle('hidden', !gridActive);
+        if (btnGrid) btnGrid.textContent = gridActive ? 'Hide Grid' : 'Show Grid';
+      });
+
+      btnTrace?.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        traceActive = !traceActive;
+        if (trace) trace.classList.toggle('hidden', !traceActive);
+        if (btnTrace) btnTrace.textContent = traceActive ? 'Untrace Path' : 'Trace Path';
+      });
+    });
+  }
+
+  initStairs();
+  document.addEventListener('astro:page-load', initStairs);
+</script>

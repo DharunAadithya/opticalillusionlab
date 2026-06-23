@@ -1,6 +1,7 @@
 ---
 // src/pages/illusions/zoellner-illusion.astro
 import Layout from '../../layouts/Layout.astro';
+import ZoellnerDemo from '../../components/illusions/ZoellnerDemo.astro';
 
 // Math Helper: draws an SVG wedge from (cx, cy) out to radius r
 function getWedgePath(cx: number, cy: number, r: number, startAngle: number, endAngle: number) {
@@ -58,72 +59,7 @@ function getWedgePath(cx: number, cy: number, r: number, startAngle: number, end
     <!-- LARGE INTERACTIVE DEMO (600px wide, centered) -->
     <div class="flex flex-col items-center justify-center py-6 border-b border-indigo-500/10">
       <div class="w-full max-w-[600px] mx-auto space-y-4">
-        <div id="zoellner-illusion" class="relative flex flex-col items-center justify-center h-96 w-full bg-[#7f7f7f] rounded-xl overflow-hidden border border-indigo-500/10">
-          <svg class="w-72 h-72 select-none" viewBox="0 0 200 200">
-            <!-- 4 Parallel diagonal lines -->
-            <g class="zoellner-lines text-slate-950 dark:text-slate-100">
-              <line x1="20" y1="50" x2="180" y2="50" stroke="currentColor" stroke-width="3" />
-              <line x1="20" y1="85" x2="180" y2="85" stroke="currentColor" stroke-width="3" />
-              <line x1="20" y1="120" x2="180" y2="120" stroke="currentColor" stroke-width="3" />
-              <line x1="20" y1="155" x2="180" y2="155" stroke="currentColor" stroke-width="3" />
-            </g>
-            
-            <!-- Hatches -->
-            <g class="zoellner-hatches stroke-purple-400 stroke-[2] transition-opacity duration-300">
-              <!-- Row 1 -->
-              <line x1="25" y1="42" x2="35" y2="58" />
-              <line x1="43" y1="42" x2="53" y2="58" />
-              <line x1="61" y1="42" x2="71" y2="58" />
-              <line x1="79" y1="42" x2="89" y2="58" />
-              <line x1="97" y1="42" x2="107" y2="58" />
-              <line x1="115" y1="42" x2="125" y2="58" />
-              <line x1="133" y1="42" x2="143" y2="58" />
-              <line x1="151" y1="42" x2="161" y2="58" />
-              <line x1="169" y1="42" x2="179" y2="58" />
-              
-              <!-- Row 2 (alternate angle) -->
-              <line x1="35" y1="77" x2="25" y2="93" />
-              <line x1="53" y1="77" x2="43" y2="93" />
-              <line x1="71" y1="77" x2="61" y2="93" />
-              <line x1="89" y1="77" x2="79" y2="93" />
-              <line x1="107" y1="77" x2="97" y2="93" />
-              <line x1="125" y1="77" x2="115" y2="93" />
-              <line x1="143" y1="77" x2="133" y2="93" />
-              <line x1="161" y1="77" x2="151" y2="93" />
-              <line x1="179" y1="77" x2="169" y2="93" />
-              
-              <!-- Row 3 -->
-              <line x1="25" y1="112" x2="35" y2="128" />
-              <line x1="43" y1="112" x2="53" y2="128" />
-              <line x1="61" y1="112" x2="71" y2="128" />
-              <line x1="79" y1="112" x2="89" y2="128" />
-              <line x1="97" y1="112" x2="107" y2="128" />
-              <line x1="115" y1="112" x2="125" y2="128" />
-              <line x1="133" y1="112" x2="143" y2="128" />
-              <line x1="151" y1="112" x2="161" y2="128" />
-              <line x1="169" y1="112" x2="179" y2="128" />
-              
-              <!-- Row 4 -->
-              <line x1="35" y1="147" x2="25" y2="163" />
-              <line x1="53" y1="147" x2="43" y2="163" />
-              <line x1="71" y1="147" x2="61" y2="163" />
-              <line x1="89" y1="147" x2="79" y2="163" />
-              <line x1="107" y1="147" x2="97" y2="163" />
-              <line x1="125" y1="147" x2="115" y2="163" />
-              <line x1="143" y1="147" x2="133" y2="163" />
-              <line x1="161" y1="147" x2="151" y2="163" />
-              <line x1="179" y1="147" x2="169" y2="163" />
-            </g>
-          </svg>
-          
-          <div class="absolute bottom-4 w-11/12 px-6 flex flex-col space-y-2 bg-white/80 dark:bg-slate-900/80 p-3 rounded-2xl backdrop-blur border border-slate-200 dark:border-white/5">
-            <div class="flex items-center justify-between text-xs text-slate-500 font-bold uppercase">
-              <span>Hatch Intensity</span>
-              <span class="zoellner-val text-purple-400 font-mono">100%</span>
-            </div>
-            <input type="range" min="0" max="100" value="100" class="zoellner-slider w-full h-1 bg-slate-200 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-purple-600 focus:outline-none" />
-          </div>
-        </div>
+        <ZoellnerDemo isCard={false} />
     
         <div class="text-center text-xs text-slate-500 dark:text-slate-400 italic">
           Use the controllers inside the display card to interact with the visual triggers.
@@ -311,21 +247,5 @@ function getWedgePath(cx: number, cy: number, r: number, startAngle: number, end
     };
     checkSpeed();
     window.addEventListener('storage', checkSpeed);
-
-    // Prevent propagation on inner interactive controllers so we don't trigger parent clicks (if wrapped)
-    const innerControls = document.querySelectorAll('.interactive-demo-card button, .interactive-demo-card input, .interactive-demo-card select');
-    innerControls.forEach(ctrl => {
-      ctrl.addEventListener('click', (e) => e.stopPropagation());
-    });
-
-    // Local script logic from original file
-    // Share Page Link copying
-    
-
-    // Custom CSS animations variable bindings
-    
-    
-    // Embed specific illusion script logic
-    undefined
   </script>
 </Layout>

@@ -1,81 +1,118 @@
 ---
-// src/pages/illusions/whites-illusion.astro
 import Layout from '../../layouts/Layout.astro';
 ---
 
 <Layout 
-  title="White's Illusion — Optical Illusion Lab" 
-  description="Explore the science, history, and visual parameters of the White's Illusion optical illusion."
+  title="White's Illusion — Interactive Optical Illusion | Optical Illusion Lab" 
+  description="Identical gray bars appear different brightness on black vs white stripes. Reveal the truth with our interactive White's Illusion demo."
 >
   <div class="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-12">
-    <!-- Breadcrumb back navigation -->
-    <nav class="flex text-xs font-black uppercase tracking-wider text-slate-400 space-x-2 pb-2 border-b border-indigo-500/10">
-      <a href="/" class="hover:text-white transition-colors">Home</a>
+    <nav class="flex text-xs font-black uppercase tracking-wider text-slate-500 dark:text-slate-400 space-x-2 pb-2 border-b border-indigo-500/10">
+      <a href="/" class="hover:text-purple-500 transition-colors">Home</a>
       <span>/</span>
-      <span class="text-purple-400">White's Illusion</span>
+      <a href="/color" class="hover:text-purple-500 transition-colors">Color</a>
+      <span>/</span>
+      <span class="text-purple-500">White's Illusion</span>
     </nav>
 
-    <!-- Hero Header -->
     <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6">
       <div class="space-y-3">
         <div class="flex items-center space-x-2">
-          <span class="text-xs font-black px-2.5 py-0.5 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 uppercase tracking-wider">Color</span>
-          <span class="text-xs font-black px-2.5 py-0.5 rounded-full bg-purple-500/10 text-purple-400 border border-purple-500/20 uppercase tracking-wider">🟡 Medium</span>
+          <span class="text-xs font-black px-2.5 py-0.5 rounded-full bg-indigo-500/10 text-indigo-500 dark:text-indigo-400 border border-indigo-500/20 uppercase tracking-wider">Gestalt Grouping</span>
+          <span class="text-xs font-black px-2.5 py-0.5 rounded-full bg-yellow-500/10 text-yellow-600 dark:text-yellow-400 border border-yellow-500/20 uppercase tracking-wider">🟡 Medium</span>
         </div>
-        <h1 class="font-display text-4xl sm:text-5xl font-black tracking-tight text-slate-900 dark:text-white">
-          White's Illusion
-        </h1>
-        <p class="text-slate-600 dark:text-slate-350 text-base max-w-2xl font-medium">
-          Discover how the brain interprets this fascinating color visual puzzle.
+        <h1 class="font-display text-4xl sm:text-5xl font-black tracking-tight text-slate-900 dark:text-white">White's Illusion</h1>
+        <p class="text-slate-600 dark:text-slate-400 text-base max-w-2xl font-medium">
+          Two identical gray bars look completely different depending on which stripes they interrupt — a classic challenge to lateral inhibition theory.
         </p>
       </div>
+      <button id="share-illusion-page-btn" class="relative shrink-0 flex items-center space-x-2 rounded-2xl bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-600 hover:scale-105 text-white font-black text-sm px-6 py-3.5 transition-all shadow-lg">
+        <span>Share Page</span>
+      </button>
     </div>
 
-    <!-- LARGE INTERACTIVE DEMO -->
-    <div class="flex flex-col items-center justify-center py-6 border-b border-indigo-500/10">
+    <div class="flex flex-col items-center py-6 border-b border-indigo-500/10">
       <div class="w-full max-w-[600px] mx-auto space-y-4">
-        <div class="relative flex flex-col items-center justify-center h-96 w-full bg-slate-100 dark:bg-slate-950/40 rounded-xl overflow-hidden border border-indigo-500/10 p-6">
-          <svg class="w-48 h-48 select-none bg-slate-100" viewBox="0 0 100 100">
-            <!-- Black and white stripes -->
-            <rect x="0" y="0" width="100" height="15" fill="#000" />
-            <rect x="0" y="30" width="100" height="15" fill="#000" />
-            <rect x="0" y="60" width="100" height="15" fill="#000" />
-            <rect x="0" y="90" width="100" height="10" fill="#000" />
-            <!-- Gray test patches -->
-            <rect x="25" y="10" width="12" height="25" fill="#7f7f7f" />
-            <rect x="65" y="25" width="12" height="25" fill="#7f7f7f" />
-          </svg>
+        <div class="bg-indigo-50 dark:bg-indigo-950/40 border border-indigo-500/25 rounded-2xl p-4 text-slate-700 dark:text-slate-300 text-xs sm:text-sm font-semibold">
+          👁️ WHAT TO LOOK FOR: Compare the left and right gray bars. The left bar (on white stripes) looks darker than the right bar (on black stripes). Click "Isolate Gray Bars" to remove the stripe background and prove they are identical.
         </div>
+
+        <div id="whites-demo" class="relative flex flex-col items-center justify-center min-h-[360px] w-full bg-slate-900 rounded-xl border border-indigo-500/10 p-6 pb-16">
+          <svg viewBox="0 0 280 160" width="280" height="160" class="rounded-lg border border-slate-700 select-none">
+            <rect width="280" height="160" fill="#ffffff" />
+            <g id="whites-stripes">
+              <rect x="0" y="20" width="280" height="18" fill="#000" />
+              <rect x="0" y="56" width="280" height="18" fill="#000" />
+              <rect x="0" y="92" width="280" height="18" fill="#000" />
+              <rect x="0" y="128" width="280" height="18" fill="#000" />
+            </g>
+            <rect x="55" y="30" width="28" height="110" fill="#7f7f7f" />
+            <rect x="185" y="44" width="28" height="96" fill="#7f7f7f" />
+            <text x="69" y="24" fill="#ef4444" font-size="11" font-weight="bold" text-anchor="middle">Left</text>
+            <text x="199" y="24" fill="#3b82f6" font-size="11" font-weight="bold" text-anchor="middle">Right</text>
+          </svg>
+          <div class="absolute bottom-4">
+            <button id="btn-whites-reveal" class="text-sm font-semibold px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white transition-colors">Isolate Gray Bars</button>
+          </div>
+        </div>
+        <p class="text-center text-xs text-slate-500 italic">Fixed dark display card — illusion accuracy does not depend on site theme.</p>
       </div>
     </div>
 
-    <!-- Content Split Layout -->
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 pt-4">
-      <!-- Left 2-Columns -->
-      <div class="lg:col-span-2 space-y-10">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+      <div class="lg:col-span-2 space-y-8">
         <section class="space-y-4">
-          <h2 class="font-display text-2xl font-black text-slate-900 dark:text-white flex items-center space-x-2">
-            <span class="text-purple-500">🧠</span>
-            <span>THE SCIENCE</span>
-          </h2>
-          <div class="prose prose-indigo dark:prose-invert text-slate-700 dark:text-slate-300 leading-relaxed text-xs sm:text-sm font-semibold text-justify">
-            <p>White's Illusion is a powerful brightness illusion described by Michael White in 1979. It consists of identical gray rectangles placed on a background of alternating black and white stripes. Some gray blocks sit on the black stripes, while others sit on the white stripes. Surprisingly, the gray blocks on the black stripes appear significantly darker than the gray blocks on the white stripes. This is counter-intuitive because standard lateral inhibition predicts that a dark background should make the gray block appear lighter. Instead, the brain groups the gray blocks with the stripes they interrupt, demonstrating that high-level grouping and Gestalt continuity override local retinal contrast calculations.</p>
+          <h2 class="font-display text-2xl font-black text-slate-900 dark:text-white"><span class="text-purple-500">🧠</span> THE SCIENCE</h2>
+          <div class="prose dark:prose-invert text-slate-700 dark:text-slate-300 text-sm leading-relaxed space-y-4 font-medium text-justify">
+            <p>White's Illusion, described by Michael White in 1979, is one of the most important counterexamples to simple lateral inhibition models of brightness perception. In the classic display, two physically identical gray rectangles are placed on a background of alternating black and white horizontal stripes. The gray bar that sits primarily on white stripes (interrupting them) appears noticeably darker than the gray bar that sits primarily on black stripes — the opposite of what standard retinal contrast would predict.</p>
+            <p>Neuroscientists now understand that higher-level Gestalt grouping mechanisms in visual areas V1 and V2 play a decisive role. The brain groups each gray bar with the stripe pattern it continues rather than with its immediate local background. Border ownership cells assign the shared edges to the stripe continuations, causing the gray patches to inherit different perceived lightness from their grouped context. This demonstrates that brightness is not computed purely from local photoreceptor ratios — it is a global, context-dependent inference, much like the color constancy calculations seen in Adelson's Checkerboard.</p>
+            <p>Functional MRI studies show that White's Illusion activates orientation-selective columns in V1 differently for each bar configuration, even when the gray values are identical on the retina. The effect persists when you know the bars match, confirming it arises from early visual processing rather than conscious judgment. Michael Bach's interactive demonstrations helped popularize this illusion as proof that "context beats pixels" in human vision.</p>
           </div>
         </section>
       </div>
-
-      <!-- Right Column -->
-      <div class="space-y-8">
-        <section class="rounded-3xl border border-indigo-950/20 bg-slate-900/60 p-6 space-y-4 shadow-xl">
-          <h3 class="font-display text-lg font-black text-slate-900 dark:text-white flex items-center space-x-2">
-            <span class="text-purple-500">📜</span>
-            <span>HISTORY</span>
-          </h3>
-          <p class="text-xs sm:text-sm text-slate-650 dark:text-slate-355 leading-relaxed font-semibold">
-            First described by Michael White (1979). It remains a fundamental demonstration of perceptual processing and cognitive framing.
-          </p>
+      <div class="space-y-6">
+        <section class="rounded-3xl border border-slate-200 dark:border-indigo-950/20 bg-slate-50 dark:bg-slate-900/60 p-6 space-y-3">
+          <h3 class="font-display text-lg font-black text-slate-900 dark:text-white">💡 FUN FACTS</h3>
+          <ul class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 space-y-2 font-medium">
+            <li>• White published the effect in 1979, overturning assumptions from Hermann Grid-style lateral inhibition models.</li>
+            <li>• The illusion works with color as well as grayscale — identical hue patches look different on varied backgrounds.</li>
+            <li>• Artists use White's principles in op-art to create shimmering, unstable brightness fields.</li>
+          </ul>
+        </section>
+        <section class="rounded-3xl border border-slate-200 dark:border-indigo-950/20 bg-slate-50 dark:bg-slate-900/60 p-6">
+          <h3 class="font-display text-lg font-black text-slate-900 dark:text-white mb-2">📜 WHO DISCOVERED IT</h3>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 font-medium"><strong>Michael White</strong>, Australian psychologist, 1979. His work shifted brightness research toward global scene parsing and Gestalt grouping.</p>
         </section>
       </div>
     </div>
+
+    <section class="border-t border-indigo-500/10 pt-12">
+      <h2 class="font-display text-2xl font-black text-slate-900 dark:text-white text-center mb-6">Related Illusions</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <a href="/illusions/simultaneous-contrast" class="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-5 hover:border-purple-500/40 hover:-translate-y-1 transition-all">
+          <h4 class="font-bold text-slate-900 dark:text-white">Simultaneous Contrast →</h4>
+        </a>
+        <a href="/illusions/adelsons-checkerboard" class="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-5 hover:border-purple-500/40 hover:-translate-y-1 transition-all">
+          <h4 class="font-bold text-slate-900 dark:text-white">Adelson Checkerboard →</h4>
+        </a>
+        <a href="/illusions/wertheimer-koffka" class="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-5 hover:border-purple-500/40 hover:-translate-y-1 transition-all">
+          <h4 class="font-bold text-slate-900 dark:text-white">Wertheimer-Koffka Ring →</h4>
+        </a>
+      </div>
+    </section>
   </div>
+
+  <script>
+    const btn = document.getElementById('btn-whites-reveal');
+    const stripes = document.getElementById('whites-stripes');
+    let hidden = false;
+    btn?.addEventListener('click', () => {
+      hidden = !hidden;
+      if (stripes) stripes.setAttribute('opacity', hidden ? '0.08' : '1');
+      if (btn) btn.textContent = hidden ? 'Show Background Stripes' : 'Isolate Gray Bars';
+    });
+    document.getElementById('share-illusion-page-btn')?.addEventListener('click', () => {
+      navigator.clipboard.writeText(window.location.href);
+    });
+  </script>
 </Layout>

@@ -1,0 +1,149 @@
+---
+interface Props {
+  isCard?: boolean;
+}
+
+const { isCard = false } = Astro.props;
+
+// Generate parallel lines at 30 degrees (slope = 0.57735)
+// Spaced to fill the entire 500x400 viewBox
+const lineSpacing = 45; // vertical offset spacing
+const offsets = [];
+for (let y = -200; y <= 500; y += lineSpacing) {
+  offsets.push(y);
+}
+
+const lines = offsets.map((offset, idx) => {
+  const x1 = -50;
+  const y1 = 0.57735 * x1 + offset;
+  const x2 = 550;
+  const y2 = 0.57735 * x2 + offset;
+  
+  // Cross hatch angle: alternating +45 and -45 degrees relative to the 30 degree main line
+  const baseAngle = idx % 2 === 0 ? 30 + 45 : 30 - 45;
+  const angleRad = baseAngle * Math.PI / 180;
+  
+  // Spacing along the line: 35px intervals
+  const hatches = [];
+  for (let s = -50; s <= 650; s += 35) {
+    const cx = s;
+    const cy = 0.57735 * s + offset;
+    
+    // Check if the hatch center lies inside the viewBox (plus some bleed)
+    if (cx >= -20 && cx <= 520 && cy >= -20 && cy <= 420) {
+      // Calculate end points of the 20px long hatch line
+      const dx = 10 * Math.cos(angleRad);
+      const dy = 10 * Math.sin(angleRad);
+      hatches.push({
+        x1: cx - dx,
+        y1: cy - dy,
+        x2: cx + dx,
+        y2: cy + dy
+      });
+    }
+  }
+  
+  return { x1, y1, x2, y2, hatches };
+});
+---
+
+<div class="zoellner-container flex flex-col items-center w-full select-none" data-is-card={isCard ? "true" : "false"}>
+  
+  <div class="relative flex flex-col items-center justify-center bg-white rounded-xl overflow-hidden border border-slate-200 shadow-inner w-full min-h-[380px] p-0">
+    
+    <!-- SVG Area (500x400 px, White background, black lines) -->
+    <svg class="w-full h-full min-h-[380px] select-none overflow-hidden" viewBox="0 0 500 400">
+      <defs>
+        <!-- Clip path to keep lines and hatches bounded within the viewBox -->
+        <clipPath id="zoellner-viewport">
+          <rect x="0" y="0" width="500" height="400" />
+        </clipPath>
+      </defs>
+
+      <!-- Draw all elements clipped to the viewport -->
+      <g clip-path="url(#zoellner-viewport)">
+        <!-- Background fill: Pure White -->
+        <rect x="0" y="0" width="500" height="400" fill="#FFFFFF" />
+
+        <!-- Main Parallel Lines (4px stroke, color #111111) -->
+        <g class="zoellner-main-lines stroke-[#111111] stroke-[4] stroke-linecap-round">
+          {lines.map(line => (
+            <line x1={line.x1} y1={line.y1} x2={line.x2} y2={line.y2} />
+          ))}
+        </g>
+
+        <!-- Crossing Hatches Group (3px stroke, color #111111, hidden on reveal) -->
+        <g class="zoellner-hatches stroke-[#111111] stroke-[3] stroke-linecap-round transition-opacity duration-300">
+          {lines.map(line => 
+            line.hatches.map(h => (
+              <line x1={h.x1} y1={h.y1} x2={h.x2} y2={h.y2} />
+            ))
+          )}
+        </g>
+
+        <!-- Horizontal Red Guide Lines (Shown on reveal at top and bottom of display area) -->
+        <g class="zoellner-guides hidden stroke-[#EF4444] stroke-[2.5] stroke-linecap-round stroke-dasharray-[6,4]">
+          <line x1="0" y1="30" x2="500" y2="30" />
+          <line x1="0" y1="370" x2="500" y2="370" />
+        </g>
+      </g>
+    </svg>
+
+    <!-- Controls Panel -->
+    <div class="absolute bottom-3 z-20">
+      <button class="btn-reveal-zoellner bg-[#7C3AED] hover:bg-[#6D28D9] text-white text-[10px] font-black px-4 py-2 rounded-lg border-none transition-colors shadow cursor-pointer">
+        Reveal Parallel Lines
+      </button>
+    </div>
+  </div>
+
+  <!-- Instructions -->
+  <div class="mt-3 p-3 bg-white/40 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 rounded-xl text-center w-full max-w-md">
+    <p class="text-xs text-slate-755 dark:text-slate-300 leading-relaxed">
+      <strong>Instruction:</strong> Observe the long diagonal lines. Do they look tilted or non-parallel? Click "Reveal Parallel Lines" to overlay horizontal red lines and hide the cross-hatches, proving the lines are parallel and equidistant.
+    </p>
+  </div>
+</div>
+
+<script>
+  function initZoellner() {
+    const containers = document.querySelectorAll('.zoellner-container');
+    containers.forEach(container => {
+      if (container.getAttribute('data-initialized') === 'true') return;
+      container.setAttribute('data-initialized', 'true');
+
+      const btn = container.querySelector('.btn-reveal-zoellner');
+      const hatches = container.querySelector('.zoellner-hatches') as HTMLElement;
+      const guides = container.querySelector('.zoellner-guides') as HTMLElement;
+
+      let isRevealed = false;
+
+      btn?.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        isRevealed = !isRevealed;
+
+        if (isRevealed) {
+          if (hatches) hatches.style.opacity = '0';
+          setTimeout(() => {
+            if (isRevealed) hatches?.classList.add('hidden');
+          }, 300);
+          guides?.classList.remove('hidden');
+          if (btn) btn.textContent = 'Reset Pattern';
+        } else {
+          hatches?.classList.remove('hidden');
+          setTimeout(() => {
+            if (!isRevealed) {
+              if (hatches) hatches.style.opacity = '1';
+            }
+          }, 10);
+          guides?.classList.add('hidden');
+          if (btn) btn.textContent = 'Reveal Parallel Lines';
+        }
+      });
+    });
+  }
+
+  initZoellner();
+  document.addEventListener('astro:page-load', initZoellner);
+</script>

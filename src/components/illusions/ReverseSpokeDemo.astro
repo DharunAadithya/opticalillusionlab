@@ -1,0 +1,114 @@
+---
+interface Props {
+  isCard?: boolean;
+}
+
+const { isCard = false } = Astro.props;
+---
+
+<div class="spoke-container flex flex-col items-center w-full select-none" data-is-card={isCard ? "true" : "false"}>
+  <div class="relative flex flex-col items-center justify-center bg-slate-950 rounded-xl overflow-hidden border border-slate-800 shadow-inner w-full min-h-[300px] md:min-h-[360px] p-6 pb-16">
+    <!-- Spinning colorful background wheel -->
+    <div class="absolute inset-0 flex items-center justify-center">
+      <svg class="spoke-bg-wheel w-64 h-64 origin-center" viewBox="0 0 200 200">
+        <!-- 8 high-contrast sectors -->
+        <path d="M 100,100 L 100,0 A 100,100 0 0,1 170.7,29.3 Z" fill="#ff0055" />
+        <path d="M 100,100 L 170.7,29.3 A 100,100 0 0,1 200,100 Z" fill="#0066ff" />
+        <path d="M 100,100 L 200,100 A 100,100 0 0,1 170.7,170.7 Z" fill="#00ff66" />
+        <path d="M 100,100 L 170.7,170.7 A 100,100 0 0,1 100,200 Z" fill="#ffe600" />
+        <path d="M 100,100 L 100,200 A 100,100 0 0,1 29.3,170.7 Z" fill="#b300ff" />
+        <path d="M 100,100 L 29.3,170.7 A 100,100 0 0,1 0,100 Z" fill="#ff00aa" />
+        <path d="M 100,100 L 0,100 A 100,100 0 0,1 29.3,29.3 Z" fill="#ff5500" />
+        <path d="M 100,100 L 29.3,29.3 A 100,100 0 0,1 100,0 Z" fill="#00f0ff" />
+      </svg>
+    </div>
+
+    <!-- Fixed spoke overlay grid (completely stationary) -->
+    <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+      <svg class="w-64 h-64 overflow-visible" viewBox="0 0 200 200">
+        <!-- Stationaries: thick black lines for high contrast -->
+        <g stroke="#000000" stroke-width="5" stroke-linecap="round" opacity="1">
+          <line x1="100" y1="100" x2="100" y2="10" />
+          <line x1="100" y1="100" x2="125" y2="15" />
+          <line x1="100" y1="100" x2="150" y2="30" />
+          <line x1="100" y1="100" x2="170" y2="50" />
+          <line x1="100" y1="100" x2="185" y2="75" />
+          <line x1="100" y1="100" x2="190" y2="100" />
+          <line x1="100" y1="100" x2="185" y2="125" />
+          <line x1="100" y1="100" x2="170" y2="150" />
+          <line x1="100" y1="100" x2="150" y2="170" />
+          <line x1="100" y1="100" x2="125" y2="185" />
+          <line x1="100" y1="100" x2="100" y2="190" />
+          <line x1="100" y1="100" x2="75" y2="185" />
+          <line x1="100" y1="100" x2="50" y2="170" />
+          <line x1="100" y1="100" x2="30" y2="150" />
+          <line x1="100" y1="100" x2="15" y2="125" />
+          <line x1="100" y1="100" x2="10" y2="100" />
+          <line x1="100" y1="100" x2="15" y2="75" />
+          <line x1="100" y1="100" x2="30" y2="50" />
+          <line x1="100" y1="100" x2="50" y2="30" />
+          <line x1="100" y1="100" x2="75" y2="15" />
+        </g>
+        <circle cx="100" cy="100" r="45" fill="none" stroke="#000000" stroke-width="6.5" />
+        <circle cx="100" cy="100" r="10" fill="#000000" />
+      </svg>
+    </div>
+
+    <!-- Play/Pause Control -->
+    <div class="absolute bottom-3 left-0 right-0 flex justify-center gap-2 px-4 z-20">
+      <button class="btn-toggle-spoke-spin text-[11px] font-bold px-3 py-1.5 rounded-lg border border-slate-700 bg-slate-900/90 text-slate-200 hover:bg-slate-800 hover:text-white transition-all">
+        Pause
+      </button>
+    </div>
+  </div>
+</div>
+
+<style>
+  .spoke-bg-wheel {
+    animation: spin-clockwise calc(10s / var(--speed-multiplier, 1)) linear infinite;
+  }
+
+  @keyframes spin-clockwise {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+</style>
+
+<script>
+  function initReverseSpoke() {
+    const containers = document.querySelectorAll('.spoke-container');
+    containers.forEach(container => {
+      if (container.getAttribute('data-initialized') === 'true') return;
+      container.setAttribute('data-initialized', 'true');
+
+      const bgWheel = container.querySelector('.spoke-bg-wheel') as HTMLElement;
+      const btn = container.querySelector('.btn-toggle-spoke-spin');
+      
+      let spinning = true;
+
+      const toggleSpin = (e: Event) => {
+        e.preventDefault();
+        e.stopPropagation();
+        spinning = !spinning;
+        
+        if (bgWheel) {
+          bgWheel.style.animationPlayState = spinning ? 'running' : 'paused';
+        }
+        if (btn) {
+          btn.textContent = spinning ? 'Pause' : 'Play';
+          btn.classList.toggle('bg-purple-600', !spinning);
+          btn.classList.toggle('text-white', !spinning);
+        }
+      };
+
+      btn?.addEventListener('click', toggleSpin);
+    });
+  }
+
+  initReverseSpoke();
+  document.addEventListener('astro:page-load', initReverseSpoke);
+</script>

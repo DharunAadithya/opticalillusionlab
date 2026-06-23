@@ -1,6 +1,7 @@
 ---
 // src/pages/illusions/adelsons-checkerboard.astro
 import Layout from '../../layouts/Layout.astro';
+import AdelsonDemo from '../../components/illusions/AdelsonDemo.astro';
 ---
 
 <Layout 
@@ -48,75 +49,11 @@ import Layout from '../../layouts/Layout.astro';
     <div class="flex flex-col items-center justify-center py-6 border-b border-indigo-500/10">
       <div class="w-full max-w-[600px] mx-auto space-y-4">
         
-        <!-- Instruction Text Box required by Section G -->
         <div class="bg-indigo-950/40 border border-indigo-500/25 rounded-2xl p-4 text-slate-300 text-xs sm:text-sm font-semibold">
-          👁️ WHAT TO LOOK FOR: Tile A is in light. Tile B is in shadow. Tile B looks lighter, but they\'re the exact same gray. Click \'Reveal Truth\' if you don\'t believe it.
+          👁️ WHAT TO LOOK FOR: Tile A sits in direct light on a dark checker square. Tile B sits in shadow on a light checker square. B looks much lighter — but both tiles are painted the exact same gray (#787878). Use Reveal Truth to connect them with a matching strip, or Remove Shadow to see B brighten.
         </div>
 
-        <div id="adelson-illusion-container" class="relative flex flex-col items-center justify-center h-96 w-full bg-slate-900 rounded-xl overflow-hidden border border-indigo-500/10 p-4">
-          
-          <!-- Wrapper for Board + cylinder + labels to keep geometry absolute -->
-          <div class="relative w-[320px] h-[320px] select-none rounded shadow-inner">
-            
-            <!-- 8x8 Checkerboard Grid -->
-            <div class="grid grid-cols-8 grid-rows-8 w-[320px] h-[320px]">
-              {Array.from({ length: 64 }).map((_, index) => {
-                const row = Math.floor(index / 8);
-                const col = index % 8;
-                const isDark = (row + col) % 2 === 0;
-                // #c8c8c8 for light, #888888 for dark (adjusted so Tile A renders as #888888 outside the shadow)
-                const bgColor = isDark ? '#888888' : '#c8c8c8';
-                return (
-                  <div 
-                    style={`background-color: ${bgColor};`} 
-                    class="w-10 h-10 transition-colors duration-300"
-                  />
-                );
-              })}
-            </div>
-
-            <!-- Shadow Overlay SVG (z-index 10) -->
-            <svg class="absolute inset-0 w-[320px] h-[320px] pointer-events-none" style="z-index: 10;">
-              <polygon 
-                id="adelson-shadow"
-                points="230,135 295,145 160,320 40,200" 
-                fill="rgba(0,0,0,0.32)" 
-                class="transition-opacity duration-300"
-              />
-            </svg>
-
-            <!-- Reveal Bridge SVG (z-index 20) -->
-            <svg class="absolute inset-0 w-[320px] h-[320px] pointer-events-none" style="z-index: 20;">
-              <line 
-                id="adelson-bridge" 
-                x1="100" y1="100" 
-                x2="180" y2="220" 
-                stroke="#888888" 
-                stroke-width="16" 
-                class="opacity-0 transition-opacity duration-300"
-              />
-            </svg>
-
-            <!-- Green Cylinder (60x140px, rounded bottom, top cap for 3D gradient effect, z-index 15) -->
-            <div class="absolute w-[60px] h-[140px] rounded-b-[20px] bg-gradient-to-r from-green-600 via-green-400 to-green-800 border border-green-700 shadow-lg" style="left: 230px; top: 10px; z-index: 15;">
-              <!-- Cylinder top cap for 3D effect -->
-              <div class="absolute top-0 left-0 w-full h-[20px] rounded-full bg-green-300 border border-green-400"></div>
-            </div>
-
-            <!-- Label A: white circle, black letter, z-index above everything (z-index 25), centered exactly on Tile A (Row 2, Col 2) -->
-            <div class="absolute w-6 h-6 rounded-full bg-white text-black flex items-center justify-center font-bold text-xs shadow-md select-none border border-black/10" style="left: 88px; top: 88px; z-index: 25;">A</div>
-
-            <!-- Label B: white circle, black letter, z-index above shadow (z-index 25), centered exactly on Tile B (Row 5, Col 4) -->
-            <div class="absolute w-6 h-6 rounded-full bg-white text-black flex items-center justify-center font-bold text-xs shadow-md select-none border border-black/10" style="left: 168px; top: 208px; z-index: 25;">B</div>
-
-          </div>
-
-          <!-- Controls inside the display card -->
-          <div class="absolute bottom-4 flex space-x-2 bg-slate-950/90 border border-white/10 rounded-xl p-1 z-30">
-            <button id="btn-toggle-bridge" class="text-xs font-bold px-3 py-1.5 rounded-lg text-slate-400 hover:text-white transition-all">Reveal Truth</button>
-            <button id="btn-toggle-shadow" class="text-xs font-bold px-3 py-1.5 rounded-lg text-slate-400 hover:text-white transition-all">Remove Shadow</button>
-          </div>
-        </div>
+        <AdelsonDemo isCard={false} />
     
         <div class="text-center text-xs text-slate-500 dark:text-slate-400 italic">
           This illusion uses a fixed display for accuracy.
@@ -270,49 +207,6 @@ import Layout from '../../layouts/Layout.astro';
           }, 2000);
         }
       });
-    });
-
-    // Control selectors
-    const shadowPolygon = document.getElementById('adelson-shadow');
-    const bridgeLine = document.getElementById('adelson-bridge');
-    const toggleBridgeBtn = document.getElementById('btn-toggle-bridge');
-    const toggleShadowBtn = document.getElementById('btn-toggle-shadow');
-
-    let shadowVisible = true;
-    let bridgeVisible = false;
-
-    toggleBridgeBtn?.addEventListener('click', () => {
-      bridgeVisible = !bridgeVisible;
-      if (bridgeLine) {
-        bridgeLine.style.opacity = bridgeVisible ? '1' : '0';
-      }
-      if (toggleBridgeBtn) {
-        toggleBridgeBtn.textContent = bridgeVisible ? 'Hide Bridge' : 'Reveal Truth';
-        if (bridgeVisible) {
-          toggleBridgeBtn.classList.add('bg-purple-600', 'text-white');
-          toggleBridgeBtn.classList.remove('text-slate-400');
-        } else {
-          toggleBridgeBtn.classList.remove('bg-purple-600', 'text-white');
-          toggleBridgeBtn.classList.add('text-slate-400');
-        }
-      }
-    });
-
-    toggleShadowBtn?.addEventListener('click', () => {
-      shadowVisible = !shadowVisible;
-      if (shadowPolygon) {
-        shadowPolygon.style.opacity = shadowVisible ? '1' : '0';
-      }
-      if (toggleShadowBtn) {
-        toggleShadowBtn.textContent = shadowVisible ? 'Remove Shadow' : 'Restore Shadow';
-        if (!shadowVisible) {
-          toggleShadowBtn.classList.add('bg-purple-600', 'text-white');
-          toggleShadowBtn.classList.remove('text-slate-400');
-        } else {
-          toggleShadowBtn.classList.remove('bg-purple-600', 'text-white');
-          toggleShadowBtn.classList.add('text-slate-400');
-        }
-      }
     });
   </script>
 </Layout>

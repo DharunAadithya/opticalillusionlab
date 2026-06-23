@@ -1,6 +1,7 @@
 ---
 // src/pages/illusions/fraser-spiral.astro
 import Layout from '../../layouts/Layout.astro';
+import FraserSpiralDemo from '../../components/illusions/FraserSpiralDemo.astro';
 
 // Math Helper: draws an SVG wedge from (cx, cy) out to radius r
 function getWedgePath(cx: number, cy: number, r: number, startAngle: number, endAngle: number) {
@@ -80,32 +81,7 @@ const fraserRing3 = generateFraserDashes(100, 100, 28, 12, 25, 6);
     <!-- LARGE INTERACTIVE DEMO (600px wide, centered) -->
     <div class="flex flex-col items-center justify-center py-6 border-b border-indigo-500/10">
       <div class="w-full max-w-[600px] mx-auto space-y-4">
-        <div id="fraser-illusion" class="relative flex flex-col items-center justify-center h-96 w-full bg-slate-300 dark:bg-slate-800/60 rounded-xl overflow-hidden border border-indigo-500/10">
-          <svg class="w-60 h-60 select-none overflow-visible" viewBox="0 0 200 200">
-            <g class="fraser-concentric-dashes">
-              {fraserRing1.map(d => (
-                <path d={d.d} class={d.color} stroke-width="2.5" stroke-linecap="round" />
-              ))}
-              {fraserRing2.map(d => (
-                <path d={d.d} class={d.color} stroke-width="2" stroke-linecap="round" />
-              ))}
-              {fraserRing3.map(d => (
-                <path d={d.d} class={d.color} stroke-width="1.5" stroke-linecap="round" />
-              ))}
-            </g>
-            <g class="fraser-traces opacity-0 transition-opacity duration-500">
-              <circle cx="100" cy="100" r="80" fill="none" stroke="#22c55e" stroke-width="3.5" filter="drop-shadow(0 0 4px #22c55e)" />
-              <circle cx="100" cy="100" r="52" fill="none" stroke="#3b82f6" stroke-width="3.5" filter="drop-shadow(0 0 4px #3b82f6)" />
-              <circle cx="100" cy="100" r="28" fill="none" stroke="#eab308" stroke-width="3" filter="drop-shadow(0 0 4px #eab308)" />
-            </g>
-          </svg>
-          
-          <div class="absolute bottom-4">
-            <button class="toggle-fraser text-sm font-semibold px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white shadow-md transition-colors">
-              Trace Circles
-            </button>
-          </div>
-        </div>
+        <FraserSpiralDemo isCard={false} />
     
         <div class="text-center text-xs text-slate-500 dark:text-slate-400 italic">
           Use the controllers inside the display card to interact with the visual triggers.
@@ -293,40 +269,5 @@ const fraserRing3 = generateFraserDashes(100, 100, 28, 12, 25, 6);
     };
     checkSpeed();
     window.addEventListener('storage', checkSpeed);
-
-    // Prevent propagation on inner interactive controllers so we don't trigger parent clicks (if wrapped)
-    const innerControls = document.querySelectorAll('.interactive-demo-card button, .interactive-demo-card input, .interactive-demo-card select');
-    innerControls.forEach(ctrl => {
-      ctrl.addEventListener('click', (e) => e.stopPropagation());
-    });
-
-    // Local script logic from original file
-    // Share Page Link copying
-    
-
-    // Custom CSS animations variable bindings
-    
-    
-    // Embed specific illusion script logic
-    
-      const fraserContainer = document.getElementById('fraser-illusion');
-      const toggleFraserBtn = fraserContainer?.querySelector('.toggle-fraser');
-      const fraserTraces = fraserContainer?.querySelector('.fraser-traces');
-      let fraserTracesShown = false;
-
-      toggleFraserBtn?.addEventListener('click', () => {
-        fraserTracesShown = !fraserTracesShown;
-        if (fraserTraces) {
-          if (fraserTracesShown) {
-            fraserTraces.classList.remove('opacity-0');
-            fraserTraces.classList.add('opacity-100');
-            if (toggleFraserBtn) toggleFraserBtn.textContent = 'Hide Circles';
-          } else {
-            fraserTraces.classList.remove('opacity-100');
-            fraserTraces.classList.add('opacity-0');
-            if (toggleFraserBtn) toggleFraserBtn.textContent = 'Trace Circles';
-          }
-        }
-      });
   </script>
 </Layout>

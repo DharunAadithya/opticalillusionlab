@@ -1,6 +1,7 @@
 ---
 // src/pages/illusions/reverse-spoke.astro
 import Layout from '../../layouts/Layout.astro';
+import ReverseSpokeDemo from '../../components/illusions/ReverseSpokeDemo.astro';
 
 // Math Helper: draws an SVG wedge from (cx, cy) out to radius r
 function getWedgePath(cx: number, cy: number, r: number, startAngle: number, endAngle: number) {
@@ -58,37 +59,7 @@ function getWedgePath(cx: number, cy: number, r: number, startAngle: number, end
     <!-- LARGE INTERACTIVE DEMO (600px wide, centered) -->
     <div class="flex flex-col items-center justify-center py-6 border-b border-indigo-500/10">
       <div class="w-full max-w-[600px] mx-auto space-y-4">
-        <div id="spoke-illusion" class="relative flex flex-col items-center justify-center h-96 w-full bg-slate-950 rounded-xl overflow-hidden border border-indigo-500/10 p-4">
-          <!-- Rotating colorful background wheel -->
-          <div class="absolute inset-0 flex items-center justify-center">
-            <svg class="spoke-bg-wheel w-64 h-64 origin-center" viewBox="0 0 200 200" style="animation: spin-clockwise calc(10s / var(--speed-multiplier, 1)) linear infinite;">
-              <path d="M 100,100 L 100,0 A 100,100 0 0,1 186.6,50 Z" fill="#f43f5e" />
-              <path d="M 100,100 L 186.6,50 A 100,100 0 0,1 200,100 Z" fill="#3b82f6" />
-              <path d="M 100,100 L 200,100 A 100,100 0 0,1 186.6,150 Z" fill="#10b981" />
-              <path d="M 100,100 L 186.6,150 A 100,100 0 0,1 100,200 Z" fill="#eab308" />
-              <path d="M 100,100 L 100,200 A 100,100 0 0,1 13.4,150 Z" fill="#8b5cf6" />
-              <path d="M 100,100 L 13.4,150 A 100,100 0 0,1 0,100 Z" fill="#ec4899" />
-              <path d="M 100,100 L 0,100 A 100,100 0 0,1 13.4,50 Z" fill="#f43f5e" />
-              <path d="M 100,100 L 13.4,50 A 100,100 0 0,1 100,0 Z" fill="#3b82f6" />
-            </svg>
-          </div>
-          <!-- Fixed spoke overlay grid (completely stationary) -->
-          <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
-            <svg class="w-64 h-64 overflow-visible" viewBox="0 0 200 200">
-              <g stroke="#000000" stroke-width="4.5" opacity="0.9">
-                <line x1="100" y1="100" x2="100" y2="10" /><line x1="100" y1="100" x2="125" y2="15" /><line x1="100" y1="100" x2="150" y2="30" /><line x1="100" y1="100" x2="170" y2="50" /><line x1="100" y1="100" x2="185" y2="75" /><line x1="100" y1="100" x2="190" y2="100" />
-                <line x1="100" y1="100" x2="185" y2="125" /><line x1="100" y1="100" x2="170" y2="150" /><line x1="100" y1="100" x2="150" y2="170" /><line x1="100" y1="100" x2="125" y2="185" /><line x1="100" y1="100" x2="100" y2="190" />
-                <line x1="100" y1="100" x2="75" y2="185" /><line x1="100" y1="100" x2="50" y2="170" /><line x1="100" y1="100" x2="30" y2="150" /><line x1="100" y1="100" x2="15" y2="125" /><line x1="100" y1="100" x2="10" y2="100" />
-                <line x1="100" y1="100" x2="15" y2="75" /><line x1="100" y1="100" x2="30" y2="50" /><line x1="100" y1="100" x2="50" y2="30" /><line x1="100" y1="100" x2="75" y2="15" />
-              </g>
-              <circle cx="100" cy="100" r="45" fill="none" stroke="#000000" stroke-width="6" />
-              <circle cx="100" cy="100" r="10" fill="#000000" />
-            </svg>
-          </div>
-          <div class="absolute bottom-4 flex space-x-2 bg-slate-900/90 border border-white/10 rounded-xl p-1 z-10">
-            <button class="toggle-spoke-spin text-xs font-bold px-3 py-1.5 rounded-lg bg-purple-600 text-white transition-all">Pause</button>
-          </div>
-        </div>
+        <ReverseSpokeDemo isCard={false} />
     
         <div class="text-center text-xs text-slate-500 dark:text-slate-400 italic">
           Use the controllers inside the display card to interact with the visual triggers.
@@ -218,12 +189,12 @@ function getWedgePath(cx: number, cy: number, r: number, startAngle: number, end
     
 
       <a 
-        href="/illusions/expanding-hole" 
+        href="/illusions/rotating-snakes" 
         class="group rounded-xl border border-indigo-950/20 bg-white dark:bg-slate-900/60 p-5 shadow-lg hover:border-purple-500/40 hover:-translate-y-1 hover:shadow-purple-500/10 transition-all duration-300"
       >
         <div class="text-[10px] font-bold text-purple-400 uppercase tracking-wide">Related Illusion</div>
         <h4 class="font-display text-base font-bold text-slate-900 dark:text-white mt-1 group-hover:text-purple-400 transition-colors">
-          Expanding Hole &rarr;
+          Rotating Snakes &rarr;
         </h4>
       </a>
     
@@ -282,18 +253,5 @@ function getWedgePath(cx: number, cy: number, r: number, startAngle: number, end
     innerControls.forEach(ctrl => {
       ctrl.addEventListener('click', (e) => e.stopPropagation());
     });
-
-    // Local script logic from original file
-    const container = document.getElementById('spoke-illusion');
-      const bgWheel = container?.querySelector('.spoke-bg-wheel') as SVGElement;
-      const btn = container?.querySelector('.toggle-spoke-spin');
-      let spinning = true;
-      btn?.addEventListener('click', () => {
-        spinning = !spinning;
-        if (bgWheel) {
-          bgWheel.style.animationPlayState = spinning ? 'running' : 'paused';
-        }
-        if (btn) btn.textContent = spinning ? 'Pause' : 'Play';
-      });
   </script>
 </Layout>

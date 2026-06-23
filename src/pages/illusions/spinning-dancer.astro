@@ -1,6 +1,7 @@
 ---
 // src/pages/illusions/spinning-dancer.astro
 import Layout from '../../layouts/Layout.astro';
+import SpinningDancerDemo from '../../components/illusions/SpinningDancerDemo.astro';
 
 // Math Helper: draws an SVG wedge from (cx, cy) out to radius r
 function getWedgePath(cx: number, cy: number, r: number, startAngle: number, endAngle: number) {
@@ -18,6 +19,13 @@ function getWedgePath(cx: number, cy: number, r: number, startAngle: number, end
   title="Spinning Dancer — Interactive Optical Illusion | Optical Illusion Lab" 
   description="A rotating silhouette whose direction of spin (clockwise or counter-clockwise) is entirely decided by your mind."
 >
+  <style>
+    @keyframes spin-dancer {
+      0% { transform: rotateY(0deg); }
+      100% { transform: rotateY(360deg); }
+    }
+  </style>
+
   <div class="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-12">
     
     <!-- Breadcrumb back navigation to Section -->
@@ -58,26 +66,9 @@ function getWedgePath(cx: number, cy: number, r: number, startAngle: number, end
     <!-- LARGE INTERACTIVE DEMO (600px wide, centered) -->
     <div class="flex flex-col items-center justify-center py-6 border-b border-indigo-500/10">
       <div class="w-full max-w-[600px] mx-auto space-y-4">
-        <div id="dancer-illusion" class="relative flex flex-col items-center justify-center h-96 w-full bg-slate-100 dark:bg-slate-950/40 rounded-xl overflow-hidden border border-indigo-500/10">
-          <div class="flex items-center justify-center w-full h-full" style="perspective: 800px;">
-            <svg class="dancer-svg w-48 h-64 text-slate-900 dark:text-slate-200" viewBox="0 0 200 200" style="transform-style: preserve-3d; animation: spin-dancer calc(4s / var(--speed-multiplier, 1)) linear infinite;">
-              <circle cx="100" cy="30" r="8" fill="currentColor" />
-              <path d="M95,42 C92,60 92,80 96,95 L104,95 C108,80 108,60 105,42 Z" fill="currentColor" />
-              <path class="dancer-left-limb" d="M96,44 Q65,42 40,35 Q65,48 96,49 Z M97,95 L97,165 C97,168 99,170 101,170 L101,95 Z" fill="currentColor" />
-              <path class="dancer-right-limb" d="M104,44 Q135,42 160,35 Q135,48 104,49 Z M103,95 Q125,115 130,125 Q115,125 103,115 Z" fill="currentColor" />
-            </svg>
-          </div>
-          <div class="absolute bottom-4">
-            <button class="toggle-dancer text-sm font-semibold px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white shadow-md transition-colors">
-              Toggle Color Guide
-            </button>
-          </div>
-        </div>
+        <SpinningDancerDemo isCard={false} />
     
         <div class="text-center text-xs text-slate-500 dark:text-slate-400 italic">
-          Use the controllers inside the display card to interact with the visual triggers.
-        </div>
-        <div class="text-center text-xs text-slate-500 dark:text-slate-400 italic font-semibold">
           Use the controllers inside the display card to interact with the visual triggers.
         </div>
       </div>
@@ -202,12 +193,12 @@ function getWedgePath(cx: number, cy: number, r: number, startAngle: number, end
     
 
       <a 
-        href="/illusions/necker-cube" 
+        href="/illusions/duck-rabbit" 
         class="group rounded-xl border border-indigo-950/20 bg-white dark:bg-slate-900/60 p-5 shadow-lg hover:border-purple-500/40 hover:-translate-y-1 hover:shadow-purple-500/10 transition-all duration-300"
       >
         <div class="text-[10px] font-bold text-purple-400 uppercase tracking-wide">Related Illusion</div>
         <h4 class="font-display text-base font-bold text-slate-900 dark:text-white mt-1 group-hover:text-purple-400 transition-colors">
-          Necker Cube &rarr;
+          Duck-Rabbit &rarr;
         </h4>
       </a>
     
@@ -260,39 +251,5 @@ function getWedgePath(cx: number, cy: number, r: number, startAngle: number, end
     };
     checkSpeed();
     window.addEventListener('storage', checkSpeed);
-
-    // Prevent propagation on inner interactive controllers so we don't trigger parent clicks (if wrapped)
-    const innerControls = document.querySelectorAll('.interactive-demo-card button, .interactive-demo-card input, .interactive-demo-card select');
-    innerControls.forEach(ctrl => {
-      ctrl.addEventListener('click', (e) => e.stopPropagation());
-    });
-
-    // Local script logic from original file
-    // Share Page Link copying
-    
-
-    // Custom CSS animations variable bindings
-    
-    
-    // Embed specific illusion script logic
-    
-      const dancerContainer = document.getElementById('dancer-illusion');
-      const toggleDancerBtn = dancerContainer?.querySelector('.toggle-dancer');
-      const leftLimb = dancerContainer?.querySelector('.dancer-left-limb');
-      const rightLimb = dancerContainer?.querySelector('.dancer-right-limb');
-      let dancerColored = false;
-
-      toggleDancerBtn?.addEventListener('click', () => {
-        dancerColored = !dancerColored;
-        if (dancerColored) {
-          leftLimb?.setAttribute('fill', '#ef4444');  // Red
-          rightLimb?.setAttribute('fill', '#3b82f6'); // Blue
-          toggleDancerBtn.textContent = 'Hide Color Guide';
-        } else {
-          leftLimb?.setAttribute('fill', 'currentColor');
-          rightLimb?.setAttribute('fill', 'currentColor');
-          toggleDancerBtn.textContent = 'Toggle Color Guide';
-        }
-      });
   </script>
 </Layout>

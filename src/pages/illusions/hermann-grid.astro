@@ -1,6 +1,7 @@
 ---
 // src/pages/illusions/hermann-grid.astro
 import Layout from '../../layouts/Layout.astro';
+import HermannGridDemo from '../../components/illusions/HermannGridDemo.astro';
 
 // Math Helper: draws an SVG wedge from (cx, cy) out to radius r
 function getWedgePath(cx: number, cy: number, r: number, startAngle: number, endAngle: number) {
@@ -58,50 +59,7 @@ function getWedgePath(cx: number, cy: number, r: number, startAngle: number, end
     <!-- LARGE INTERACTIVE DEMO (600px wide, centered) -->
     <div class="flex flex-col items-center justify-center py-6 border-b border-indigo-500/10">
       <div class="w-full max-w-[600px] mx-auto space-y-4">
-        <div id="hermann-illusion" class="relative flex flex-col items-center justify-center h-96 w-full bg-[#7f7f7f] rounded-xl overflow-hidden border border-indigo-500/10">
-          <svg class="w-60 h-60 select-none" viewBox="0 0 180 180">
-            <g class="hermann-blocks fill-slate-950">
-              <rect x="10" y="10" width="32" height="32" rx="0" class="transition-all duration-300" />
-              <rect x="52" y="10" width="32" height="32" rx="0" class="transition-all duration-300" />
-              <rect x="94" y="10" width="32" height="32" rx="0" class="transition-all duration-300" />
-              <rect x="136" y="10" width="32" height="32" rx="0" class="transition-all duration-300" />
-              
-              <rect x="10" y="52" width="32" height="32" rx="0" class="transition-all duration-300" />
-              <rect x="52" y="52" width="32" height="32" rx="0" class="transition-all duration-300" />
-              <rect x="94" y="52" width="32" height="32" rx="0" class="transition-all duration-300" />
-              <rect x="136" y="52" width="32" height="32" rx="0" class="transition-all duration-300" />
-
-              <rect x="10" y="94" width="32" height="32" rx="0" class="transition-all duration-300" />
-              <rect x="52" y="94" width="32" height="32" rx="0" class="transition-all duration-300" />
-              <rect x="94" y="94" width="32" height="32" rx="0" class="transition-all duration-300" />
-              <rect x="136" y="94" width="32" height="32" rx="0" class="transition-all duration-300" />
-
-              <rect x="10" y="136" width="32" height="32" rx="0" class="transition-all duration-300" />
-              <rect x="52" y="136" width="32" height="32" rx="0" class="transition-all duration-300" />
-              <rect x="94" y="136" width="32" height="32" rx="0" class="transition-all duration-300" />
-              <rect x="136" y="136" width="32" height="32" rx="0" class="transition-all duration-300" />
-            </g>
-            <g class="hermann-markers opacity-0 transition-opacity duration-300">
-              <circle cx="47" cy="47" r="3.5" fill="#ef4444" />
-              <circle cx="89" cy="47" r="3.5" fill="#ef4444" />
-              <circle cx="131" cy="47" r="3.5" fill="#ef4444" />
-              <circle cx="47" cy="89" r="3.5" fill="#ef4444" />
-              <circle cx="89" cy="89" r="3.5" fill="#ef4444" />
-              <circle cx="131" cy="89" r="3.5" fill="#ef4444" />
-              <circle cx="47" cy="131" r="3.5" fill="#ef4444" />
-              <circle cx="89" cy="131" r="3.5" fill="#ef4444" />
-              <circle cx="131" cy="131" r="3.5" fill="#ef4444" />
-            </g>
-          </svg>
-          
-          <div class="absolute bottom-4 w-11/12 px-6 flex flex-col space-y-2 bg-white/80 dark:bg-slate-900/80 p-3 rounded-2xl backdrop-blur border border-slate-200 dark:border-white/5">
-            <div class="flex items-center justify-between text-xs text-slate-500 font-bold uppercase">
-              <span>Block Roundness</span>
-              <button class="toggle-hermann text-xs text-purple-400 border border-purple-500/20 bg-purple-500/5 px-2 py-0.5 rounded hover:bg-purple-500/10">Show Truth</button>
-            </div>
-            <input type="range" min="0" max="16" value="0" class="hermann-slider w-full h-1 bg-slate-200 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-purple-600 focus:outline-none" />
-          </div>
-        </div>
+        <HermannGridDemo isCard={false} />
         <div class="text-center text-xs text-slate-500 dark:text-slate-400 italic">
           This illusion uses a fixed display for accuracy.
         </div>
@@ -309,91 +267,5 @@ function getWedgePath(cx: number, cy: number, r: number, startAngle: number, end
     };
     checkSpeed();
     window.addEventListener('storage', checkSpeed);
-
-    // Prevent propagation on inner interactive controllers so we don't trigger parent clicks (if wrapped)
-    const innerControls = document.querySelectorAll('.interactive-demo-card button, .interactive-demo-card input, .interactive-demo-card select');
-    innerControls.forEach(ctrl => {
-      ctrl.addEventListener('click', (e) => e.stopPropagation());
-    });
-
-    // Local script logic from original file
-    // Share Page Link copying
-    
-
-    // Custom CSS animations variable bindings
-    
-    
-    // Embed specific illusion script logic
-    
-      const hermannContainer = document.getElementById('hermann-illusion');
-      const hermannSlider = hermannContainer?.querySelector('.hermann-slider') as HTMLInputElement;
-      const toggleHermannBtn = hermannContainer?.querySelector('.toggle-hermann');
-      const hermannBlocks = hermannContainer?.querySelectorAll('.hermann-blocks rect');
-      const hermannMarkers = hermannContainer?.querySelector('.hermann-markers');
-      
-      let hermannMarkersShown = false;
-
-      hermannSlider?.addEventListener('input', (e) => {
-        const val = (e.target as HTMLInputElement).value;
-        hermannBlocks?.forEach(block => {
-          block.setAttribute('rx', val);
-        });
-      });
-
-      toggleHermannBtn?.addEventListener('click', () => {
-        hermannMarkersShown = !hermannMarkersShown;
-        if (hermannMarkers) {
-          if (hermannMarkersShown) {
-            hermannMarkers.classList.remove('opacity-0');
-            hermannMarkers.classList.add('opacity-100');
-            if (toggleHermannBtn) toggleHermannBtn.textContent = 'Hide Truth';
-          } else {
-            hermannMarkers.classList.remove('opacity-100');
-            hermannMarkers.classList.add('opacity-0');
-            if (toggleHermannBtn) toggleHermannBtn.textContent = 'Show Truth';
-          }
-        }
-      });
-
-      // Hermann Grid Dots Guessing Game
-      const dotsInput = document.getElementById('dots-count-input') as HTMLInputElement;
-      const submitDotsBtn = document.getElementById('submit-dots-btn');
-      const dotsFeedback = document.getElementById('dots-feedback-panel');
-      const dotsFeedbackStatus = document.getElementById('dots-feedback-status');
-      const dotsUserGuess = document.getElementById('dots-user-guess');
-      const dotsTryAgainBtn = document.getElementById('dots-try-again-btn');
-
-      submitDotsBtn?.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const guess = parseInt(dotsInput.value || '0');
-        if (dotsUserGuess) dotsUserGuess.textContent = guess.toString();
-        
-        if (dotsFeedback) dotsFeedback.classList.remove('hidden');
-        
-        if (guess === 0) {
-          if (dotsFeedbackStatus) {
-            dotsFeedbackStatus.textContent = "Correct ✓";
-            dotsFeedbackStatus.className = "font-bold text-emerald-450 font-mono text-sm";
-          }
-          // Reveal markers
-          hermannMarkersShown = true;
-          if (hermannMarkers) {
-            hermannMarkers.classList.remove('opacity-0');
-            hermannMarkers.classList.add('opacity-100');
-          }
-          if (toggleHermannBtn) toggleHermannBtn.textContent = 'Hide Truth';
-        } else {
-          if (dotsFeedbackStatus) {
-            dotsFeedbackStatus.textContent = "Incorrect ✗";
-            dotsFeedbackStatus.className = "font-bold text-rose-500 font-mono text-sm";
-          }
-        }
-      });
-
-      dotsTryAgainBtn?.addEventListener('click', (e) => {
-        e.stopPropagation();
-        if (dotsInput) dotsInput.value = "0";
-        if (dotsFeedback) dotsFeedback.classList.add('hidden');
-      });
   </script>
 </Layout>

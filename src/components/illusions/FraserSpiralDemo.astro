@@ -1,0 +1,207 @@
+---
+interface Props {
+  isCard?: boolean;
+}
+
+const { isCard = false } = Astro.props;
+
+// Generate concentric twisted cords (short tilted segments)
+// cx, cy: center
+// r: outer radius
+// count: number of segments around the ring
+// tilt: angle offset in degrees to rotate the segment inwards/outwards (creates the spiral illusion)
+// length: length of each segment
+function generateFraserDashes(cx: number, cy: number, r: number, count: number, tilt: number, length: number) {
+  const dashes = [];
+  const rad = Math.PI / 180;
+  for (let i = 0; i < count; i++) {
+    const angle = (i * 360) / count;
+    // Outer point
+    const x1 = cx + r * Math.cos(angle * rad);
+    const y1 = cy + r * Math.sin(angle * rad);
+    // Inner point (with tilt)
+    const x2 = cx + (r - length) * Math.cos((angle + tilt) * rad);
+    const y2 = cy + (r - length) * Math.sin((angle + tilt) * rad);
+    
+    dashes.push({
+      d: `M ${x1},${y1} L ${x2},${y2}`,
+      // Alternating black and white segments to create the rope texture
+      color: i % 2 === 0 ? '#000000' : '#ffffff'
+    });
+  }
+  return dashes;
+}
+
+// 6 Concentric rings with high density segments and alternating tilt directions
+const cx = 150;
+const cy = 150;
+
+const rings = [
+  { dashes: generateFraserDashes(cx, cy, 130, 90, 18, 14), width: 3.5, traceR: 123, color: '#f87171' },    // Neon Red
+  { dashes: generateFraserDashes(cx, cy, 106, 76, -18, 12), width: 3.0, traceR: 100, color: '#fb923c' },   // Neon Orange
+  { dashes: generateFraserDashes(cx, cy, 84, 60, 18, 10), width: 2.5, traceR: 79, color: '#facc15' },     // Neon Yellow
+  { dashes: generateFraserDashes(cx, cy, 64, 46, -18, 9), width: 2.0, traceR: 59.5, color: '#4ade80' },    // Neon Green
+  { dashes: generateFraserDashes(cx, cy, 46, 32, 18, 8), width: 1.6, traceR: 42, color: '#60a5fa' },      // Neon Blue
+  { dashes: generateFraserDashes(cx, cy, 30, 20, -18, 7), width: 1.2, traceR: 26.5, color: '#c084fc' }     // Neon Purple
+];
+---
+
+<div class="fraser-container flex flex-col items-center w-full select-none" data-is-card={isCard ? "true" : "false"}>
+  
+  <div class="relative flex flex-col items-center justify-center bg-slate-50 dark:bg-slate-100 rounded-xl overflow-hidden border border-slate-300 shadow-inner w-full min-h-[380px] p-6 pb-20">
+    
+    <!-- SVG Area (300x300 px) -->
+    <svg class="w-full max-w-[300px] h-auto aspect-square select-none overflow-visible" viewBox="0 0 300 300">
+      <!-- Background circle of medium gray for perfect contrast of both white and black elements -->
+      <circle cx="150" cy="150" r="140" fill="#888888" />
+
+      <!-- Concentric twisted cords (The pattern) -->
+      <g class="fraser-concentric-dashes">
+        {rings.map(ring => (
+          ring.dashes.map(d => (
+            <path d={d.d} stroke={d.color} stroke-width={ring.width} stroke-linecap="round" fill="none" />
+          ))
+        ))}
+      </g>
+
+      <!-- Neon guidelines overlay (Concentric circles, hidden by default) -->
+      <g class="fraser-traces opacity-0 transition-opacity duration-300 pointer-events-none">
+        {rings.map((ring, idx) => (
+          <circle 
+            class={`fraser-trace-ring fraser-trace-ring-${idx}`}
+            cx="150" 
+            cy="150" 
+            r={ring.traceR} 
+            fill="none" 
+            stroke={ring.color} 
+            stroke-width="3" 
+            filter="drop-shadow(0 0 3px rgba(0,0,0,0.5))"
+          />
+        ))}
+      </g>
+    </svg>
+
+    <!-- Controls Panel -->
+    <div class="absolute bottom-2 w-11/12 px-4 flex flex-col gap-1.5 bg-slate-900/90 py-2 rounded-xl border border-slate-800 z-20">
+      <div class="flex items-center justify-between">
+        <button class="btn-toggle-fraser text-[10px] font-bold px-3 py-1.5 rounded-lg border border-slate-700 bg-slate-950 text-slate-200 hover:text-white transition-all shadow-sm">
+          Trace Circles
+        </button>
+        <span class="text-[8px] text-slate-400 font-bold uppercase tracking-wider">Highlight Ring:</span>
+        <div class="flex gap-1" id="ring-highlighters">
+          {rings.map((_, idx) => (
+            <button data-ring={idx} class="btn-highlight-ring text-[9px] font-bold w-5 h-5 rounded bg-slate-800 hover:bg-slate-700 text-slate-300">
+              {idx + 1}
+            </button>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Instructions -->
+  <div class="mt-3 p-3 bg-white/40 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 rounded-xl text-center w-full max-w-md">
+    <p class="text-xs text-slate-755 dark:text-slate-300 leading-relaxed">
+      <strong>Instruction:</strong> Do the concentric cords appear to spiral towards the center? Click "Trace Circles" or select a ring number to overlay solid colored lines proving they are perfect independent circles.
+    </p>
+  </div>
+</div>
+
+<script>
+  function initFraser() {
+    const containers = document.querySelectorAll('.fraser-container');
+    containers.forEach(container => {
+      if (container.getAttribute('data-initialized') === 'true') return;
+      container.setAttribute('data-initialized', 'true');
+
+      const traces = container.querySelector('.fraser-traces') as HTMLElement;
+      const btnToggle = container.querySelector('.btn-toggle-fraser');
+      const highlightButtons = container.querySelectorAll('.btn-highlight-ring');
+      const traceRings = container.querySelectorAll('.fraser-trace-ring') as NodeListOf<SVGElement>;
+
+      let traceAllActive = false;
+
+      // Toggle all traces
+      btnToggle?.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        traceAllActive = !traceAllActive;
+
+        // Reset individual highlights
+        highlightButtons.forEach(b => b.classList.remove('bg-purple-650', 'text-white'));
+        traceRings.forEach(r => r.style.opacity = '1');
+
+        if (traceAllActive) {
+          if (traces) {
+            traces.classList.remove('opacity-0');
+            traces.classList.add('opacity-100');
+            traces.style.opacity = '1';
+          }
+          if (btnToggle) {
+            btnToggle.textContent = 'Hide Traces';
+            btnToggle.classList.add('bg-purple-650', 'text-white');
+          }
+        } else {
+          if (traces) {
+            traces.classList.remove('opacity-100');
+            traces.classList.add('opacity-0');
+            traces.style.opacity = '0';
+          }
+          if (btnToggle) {
+            btnToggle.textContent = 'Trace Circles';
+            btnToggle.classList.remove('bg-purple-650', 'text-white');
+          }
+        }
+      });
+
+      // Highlight single ring
+      highlightButtons.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+
+          const clicked = e.currentTarget as HTMLButtonElement;
+          const ringIdx = parseInt(clicked.getAttribute('data-ring') || '0');
+
+          traceAllActive = false;
+          if (btnToggle) {
+            btnToggle.textContent = 'Trace Circles';
+            btnToggle.classList.remove('bg-purple-650', 'text-white');
+          }
+
+          if (clicked.classList.contains('bg-purple-650')) {
+            // Already active, toggle off
+            clicked.classList.remove('bg-purple-650', 'text-white');
+            if (traces) {
+              traces.classList.remove('opacity-100');
+              traces.classList.add('opacity-0');
+              traces.style.opacity = '0';
+            }
+          } else {
+            // Activate single highlight
+            highlightButtons.forEach(b => b.classList.remove('bg-purple-650', 'text-white'));
+            clicked.classList.add('bg-purple-650', 'text-white');
+            
+            if (traces) {
+              traces.classList.remove('opacity-0');
+              traces.classList.add('opacity-100');
+              traces.style.opacity = '1';
+            }
+
+            traceRings.forEach((ring, idx) => {
+              if (idx === ringIdx) {
+                ring.style.opacity = '1';
+                ring.setAttribute('stroke-width', '4');
+              } else {
+                ring.style.opacity = '0';
+              }
+            });
+          }
+        });
+      });
+    });
+  }
+
+  initFraser();
+  document.addEventListener('astro:page-load', initFraser);
+</script>

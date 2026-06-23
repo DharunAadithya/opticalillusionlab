@@ -1,6 +1,7 @@
 ---
 // src/pages/illusions/troxler-fading.astro
 import Layout from '../../layouts/Layout.astro';
+import TroxlerFadingDemo from '../../components/illusions/TroxlerFadingDemo.astro';
 ---
 
 <Layout 
@@ -53,79 +54,8 @@ import Layout from '../../layouts/Layout.astro';
           👁️ WHAT TO LOOK FOR: Stare continuously at the central white cross. Do not blink or move your eyes. Within 10 to 20 seconds, the surrounding blurry pink circles will start to fade and completely disappear from your vision.
         </div>
 
-        <div id="troxler-illusion" class="relative flex flex-col items-center justify-center h-96 w-full bg-slate-900 rounded-xl overflow-hidden border border-indigo-500/10 p-4">
-          <svg class="w-64 h-64 select-none overflow-visible" viewBox="0 0 200 200">
-            <defs>
-              <filter id="fuzzy-blur">
-                <feGaussianBlur stdDeviation="3" />
-              </filter>
-            </defs>
-
-            <!-- Center white cross -->
-            <line x1="95" y1="100" x2="105" y2="100" stroke="#ffffff" stroke-width="2" />
-            <line x1="100" y1="95" x2="100" y2="105" stroke="#ffffff" stroke-width="2" />
-            
-            <!-- Circle of 12 Lilac/Pink dots (#ff1493) -->
-            <g class="troxler-dots">
-              <circle cx="160" cy="100" r="8" fill="#ff1493" class="troxler-dot" filter="url(#fuzzy-blur)" />
-              <circle cx="151.96" cy="130" r="8" fill="#ff1493" class="troxler-dot" filter="url(#fuzzy-blur)" />
-              <circle cx="130" cy="151.96" r="8" fill="#ff1493" class="troxler-dot" filter="url(#fuzzy-blur)" />
-              <circle cx="100" cy="160" r="8" fill="#ff1493" class="troxler-dot" filter="url(#fuzzy-blur)" />
-              <circle cx="70" cy="151.96" r="8" fill="#ff1493" class="troxler-dot" filter="url(#fuzzy-blur)" />
-              <circle cx="48.04" cy="130" r="8" fill="#ff1493" class="troxler-dot" filter="url(#fuzzy-blur)" />
-              <circle cx="40" cy="100" r="8" fill="#ff1493" class="troxler-dot" filter="url(#fuzzy-blur)" />
-              <circle cx="48.04" cy="70" r="8" fill="#ff1493" class="troxler-dot" filter="url(#fuzzy-blur)" />
-              <circle cx="70" cy="48.04" r="8" fill="#ff1493" class="troxler-dot" filter="url(#fuzzy-blur)" />
-              <circle cx="100" cy="40" r="8" fill="#ff1493" class="troxler-dot" filter="url(#fuzzy-blur)" />
-              <circle cx="130" cy="48.04" r="8" fill="#ff1493" class="troxler-dot" filter="url(#fuzzy-blur)" />
-              <circle cx="151.96" cy="70" r="8" fill="#ff1493" class="troxler-dot" filter="url(#fuzzy-blur)" />
-            </g>
-          </svg>
-          
-          <!-- SVG Progress Ring indicator for visual flair -->
-          <svg class="absolute inset-0 w-full h-full pointer-events-none select-none -rotate-90" viewBox="0 0 200 200">
-            <circle cx="100" cy="100" r="82" stroke="rgba(168,85,247,0.15)" stroke-width="2" fill="none" />
-            <circle id="troxler-progress-ring" cx="100" cy="100" r="82" stroke="url(#purple-gradient)" stroke-width="2" fill="none" stroke-dasharray="515.2" stroke-dashoffset="515.2" stroke-linecap="round" class="transition-all duration-100 ease-linear" />
-            <defs>
-              <linearGradient id="purple-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#ec4899" />
-                <stop offset="100%" stop-color="#8b5cf6" />
-              </linearGradient>
-            </defs>
-          </svg>
-
-          <div class="absolute bottom-4 flex flex-col items-center space-y-1 bg-slate-950/80 px-4 py-2 rounded-xl backdrop-blur border border-white/10">
-            <span class="text-[10px] text-slate-400 font-bold uppercase">Stare at the cross for 20 seconds</span>
-            <div class="flex items-center space-x-2">
-              <button class="start-troxler text-xs font-bold px-3 py-1 rounded-lg bg-purple-600 hover:bg-purple-500 text-white transition-all">Start Timer</button>
-              <span class="troxler-time font-mono text-xs text-purple-400">20.0s</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Experience Feedback Panel (hidden by default) -->
-        <div id="experience-feedback-panel" class="hidden w-full p-6 bg-slate-900/90 border border-white/10 rounded-2xl text-left space-y-4 shadow-xl">
-          <h4 class="text-xs font-black uppercase text-purple-400 font-display">Stare Experience</h4>
-          
-          <div class="text-xs space-y-4">
-            <p class="text-slate-300 leading-relaxed font-medium">
-              If a dot seemed to fade, vanish, or change color in your vision, that happened in your retina, not in this code — feel free to inspect the HTML. Effect strength varies by person; some need 30+ seconds, some won't notice it at all.
-            </p>
-
-            <div class="space-y-2">
-              <p class="text-sm font-bold text-slate-200">How long did it take you to notice something change?</p>
-              <div class="flex flex-wrap gap-2">
-                <button class="feedback-time-btn bg-slate-800 hover:bg-purple-650 text-white font-bold px-3 py-1.5 rounded-lg transition-all" data-value="under-10">Under 10s</button>
-                <button class="feedback-time-btn bg-slate-800 hover:bg-purple-650 text-white font-bold px-3 py-1.5 rounded-lg transition-all" data-value="10-20">10-20s</button>
-                <button class="feedback-time-btn bg-slate-800 hover:bg-purple-650 text-white font-bold px-3 py-1.5 rounded-lg transition-all" data-value="didnt-notice">Didn't notice</button>
-              </div>
-              <p id="feedback-response-text" class="hidden text-xs text-purple-450 font-bold mt-2"></p>
-            </div>
-            
-            <button id="btn-reset-experience" class="w-full border border-purple-500/30 text-purple-400 hover:bg-purple-500/10 font-bold text-xs py-2 rounded-xl transition-all">Try Again 🔄</button>
-          </div>
-        </div>
-
+        <TroxlerFadingDemo isCard={false} />
+    
         <div class="text-center text-xs text-slate-500 dark:text-slate-400 italic">
           This illusion uses a fixed display for accuracy.
         </div>
@@ -248,12 +178,12 @@ import Layout from '../../layouts/Layout.astro';
           </h4>
         </a>
         <a 
-          href="/illusions/motion-aftereffect" 
+          href="/illusions/afterimage-lightbulb" 
           class="group rounded-xl border border-indigo-950/20 bg-white dark:bg-slate-900/60 p-5 shadow-lg hover:border-purple-500/40 hover:-translate-y-1 hover:shadow-purple-500/10 transition-all duration-300"
         >
           <div class="text-[10px] font-bold text-purple-400 uppercase tracking-wide">Related Illusion</div>
           <h4 class="font-display text-base font-bold text-slate-900 dark:text-white mt-1 group-hover:text-purple-400 transition-colors">
-            Motion Aftereffect &rarr;
+            Afterimage Light Bulb &rarr;
           </h4>
         </a>
       </div>
@@ -278,107 +208,6 @@ import Layout from '../../layouts/Layout.astro';
           }, 2000);
         }
       });
-    });
-
-    // Local script logic from original file
-    const container = document.getElementById('troxler-illusion');
-    const progressRing = document.getElementById('troxler-progress-ring') as SVGElement;
-    const startBtn = container?.querySelector('.start-troxler');
-    const timeDisplay = container?.querySelector('.troxler-time');
-
-    const feedbackPanel = document.getElementById('experience-feedback-panel');
-    const feedbackResponseText = document.getElementById('feedback-response-text');
-    const timeButtons = document.querySelectorAll('.feedback-time-btn');
-    const resetExpBtn = document.getElementById('btn-reset-experience');
-    
-    let timerInterval: any = null;
-    let secondsLeft = 20.0;
-    let isRunning = false;
-
-    const stopAll = () => {
-      clearInterval(timerInterval);
-      if (progressRing) {
-        progressRing.style.strokeDashoffset = '515.2';
-      }
-      secondsLeft = 20.0;
-      if (timeDisplay) timeDisplay.textContent = '20.0s';
-      if (startBtn) startBtn.textContent = 'Start Timer';
-      isRunning = false;
-
-      feedbackPanel?.classList.add('hidden');
-      if (feedbackResponseText) {
-        feedbackResponseText.textContent = '';
-        feedbackResponseText.classList.add('hidden');
-      }
-      timeButtons.forEach(btn => {
-        btn.classList.remove('bg-purple-650', 'ring-2', 'ring-purple-400');
-        btn.classList.add('bg-slate-800');
-      });
-    };
-
-    startBtn?.addEventListener('click', () => {
-      if (isRunning) {
-        stopAll();
-        return;
-      }
-
-      isRunning = true;
-      if (startBtn) startBtn.textContent = 'Reset';
-
-      // Hide feedback panel on new run
-      feedbackPanel?.classList.add('hidden');
-      if (feedbackResponseText) {
-        feedbackResponseText.textContent = '';
-        feedbackResponseText.classList.add('hidden');
-      }
-
-      const startTime = Date.now();
-      timerInterval = setInterval(() => {
-        const elapsed = (Date.now() - startTime) / 1000;
-        secondsLeft = 20.0 - elapsed;
-        
-        // Update progress ring offset (circumference 515.2)
-        if (progressRing) {
-          const percent = Math.min(elapsed / 20.0, 1.0);
-          progressRing.style.strokeDashoffset = (515.2 - percent * 515.2).toString();
-        }
-
-        if (secondsLeft <= 0) {
-          secondsLeft = 0;
-          clearInterval(timerInterval);
-          // Show feedback panel
-          feedbackPanel?.classList.remove('hidden');
-        }
-        if (timeDisplay) timeDisplay.textContent = `${secondsLeft.toFixed(1)}s`;
-      }, 100);
-    });
-
-    timeButtons.forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        timeButtons.forEach(b => {
-          b.classList.remove('bg-purple-650', 'ring-2', 'ring-purple-400');
-          b.classList.add('bg-slate-800');
-        });
-        const clicked = e.currentTarget as HTMLButtonElement;
-        clicked.classList.remove('bg-slate-800');
-        clicked.classList.add('bg-purple-650', 'ring-2', 'ring-purple-400');
-        
-        const val = clicked.getAttribute('data-value');
-        if (feedbackResponseText) {
-          feedbackResponseText.classList.remove('hidden');
-          if (val === 'under-10') {
-            feedbackResponseText.textContent = 'Fading occurred quickly! This indicates your neural receptors adapted rapidly to the static stimuli.';
-          } else if (val === '10-20') {
-            feedbackResponseText.textContent = 'A steady 10-20 seconds is the typical threshold for micro-saccades to stabilize and trigger peripheral adaptation.';
-          } else {
-            feedbackResponseText.textContent = 'No fading? Try sitting closer, increasing screen brightness, and focusing strictly without blinking!';
-          }
-        }
-      });
-    });
-
-    resetExpBtn?.addEventListener('click', () => {
-      stopAll();
     });
   </script>
 </Layout>

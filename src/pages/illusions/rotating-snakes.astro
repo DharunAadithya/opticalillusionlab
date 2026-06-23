@@ -1,6 +1,7 @@
 ---
 // src/pages/illusions/rotating-snakes.astro
 import Layout from '../../layouts/Layout.astro';
+import RotatingSnakesDemo from '../../components/illusions/RotatingSnakesDemo.astro';
 
 function generateRingSectors(cx: number, cy: number, rOuter: number, rInner: number, count: number, reversed: boolean) {
   const sectors = [];
@@ -98,62 +99,7 @@ const r6 = generateRingSectors(100, 100, 24, 10, 6, true);
     <!-- LARGE INTERACTIVE DEMO (600px wide, centered) -->
     <div class="flex flex-col items-center justify-center py-6 border-b border-indigo-500/10">
       <div class="w-full max-w-[600px] mx-auto space-y-4">
-        <div id="snakes-illusion" class="relative flex flex-col items-center justify-center min-h-[440px] py-8 w-full bg-slate-900 rounded-xl overflow-hidden border border-indigo-500/10">
-          <div class="grid grid-cols-2 gap-8 md:gap-16 max-w-[340px] md:max-w-[400px]">
-            {Array.from({ length: 4 }).map((_, idx) => {
-              return (
-                <svg 
-                  class="snake-wheel w-36 h-36 origin-center select-none overflow-visible" 
-                  viewBox="0 0 200 200"
-                >
-                  <!-- Ring 1 (CW) -->
-                  <g class="snake-ring ring-cw ring-1 origin-center" style="transform-origin: 100px 100px;">
-                    {r1.map(sect => (
-                      <path d={sect.path} fill={sect.color} />
-                    ))}
-                  </g>
-                  <!-- Ring 2 (CCW) -->
-                  <g class="snake-ring ring-ccw ring-2 origin-center" style="transform-origin: 100px 100px;">
-                    {r2.map(sect => (
-                      <path d={sect.path} fill={sect.color} />
-                    ))}
-                  </g>
-                  <!-- Ring 3 (CW) -->
-                  <g class="snake-ring ring-cw ring-3 origin-center" style="transform-origin: 100px 100px;">
-                    {r3.map(sect => (
-                      <path d={sect.path} fill={sect.color} />
-                    ))}
-                  </g>
-                  <!-- Ring 4 (CCW) -->
-                  <g class="snake-ring ring-ccw ring-4 origin-center" style="transform-origin: 100px 100px;">
-                    {r4.map(sect => (
-                      <path d={sect.path} fill={sect.color} />
-                    ))}
-                  </g>
-                  <!-- Ring 5 (CW) -->
-                  <g class="snake-ring ring-cw ring-5 origin-center" style="transform-origin: 100px 100px;">
-                    {r5.map(sect => (
-                      <path d={sect.path} fill={sect.color} />
-                    ))}
-                  </g>
-                  <!-- Ring 6 (CCW) -->
-                  <g class="snake-ring ring-ccw ring-6 origin-center" style="transform-origin: 100px 100px;">
-                    {r6.map(sect => (
-                      <path d={sect.path} fill={sect.color} />
-                    ))}
-                  </g>
-                  
-                  <!-- Stare Challenge Center Dot -->
-                  <circle cx="100" cy="100" r="5" fill="#f43f5e" stroke="#ffffff" stroke-width="1.5" />
-                </svg>
-              )
-            })}
-          </div>
-          <div class="absolute bottom-4 flex flex-col items-center space-y-1.5 text-center px-4 bg-slate-950/80 rounded-xl py-2.5 border border-white/10 max-w-[85%] select-none">
-            <span class="text-[10px] text-purple-400 font-black tracking-widest uppercase">🎯 Try This: Scan your eyes around the page. The wheels will appear to spin.</span>
-            <span class="text-xs text-amber-400 font-bold block">Freeze-frame proof: This image has zero animation. Inspect the element if you don't believe it!</span>
-          </div>
-        </div>
+        <RotatingSnakesDemo isCard={false} />
     
         <div class="text-center text-xs text-slate-500 dark:text-slate-400 italic">
           This illusion uses a fixed display for accuracy.
@@ -274,29 +220,29 @@ const r6 = generateRingSectors(100, 100, 24, 10, 6, true);
       >
         <div class="text-[10px] font-bold text-purple-400 uppercase tracking-wide">Related Illusion</div>
         <h4 class="font-display text-base font-bold text-slate-900 dark:text-white mt-1 group-hover:text-purple-400 transition-colors">
-          Pinna Brelstaff &rarr;
+          Pinna-Brelstaff &rarr;
         </h4>
       </a>
     
 
       <a 
-        href="/illusions/moving-circles" 
+        href="/illusions/afterimage-lightbulb" 
         class="group rounded-xl border border-indigo-950/20 bg-white dark:bg-slate-900/60 p-5 shadow-lg hover:border-purple-500/40 hover:-translate-y-1 hover:shadow-purple-500/10 transition-all duration-300"
       >
         <div class="text-[10px] font-bold text-purple-400 uppercase tracking-wide">Related Illusion</div>
         <h4 class="font-display text-base font-bold text-slate-900 dark:text-white mt-1 group-hover:text-purple-400 transition-colors">
-          Moving Circles &rarr;
+          Afterimage Light Bulb &rarr;
         </h4>
       </a>
     
 
       <a 
-        href="/illusions/expanding-hole" 
+        href="/illusions/troxler-fading" 
         class="group rounded-xl border border-indigo-950/20 bg-white dark:bg-slate-900/60 p-5 shadow-lg hover:border-purple-500/40 hover:-translate-y-1 hover:shadow-purple-500/10 transition-all duration-300"
       >
         <div class="text-[10px] font-bold text-purple-400 uppercase tracking-wide">Related Illusion</div>
         <h4 class="font-display text-base font-bold text-slate-900 dark:text-white mt-1 group-hover:text-purple-400 transition-colors">
-          Expanding Hole &rarr;
+          Troxler Fading &rarr;
         </h4>
       </a>
     
@@ -338,20 +284,5 @@ const r6 = generateRingSectors(100, 100, 24, 10, 6, true);
     };
     checkSpeed();
     window.addEventListener('storage', checkSpeed);
-
-    // Prevent propagation on inner interactive controllers so we don't trigger parent clicks (if wrapped)
-    const innerControls = document.querySelectorAll('.interactive-demo-card button, .interactive-demo-card input, .interactive-demo-card select');
-    innerControls.forEach(ctrl => {
-      ctrl.addEventListener('click', (e) => e.stopPropagation());
-    });
-
-    // Local script logic from original file
-    // Share Page Link copying
-    
-
-    // Custom CSS animations variable bindings
-    
-    
-    // Embed specific illusion script logic
   </script>
 </Layout>

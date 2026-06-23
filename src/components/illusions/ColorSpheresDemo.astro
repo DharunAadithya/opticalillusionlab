@@ -1,0 +1,154 @@
+---
+interface Props {
+  isCard?: boolean;
+}
+
+const { isCard = false } = Astro.props;
+
+// SVG height and width
+const width = 400;
+const height = 300;
+const stripeHeight = 8; // thin stripes for stronger assimilation
+const totalStripes = Math.ceil(height / stripeHeight);
+
+// Stripe colors
+const colors = ['#ff3b30', '#34c759', '#007aff']; // Red, Green, Blue
+
+// Sphere list: 9 spheres at varied coordinates with different overlay colors
+const spheres = [
+  // Row 1
+  { cx: 80,  cy: 70,  r: 24, targetColorIdx: 0, label: 'Red' },   // Red overlay
+  { cx: 200, cy: 60,  r: 24, targetColorIdx: 1, label: 'Green' }, // Green overlay
+  { cx: 320, cy: 70,  r: 24, targetColorIdx: 2, label: 'Blue' },  // Blue overlay
+  // Row 2
+  { cx: 80,  cy: 150, r: 24, targetColorIdx: 1, label: 'Green' }, // Green overlay
+  { cx: 200, cy: 160, r: 24, targetColorIdx: 2, label: 'Blue' },  // Blue overlay
+  { cx: 320, cy: 150, r: 24, targetColorIdx: 0, label: 'Red' },   // Red overlay
+  // Row 3
+  { cx: 80,  cy: 230, r: 24, targetColorIdx: 2, label: 'Blue' },  // Blue overlay
+  { cx: 200, cy: 240, r: 24, targetColorIdx: 0, label: 'Red' },   // Red overlay
+  { cx: 320, cy: 230, r: 24, targetColorIdx: 1, label: 'Green' }  // Green overlay
+];
+---
+
+<div class="color-spheres-container flex flex-col items-center w-full select-none" data-is-card={isCard ? "true" : "false"}>
+  <div class="relative flex flex-col items-center justify-center bg-slate-100 dark:bg-slate-950/20 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-inner w-full min-h-[300px] md:min-h-[360px] p-6 pb-16">
+    
+    <svg class="w-full max-w-[340px] h-auto aspect-[4/3] select-none overflow-visible rounded-lg shadow-md bg-[#888888] transition-colors duration-300 color-spheres-svg" viewBox="0 0 400 300">
+      <defs>
+        <!-- 3D Shading radial gradient using a NEUTRAL beige/tan/gray color -->
+        <!-- Start with bright top-left specular highlight, transition to beige/gray base, then darker shading -->
+        <radialGradient id="neutral-sphere-grad" cx="35%" cy="35%" r="65%">
+          <stop offset="0%" stop-color="#ffffff" />
+          <stop offset="25%" stop-color="#f5f5f4" />
+          <stop offset="65%" stop-color="#a8a29e" />
+          <stop offset="100%" stop-color="#57534e" />
+        </radialGradient>
+
+        <!-- Generate clip paths for each sphere -->
+        {spheres.map((s, idx) => (
+          <clipPath id={`sphere-clip-${idx}`}>
+            <circle cx={s.cx} cy={s.cy} r={s.r} />
+          </clipPath>
+        ))}
+      </defs>
+
+      <!-- Background: Solid gray (shown when stripes hidden) -->
+      <rect x="0" y="0" width="400" height="300" fill="#78716c" class="bg-solid hidden transition-opacity duration-300" />
+
+      <!-- Background: Repeating RGB Stripes -->
+      <g class="bg-stripes">
+        {Array.from({ length: totalStripes }).map((_, i) => (
+          <rect 
+            x="0" 
+            y={i * stripeHeight} 
+            width="400" 
+            height={stripeHeight} 
+            fill={colors[i % 3]} 
+          />
+        ))}
+      </g>
+
+      <!-- Spheres drawn as neutral 3D spheres -->
+      <g class="spheres">
+        {spheres.map((s) => (
+          <circle cx={s.cx} cy={s.cy} r={s.r} fill="url(#neutral-sphere-grad)" />
+        ))}
+      </g>
+
+      <!-- Front-overlay stripes (chromatic assimilation effect) -->
+      <!-- For each sphere, we overlay ONLY its targetColorIdx stripes over the sphere -->
+      <g class="foreground-stripes">
+        {spheres.map((s, idx) => (
+          <g clip-path={`url(#sphere-clip-${idx})`}>
+            {Array.from({ length: totalStripes }).map((_, i) => {
+              // Only draw stripes matching the target color index
+              if (i % 3 === s.targetColorIdx) {
+                return (
+                  <rect 
+                    x={s.cx - s.r - 2} 
+                    y={i * stripeHeight} 
+                    width={s.r * 2 + 4} 
+                    height={stripeHeight} 
+                    fill={colors[s.targetColorIdx]} 
+                  />
+                );
+              }
+              return null;
+            })}
+          </g>
+        ))}
+      </g>
+    </svg>
+
+    <!-- Interactive Toggles -->
+    <div class="absolute bottom-3 left-0 right-0 flex justify-center gap-2 px-4 z-20">
+      <button class="btn-toggle-stripes text-[11px] font-bold px-3 py-1.5 rounded-lg border border-slate-350 dark:border-slate-700 bg-white/95 dark:bg-slate-900/90 text-slate-750 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 shadow-sm transition-all">
+        Reveal Truth
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  function initColorSpheres() {
+    const containers = document.querySelectorAll('.color-spheres-container');
+    containers.forEach(container => {
+      if (container.getAttribute('data-initialized') === 'true') return;
+      container.setAttribute('data-initialized', 'true');
+
+      const btn = container.querySelector('.btn-toggle-stripes');
+      const bgStripes = container.querySelector('.bg-stripes') as HTMLElement;
+      const bgSolid = container.querySelector('.bg-solid') as HTMLElement;
+      const fgStripes = container.querySelector('.foreground-stripes') as HTMLElement;
+      const svg = container.querySelector('.color-spheres-svg') as HTMLElement;
+
+      let stripesHidden = false;
+
+      const toggleStripes = (e: Event) => {
+        e.preventDefault();
+        e.stopPropagation();
+        stripesHidden = !stripesHidden;
+        
+        if (bgStripes) bgStripes.style.display = stripesHidden ? 'none' : 'block';
+        if (bgSolid) bgSolid.classList.toggle('hidden', !stripesHidden);
+        if (fgStripes) fgStripes.style.display = stripesHidden ? 'none' : 'block';
+        
+        if (svg) {
+          svg.style.backgroundColor = stripesHidden ? '#78716c' : 'transparent';
+        }
+
+        if (btn) {
+          btn.textContent = stripesHidden ? 'Restore Stripes' : 'Reveal Truth';
+          btn.classList.toggle('bg-purple-600', stripesHidden);
+          btn.classList.toggle('text-white', stripesHidden);
+        }
+      };
+
+      btn?.addEventListener('click', toggleStripes);
+    });
+  }
+
+  initColorSpheres();
+  document.addEventListener('astro:page-load', initColorSpheres);
+</script>

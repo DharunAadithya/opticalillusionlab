@@ -1,0 +1,130 @@
+---
+interface Props {
+  isCard?: boolean;
+}
+
+const { isCard = false } = Astro.props;
+---
+
+<style>
+  @keyframes spin-dancer {
+    0% { transform: rotateY(0deg); }
+    100% { transform: rotateY(360deg); }
+  }
+  .dancer-spinning {
+    transform-style: preserve-3d;
+    animation: spin-dancer var(--dancer-speed, 4s) linear infinite;
+  }
+</style>
+
+<div class="dancer-container flex flex-col items-center w-full select-none" data-is-card={isCard ? "true" : "false"}>
+  <div class="relative flex flex-col items-center justify-center bg-slate-100 dark:bg-slate-950/20 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-inner w-full min-h-[300px] md:min-h-[360px] p-6 pb-16">
+    
+    <!-- Dancer Canvas -->
+    <div class="flex items-center justify-center w-full h-full" style="perspective: 800px;">
+      <div class="relative w-48 h-64 flex items-center justify-center">
+        <!-- SVG silhouette of the dancer -->
+        <svg class="dancer-svg dancer-spinning w-36 h-52 text-slate-900 dark:text-slate-200" viewBox="0 0 200 200">
+          <!-- Head -->
+          <circle cx="100" cy="30" r="8" fill="currentColor" />
+          <!-- Torso -->
+          <path d="M95,42 C92,60 92,80 96,95 L104,95 C108,80 108,60 105,42 Z" fill="currentColor" />
+          <!-- Left Limb (Leg / Arm) -->
+          <path class="dancer-left-limb" d="M96,44 Q65,42 40,35 Q65,48 96,49 Z M97,95 L97,165 C97,168 99,170 101,170 L101,95 Z" fill="currentColor" />
+          <!-- Right Limb (Leg / Arm) -->
+          <path class="dancer-right-limb" d="M104,44 Q135,42 160,35 Q135,48 104,49 Z M103,95 Q125,115 130,125 Q115,125 103,115 Z" fill="currentColor" />
+        </svg>
+
+        <!-- Visual direction helpers (Translucent rings) -->
+        <div class="dancer-direction-helper absolute inset-0 pointer-events-none opacity-0 transition-opacity duration-300 flex items-center justify-center">
+          <svg class="w-full h-full overflow-visible" viewBox="0 0 200 200">
+            <ellipse cx="100" cy="165" rx="60" ry="12" fill="none" stroke="rgba(168, 85, 247, 0.4)" stroke-width="2" stroke-dasharray="4,4" />
+            <path class="helper-arrow" d="M 160,165 L 165,160 M 160,165 L 155,160" fill="none" stroke="rgba(168, 85, 247, 0.6)" stroke-width="2" />
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- Controls Panel -->
+    <div class="absolute bottom-3 left-4 right-4 flex flex-col gap-2 z-20">
+      <div class="flex flex-wrap items-center justify-center gap-2">
+        <button class="btn-toggle-guide text-[10px] font-bold px-2.5 py-1.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white/95 dark:bg-slate-900/90 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 shadow-sm transition-all">
+          Toggle Color Guide
+        </button>
+        <button class="btn-toggle-helper text-[10px] font-bold px-2.5 py-1.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white/95 dark:bg-slate-900/90 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 shadow-sm transition-all">
+          Toggle Helper Ring
+        </button>
+      </div>
+
+      <div class="flex items-center gap-2 px-6">
+        <span class="text-[9px] text-slate-500 font-bold uppercase whitespace-nowrap">Speed:</span>
+        <input type="range" min="1" max="8" value="4" class="dancer-speed-slider w-full h-1 bg-slate-250 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-purple-600 focus:outline-none" />
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function initDancer() {
+    const containers = document.querySelectorAll('.dancer-container');
+    containers.forEach(container => {
+      if (container.getAttribute('data-initialized') === 'true') return;
+      container.setAttribute('data-initialized', 'true');
+
+      const svg = container.querySelector('.dancer-svg') as HTMLElement;
+      const leftLimb = container.querySelector('.dancer-left-limb');
+      const rightLimb = container.querySelector('.dancer-right-limb');
+      const btnGuide = container.querySelector('.btn-toggle-guide');
+      const btnHelper = container.querySelector('.btn-toggle-helper');
+      const helperDiv = container.querySelector('.dancer-direction-helper');
+      const arrowPath = container.querySelector('.helper-arrow');
+      const speedSlider = container.querySelector('.dancer-speed-slider') as HTMLInputElement;
+
+      let guideActive = false;
+      let helperActive = false;
+
+      // Color guide toggle
+      btnGuide?.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        guideActive = !guideActive;
+
+        if (guideActive) {
+          leftLimb?.setAttribute('fill', '#ef4444');  // Red
+          rightLimb?.setAttribute('fill', '#3b82f6'); // Blue
+          btnGuide.classList.add('bg-purple-600', 'text-white');
+        } else {
+          leftLimb?.setAttribute('fill', 'currentColor');
+          rightLimb?.setAttribute('fill', 'currentColor');
+          btnGuide.classList.remove('bg-purple-600', 'text-white');
+        }
+      });
+
+      // Helper ring toggle
+      btnHelper?.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        helperActive = !helperActive;
+
+        if (helperActive) {
+          helperDiv?.classList.remove('opacity-0');
+          btnHelper.classList.add('bg-purple-600', 'text-white');
+        } else {
+          helperDiv?.classList.add('opacity-0');
+          btnHelper.classList.remove('bg-purple-600', 'text-white');
+        }
+      });
+
+      // Speed adjustment
+      speedSlider?.addEventListener('input', (e) => {
+        const val = parseInt((e.target as HTMLInputElement).value);
+        // Map 1-8 range to speed in seconds (higher value = faster, so shorter duration)
+        const duration = (9 - val) + 's';
+        svg.style.setProperty('--dancer-speed', duration);
+      });
+    });
+  }
+
+  initDancer();
+  document.addEventListener('astro:page-load', initDancer);
+</script>

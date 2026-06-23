@@ -1,0 +1,163 @@
+---
+interface Props {
+  isCard?: boolean;
+}
+
+const { isCard = false } = Astro.props;
+---
+
+<div class="afterimage-bulb-container flex flex-col items-center w-full select-none" data-is-card={isCard ? "true" : "false"}>
+  
+  <div class="relative flex flex-col items-center justify-center w-full min-h-[300px] md:min-h-[360px] bg-slate-900 rounded-xl overflow-hidden border border-slate-800 shadow-inner p-4 pb-16">
+    <!-- Light bulb SVG -->
+    <svg class="svg-afterimage-bulb w-48 h-48 select-none" viewBox="0 0 100 100">
+      <!-- Light bulb silhouette -->
+      <path d="M 50,15 C 33,15 25,27 25,45 C 25,58 35,68 40,75 L 40,85 L 60,85 L 60,75 C 65,68 75,58 75,45 C 75,27 67,15 50,15 Z" fill="#000000" />
+      <!-- Metal screw threads -->
+      <rect x="42.5" y="86" width="15" height="3" fill="#64748b" rx="0.5" />
+      <rect x="44" y="90" width="12" height="3" fill="#64748b" rx="0.5" />
+      <ellipse cx="50" cy="94" rx="4" ry="1.5" fill="#475569" />
+      <!-- Center red staring point -->
+      <circle cx="50" cy="45" r="3.5" fill="#ff0000" />
+    </svg>
+
+    <!-- White screen overlay: instant transition, solid white (no pulsing to prevent fading the illusion) -->
+    <div class="afterimage-screen absolute inset-0 bg-white flex flex-col items-center justify-center hidden p-6 text-center z-10 border border-slate-300">
+      <!-- Staring dot for afterimage anchoring -->
+      <div class="w-3 h-3 bg-black rounded-full mb-3 shadow-sm"></div>
+      <span class="text-slate-900 font-extrabold text-xl tracking-wider uppercase">Look Here! 💡</span>
+      <p class="text-[11px] text-slate-600 font-bold max-w-[220px] mt-2 leading-relaxed">
+        Stare at the black dot and blink. Do you see a glowing yellow light bulb floating in your vision?
+      </p>
+    </div>
+
+    <!-- Controls -->
+    <div class="absolute bottom-4 flex flex-col items-center space-y-2 bg-slate-950/95 px-4 py-2.5 rounded-xl border border-white/10 text-center w-11/12 max-w-[260px] z-20">
+      <!-- Progress Bar -->
+      <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden mb-1 hidden bulb-progress-bar-container">
+        <div class="bulb-progress-fill bg-emerald-500 h-full w-full transition-all duration-100 ease-linear" style="width: 100%;"></div>
+      </div>
+      <div class="flex items-center justify-between w-full gap-2">
+        <button class="btn-start-bulb text-[10px] font-bold px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white transition-all shadow-md">
+          Start Staring (30s)
+        </button>
+        <span class="bulb-timer-text font-mono text-[11px] text-emerald-400 font-bold">30.0s</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Experience Feedback Panel (only on detail page) -->
+  {!isCard && (
+    <div class="afterimage-feedback-panel hidden w-full mt-4 p-5 bg-slate-900 border border-slate-800 rounded-xl text-left space-y-4 shadow-xl">
+      <h4 class="text-xs font-black uppercase text-emerald-400 font-display">Stare Experience Verdict</h4>
+      <div class="text-xs space-y-4">
+        <div class="space-y-2">
+          <p class="text-sm font-bold text-slate-200">What did you perceive?</p>
+          <div class="p-4 bg-emerald-500/5 border border-emerald-500/20 rounded-xl text-xs text-slate-300 font-medium leading-relaxed">
+            <span class="text-emerald-450 font-bold block mb-1">✓ Neurological Reality Check:</span>
+            If you saw a glowing yellow light bulb floating on the white screen, <strong>that happened entirely inside your desensitized photoreceptors and visual cortex!</strong> The screen simply displays a plain white background with a black anchor dot.
+          </div>
+        </div>
+        
+        <div class="p-4 bg-slate-955/60 border border-slate-800 rounded-xl text-xs space-y-2 leading-relaxed">
+          <strong class="text-slate-200 font-display">Troubleshooting (If you did not see the effect):</strong>
+          <ul class="list-disc pl-4 space-y-1 text-slate-400 font-medium">
+            <li>Keep your gaze locked strictly on the red center dot of the light bulb during the 30-second stare period.</li>
+            <li>Do not blink or move your eyes at all while the timer runs—even tiny micro-movements refresh the retinal image and prevent desensitization.</li>
+            <li>Once the white screen appears, blink rapidly to help refresh and isolate the afterimage against the white background.</li>
+            <li>Ensure your screen brightness is sufficiently high (at least 60%) and you are in a moderately lit room.</li>
+          </ul>
+        </div>
+        
+        <button class="btn-reset-experience w-full border border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/10 font-bold text-xs py-2 rounded-xl transition-all">Try Again 🔄</button>
+      </div>
+    </div>
+  )}
+</div>
+
+<script>
+  function initAfterimageBulb() {
+    const containers = document.querySelectorAll('.afterimage-bulb-container');
+    containers.forEach(container => {
+      if (container.getAttribute('data-initialized') === 'true') return;
+      container.setAttribute('data-initialized', 'true');
+
+      const isCard = container.getAttribute('data-is-card') === 'true';
+      const startBtn = container.querySelector('.btn-start-bulb') as HTMLButtonElement;
+      const timerText = container.querySelector('.bulb-timer-text') as HTMLElement;
+      const progressFill = container.querySelector('.bulb-progress-fill') as HTMLElement;
+      const progressContainer = container.querySelector('.bulb-progress-bar-container');
+      const screen = container.querySelector('.afterimage-screen') as HTMLElement;
+      const svgBulb = container.querySelector('.svg-afterimage-bulb') as HTMLElement;
+      const feedbackPanel = container.querySelector('.afterimage-feedback-panel');
+      const resetExpBtn = container.querySelector('.btn-reset-experience');
+
+      let secondsLeft = 30.0;
+      let timerId: any = null;
+      let staringActive = false;
+
+      const stopBulb = () => {
+        clearInterval(timerId);
+        staringActive = false;
+        secondsLeft = 30.0;
+        if (timerText) timerText.textContent = '30.0s';
+        if (progressContainer) progressContainer.classList.add('hidden');
+        if (screen) screen.classList.add('hidden');
+        if (svgBulb) svgBulb.classList.remove('hidden');
+        if (startBtn) startBtn.textContent = 'Start Staring (30s)';
+        feedbackPanel?.classList.add('hidden');
+      };
+
+      startBtn?.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        if (staringActive) {
+          stopBulb();
+          return;
+        }
+
+        staringActive = true;
+        secondsLeft = 30.0;
+        if (timerText) timerText.textContent = '30.0s';
+        if (progressContainer) progressContainer.classList.remove('hidden');
+        if (screen) screen.classList.add('hidden');
+        if (svgBulb) svgBulb.classList.remove('hidden');
+        if (startBtn) startBtn.textContent = 'Reset Stare 🔄';
+        feedbackPanel?.classList.add('hidden');
+
+        const startTime = Date.now();
+        timerId = setInterval(() => {
+          const elapsed = (Date.now() - startTime) / 1000;
+          secondsLeft = Math.max(30.0 - elapsed, 0.0);
+          
+          if (secondsLeft <= 0) {
+            clearInterval(timerId);
+            if (timerText) timerText.textContent = '0.0s';
+            if (progressContainer) progressContainer.classList.add('hidden');
+            if (svgBulb) svgBulb.classList.add('hidden');
+            if (screen) screen.classList.remove('hidden');
+            if (startBtn) startBtn.textContent = 'Try Stare Again 🔄';
+            staringActive = false;
+            
+            if (!isCard) {
+              feedbackPanel?.classList.remove('hidden');
+            }
+          }
+          
+          if (timerText) timerText.textContent = `${secondsLeft.toFixed(1)}s`;
+          if (progressFill) progressFill.style.width = `${(secondsLeft / 30.0) * 100}%`;
+        }, 100);
+      });
+
+      resetExpBtn?.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        stopBulb();
+      });
+    });
+  }
+
+  initAfterimageBulb();
+  document.addEventListener('astro:page-load', initAfterimageBulb);
+</script>

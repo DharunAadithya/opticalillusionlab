@@ -1,0 +1,108 @@
+---
+interface Props {
+  isCard?: boolean;
+}
+
+const { isCard = false } = Astro.props;
+
+// Row offsets
+const rows = Array.from({ length: 11 }).map((_, i) => 20 + i * 15);
+// Number of cycles across width 400
+const cycles = Array.from({ length: 10 }).map((_, i) => i * 40);
+---
+
+<div class="curvature-blindness-container flex flex-col items-center w-full select-none" data-is-card={isCard ? "true" : "false"}>
+  <div class="relative flex flex-col items-center justify-center bg-slate-800 rounded-xl overflow-hidden border border-slate-700 shadow-inner w-full min-h-[300px] md:min-h-[360px] p-6 pb-16">
+    <svg class="w-full max-w-[340px] h-auto aspect-[2/1] select-none overflow-visible rounded-lg shadow-md" viewBox="0 0 400 200">
+      <!-- Diagonal 3-zone background split -->
+      <!-- White zone (top-left) -->
+      <polygon points="0,0 150,0 0,150" fill="#ffffff" />
+      <!-- Medium gray zone (middle) -->
+      <polygon points="150,0 300,0 100,200 0,200 0,150" fill="#7f7f7f" />
+      <!-- Black zone (bottom-right) -->
+      <polygon points="300,0 400,0 400,200 100,200" fill="#000000" />
+
+      <!-- Horizontal Wave rows -->
+      <g class="wave-rows">
+        {rows.map((rowY) => (
+          <g class="wave-row">
+            {cycles.map((cx) => (
+              <g>
+                <!-- Upward half-cycle: Dark stroke -->
+                <path 
+                  class="wave-dark-segment transition-all duration-350"
+                  d={`M ${cx},${rowY} C ${cx + 5},${rowY} ${cx + 5},${rowY - 6} ${cx + 10},${rowY - 6} C ${cx + 15},${rowY - 6} ${cx + 15},${rowY} ${cx + 20},${rowY}`}
+                  fill="none"
+                  stroke="#1c1917"
+                  stroke-width="2"
+                />
+                <!-- Downward half-cycle: Light stroke -->
+                <path 
+                  class="wave-light-segment transition-all duration-350"
+                  d={`M ${cx + 20},${rowY} C ${cx + 25},${rowY} ${cx + 25},${rowY + 6} ${cx + 30},${rowY + 6} C ${cx + 35},${rowY + 6} ${cx + 35},${rowY} ${cx + 40},${rowY}`}
+                  fill="none"
+                  stroke="#e7e5e4"
+                  stroke-width="2"
+                />
+                
+                <!-- Single neutral overlay (hidden by default) -->
+                <path 
+                  class="wave-true-geom hidden"
+                  d={`M ${cx},${rowY} C ${cx + 5},${rowY} ${cx + 5},${rowY - 6} ${cx + 10},${rowY - 6} C ${cx + 15},${rowY - 6} ${cx + 15},${rowY} ${cx + 20},${rowY} C ${cx + 25},${rowY} ${cx + 25},${rowY + 6} ${cx + 30},${rowY + 6} C ${cx + 35},${rowY + 6} ${cx + 35},${rowY} ${cx + 40},${rowY}`}
+                  fill="none"
+                  stroke="#3b82f6"
+                  stroke-width="2.5"
+                />
+              </g>
+            ))}
+          </g>
+        ))}
+      </g>
+    </svg>
+
+    <!-- Interactive Toggles -->
+    <div class="absolute bottom-3 left-0 right-0 flex justify-center gap-2 px-4 z-20">
+      <button class="btn-toggle-geometry text-[11px] font-bold px-3 py-1.5 rounded-lg border border-slate-700 bg-slate-950/90 text-slate-350 hover:bg-slate-800 hover:text-white transition-all">
+        Show True Geometry
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  function initCurvatureBlindness() {
+    const containers = document.querySelectorAll('.curvature-blindness-container');
+    containers.forEach(container => {
+      if (container.getAttribute('data-initialized') === 'true') return;
+      container.setAttribute('data-initialized', 'true');
+
+      const btn = container.querySelector('.btn-toggle-geometry');
+      const darkSegments = container.querySelectorAll('.wave-dark-segment');
+      const lightSegments = container.querySelectorAll('.wave-light-segment');
+      const trueGeoms = container.querySelectorAll('.wave-true-geom');
+
+      let showingTrue = false;
+
+      const toggleGeometry = (e: Event) => {
+        e.preventDefault();
+        e.stopPropagation();
+        showingTrue = !showingTrue;
+
+        darkSegments.forEach(el => el.classList.toggle('hidden', showingTrue));
+        lightSegments.forEach(el => el.classList.toggle('hidden', showingTrue));
+        trueGeoms.forEach(el => el.classList.toggle('hidden', !showingTrue));
+
+        if (btn) {
+          btn.textContent = showingTrue ? 'Show Illusion' : 'Show True Geometry';
+          btn.classList.toggle('bg-purple-600', showingTrue);
+          btn.classList.toggle('text-white', showingTrue);
+        }
+      };
+
+      btn?.addEventListener('click', toggleGeometry);
+    });
+  }
+
+  initCurvatureBlindness();
+  document.addEventListener('astro:page-load', initCurvatureBlindness);
+</script>

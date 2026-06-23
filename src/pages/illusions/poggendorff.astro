@@ -1,17 +1,7 @@
 ---
 // src/pages/illusions/poggendorff.astro
 import Layout from '../../layouts/Layout.astro';
-
-// Math Helper: draws an SVG wedge from (cx, cy) out to radius r
-function getWedgePath(cx: number, cy: number, r: number, startAngle: number, endAngle: number) {
-  const rad = Math.PI / 180;
-  const x1 = cx + r * Math.cos(startAngle * rad);
-  const y1 = cy + r * Math.sin(startAngle * rad);
-  const x2 = cx + r * Math.cos(endAngle * rad);
-  const y2 = cy + r * Math.sin(endAngle * rad);
-  const largeArcFlag = endAngle - startAngle <= 180 ? 0 : 1;
-  return `M ${cx},${cy} L ${x1},${y1} A ${r},${r} 0 ${largeArcFlag},1 ${x2},${y2} Z`;
-}
+import PoggendorffDemo from '../../components/illusions/PoggendorffDemo.astro';
 ---
 
 <Layout 
@@ -39,7 +29,7 @@ function getWedgePath(cx: number, cy: number, r: number, startAngle: number, end
         <h1 class="font-display text-4xl sm:text-5xl font-black tracking-tight text-slate-900 dark:text-white">
           Poggendorff Illusion
         </h1>
-        <p class="text-slate-600 dark:text-slate-350 text-base max-w-2xl font-medium">
+        <p class="text-slate-600 dark:text-slate-355 text-base max-w-2xl font-medium">
           Diagonal line segments interrupted by a thick vertical rectangle look misaligned, but are actually continuous.
         </p>
       </div>
@@ -58,24 +48,9 @@ function getWedgePath(cx: number, cy: number, r: number, startAngle: number, end
     <!-- LARGE INTERACTIVE DEMO (600px wide, centered) -->
     <div class="flex flex-col items-center justify-center py-6 border-b border-indigo-500/10">
       <div class="w-full max-w-[600px] mx-auto space-y-4">
-        <div id="poggendorff-illusion" class="relative flex flex-col items-center justify-center h-96 w-full bg-slate-100 dark:bg-slate-950/40 rounded-xl overflow-hidden border border-indigo-500/10">
-          <svg class="w-72 h-72 select-none overflow-visible" viewBox="0 0 200 200">
-            <!-- Diagonal Line (aligned) -->
-            <line class="pogg-line stroke-rose-500 stroke-[3.5]" x1="20" y1="50" x2="85" y2="115" />
-            <line class="pogg-line stroke-rose-500 stroke-[3.5]" x1="115" y1="145" x2="180" y2="210" />
-            
-            <!-- Intercepting Rectangle -->
-            <rect class="pogg-rect fill-slate-800 dark:fill-slate-200 transition-opacity duration-300" x="85" y="10" width="30" height="180" rx="3" />
-          </svg>
-          <div class="absolute bottom-4">
-            <button class="toggle-pogg text-xs font-bold px-3 py-1.5 rounded-lg bg-purple-600 text-white hover:bg-purple-500 transition-all shadow-md">Hide Rectangle</button>
-          </div>
-        </div>
+        <PoggendorffDemo isCard={false} />
     
         <div class="text-center text-xs text-slate-500 dark:text-slate-400 italic">
-          Use the controllers inside the display card to interact with the visual triggers.
-        </div>
-        <div class="text-center text-xs text-slate-500 dark:text-slate-400 italic font-semibold">
           Use the controllers inside the display card to interact with the visual triggers.
         </div>
       </div>
@@ -265,15 +240,5 @@ function getWedgePath(cx: number, cy: number, r: number, startAngle: number, end
       ctrl.addEventListener('click', (e) => e.stopPropagation());
     });
 
-    // Local script logic from original file
-    const container = document.getElementById('poggendorff-illusion');
-      const rect = container?.querySelector('.pogg-rect') as HTMLElement;
-      const btn = container?.querySelector('.toggle-pogg');
-      let shown = true;
-      btn?.addEventListener('click', () => {
-        shown = !shown;
-        if (rect) rect.style.opacity = shown ? '1' : '0';
-        if (btn) btn.textContent = shown ? 'Hide Rectangle' : 'Show Rectangle';
-      });
   </script>
 </Layout>

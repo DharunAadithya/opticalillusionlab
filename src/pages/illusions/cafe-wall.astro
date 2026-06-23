@@ -1,6 +1,7 @@
 ---
 // src/pages/illusions/cafe-wall.astro
 import Layout from '../../layouts/Layout.astro';
+import CafeWallDemo from '../../components/illusions/CafeWallDemo.astro';
 
 // Math Helper: draws an SVG wedge from (cx, cy) out to radius r
 function getWedgePath(cx: number, cy: number, r: number, startAngle: number, endAngle: number) {
@@ -58,37 +59,7 @@ function getWedgePath(cx: number, cy: number, r: number, startAngle: number, end
     <!-- LARGE INTERACTIVE DEMO (600px wide, centered) -->
     <div class="flex flex-col items-center justify-center py-6 border-b border-indigo-500/10">
       <div class="w-full max-w-[600px] mx-auto space-y-4">
-        <div id="cafe-illusion" class="relative flex flex-col items-center justify-center h-96 w-full bg-slate-100 dark:bg-slate-950/40 rounded-xl overflow-hidden border border-indigo-500/10 p-4">
-          <div class="cafe-grid flex flex-col w-full max-w-[320px] overflow-hidden bg-slate-950 border border-slate-500/40">
-            {Array.from({ length: 6 }).map((_, rIndex) => {
-              const isEven = rIndex % 2 === 0;
-              return (
-                <div 
-                  class="cafe-row flex w-[360px] border-b border-slate-500/80 transition-transform duration-300" 
-                  style="transform: translateX(12px);"
-                  data-even={isEven ? "true" : "false"}
-                >
-                  {Array.from({ length: 14 }).map((_, sIndex) => (
-                    <div class="w-8 h-8 shrink-0 bg-slate-950" style={sIndex % 2 === 0 ? 'background-color: #020617;' : 'background-color: #ffffff;'}></div>
-                  ))}
-                </div>
-              )
-            })}
-          </div>
-
-          <div class="absolute bottom-4 w-11/12 px-6 flex flex-col space-y-2 bg-white/80 dark:bg-slate-900/80 p-3 rounded-2xl backdrop-blur border border-slate-200 dark:border-white/5">
-            <div class="flex items-center justify-between text-xs text-slate-500 font-bold uppercase">
-              <span>Shift Offset</span>
-              <span class="cafe-shift-val text-purple-400 font-mono">12px</span>
-            </div>
-            <input type="range" min="0" max="32" value="12" class="cafe-slider w-full h-1 bg-slate-200 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-purple-600 focus:outline-none" />
-            
-            <div class="flex items-center justify-between">
-              <span class="text-xs text-slate-500 font-bold uppercase">Grout Color (Grey/None)</span>
-              <input type="checkbox" checked class="cafe-grout-checkbox rounded border-slate-300 text-purple-600 focus:ring-purple-500 h-4 w-4 accent-purple-600 cursor-pointer" />
-            </div>
-          </div>
-        </div>
+        <CafeWallDemo isCard={false} />
     
         <div class="text-center text-xs text-slate-500 dark:text-slate-400 italic">
           Use the controllers inside the display card to interact with the visual triggers.
@@ -276,48 +247,5 @@ function getWedgePath(cx: number, cy: number, r: number, startAngle: number, end
     };
     checkSpeed();
     window.addEventListener('storage', checkSpeed);
-
-    // Prevent propagation on inner interactive controllers so we don't trigger parent clicks (if wrapped)
-    const innerControls = document.querySelectorAll('.interactive-demo-card button, .interactive-demo-card input, .interactive-demo-card select');
-    innerControls.forEach(ctrl => {
-      ctrl.addEventListener('click', (e) => e.stopPropagation());
-    });
-
-    // Local script logic from original file
-    // Share Page Link copying
-    
-
-    // Custom CSS animations variable bindings
-    
-    
-    // Embed specific illusion script logic
-    
-      const cafeContainer = document.getElementById('cafe-illusion');
-      const cafeSlider = cafeContainer?.querySelector('.cafe-slider') as HTMLInputElement;
-      const cafeShiftVal = cafeContainer?.querySelector('.cafe-shift-val');
-      const cafeRows = cafeContainer?.querySelectorAll('.cafe-row');
-      const groutCheckbox = cafeContainer?.querySelector('.cafe-grout-checkbox') as HTMLInputElement;
-
-      const updateCafeWall = () => {
-        const shift = cafeSlider?.value || '12';
-        const showGrout = groutCheckbox ? groutCheckbox.checked : true;
-        if (cafeShiftVal) cafeShiftVal.textContent = `${shift}px`;
-        
-        cafeRows?.forEach(row => {
-          const isEven = row.getAttribute('data-even') === 'true';
-          (row as HTMLElement).style.transform = `translateX(${isEven ? shift : 0}px)`;
-          if (showGrout) {
-            row.classList.remove('border-transparent');
-            row.classList.add('border-slate-500/80');
-          } else {
-            row.classList.remove('border-slate-500/80');
-            row.classList.add('border-transparent');
-          }
-        });
-      };
-
-      cafeSlider?.addEventListener('input', updateCafeWall);
-      groutCheckbox?.addEventListener('change', updateCafeWall);
-      updateCafeWall();
   </script>
 </Layout>

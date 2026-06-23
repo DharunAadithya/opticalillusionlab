@@ -1,0 +1,124 @@
+---
+interface Props {
+  isCard?: boolean;
+}
+
+const { isCard = false } = Astro.props;
+---
+
+<div class="rubin-container flex flex-col items-center w-full select-none" data-is-card={isCard ? "true" : "false"}>
+  <div class="relative flex flex-col items-center justify-center bg-[#0f172a] rounded-xl overflow-hidden border border-slate-800 shadow-inner w-full min-h-[300px] md:min-h-[360px] p-6 pb-16">
+    
+    <!-- SVG Area -->
+    <svg class="w-full max-w-[280px] h-auto aspect-square select-none overflow-visible rounded-lg shadow-md border border-slate-850 bg-[#1e293b] p-4" viewBox="0 0 200 200">
+      <!-- Background of faces: deep royal blue (#1d4ed8) or midnight black -->
+      <rect x="0" y="0" width="200" height="200" fill="#1e1b4b" />
+      
+      <!-- Central Vase (gold/cream #fef08a / #fbbf24) -->
+      <path 
+        class="rubin-vase fill-[#f59e0b] stroke-[#fef08a] stroke-width="0.5" transition-opacity duration-500 ease-in-out" 
+        d="M 75,0 C 75,30 65,40 65,60 C 65,65 78,68 78,75 C 78,82 65,85 65,90 C 65,95 72,98 72,104 C 72,110 65,112 65,118 C 65,125 78,135 75,155 L 75,200 L 125,200 L 125,155 C 122,135 135,125 135,118 C 135,112 128,110 128,104 C 128,98 135,95 135,90 C 135,85 122,82 122,75 C 122,68 135,65 135,60 C 135,40 125,30 125,0 Z" 
+      />
+      
+      <!-- Left Face Profile (navy-midnight black #020617) -->
+      <path 
+        class="rubin-face-left fill-[#020617] transition-opacity duration-500 ease-in-out" 
+        d="M 0,0 L 75,0 C 75,30 65,40 65,60 C 65,65 78,68 78,75 C 78,82 65,85 65,90 C 65,95 72,98 72,104 C 72,110 65,112 65,118 C 65,125 78,135 75,155 L 75,200 L 0,200 Z" 
+      />
+      
+      <!-- Right Face Profile (navy-midnight black #020617) -->
+      <path 
+        class="rubin-face-right fill-[#020617] transition-opacity duration-500 ease-in-out" 
+        d="M 200,0 L 125,0 C 125,30 135,40 135,60 C 135,65 122,68 122,75 C 122,82 135,85 135,90 C 135,95 128,98 128,104 C 128,98 135,95 135,90 C 135,85 122,82 122,75 C 122,68 135,65 135,60 C 135,40 125,30 125,0 Z" 
+      />
+
+      <!-- Outline highlight helper (glowing purple line on edge boundary) -->
+      <path 
+        class="rubin-boundary stroke-[#a855f7] stroke-width="2" fill="none" opacity="0" class="transition-opacity duration-300"
+        d="M 75,0 C 75,30 65,40 65,60 C 65,65 78,68 78,75 C 78,82 65,85 65,90 C 65,95 72,98 72,104 C 72,110 65,112 65,118 C 65,125 78,135 75,155 L 75,200 M 125,200 L 125,155 C 122,135 135,125 135,118 C 135,112 128,110 128,104 C 128,98 135,95 135,90 C 135,85 122,82 122,75 C 122,68 135,65 135,60 C 135,40 125,30 125,0"
+      />
+    </svg>
+
+    <!-- Interactive Toggles -->
+    <div class="absolute bottom-3 left-0 right-0 flex flex-col items-center gap-1.5 px-4 z-20">
+      <div class="flex items-center gap-1 bg-slate-900/90 border border-white/10 rounded-lg p-0.5 shadow">
+        <button data-mode="both" class="btn-mode text-[10px] font-bold px-3 py-1 rounded bg-purple-600 text-white transition-all">Both</button>
+        <button data-mode="vase" class="btn-mode text-[10px] font-bold px-3 py-1 rounded text-slate-400 hover:text-white transition-all">Vase</button>
+        <button data-mode="faces" class="btn-mode text-[10px] font-bold px-3 py-1 rounded text-slate-400 hover:text-white transition-all">Faces</button>
+      </div>
+      <button class="btn-toggle-boundary text-[9px] font-bold px-2 py-1 rounded border border-slate-700 text-slate-300 hover:bg-slate-800 transition-all">
+        Toggle Edge Trace
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  function initRubin() {
+    const containers = document.querySelectorAll('.rubin-container');
+    containers.forEach(container => {
+      if (container.getAttribute('data-initialized') === 'true') return;
+      container.setAttribute('data-initialized', 'true');
+
+      const vase = container.querySelector('.rubin-vase') as HTMLElement;
+      const leftFace = container.querySelector('.rubin-face-left') as HTMLElement;
+      const rightFace = container.querySelector('.rubin-face-right') as HTMLElement;
+      const boundary = container.querySelector('.rubin-boundary') as HTMLElement;
+      const buttons = container.querySelectorAll('.btn-mode');
+      const btnBoundary = container.querySelector('.btn-toggle-boundary');
+
+      let traceActive = false;
+
+      // Handle display modes
+      buttons.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+
+          buttons.forEach(b => {
+            b.classList.remove('bg-purple-600', 'text-white');
+            b.classList.add('text-slate-400');
+          });
+
+          const clicked = e.currentTarget as HTMLButtonElement;
+          clicked.classList.remove('text-slate-400');
+          clicked.classList.add('bg-purple-600', 'text-white');
+
+          const mode = clicked.getAttribute('data-mode');
+
+          if (mode === 'both') {
+            vase.style.opacity = '1';
+            leftFace.style.opacity = '1';
+            rightFace.style.opacity = '1';
+          } else if (mode === 'vase') {
+            vase.style.opacity = '1';
+            leftFace.style.opacity = '0';
+            rightFace.style.opacity = '0';
+          } else if (mode === 'faces') {
+            vase.style.opacity = '0';
+            leftFace.style.opacity = '1';
+            rightFace.style.opacity = '1';
+          }
+        });
+      });
+
+      // Handle edge tracer
+      btnBoundary?.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        traceActive = !traceActive;
+
+        if (traceActive) {
+          boundary.setAttribute('opacity', '1');
+          btnBoundary.classList.add('bg-purple-600', 'text-white');
+        } else {
+          boundary.setAttribute('opacity', '0');
+          btnBoundary.classList.remove('bg-purple-600', 'text-white');
+        }
+      });
+    });
+  }
+
+  initRubin();
+  document.addEventListener('astro:page-load', initRubin);
+</script>

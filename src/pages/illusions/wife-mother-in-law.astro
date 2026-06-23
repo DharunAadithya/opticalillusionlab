@@ -175,10 +175,12 @@ import Layout from '../../layouts/Layout.astro';
     btnToggleYoung?.addEventListener('click', () => {
       const shown = overlayYoung?.classList.contains('opacity-100');
       if (shown) {
-        overlayYoung?.classList.replace('opacity-100', 'opacity-0');
+        overlayYoung?.classList.remove('opacity-100');
+        overlayYoung?.classList.add('opacity-0');
         if (btnToggleYoung) btnToggleYoung.textContent = "Show Young 👱‍♀️";
       } else {
-        overlayYoung?.classList.replace('opacity-0', 'opacity-100');
+        overlayYoung?.classList.remove('opacity-0');
+        overlayYoung?.classList.add('opacity-100');
         if (btnToggleYoung) btnToggleYoung.textContent = "Hide Young 👱‍♀️";
       }
     });
@@ -186,10 +188,12 @@ import Layout from '../../layouts/Layout.astro';
     btnToggleOld?.addEventListener('click', () => {
       const shown = overlayOld?.classList.contains('opacity-100');
       if (shown) {
-        overlayOld?.classList.replace('opacity-100', 'opacity-0');
+        overlayOld?.classList.remove('opacity-100');
+        overlayOld?.classList.add('opacity-0');
         if (btnToggleOld) btnToggleOld.textContent = "Show Old 👵";
       } else {
-        overlayOld?.classList.replace('opacity-0', 'opacity-100');
+        overlayOld?.classList.remove('opacity-0');
+        overlayOld?.classList.add('opacity-100');
         if (btnToggleOld) btnToggleOld.textContent = "Hide Old 👵";
       }
     });

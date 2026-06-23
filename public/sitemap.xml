@@ -115,19 +115,7 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://opticalillusionlab.pages.dev/illusions/ames-room</loc>
-    <lastmod>2026-06-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://opticalillusionlab.pages.dev/illusions/boring-figure</loc>
-    <lastmod>2026-06-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://opticalillusionlab.pages.dev/illusions/breathing-square</loc>
     <lastmod>2026-06-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -139,31 +127,13 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://opticalillusionlab.pages.dev/illusions/chromatic-aberration</loc>
-    <lastmod>2026-06-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://opticalillusionlab.pages.dev/illusions/coffer-illusion</loc>
     <lastmod>2026-06-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://opticalillusionlab.pages.dev/illusions/color-from-lines</loc>
-    <lastmod>2026-06-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://opticalillusionlab.pages.dev/illusions/color-spheres</loc>
-    <lastmod>2026-06-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://opticalillusionlab.pages.dev/illusions/cornsweet-illusion</loc>
     <lastmod>2026-06-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -199,18 +169,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://opticalillusionlab.pages.dev/illusions/enigma-illusion</loc>
-    <lastmod>2026-06-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://opticalillusionlab.pages.dev/illusions/expanding-hole</loc>
-    <lastmod>2026-06-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://opticalillusionlab.pages.dev/illusions/fraser-spiral</loc>
     <lastmod>2026-06-18</lastmod>
     <changefreq>monthly</changefreq>
@@ -234,12 +192,7 @@
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
-  <url>
-    <loc>https://opticalillusionlab.pages.dev/illusions/hollow-face</loc>
-    <lastmod>2026-06-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
+
   <url>
     <loc>https://opticalillusionlab.pages.dev/illusions/impossible-elephant</loc>
     <lastmod>2026-06-18</lastmod>
@@ -253,19 +206,7 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://opticalillusionlab.pages.dev/illusions/ishihara-test</loc>
-    <lastmod>2026-06-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://opticalillusionlab.pages.dev/illusions/kanizsa-triangle</loc>
-    <lastmod>2026-06-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://opticalillusionlab.pages.dev/illusions/levitating-ball</loc>
     <lastmod>2026-06-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -293,21 +234,8 @@
     <lastmod>2026-06-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://opticalillusionlab.pages.dev/illusions/necker-cube</loc>
-    <lastmod>2026-06-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
   <url>
     <loc>https://opticalillusionlab.pages.dev/illusions/old-woman-young-woman</loc>
-    <lastmod>2026-06-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://opticalillusionlab.pages.dev/illusions/ouchi-illusion</loc>
     <lastmod>2026-06-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -378,12 +306,7 @@
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
-  <url>
-    <loc>https://opticalillusionlab.pages.dev/illusions/shepard-tables</loc>
-    <lastmod>2026-06-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
+
   <url>
     <loc>https://opticalillusionlab.pages.dev/illusions/simultaneous-contrast</loc>
     <lastmod>2026-06-18</lastmod>

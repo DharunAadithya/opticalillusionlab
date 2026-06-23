@@ -1,0 +1,109 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { ILLUSIONS, CATEGORY_LABELS, DIFFICULTY_COLORS } from '../data/illusions';
+
+const categories = Object.keys(CATEGORY_LABELS) as (keyof typeof CATEGORY_LABELS)[];
+---
+
+<Layout
+  title="Explore All Optical Illusions — Filter by Category | Optical Illusion Lab"
+  description="Browse 30+ interactive optical illusions. Filter by category, difficulty, and type. Geometric, color, ambiguous, motion, and neural adaptation illusions."
+>
+  <section class="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-10">
+    <div class="text-center space-y-4">
+      <h1 class="font-display text-4xl sm:text-5xl font-black text-slate-900 dark:text-white tracking-tight">
+        Explore All Illusions
+      </h1>
+      <p class="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto text-sm sm:text-base">
+        Filter by category or difficulty — inspired by catalog browsing at
+        <a href="https://illusionsindex.org" class="text-purple-500 hover:underline" rel="noopener noreferrer">The Illusions Index</a>.
+      </p>
+    </div>
+
+    <div class="flex flex-wrap gap-2 justify-center" id="filter-bar">
+      <button data-filter="all" class="filter-btn active px-4 py-2 rounded-full text-xs font-bold border border-purple-500/40 bg-purple-500/15 text-purple-600 dark:text-purple-300 transition-all">All</button>
+      {categories.map((cat) => (
+        <button data-filter={cat} class="filter-btn px-4 py-2 rounded-full text-xs font-bold border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-purple-500/40 transition-all">
+          {CATEGORY_LABELS[cat]}
+        </button>
+      ))}
+    </div>
+
+    <div class="flex flex-wrap gap-2 justify-center">
+      {(['easy', 'medium', 'hard'] as const).map((d) => (
+        <button data-difficulty={d} class="diff-btn px-3 py-1.5 rounded-lg text-[10px] font-black uppercase border border-slate-300 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-purple-500/40 transition-all">
+          {d === 'easy' ? '🟢 Easy' : d === 'medium' ? '🟡 Medium' : '🔴 Hard'}
+        </button>
+      ))}
+    </div>
+
+    <div id="illusion-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {ILLUSIONS.map((illusion) => (
+        <a
+          href={`/illusions/${illusion.slug}`}
+          data-category={illusion.category}
+          data-difficulty={illusion.difficulty}
+          class={`illusion-explore-card group rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-5 shadow-sm hover:-translate-y-1 hover:border-purple-500/40 hover:shadow-purple-500/10 transition-all duration-300 border-l-4 ${DIFFICULTY_COLORS[illusion.difficulty]}`}
+        >
+          <div class="flex justify-between items-start gap-2 mb-2">
+            <span class="text-[10px] font-bold text-purple-500 uppercase tracking-wider">{CATEGORY_LABELS[illusion.category]}</span>
+            <span class="text-[10px] font-bold text-slate-500 dark:text-slate-400">Type {illusion.type}</span>
+          </div>
+          <h2 class="font-display text-lg font-bold text-slate-900 dark:text-white group-hover:text-purple-500 transition-colors">{illusion.title}</h2>
+          <p class="text-xs text-slate-600 dark:text-slate-400 mt-2 leading-relaxed">{illusion.description}</p>
+          <span class="inline-block mt-3 text-xs font-bold text-purple-500">Explore →</span>
+        </a>
+      ))}
+    </div>
+
+    <p id="no-results" class="hidden text-center text-slate-500 dark:text-slate-400 text-sm">No illusions match your filters.</p>
+  </section>
+
+  <script>
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const diffBtns = document.querySelectorAll('.diff-btn');
+    const cards = document.querySelectorAll('.illusion-explore-card');
+    const noResults = document.getElementById('no-results');
+
+    let activeCategory = 'all';
+    let activeDifficulty: string | null = null;
+
+    const applyFilters = () => {
+      let visible = 0;
+      cards.forEach((card) => {
+        const cat = card.getAttribute('data-category');
+        const diff = card.getAttribute('data-difficulty');
+        const catMatch = activeCategory === 'all' || cat === activeCategory;
+        const diffMatch = !activeDifficulty || diff === activeDifficulty;
+        const show = catMatch && diffMatch;
+        (card as HTMLElement).style.display = show ? '' : 'none';
+        if (show) visible++;
+      });
+      noResults?.classList.toggle('hidden', visible > 0);
+    };
+
+    filterBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach((b) => b.classList.remove('active', 'bg-purple-500/15', 'text-purple-600', 'dark:text-purple-300', 'border-purple-500/40'));
+        btn.classList.add('active', 'bg-purple-500/15', 'text-purple-600', 'dark:text-purple-300', 'border-purple-500/40');
+        activeCategory = btn.getAttribute('data-filter') || 'all';
+        applyFilters();
+      });
+    });
+
+    diffBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const d = btn.getAttribute('data-difficulty');
+        if (activeDifficulty === d) {
+          activeDifficulty = null;
+          btn.classList.remove('ring-2', 'ring-purple-400');
+        } else {
+          diffBtns.forEach((b) => b.classList.remove('ring-2', 'ring-purple-400'));
+          activeDifficulty = d;
+          btn.classList.add('ring-2', 'ring-purple-400');
+        }
+        applyFilters();
+      });
+    });
+  </script>
+</Layout>

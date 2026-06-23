@@ -1,77 +1,114 @@
 ---
-// src/pages/illusions/simultaneous-contrast.astro
 import Layout from '../../layouts/Layout.astro';
 ---
 
 <Layout 
-  title="Simultaneous Contrast — Optical Illusion Lab" 
-  description="Explore the science, history, and visual parameters of the Simultaneous Contrast optical illusion."
+  title="Simultaneous Contrast — Interactive Optical Illusion | Optical Illusion Lab" 
+  description="Two identical orange squares look different on blue vs gray backgrounds. Interactive simultaneous contrast demo with reveal proof."
 >
   <div class="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-12">
-    <!-- Breadcrumb back navigation -->
-    <nav class="flex text-xs font-black uppercase tracking-wider text-slate-400 space-x-2 pb-2 border-b border-indigo-500/10">
-      <a href="/" class="hover:text-white transition-colors">Home</a>
+    <nav class="flex text-xs font-black uppercase tracking-wider text-slate-500 dark:text-slate-400 space-x-2 pb-2 border-b border-indigo-500/10">
+      <a href="/" class="hover:text-purple-500 transition-colors">Home</a>
       <span>/</span>
-      <span class="text-purple-400">Simultaneous Contrast</span>
+      <a href="/color" class="hover:text-purple-500 transition-colors">Color</a>
+      <span>/</span>
+      <span class="text-purple-500">Simultaneous Contrast</span>
     </nav>
 
-    <!-- Hero Header -->
     <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6">
       <div class="space-y-3">
         <div class="flex items-center space-x-2">
-          <span class="text-xs font-black px-2.5 py-0.5 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 uppercase tracking-wider">Color</span>
-          <span class="text-xs font-black px-2.5 py-0.5 rounded-full bg-purple-500/10 text-purple-400 border border-purple-500/20 uppercase tracking-wider">🟢 Easy</span>
+          <span class="text-xs font-black px-2.5 py-0.5 rounded-full bg-indigo-500/10 text-indigo-500 dark:text-indigo-400 border border-indigo-500/20 uppercase tracking-wider">Lateral Inhibition</span>
+          <span class="text-xs font-black px-2.5 py-0.5 rounded-full bg-green-500/10 text-green-600 dark:text-green-400 border border-green-500/20 uppercase tracking-wider">🟢 Easy</span>
         </div>
-        <h1 class="font-display text-4xl sm:text-5xl font-black tracking-tight text-slate-900 dark:text-white">
-          Simultaneous Contrast
-        </h1>
-        <p class="text-slate-600 dark:text-slate-350 text-base max-w-2xl font-medium">
-          Discover how the brain interprets this fascinating color visual puzzle.
+        <h1 class="font-display text-4xl sm:text-5xl font-black tracking-tight text-slate-900 dark:text-white">Simultaneous Contrast</h1>
+        <p class="text-slate-600 dark:text-slate-400 text-base max-w-2xl font-medium">
+          Two identical orange squares appear to change hue and brightness when placed on different backgrounds — your retina compares, never measures absolutely.
         </p>
       </div>
+      <button id="share-illusion-page-btn" class="relative shrink-0 flex items-center space-x-2 rounded-2xl bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-600 hover:scale-105 text-white font-black text-sm px-6 py-3.5 transition-all shadow-lg">
+        <span>Share Page</span>
+      </button>
     </div>
 
-    <!-- LARGE INTERACTIVE DEMO -->
-    <div class="flex flex-col items-center justify-center py-6 border-b border-indigo-500/10">
+    <div class="flex flex-col items-center py-6 border-b border-indigo-500/10">
       <div class="w-full max-w-[600px] mx-auto space-y-4">
-        <div class="relative flex flex-col items-center justify-center h-96 w-full bg-slate-100 dark:bg-slate-950/40 rounded-xl overflow-hidden border border-indigo-500/10 p-6">
-          <svg class="w-48 h-48 select-none" viewBox="0 0 120 100">
-            <rect x="0" y="0" width="60" height="100" fill="#1e293b" />
-            <rect x="60" y="0" width="60" height="100" fill="#cbd5e1" />
-            <rect x="20" y="40" width="20" height="20" fill="#f97316" />
-            <rect x="80" y="40" width="20" height="20" fill="#f97316" />
-          </svg>
+        <div class="bg-indigo-50 dark:bg-indigo-950/40 border border-indigo-500/25 rounded-2xl p-4 text-slate-700 dark:text-slate-300 text-xs sm:text-sm font-semibold">
+          👁️ WHAT TO LOOK FOR: The two center squares are the exact same orange (#f97316). Notice how the left square looks brighter and more vivid on the dark blue background, while the right square looks duller on the light gray background. Click "Reveal Truth" to connect them with a matching strip.
         </div>
+
+        <div id="contrast-demo" class="relative flex flex-col items-center justify-center min-h-[320px] w-full bg-slate-900 rounded-xl border border-indigo-500/10 p-6 pb-16">
+          <svg viewBox="0 0 320 140" width="320" height="140" class="rounded-lg select-none">
+            <rect x="0" y="0" width="160" height="140" fill="#1e3a5f" />
+            <rect x="160" y="0" width="160" height="140" fill="#d1d5db" />
+            <rect id="sq-left" x="55" y="50" width="50" height="50" fill="#f97316" />
+            <rect id="sq-right" x="215" y="50" width="50" height="50" fill="#f97316" />
+            <rect id="contrast-bridge" x="78" y="68" width="164" height="14" fill="#f97316" opacity="0" class="transition-opacity duration-300" />
+            <text x="80" y="40" fill="#fff" font-size="11" font-weight="bold">Dark BG</text>
+            <text x="240" y="40" fill="#111" font-size="11" font-weight="bold">Light BG</text>
+          </svg>
+          <div class="absolute bottom-4">
+            <button id="btn-contrast-reveal" class="text-sm font-semibold px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white transition-colors">Reveal Truth</button>
+          </div>
+        </div>
+        <p class="text-center text-xs text-slate-500 italic">Fixed dark display card for consistent contrast perception.</p>
       </div>
     </div>
 
-    <!-- Content Split Layout -->
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 pt-4">
-      <!-- Left 2-Columns -->
-      <div class="lg:col-span-2 space-y-10">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+      <div class="lg:col-span-2 space-y-8">
         <section class="space-y-4">
-          <h2 class="font-display text-2xl font-black text-slate-900 dark:text-white flex items-center space-x-2">
-            <span class="text-purple-500">🧠</span>
-            <span>THE SCIENCE</span>
-          </h2>
-          <div class="prose prose-indigo dark:prose-invert text-slate-700 dark:text-slate-300 leading-relaxed text-xs sm:text-sm font-semibold text-justify">
-            <p>Simultaneous Contrast was first documented in detail by French chemist Michel Eugène Chevreul in 1839. It occurs when two identical color patches are placed against different colored backgrounds. For example, two identical orange squares will look completely different if one is placed on a dark blue background and the other on a light gray background. The square on the dark background appears brighter and more saturated, while the square on the light background appears washed out and darker. This occurs because the visual system processes colors comparatively rather than absolutely, using lateral inhibition in the retina to enhance contrast and color boundaries.</p>
+          <h2 class="font-display text-2xl font-black text-slate-900 dark:text-white"><span class="text-purple-500">🧠</span> THE SCIENCE</h2>
+          <div class="prose dark:prose-invert text-slate-700 dark:text-slate-300 text-sm leading-relaxed space-y-4 font-medium text-justify">
+            <p>Simultaneous contrast is among the oldest documented color phenomena in vision science. French chemist Michel Eugène Chevreul described it systematically in 1839 while studying textile dyes at the Gobelins Manufactory — he noticed that identical yarn samples appeared to change color depending on neighboring fabrics. The effect occurs because retinal ganglion cells compute color and brightness through center-surround antagonistic receptive fields: a neuron excited by orange in its center is simultaneously inhibited by signals from its surround. A dark surround releases inhibition, making the center appear brighter and more saturated; a light surround increases inhibition, washing out the center.</p>
+            <p>At the cortical level, area V4 in the ventral visual stream integrates these contrast signals into perceived surface color. Simultaneous contrast is not a bug — it is an adaptive mechanism that helps the visual system extract object reflectance from varying illumination. Without contrast enhancement, edges and textures would disappear in uniform lighting. However, in artificial displays with flat colored backgrounds, the mechanism overshoots, producing large apparent differences between physically identical patches.</p>
+            <p>Chevreul's work influenced Impressionist painters including Georges Seurat, who exploited simultaneous contrast in pointillist color mixing. Modern display calibration and accessibility design still rely on Chevreul's principles — placing text on high-contrast backgrounds avoids the washed-out appearance that simultaneous contrast would otherwise create. Museum educators at institutions like the AMNH use simultaneous contrast demos to explain why scientific illustration requires checking colors in context, not isolation.</p>
           </div>
         </section>
       </div>
-
-      <!-- Right Column -->
-      <div class="space-y-8">
-        <section class="rounded-3xl border border-indigo-950/20 bg-slate-900/60 p-6 space-y-4 shadow-xl">
-          <h3 class="font-display text-lg font-black text-slate-900 dark:text-white flex items-center space-x-2">
-            <span class="text-purple-500">📜</span>
-            <span>HISTORY</span>
-          </h3>
-          <p class="text-xs sm:text-sm text-slate-650 dark:text-slate-355 leading-relaxed font-semibold">
-            First described by Michel Eugène Chevreul (1839). It remains a fundamental demonstration of perceptual processing and cognitive framing.
-          </p>
+      <div class="space-y-6">
+        <section class="rounded-3xl border border-slate-200 dark:border-indigo-950/20 bg-slate-50 dark:bg-slate-900/60 p-6 space-y-3">
+          <h3 class="font-display text-lg font-black text-slate-900 dark:text-white">💡 FUN FACTS</h3>
+          <ul class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 space-y-2 font-medium">
+            <li>• Chevreul lived to 102 and published his contrast laws at age 73.</li>
+            <li>• The effect works for all hues — gray patches on colored backgrounds shift apparent color toward the complement.</li>
+            <li>• Simultaneous contrast is stronger in peripheral vision than at the fovea.</li>
+          </ul>
+        </section>
+        <section class="rounded-3xl border border-slate-200 dark:border-indigo-950/20 bg-slate-50 dark:bg-slate-900/60 p-6">
+          <h3 class="font-display text-lg font-black text-slate-900 dark:text-white mb-2">📜 WHO DISCOVERED IT</h3>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 font-medium"><strong>Michel Eugène Chevreul</strong>, French chemist, 1839. His treatise <em>The Law of Contrast of Colors</em> founded modern color theory.</p>
         </section>
       </div>
     </div>
+
+    <section class="border-t border-indigo-500/10 pt-12">
+      <h2 class="font-display text-2xl font-black text-slate-900 dark:text-white text-center mb-6">Related Illusions</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <a href="/illusions/whites-illusion" class="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-5 hover:border-purple-500/40 hover:-translate-y-1 transition-all">
+          <h4 class="font-bold text-slate-900 dark:text-white">White's Illusion →</h4>
+        </a>
+        <a href="/illusions/adelsons-checkerboard" class="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-5 hover:border-purple-500/40 hover:-translate-y-1 transition-all">
+          <h4 class="font-bold text-slate-900 dark:text-white">Adelson Checkerboard →</h4>
+        </a>
+        <a href="/illusions/color-spheres" class="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-5 hover:border-purple-500/40 hover:-translate-y-1 transition-all">
+          <h4 class="font-bold text-slate-900 dark:text-white">Color Spheres →</h4>
+        </a>
+      </div>
+    </section>
   </div>
+
+  <script>
+    const btn = document.getElementById('btn-contrast-reveal');
+    const bridge = document.getElementById('contrast-bridge');
+    let shown = false;
+    btn?.addEventListener('click', () => {
+      shown = !shown;
+      if (bridge) bridge.setAttribute('opacity', shown ? '1' : '0');
+      if (btn) btn.textContent = shown ? 'Hide Bridge' : 'Reveal Truth';
+    });
+    document.getElementById('share-illusion-page-btn')?.addEventListener('click', () => {
+      navigator.clipboard.writeText(window.location.href);
+    });
+  </script>
 </Layout>
