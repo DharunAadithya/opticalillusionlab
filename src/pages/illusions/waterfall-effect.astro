@@ -5,7 +5,7 @@ import Layout from '../../layouts/Layout.astro';
 
 <Layout 
   title="Waterfall Effect — Interactive Optical Illusion | Optical Illusion Lab" 
-  description="Stare at the spinning wheel for 30 seconds. When it stops, watch the static segments crawl backwards!"
+  description="Stare at the scrolling stripes for 20 seconds. When they stop, watch the static waterfall image crawl upwards!"
 >
   <div class="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-12">
     
@@ -28,15 +28,15 @@ import Layout from '../../layouts/Layout.astro';
         <h1 class="font-display text-4xl sm:text-5xl font-black tracking-tight text-slate-900 dark:text-white">
           Waterfall Effect
         </h1>
-        <p class="text-slate-600 dark:text-slate-350 text-base max-w-2xl font-medium">
-          Stare at the spinning disk sectors for 30 seconds. When the motion freezes, the stationary pattern will appear to spin in reverse.
+        <p class="text-slate-600 dark:text-slate-355 text-base max-w-2xl font-medium">
+          Stare at the center red dot while the stripes scroll down for 20 seconds. When the motion stops, look at the static waterfall image to see it crawl upwards.
         </p>
       </div>
 
       <!-- Share Button -->
       <button 
         id="share-illusion-page-btn"
-        class="relative shrink-0 flex items-center space-x-2 rounded-2xl bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-600 hover:scale-105 text-white font-black text-sm px-6 py-3.5 transition-all shadow-lg shadow-purple-500/10"
+        class="shrink-0 flex items-center space-x-2 rounded-lg bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-black text-sm px-6 py-3.5 transition-colors shadow-lg cursor-pointer border-none"
       >
         <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M15 8a3 3 0 1 0-2.977-2.63l-4.94 2.47a3 3 0 1 0 0 4.319l4.94 2.47a3 3 0 1 0 .895-1.789l-4.94-2.47a3.027 3.027 0 0 0 0-.74l4.94-2.47C13.456 7.68 14.19 8 15 8Z"/></svg>
         <span>Share Page</span>
@@ -47,52 +47,80 @@ import Layout from '../../layouts/Layout.astro';
     <!-- LARGE INTERACTIVE DEMO -->
     <div class="flex flex-col items-center justify-center py-6 border-b border-indigo-500/10">
       <div class="w-full max-w-[600px] mx-auto space-y-4">
-        <div id="waterfall-illusion-container" class="relative flex flex-col items-center justify-center h-96 w-full bg-[#1e293b] border border-slate-700 rounded-xl overflow-hidden p-8">
+        <div id="waterfall-illusion-container" class="relative flex flex-col items-center justify-center min-h-[480px] w-full bg-[#1e293b] border border-slate-700 rounded-xl overflow-hidden p-8">
           
-          <!-- Segmented Disk SVG -->
-          <svg id="svg-waterfall-disk" class="w-48 h-48 select-none transition-transform duration-500" viewBox="0 0 100 100">
-            <circle cx="50" cy="50" r="45" fill="none" stroke="#3b82f6" stroke-width="3" />
-            <!-- Sectors to make rotation highly visible -->
-            <path d="M 50,50 L 50,5 A 45,45 0 0,1 81.8,18.2 Z" fill="#3b82f6" opacity="0.4" />
-            <path d="M 50,50 L 95,50 A 45,45 0 0,1 81.8,81.8 Z" fill="#3b82f6" opacity="0.4" />
-            <path d="M 50,50 L 50,95 A 45,45 0 0,1 18.2,81.8 Z" fill="#3b82f6" opacity="0.4" />
-            <path d="M 50,50 L 5,50 A 45,45 0 0,1 18.2,18.2 Z" fill="#3b82f6" opacity="0.4" />
+          <!-- Scrolling Stripes / Static Image SVG (Increased size by 40% -> w-[360px] h-[360px]) -->
+          <svg id="svg-waterfall-stripes" class="w-[360px] h-[360px] select-none rounded-xl bg-white dark:bg-slate-900 border border-slate-500/20" viewBox="0 0 300 300" width="300" height="300">
+            <defs>
+              <clipPath id="waterfall-clip-famous">
+                <rect x="15" y="15" width="270" height="270" rx="15" />
+              </clipPath>
+            </defs>
             
-            <path d="M 50,50 L 72.5,27.5 A 45,45 0 0,1 95,50 Z" fill="#60a5fa" opacity="0.2" />
-            <path d="M 50,50 L 72.5,72.5 A 45,45 0 0,1 50,95 Z" fill="#60a5fa" opacity="0.2" />
-            <path d="M 50,50 L 27.5,72.5 A 45,45 0 0,1 5,50 Z" fill="#60a5fa" opacity="0.2" />
-            <path d="M 50,50 L 27.5,27.5 A 45,45 0 0,1 50,5 Z" fill="#60a5fa" opacity="0.2" />
+            <g clip-path="url(#waterfall-clip-famous)">
+              <!-- Adaptation Stimulus: scrolling stripes (Active state) -->
+              <g id="waterfall-stripes-g" class="waterfall-stripes">
+                {Array.from({ length: 12 }).map((_, i) => (
+                  <rect x="0" y={i * 60 - 60} width="300" height="30" fill="currentColor" class="text-slate-950 dark:text-slate-100" />
+                ))}
+              </g>
+
+              <!-- Post-Adaptation Display: Static Waterfall Graphic (Shown after 20s) -->
+              <g id="waterfall-static-image" class="hidden">
+                <!-- Water pool background -->
+                <rect x="15" y="15" width="270" height="270" fill="#0284c7" />
+                <!-- Left rock cliff -->
+                <path d="M 15,15 L 85,15 L 75,100 L 95,190 L 70,285 L 15,285 Z" fill="#475569" stroke="#334155" stroke-width="2" />
+                <!-- Left cliff crack lines -->
+                <path d="M 40,15 L 55,120 M 25,100 L 70,110 M 50,180 L 30,285" stroke="#1e293b" stroke-width="1.5" />
+                <!-- Right rock cliff -->
+                <path d="M 285,15 L 215,15 L 225,100 L 205,190 L 230,285 L 285,285 Z" fill="#475569" stroke="#334155" stroke-width="2" />
+                <!-- Right cliff crack lines -->
+                <path d="M 260,15 L 245,120 M 275,100 L 230,110 M 250,180 L 270,285" stroke="#1e293b" stroke-width="1.5" />
+                <!-- Waterfall stream (center) -->
+                <rect x="85" y="15" width="130" height="270" fill="#38bdf8" />
+                <!-- Flow texture lines (strictly static) -->
+                <path d="M 100,15 L 95,120 L 110,285 M 120,15 L 125,100 L 120,285 M 150,15 L 145,160 L 155,285 M 180,15 L 175,140 L 185,285 M 200,15 L 205,110 L 195,285" stroke="#ffffff" stroke-width="2.5" opacity="0.6" stroke-linecap="round" fill="none" />
+                <path d="M 110,50 L 105,180 L 115,250 M 135,30 L 140,140 L 130,270 M 165,40 L 160,200 L 170,260 M 190,60 L 185,150 L 190,240" stroke="#0284c7" stroke-width="2" opacity="0.4" stroke-linecap="round" fill="none" />
+                <!-- Bottom splashes -->
+                <path d="M 75,260 Q 90,240 105,260 Q 120,240 135,260 Q 150,240 165,260 Q 180,240 195,260 Q 210,240 225,260" fill="none" stroke="#ffffff" stroke-width="4" opacity="0.8" />
+              </g>
+            </g>
             
-            <!-- Red center fixation point -->
-            <circle cx="50" cy="50" r="3.5" fill="#ef4444" />
+            <!-- Red center fixation dot (always on top) -->
+            <circle cx="150" cy="150" r="7" fill="#ef4444" stroke="#ffffff" stroke-width="2" />
           </svg>
 
           <!-- Text overlay indicating frozen state -->
-          <div id="waterfall-freeze-overlay" class="absolute top-4 left-4 bg-blue-900/90 text-white font-black text-[10px] px-3 py-1.5 rounded-full border border-blue-500/20 uppercase tracking-widest hidden animate-pulse">
-            Disk Frozen! Stare at center 🌀
+          <div id="waterfall-freeze-overlay" class="absolute top-4 left-4 bg-[#7C3AED] text-white font-black text-[10px] px-3 py-1.5 rounded-full border border-purple-500/20 uppercase tracking-widest hidden animate-pulse">
+            Observe the Aftereffect! 🌀
           </div>
 
           <div class="absolute bottom-4 flex flex-col items-center space-y-2 bg-slate-950/90 px-5 py-3 rounded-2xl border border-white/10 text-center w-11/12 max-w-xs">
             <!-- Progress Bar -->
             <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden mb-1 hidden" id="waterfall-progress-bar-container">
-              <div id="waterfall-progress-fill" class="bg-blue-500 h-full w-full transition-all duration-100"></div>
+              <div id="waterfall-progress-fill" class="bg-purple-500 h-full w-full transition-all duration-100"></div>
             </div>
             <div class="flex items-center justify-between w-full">
-              <button id="btn-start-waterfall" class="text-xs font-black px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white transition-all shadow-md">Start Spinning (30s)</button>
-              <span id="waterfall-timer-text" class="font-mono text-xs text-blue-400 font-black">30.0s</span>
+              <button id="btn-start-waterfall" class="text-xs font-black px-4 py-2 rounded-lg bg-[#7C3AED] hover:bg-[#6D28D9] text-white transition-colors cursor-pointer border-none">Start Scrolling (20s)</button>
+              <span id="waterfall-timer-text" class="font-mono text-xs text-purple-400 font-black">20.0s</span>
             </div>
           </div>
         </div>
 
+        <div id="waterfall-static-text" class="hidden text-center text-sm text-purple-400 font-extrabold py-2 bg-purple-950/10 rounded-xl border border-purple-500/20">
+          Now look at this image — does it appear to move upward?
+        </div>
+
         <!-- Experience Feedback Panel (hidden by default) -->
         <div id="experience-feedback-panel" class="hidden w-full p-6 bg-slate-900/90 border border-white/10 rounded-2xl text-left space-y-4 shadow-xl">
-          <h4 class="text-xs font-black uppercase text-blue-400">Stare Experience Verdict</h4>
+          <h4 class="text-xs font-black uppercase text-purple-400">Stare Experience Verdict</h4>
           <p class="text-[11px] text-slate-350 font-semibold leading-relaxed">
-            Did the waterfall effect work for you? Did you notice the static segments crawl or spin in reverse once the disk stopped?
+            Did the waterfall effect work for you? Did you notice the static waterfall image crawl or drift upward?
           </p>
           <div class="flex gap-2">
-            <button id="btn-work-yes" class="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs py-2 rounded-xl transition-all">Yes, it worked! 👍</button>
-            <button id="btn-work-no" class="flex-1 bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs py-2 rounded-xl transition-all">No, it didn't... 👎</button>
+            <button id="btn-work-yes" class="flex-1 bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-bold text-xs py-2 rounded-lg transition-colors cursor-pointer border-none">Yes, it worked! 👍</button>
+            <button id="btn-work-no" class="flex-1 bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-bold text-xs py-2 rounded-lg transition-colors cursor-pointer border-none">No, it didn't... 👎</button>
           </div>
           
           <!-- Result/Troubleshooting section -->
@@ -100,27 +128,27 @@ import Layout from '../../layouts/Layout.astro';
             <div id="verdict-yes-content" class="hidden text-emerald-450 font-semibold leading-relaxed space-y-2">
               <p>✓ Awesome! Your visual cortex adapted exactly as predicted.</p>
               <div class="p-3 bg-emerald-500/5 border border-emerald-500/20 rounded-lg text-[10px] text-slate-350 space-y-2">
-                <p><strong>Neurological Explanation:</strong> Staring at the rotating disk adapts direction-selective neurons in the middle temporal visual area (MT/V5). The downward-motion-sensitive neurons fatigue and drop below baseline activity. When the disk freezes, the resting activity of opposing upward-motion-sensitive neurons is relatively higher. The brain translates this discrepancy as movement, making the static sectors drift in reverse.</p>
+                <p><strong>Neurological Explanation:</strong> Staring at the downward scrolling stripes adapts direction-selective neurons in the middle temporal visual area (MT/V5). The downward-motion-sensitive neurons fatigue and drop below baseline activity. When the static image is shown, the resting activity of opposing upward-motion-sensitive neurons is relatively higher. The brain translates this discrepancy as movement, making the static waterfall image drift in reverse (upwards).</p>
               </div>
             </div>
             <div id="verdict-no-content" class="hidden text-slate-350 leading-relaxed space-y-2">
               <p class="text-rose-400 font-bold">✗ Keep Trying!</p>
               <div class="p-3 bg-rose-500/5 border border-rose-500/20 rounded-lg text-[10px] space-y-1">
                 <strong class="text-white">Troubleshooting Tips:</strong>
-                <ul class="list-disc pl-4 space-y-1 text-slate-300">
-                  <li>Keep your gaze locked strictly on the central red dot of the disk during the 30-second countdown.</li>
+                <ul class="list-disc pl-4 space-y-1 text-slate-300 font-normal">
+                  <li>Keep your gaze locked strictly on the central red dot of the grid during the 20-second countdown.</li>
                   <li>Try not to blink or look away—eye movements refresh the retinal image and diminish the adaptation of motion-sensitive neurons.</li>
-                  <li>When the disk stops, keep looking at the red dot and wait for the drifting effect to emerge.</li>
+                  <li>When the static image appears, keep looking at the red dot and wait for the drifting effect to emerge.</li>
                   <li>Increase screen brightness and sit closer to the screen.</li>
                 </ul>
               </div>
             </div>
-            <button id="btn-reset-experience" class="w-full border border-blue-500/30 text-blue-400 hover:bg-blue-500/10 font-bold text-[10px] py-1.5 rounded-xl transition-all">Try Again 🔄</button>
+            <button id="btn-reset-experience" class="w-full bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-bold text-[10px] py-2 rounded-lg transition-colors border-none cursor-pointer">Try Again 🔄</button>
           </div>
         </div>
 
         <div class="text-center text-xs text-slate-500 dark:text-slate-400 italic">
-          Use the "Start Spinning" controller to run the 30-second motion-induction timer.
+          Use the "Start Scrolling" controller to run the 20-second motion-induction timer.
         </div>
       </div>
     </div>
@@ -131,23 +159,23 @@ import Layout from '../../layouts/Layout.astro';
       <div class="lg:col-span-2 space-y-10">
         <section class="space-y-4">
           <h2 class="font-display text-2xl font-black text-slate-900 dark:text-white flex items-center space-x-2">
-            <span class="text-blue-500">🎮</span>
+            <span class="text-purple-500">🎮</span>
             <span>EXPERIENCE IT FIRST</span>
           </h2>
           <div class="bg-indigo-950/20 border-2 border-indigo-500/15 rounded-3xl p-6 text-slate-700 dark:text-slate-300">
             <p class="font-bold text-sm sm:text-base text-slate-200">Follow these steps to experience the Waterfall Effect:</p>
             <ul class="list-disc pl-5 mt-3 space-y-2 text-xs sm:text-sm font-medium">
-              <li>Click the "Start Spinning" button to activate the rapid rotation.</li>
-              <li>Focus your gaze entirely on the red dot at the center of the disk. Keep your head and eyes completely still.</li>
-              <li>When the timer hits 0s, the disk will freeze instantly.</li>
-              <li>Keep looking at the red center dot. The stationary disk will appear to rotate in the opposite direction.</li>
+              <li>Click the "Start Scrolling" button to activate the downward movement.</li>
+              <li>Focus your gaze entirely on the red dot at the center. Keep your head and eyes completely still.</li>
+              <li>When the timer hits 0s, a static waterfall photo will appear instantly.</li>
+              <li>Keep looking at the red center dot. The stationary waterfall will appear to drift slowly upward.</li>
             </ul>
           </div>
         </section>
 
         <section class="space-y-4">
           <h2 class="font-display text-2xl font-black text-slate-900 dark:text-white flex items-center space-x-2">
-            <span class="text-blue-500">🧠</span>
+            <span class="text-purple-500">🧠</span>
             <span>THE SCIENCE</span>
           </h2>
           <div class="prose prose-indigo dark:prose-invert text-slate-700 dark:text-slate-300 leading-relaxed text-xs sm:text-sm font-semibold text-justify">
@@ -158,18 +186,28 @@ import Layout from '../../layouts/Layout.astro';
 
       <!-- Right Column -->
       <div class="space-y-8">
-        <section class="rounded-3xl border border-indigo-950/20 bg-slate-900/60 p-6 space-y-4 shadow-xl">
+        <section class="rounded-3xl border border-indigo-955/20 bg-slate-900/60 p-6 space-y-4 shadow-xl">
           <h3 class="font-display text-lg font-black text-slate-900 dark:text-white flex items-center space-x-2">
-            <span class="text-blue-500">📜</span>
+            <span class="text-purple-500">📜</span>
             <span>HISTORY</span>
           </h3>
-          <p class="text-xs sm:text-sm text-slate-650 dark:text-slate-355 leading-relaxed font-semibold">
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed font-semibold">
             First described by Robert Addams (1834). He observed the Waterfall of Foyers in Scotland, noting that when he shifted his gaze to the adjacent stationary rocks, they appeared to crawl upwards. This remains a bedrock demo of comparative neural channels in neuroscience.
           </p>
         </section>
       </div>
     </div>
   </div>
+
+  <style is:global>
+    @keyframes scroll-down-anim {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(60px); }
+    }
+    .animate-waterfall-scroll {
+      animation: scroll-down-anim 0.8s linear infinite;
+    }
+  </style>
 
   <script>
     const sharePageBtn = document.getElementById('share-illusion-page-btn');
@@ -194,7 +232,9 @@ import Layout from '../../layouts/Layout.astro';
     const timerText = document.getElementById('waterfall-timer-text') as HTMLElement;
     const progressFill = document.getElementById('waterfall-progress-fill') as HTMLElement;
     const progressContainer = document.getElementById('waterfall-progress-bar-container');
-    const disk = document.getElementById('svg-waterfall-disk');
+    const stripesG = document.getElementById('waterfall-stripes-g');
+    const staticImageG = document.getElementById('waterfall-static-image');
+    const staticTextDiv = document.getElementById('waterfall-static-text');
     const freezeOverlay = document.getElementById('waterfall-freeze-overlay');
 
     const feedbackPanel = document.getElementById('experience-feedback-panel');
@@ -205,9 +245,9 @@ import Layout from '../../layouts/Layout.astro';
     const noContent = document.getElementById('verdict-no-content');
     const resetExpBtn = document.getElementById('btn-reset-experience');
 
-    let secondsLeft = 30.0;
+    let secondsLeft = 20.0;
     let timerId: any = null;
-    let spinningActive = false;
+    let scrollingActive = false;
 
     const hideFeedback = () => {
       feedbackPanel?.classList.add('hidden');
@@ -216,60 +256,64 @@ import Layout from '../../layouts/Layout.astro';
       noContent?.classList.add('hidden');
     };
 
-    const stopSpinning = () => {
+    const stopScrolling = () => {
       clearInterval(timerId);
-      spinningActive = false;
-      secondsLeft = 30.0;
-      timerText.textContent = '30.0s';
+      scrollingActive = false;
+      secondsLeft = 20.0;
+      timerText.textContent = '20.0s';
       progressContainer?.classList.add('hidden');
-      disk?.classList.remove('animate-spin');
-      disk?.style.removeProperty('animation');
+      stripesG?.classList.remove('animate-waterfall-scroll');
+      stripesG?.classList.remove('hidden');
+      staticImageG?.classList.add('hidden');
+      staticTextDiv?.classList.add('hidden');
       freezeOverlay?.classList.add('hidden');
-      startBtn.textContent = 'Start Spinning (30s)';
+      startBtn.textContent = 'Start Scrolling (20s)';
       hideFeedback();
     };
 
     startBtn?.addEventListener('click', () => {
-      if (spinningActive) {
-        stopSpinning();
+      if (scrollingActive) {
+        stopScrolling();
       } else {
-        spinningActive = true;
-        secondsLeft = 30.0;
-        timerText.textContent = '30.0s';
+        scrollingActive = true;
+        secondsLeft = 20.0;
+        timerText.textContent = '20.0s';
         progressContainer?.classList.remove('hidden');
         freezeOverlay?.classList.add('hidden');
+        stripesG?.classList.remove('hidden');
+        staticImageG?.classList.add('hidden');
+        staticTextDiv?.classList.add('hidden');
         
-        // Add fast spin class
-        disk?.classList.add('animate-spin');
-        disk!.style.animationDuration = '1.2s';
-        disk!.style.animationTimingFunction = 'linear';
-        disk!.style.animationIterationCount = 'infinite';
+        // Add downward scroll anim class
+        stripesG?.classList.add('animate-waterfall-scroll');
 
-        startBtn.textContent = 'Reset Spin 🔄';
+        startBtn.textContent = 'Reset 🔄';
         hideFeedback();
 
         const startTime = Date.now();
         timerId = setInterval(() => {
           const elapsed = (Date.now() - startTime) / 1000;
-          secondsLeft = 30.0 - elapsed;
+          secondsLeft = 20.0 - elapsed;
           if (secondsLeft <= 0) {
             secondsLeft = 0;
             clearInterval(timerId);
             timerText.textContent = '0.0s';
             progressContainer?.classList.add('hidden');
             
-            disk?.classList.remove('animate-spin');
-            disk?.style.removeProperty('animation');
+            stripesG?.classList.remove('animate-waterfall-scroll');
+            stripesG?.classList.add('hidden');
+            staticImageG?.classList.remove('hidden');
+            staticTextDiv?.classList.remove('hidden');
             
             freezeOverlay?.classList.remove('hidden');
             startBtn.textContent = 'Try Stare Again 🔄';
-            spinningActive = false;
+            scrollingActive = false;
             
             // Show feedback panel
             feedbackPanel?.classList.remove('hidden');
           }
           if (timerText) timerText.textContent = `${secondsLeft.toFixed(1)}s`;
-          if (progressFill) progressFill.style.width = `${(secondsLeft / 30.0) * 100}%`;
+          if (progressFill) progressFill.style.width = `${(secondsLeft / 20.0) * 100}%`;
         }, 100);
       }
     });
@@ -287,7 +331,7 @@ import Layout from '../../layouts/Layout.astro';
     });
 
     resetExpBtn?.addEventListener('click', () => {
-      stopSpinning();
+      stopScrolling();
     });
   </script>
 </Layout>

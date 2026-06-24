@@ -1,0 +1,127 @@
+---
+interface Props {
+  isCard?: boolean;
+}
+
+const { isCard = false } = Astro.props;
+---
+
+<div class="elephant-container flex flex-col items-center w-full select-none" data-is-card={isCard ? "true" : "false"}>
+  <div class="relative flex flex-col items-center justify-center bg-[#090D1A] rounded-2xl overflow-hidden border border-slate-800 shadow-inner w-full min-h-[380px] p-4 pb-20">
+    
+    <!-- High-Fidelity Roger Shepard's Impossible Elephant SVG -->
+    <svg class="w-full max-w-[280px] h-auto aspect-square select-none overflow-visible" viewBox="0 0 200 200">
+      <defs>
+        <!-- Highlight glow filter -->
+        <filter id="elephant-glow" x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur stdDeviation="3.5" result="blur" />
+          <feComposite in="SourceGraphic" in2="blur" operator="over" />
+        </filter>
+        <!-- Elephant skin shading -->
+        <linearGradient id="elephant-shading" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#E2E8F0" />
+          <stop offset="60%" stop-color="#94A3B8" />
+          <stop offset="100%" stop-color="#475569" />
+        </linearGradient>
+      </defs>
+
+      <!-- Elephant Body (Solid high-fidelity grey shading with line art) -->
+      <!-- The torso, head, ears, trunk, tail -->
+      <path 
+        d="M 45,70 
+           C 40,45 150,45 165,70
+           C 170,75 175,100 172,110
+           C 168,115 160,118 152,115
+           C 142,122 135,115 130,115
+           C 132,100 120,95 110,95
+           L 110,85 
+           C 110,85 100,80 90,80
+           L 85,85
+           L 50,110
+           C 42,105 45,85 45,70 Z" 
+        fill="url(#elephant-shading)" 
+        stroke="#1E293B" 
+        stroke-width="2" 
+      />
+
+      <!-- Ears and eye details -->
+      <path d="M 125,50 Q 145,55 135,80 Z" fill="#64748B" stroke="#1E293B" stroke-width="1.5" />
+      <circle cx="145" cy="62" r="2" fill="#1E293B" />
+      <path d="M 152,115 Q 165,122 155,130" fill="none" stroke="#1E293B" stroke-width="1.5" /> <!-- Trunk/Tusk -->
+      
+      <!-- Tail -->
+      <path d="M 45,80 Q 30,95 35,115" fill="none" stroke="#1E293B" stroke-width="1.5" stroke-linecap="round" />
+
+      <!-- THE 5 LEGS / 4 SPACES PARADOX -->
+      <!-- Outline contours extending down from the body -->
+      <!-- Let's render the lines extremely precisely -->
+      <g stroke="#94A3B8" stroke-width="2.5" stroke-linecap="round" fill="none">
+        <!-- Top leg boundaries (Solid lines coming down from body) -->
+        <line x1="55" y1="100" x2="55" y2="130" />
+        <line x1="80" y1="100" x2="80" y2="130" />
+        <line x1="105" y1="100" x2="105" y2="130" />
+        <line x1="130" y1="100" x2="130" y2="130" />
+
+        <!-- Bottom leg boundaries (Solid lines coming up from hooves) -->
+        <!-- Note the offset! These are aligned in the negative space between top lines! -->
+        <path d="M 45,160 C 45,155 50,152 50,148 L 50,130" />
+        <path d="M 68,160 C 68,155 73,152 73,148 L 73,130" />
+        <path d="M 93,160 C 93,155 98,152 98,148 L 98,130" />
+        <path d="M 118,160 C 118,155 123,152 123,148 L 123,130" />
+        <path d="M 143,160 C 143,155 148,152 148,148 L 148,130" />
+
+        <!-- Bottom hooves (Circular caps) -->
+        <circle cx="45" cy="160" r="3.5" fill="#E2E8F0" />
+        <circle cx="68" cy="160" r="3.5" fill="#E2E8F0" />
+        <circle cx="93" cy="160" r="3.5" fill="#E2E8F0" />
+        <circle cx="118" cy="160" r="3.5" fill="#E2E8F0" />
+        <circle cx="147" cy="160" r="3.5" fill="#E2E8F0" />
+      </g>
+
+      <!-- Highlights Overlay: Paradox circles showing how gaps morph to legs (Red) -->
+      <g class="elephant-overlay-paradox opacity-0 transition-opacity duration-300 pointer-events-none" filter="url(#elephant-glow)">
+        <circle cx="62.5" cy="138" r="8" fill="none" stroke="#EF4444" stroke-width="2" />
+        <circle cx="112.5" cy="138" r="8" fill="none" stroke="#EF4444" stroke-width="2" />
+        <text x="100" y="25" fill="#F87171" font-size="9" font-weight="900" text-anchor="middle">Figure-ground swap paradox!</text>
+      </g>
+    </svg>
+
+    <!-- Overlay Toggle Controls inside container -->
+    <div class="absolute bottom-2 z-20">
+      <button class="btn-toggle-elephant bg-[#7C3AED] hover:bg-[#6D28D9] text-white text-[9px] font-black px-4 py-2 rounded-lg border-none transition-colors cursor-pointer uppercase">Reveal Highlights 👁️</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  function initElephant() {
+    const containers = document.querySelectorAll('.elephant-container');
+    containers.forEach(container => {
+      if (container.getAttribute('data-initialized') === 'true') return;
+      container.setAttribute('data-initialized', 'true');
+
+      const btn = container.querySelector('.btn-toggle-elephant');
+      const overlay = container.querySelector('.elephant-overlay-paradox');
+
+      let active = false;
+
+      btn?.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        active = !active;
+        if (overlay) {
+          if (active) {
+            overlay.classList.replace('opacity-0', 'opacity-100');
+            btn.textContent = "Hide Highlights 👁️";
+          } else {
+            overlay.classList.replace('opacity-100', 'opacity-0');
+            btn.textContent = "Reveal Highlights 👁️";
+          }
+        }
+      });
+    });
+  }
+
+  initElephant();
+  document.addEventListener('astro:page-load', initElephant);
+</script>

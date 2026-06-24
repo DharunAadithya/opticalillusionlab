@@ -91,12 +91,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://opticalillusionlab.pages.dev/illusions/adelsons-checkerboard</loc>
-    <lastmod>2026-06-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://opticalillusionlab.pages.dev/illusions/afterimage-lightbulb</loc>
     <lastmod>2026-06-18</lastmod>
     <changefreq>monthly</changefreq>
@@ -116,6 +110,12 @@
   </url>
   <url>
     <loc>https://opticalillusionlab.pages.dev/illusions/boring-figure</loc>
+    <lastmod>2026-06-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://opticalillusionlab.pages.dev/illusions/breathing-square</loc>
     <lastmod>2026-06-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -181,7 +181,7 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://opticalillusionlab.pages.dev/illusions/hidden-faces-trees</loc>
+    <loc>https://opticalillusionlab.pages.dev/illusions/faces-in-tree</loc>
     <lastmod>2026-06-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -230,12 +230,13 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://opticalillusionlab.pages.dev/illusions/muller-lyer</loc>
+    <loc>https://opticalillusionlab.pages.dev/illusions/pulsing-grid</loc>
     <lastmod>2026-06-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+  </url>
   <url>
-    <loc>https://opticalillusionlab.pages.dev/illusions/old-woman-young-woman</loc>
+    <loc>https://opticalillusionlab.pages.dev/illusions/muller-lyer</loc>
     <lastmod>2026-06-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -289,7 +290,7 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://opticalillusionlab.pages.dev/illusions/rubins-vase</loc>
+    <loc>https://opticalillusionlab.pages.dev/illusions/rubin-vase</loc>
     <lastmod>2026-06-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -362,7 +363,25 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://opticalillusionlab.pages.dev/illusions/wife-mother-in-law</loc>
+    <loc>https://opticalillusionlab.pages.dev/illusions/my-wife-and-my-mother</loc>
+    <lastmod>2026-06-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://opticalillusionlab.pages.dev/illusions/dalmatian-dog</loc>
+    <lastmod>2026-06-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://opticalillusionlab.pages.dev/illusions/hidden-arrow</loc>
+    <lastmod>2026-06-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://opticalillusionlab.pages.dev/illusions/hidden-face-pattern</loc>
     <lastmod>2026-06-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>

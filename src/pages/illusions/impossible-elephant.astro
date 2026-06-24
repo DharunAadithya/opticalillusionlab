@@ -1,6 +1,5 @@
----
-// src/pages/illusions/impossible-elephant.astro
 import Layout from '../../layouts/Layout.astro';
+import ImpossibleElephantDemo from '../../components/illusions/ImpossibleElephantDemo.astro';
 ---
 
 <Layout 
@@ -36,7 +35,7 @@ import Layout from '../../layouts/Layout.astro';
       <!-- Share Button -->
       <button 
         id="share-illusion-page-btn"
-        class="relative shrink-0 flex items-center space-x-2 rounded-2xl bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-600 hover:scale-105 text-white font-black text-sm px-6 py-3.5 transition-all shadow-lg shadow-purple-500/10"
+        class="relative shrink-0 flex items-center space-x-2 rounded-lg bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-black text-sm px-6 py-3.5 transition-colors shadow-lg cursor-pointer border-none"
       >
         <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M15 8a3 3 0 1 0-2.977-2.63l-4.94 2.47a3 3 0 1 0 0 4.319l4.94 2.47a3 3 0 1 0 .895-1.789l-4.94-2.47a3.027 3.027 0 0 0 0-.74l4.94-2.47C13.456 7.68 14.19 8 15 8Z"/></svg>
         <span>Share Page</span>
@@ -47,52 +46,7 @@ import Layout from '../../layouts/Layout.astro';
     <!-- LARGE INTERACTIVE DEMO -->
     <div class="flex flex-col items-center justify-center py-6 border-b border-indigo-500/10">
       <div class="w-full max-w-[600px] mx-auto space-y-4">
-        
-        <!-- Instruction Box -->
-        <div class="my-3 flex items-start gap-2 rounded-xl border border-indigo-500/10 bg-indigo-500/5 p-3 text-xs text-slate-350 text-left">
-          <span class="text-base leading-none">👁️</span>
-          <div>
-            <strong class="text-slate-200">👁️ WHAT TO LOOK FOR:</strong> Scan the elephant's legs. How many legs can you count? Use the buttons to reveal why the contour transitions confuse your brain.
-          </div>
-        </div>
-
-        <div id="elephant-illusion" class="relative flex flex-col items-center justify-center h-96 w-full bg-slate-950 rounded-xl overflow-hidden border border-indigo-500/10 p-6">
-          <svg class="w-64 h-64 select-none" viewBox="0 0 200 200" id="svg-elephant-detail">
-            <!-- Body outline -->
-            <path d="M 50,60 C 50,40 160,40 160,70 L 160,110 C 160,110 150,115 140,110" fill="none" stroke="#e2e8f0" stroke-width="2.5" />
-            <!-- 4 Leg connections from top body -->
-            <line x1="60" y1="100" x2="60" y2="130" stroke="#e2e8f0" stroke-width="2.5" />
-            <line x1="85" y1="100" x2="85" y2="130" stroke="#e2e8f0" stroke-width="2.5" />
-            <line x1="110" y1="100" x2="110" y2="130" stroke="#e2e8f0" stroke-width="2.5" />
-            <line x1="135" y1="100" x2="135" y2="130" stroke="#e2e8f0" stroke-width="2.5" />
-            <!-- Hooves drawn out of sync at bottom -->
-            <path d="M 50,160 Q 55,160 55,155 L 55,130" fill="none" stroke="#e2e8f0" stroke-width="2.5" />
-            <path d="M 72,160 Q 77,160 77,155 L 77,130" fill="none" stroke="#e2e8f0" stroke-width="2.5" />
-            <path d="M 97,160 Q 102,160 102,155 L 102,130" fill="none" stroke="#e2e8f0" stroke-width="2.5" />
-            <path d="M 122,160 Q 127,160 127,155 L 127,130" fill="none" stroke="#e2e8f0" stroke-width="2.5" />
-            <path d="M 147,160 Q 152,160 152,155 L 152,130" fill="none" stroke="#e2e8f0" stroke-width="2.5" />
-            
-            <!-- Bottom curves of hooves -->
-            <circle cx="50" cy="160" r="3.5" fill="#e2e8f0" />
-            <circle cx="72" cy="160" r="3.5" fill="#e2e8f0" />
-            <circle cx="97" cy="160" r="3.5" fill="#e2e8f0" />
-            <circle cx="122" cy="160" r="3.5" fill="#e2e8f0" />
-            <circle cx="147" cy="160" r="3.5" fill="#e2e8f0" />
-
-            <!-- Highlight Overlay -->
-            <g id="elephant-detail-overlay" style="display:none" class="pointer-events-none">
-              <circle cx="68" cy="138" r="7" stroke="#ef4444" stroke-width="2" fill="none" />
-              <circle cx="115" cy="138" r="7" stroke="#ef4444" stroke-width="2" fill="none" />
-              <text x="100" y="25" fill="#ef4444" font-size="11" font-weight="950" text-anchor="middle">Spaces drawn as legs!</text>
-            </g>
-          </svg>
-
-          <!-- Control buttons inside demo -->
-          <div class="absolute bottom-4 flex space-x-2 bg-slate-900/90 border border-white/10 rounded-xl p-1 z-10">
-            <button id="show-highlights-btn" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-indigo-950 text-slate-350 hover:bg-slate-800 transition-all">Reveal Highlights</button>
-            <button id="reset-btn" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-indigo-950 text-slate-350 hover:bg-slate-800 transition-all">Reset Highlights</button>
-          </div>
-        </div>
+        <ImpossibleElephantDemo isCard={false} />
       </div>
     </div>
 
@@ -148,7 +102,7 @@ import Layout from '../../layouts/Layout.astro';
             <span class="text-purple-500">💡</span>
             <span>FUN FACTS</span>
           </h3>
-          <ul class="space-y-4 text-xs sm:text-sm text-slate-650 dark:text-slate-300 font-semibold">
+          <ul class="space-y-4 text-xs sm:text-sm text-slate-655 dark:text-slate-300 font-semibold">
             <li class="flex items-start space-x-2">
               <span class="text-purple-500 font-black">•</span>
               <span>This drawing is also known as "L'egs-istential Dread" because of the existential confusion it causes in viewers.</span>
@@ -181,7 +135,7 @@ import Layout from '../../layouts/Layout.astro';
             <span class="text-purple-500">📜</span>
             <span>DISCOVERER</span>
           </h3>
-          <div class="text-xs sm:text-sm text-slate-650 dark:text-slate-300 leading-relaxed font-semibold space-y-2">
+          <div class="text-xs sm:text-sm text-slate-655 dark:text-slate-300 leading-relaxed font-semibold space-y-2">
             <p><strong>Creator:</strong> Roger Shepard (1990)</p>
             <p>Roger Shepard created this image to illustrate how the brain automatically groups boundaries. It remains one of the most famous examples of impossible drawings in visual science history.</p>
           </div>
@@ -209,21 +163,6 @@ import Layout from '../../layouts/Layout.astro';
           }, 2000);
         }
       });
-    });
-
-    // Toggle highlights
-    const highlightsBtn = document.getElementById('show-highlights-btn');
-    const resetBtn = document.getElementById('reset-btn');
-    const overlay = document.getElementById('elephant-detail-overlay');
-
-    highlightsBtn?.addEventListener('click', () => {
-      if (overlay) overlay.style.display = 'block';
-      highlightsBtn.className = 'text-xs font-bold px-3 py-1.5 rounded-lg bg-red-650 text-white transition-all';
-    });
-
-    resetBtn?.addEventListener('click', () => {
-      if (overlay) overlay.style.display = 'none';
-      if (highlightsBtn) highlightsBtn.className = 'text-xs font-bold px-3 py-1.5 rounded-lg bg-indigo-950 text-slate-350 hover:bg-slate-800 transition-all';
     });
   </script>
 </Layout>

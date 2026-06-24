@@ -1,0 +1,243 @@
+---
+// src/pages/illusions/rubin-vase.astro
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout 
+  title="Rubin's Vase — Ambiguous Optical Illusion | Optical Illusion Lab" 
+  description="Edgar Rubin's classic ambiguous figure. Spot either a white vase in the center or two dark faces in profile. Test your brain."
+>
+  <div class="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-12">
+    <!-- Breadcrumb back navigation -->
+    <nav class="flex text-xs font-black uppercase tracking-wider text-slate-400 space-x-2 pb-2 border-b border-indigo-500/10">
+      <a href="/" class="hover:text-white transition-colors">Home</a>
+      <span>/</span>
+      <a href="/hidden" class="hover:text-white transition-colors">Hidden & Ambiguous</a>
+      <span>/</span>
+      <span class="text-purple-400">Rubin's Vase</span>
+    </nav>
+
+    <!-- Header -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6">
+      <div class="space-y-3">
+        <div class="flex items-center space-x-2">
+          <span class="text-xs font-black px-2.5 py-0.5 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 uppercase tracking-wider">Ambiguous</span>
+          <span class="text-xs font-black px-2.5 py-0.5 rounded-full bg-green-500/10 text-green-400 border border-green-500/20 uppercase tracking-wider">🟢 Easy</span>
+        </div>
+        <h1 class="font-display text-4xl sm:text-5xl font-black tracking-tight text-slate-900 dark:text-white">
+          Rubin's Vase
+        </h1>
+        <p class="text-slate-600 dark:text-slate-350 text-base max-w-2xl font-medium">
+          Edgar Rubin (1915). A classic ambiguous figure where you perceive either a vase or two faces.
+        </p>
+      </div>
+      <button 
+        id="share-illusion-page-btn"
+        class="shrink-0 flex items-center space-x-2 rounded-lg bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-black text-sm px-6 py-3.5 transition-colors shadow-lg cursor-pointer border-none"
+      >
+        <span>Share Page</span>
+      </button>
+    </div>
+
+    <!-- MAIN GRID CONTAINER -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start">
+      <!-- Demo / SVG Column -->
+      <div class="lg:col-span-2 space-y-6">
+        <div id="illusion-card" class="relative flex flex-col items-center justify-center bg-white rounded-3xl border border-slate-200 p-8 min-h-[420px] shadow-sm select-none">
+          
+          <svg class="w-full max-w-[300px] h-auto aspect-square select-none overflow-visible" viewBox="0 0 300 300">
+            <!-- White Center Space (Vase background) -->
+            <rect width="300" height="300" fill="#FFFFFF" />
+
+            <!-- Left Face Profile (Black) -->
+            <path d="M 0,0 L 110,0 C 130,40 140,50 120,70 C 105,85 110,100 135,110 C 150,115 150,125 130,130 C 110,135 115,150 130,170 C 145,190 120,240 100,250 L 100,300 L 0,300 Z" fill="#000000" />
+            
+            <!-- Right Face Profile (Black) -->
+            <path d="M 300,0 L 190,0 C 170,40 160,50 180,70 C 195,85 190,100 165,110 C 150,115 150,125 170,130 C 190,135 185,150 170,170 C 155,190 180,240 200,250 L 200,300 L 300,300 Z" fill="#000000" />
+
+            <!-- Hidden Vase highlight (Purple, dashed) -->
+            <path 
+              id="path-vase" 
+              class="reveal-path stroke-[#7C3AED] fill-none stroke-[3] stroke-linecap-round stroke-linejoin-round opacity-0" 
+              stroke-dasharray="6,6"
+              d="M 110,0 L 190,0 C 170,40 160,50 180,70 C 195,85 190,100 165,110 C 150,115 150,125 170,130 C 190,135 185,150 170,170 C 155,190 180,240 200,250 L 200,300 L 100,300 L 100,250 C 120,240 145,190 130,170 C 115,150 110,135 130,130 C 150,125 150,115 135,110 C 110,100 105,85 120,70 C 140,50 130,40 110,0 Z" 
+            />
+
+            <!-- Hidden Faces highlight (Orange, dashed) -->
+            <g id="group-faces" class="opacity-0" stroke="#F97316" stroke-width="3" fill="none" stroke-linecap="round" stroke-dasharray="6,6">
+              <path class="reveal-path" d="M 110,0 C 130,40 140,50 120,70 C 105,85 110,100 135,110 C 150,115 150,125 130,130 C 110,135 115,150 130,170 C 145,190 120,240 100,250 L 100,300" />
+              <path class="reveal-path" d="M 190,0 C 170,40 160,50 180,70 C 195,85 190,100 165,110 C 150,115 150,125 170,130 C 190,135 185,150 170,170 C 155,190 180,240 200,250 L 200,300" />
+            </g>
+          </svg>
+
+          <!-- Interactive controls at bottom -->
+          <div class="w-full max-w-sm mt-6 space-y-4">
+            <!-- Timer container -->
+            <div class="flex items-center justify-between p-3 bg-slate-50 rounded-xl border border-slate-200 text-xs">
+              <span class="font-bold text-slate-500 uppercase">Find the Hidden Figure</span>
+              <span id="countdown-timer" class="font-mono font-bold text-slate-700">30.0s</span>
+            </div>
+
+            <!-- Reveal & Hide Buttons -->
+            <div class="flex gap-2 w-full">
+              <button id="btn-reveal" class="flex-1 bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-bold text-xs py-2.5 rounded-lg border-none transition-colors cursor-pointer shadow">
+                Reveal
+              </button>
+              <button id="btn-hide" class="flex-1 bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-bold text-xs py-2.5 rounded-lg border-none transition-colors cursor-pointer shadow hidden">
+                Hide Answer
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Science / Explanation Column -->
+      <div class="space-y-8">
+        <section id="science-section" class="space-y-4">
+          <h2 class="font-display text-2xl font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">🧠</span>
+            <span>THE SCIENCE</span>
+          </h2>
+          <div class="prose prose-indigo dark:prose-invert text-slate-700 dark:text-slate-300 leading-relaxed text-xs sm:text-sm font-semibold text-justify">
+            <p>
+              <strong>Figure-Ground Organization:</strong> Rubin's Vase demonstrates how the visual cortex assigns edges to shape structures. The brain organizes visual space into a foreground object ("figure") and a background ("ground"). Because the contours in this illustration are shared, your cognitive processes assign border ownership to either the central white region (creating the vase) or the outer black regions (creating the face profiles). 
+            </p>
+            <p>
+              Your visual cortex cannot process both interpretations as active figures at the exact same moment. As a result, your awareness toggles between the two shapes, showcasing how perception is an active, top-down cognitive hypothesis.
+            </p>
+          </div>
+        </section>
+
+        <!-- RELATED LINKS -->
+        <section class="border-t border-indigo-500/10 pt-6 space-y-3">
+          <h3 class="font-display text-lg font-black text-slate-900 dark:text-white">Related Illusions</h3>
+          <div class="grid grid-cols-1 gap-3">
+            <a href="/illusions/duck-rabbit" class="rounded-xl border border-slate-200 bg-white dark:bg-slate-900/60 p-4 hover:border-purple-500/40 hover:-translate-y-0.5 transition-all text-xs font-bold text-slate-900 dark:text-white">
+              Duck-Rabbit Illusion &rarr;
+            </a>
+            <a href="/illusions/my-wife-and-my-mother" class="rounded-xl border border-slate-200 bg-white dark:bg-slate-900/60 p-4 hover:border-purple-500/40 hover:-translate-y-0.5 transition-all text-xs font-bold text-slate-900 dark:text-white">
+              My Wife and My Mother-in-Law &rarr;
+            </a>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    /* 1.5s stroke dashoffset animation */
+    .reveal-path-animated {
+      animation: drawOutline 1.5s ease-in-out forwards;
+    }
+    @keyframes drawOutline {
+      from {
+        stroke-dashoffset: 1000;
+      }
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
+  </style>
+
+  <script>
+    function initRubinVase() {
+      const timerText = document.getElementById('countdown-timer');
+      const btnReveal = document.getElementById('btn-reveal') as HTMLButtonElement;
+      const btnHide = document.getElementById('btn-hide') as HTMLButtonElement;
+      
+      const pathVase = document.getElementById('path-vase') as SVGPathElement;
+      const groupFaces = document.getElementById('group-faces');
+
+      let secondsLeft = 30.0;
+      let timerActive = true;
+      let isRevealed = false;
+
+      const startTime = Date.now();
+      const intervalId = setInterval(() => {
+        if (!timerActive) {
+          clearInterval(intervalId);
+          return;
+        }
+        const elapsed = (Date.now() - startTime) / 1000;
+        secondsLeft = Math.max(30.0 - elapsed, 0.0);
+        if (timerText) timerText.textContent = `${secondsLeft.toFixed(1)}s`;
+
+        if (secondsLeft <= 0) {
+          clearInterval(intervalId);
+          triggerReveal();
+        }
+      }, 100);
+
+      const triggerReveal = () => {
+        isRevealed = true;
+        timerActive = false;
+        if (timerText) timerText.textContent = '0.0s';
+        
+        btnReveal?.classList.add('hidden');
+        btnHide?.classList.remove('hidden');
+
+        // Draw animated outlines
+        if (pathVase && groupFaces) {
+          pathVase.classList.remove('opacity-0');
+          groupFaces.classList.remove('opacity-0');
+
+          // Initialize stroke lengths for solid-line draw animation, then convert back to dasharray in CSS if needed,
+          // but actually we can animate stroke-dashoffset of a solid line or simply display the dashed line.
+          // To draw the dashed line: we can simply transition the opacity of the dashed line, 
+          // or animate stroke-dashoffset by setting dasharray to a large solid length, and when done change to 6,6.
+          // Let's do a beautiful solid line draw, then when finished, make it dashed.
+          // Or even better: we can animate the dashed stroke using mask, or just use transition on stroke-dashoffset.
+          // Let's do a transition: stroke-dashoffset from 1000 to 0. We'll set dasharray to 1000 first, animate, then set to 6,6.
+          pathVase.style.strokeDasharray = '1000';
+          pathVase.style.strokeDashoffset = '1000';
+          // Trigger reflow
+          pathVase.getBoundingClientRect();
+          pathVase.style.transition = 'stroke-dashoffset 1.5s ease-in-out';
+          pathVase.style.strokeDashoffset = '0';
+
+          groupFaces.querySelectorAll('.reveal-path').forEach(p => {
+            const path = p as SVGPathElement;
+            path.style.strokeDasharray = '1000';
+            path.style.strokeDashoffset = '1000';
+            path.getBoundingClientRect();
+            path.style.transition = 'stroke-dashoffset 1.5s ease-in-out';
+            path.style.strokeDashoffset = '0';
+          });
+
+          // After 1.5s, make them dashed
+          setTimeout(() => {
+            if (isRevealed) {
+              pathVase.style.strokeDasharray = '6,6';
+              groupFaces.querySelectorAll('.reveal-path').forEach(p => {
+                (p as SVGPathElement).style.strokeDasharray = '6,6';
+              });
+            }
+          }, 1500);
+        }
+      };
+
+      const triggerHide = () => {
+        isRevealed = false;
+        btnReveal?.classList.remove('hidden');
+        btnHide?.classList.add('hidden');
+
+        if (pathVase && groupFaces) {
+          pathVase.classList.add('opacity-0');
+          groupFaces.classList.add('opacity-0');
+          pathVase.style.strokeDasharray = '1000';
+          pathVase.style.strokeDashoffset = '1000';
+          groupFaces.querySelectorAll('.reveal-path').forEach(p => {
+            (p as SVGPathElement).style.strokeDasharray = '1000';
+            (p as SVGPathElement).style.strokeDashoffset = '1000';
+          });
+        }
+      };
+
+      btnReveal?.addEventListener('click', triggerReveal);
+      btnHide?.addEventListener('click', triggerHide);
+    }
+
+    initRubinVase();
+    document.addEventListener('astro:page-load', initRubinVase);
+  </script>
+</Layout>

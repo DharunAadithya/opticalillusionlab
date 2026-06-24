@@ -49,21 +49,21 @@ import Layout from '../layouts/Layout.astro';
   <!-- Section 2: 8 Kid-Friendly Illusions -->
   <section id="kids-gallery" class="py-16 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto space-y-12">
     
-    <!-- Illusion 1: Kanizsa Square -->
-    <a href="/illusions/kanizsa-triangle" class="kids-card bg-slate-900/80 border-2 border-pink-500/30 rounded-3xl p-6 sm:p-8 shadow-2xl relative overflow-hidden transition-all duration-300 /50 block hover:-translate-y-1 hover:shadow-[0_0_25px_rgba(236,72,153,0.4)] hover:border-pink-500/50 cursor-pointer transition-all duration-300 group" data-id="kanizsa">
+    <!-- Illusion 1: Kanizsa Triangle -->
+    <a href="/illusions/kanizsa-triangle" class="kids-card bg-slate-900/80 border-2 border-pink-500/30 rounded-3xl p-6 sm:p-8 shadow-2xl relative overflow-hidden transition-all duration-300 block hover:-translate-y-1 hover:shadow-[0_0_25px_rgba(236,72,153,0.4)] hover:border-pink-500/50 cursor-pointer group" data-id="kanizsa">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
         <div class="space-y-4"><div class="flex items-center space-x-2">
             <span class="text-xs font-black px-2.5 py-0.5 rounded-full bg-pink-500/20 text-pink-400 border border-pink-500/30">🟢 EASY</span>
             <span class="text-xs font-bold text-cyan-400 uppercase tracking-wider">Shape Magic ✨</span>
           </div>
-          <h2 class="font-display text-2xl sm:text-3xl font-black text-white">1. THE IMPOSSIBLE SQUARE 🟥</h2>
+          <h2 class="font-display text-2xl sm:text-3xl font-black text-white">1. KANIZSA TRIANGLE 🔺</h2>
           <p class="text-lg sm:text-xl text-slate-200 font-semibold leading-relaxed">
-            Do you see a white square? THERE IS NO SQUARE! Your brain drew it in! 🤯
+            Do you see a white triangle? THERE IS NO TRIANGLE! Your brain drew it in! 🤯
           </p>
           <div class="bg-indigo-950/40 p-4 rounded-2xl border border-indigo-500/10 text-sm text-indigo-300">
             💡 <strong>Fun Fact:</strong> Your brain does this to help you see whole shapes faster!
           </div>
-          <button class="kids-action-btn bg-gradient-to-r from-pink-600 to-pink-500 hover:from-pink-500 hover:to-pink-400 text-white font-black text-base px-6 py-3.5 rounded-2xl shadow-xl transition-all hover:scale-105 active:scale-95">
+          <button class="kids-action-btn bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-black text-base px-6 py-3.5 rounded-lg shadow-xl transition-all border-none cursor-pointer">
             Make it disappear! 🪄
           </button>
           <div class="pt-4 flex items-center justify-between border-t border-slate-700/30 mt-2">
@@ -73,19 +73,19 @@ import Layout from '../layouts/Layout.astro';
         </div>
         <div class="flex flex-col items-center justify-center bg-slate-950/60 rounded-2xl p-6 border-2 border-slate-800">
           <div class="w-full max-w-[400px] h-[400px] flex items-center justify-center relative overflow-hidden bg-slate-950 rounded-xl">
-            <svg id="svg-kanizsa-kids" class="w-[300px] h-[300px] select-none overflow-visible" viewBox="0 0 200 200">
-              <!-- 4 Pacman shapes in corners facing inward to form a square -->
-              <g class="pacman-tl transition-transform duration-700 origin-center" style="transform-origin: 50px 50px;">
-                <path d="M 50,50 L 75,50 A 25,25 0 1,1 50,75 Z" fill="#ec4899" />
+            <svg id="svg-kanizsa-kids" class="w-[300px] h-[300px] select-none overflow-visible rounded-lg" viewBox="0 0 200 200" style="background: #F8F8F8;">
+              <rect x="0" y="0" width="200" height="200" fill="#F8F8F8" />
+              <!-- Pac-Man 1 - TOP: center (100, 40), radius 25px -->
+              <g class="pacman-t transition-transform duration-700 origin-center" style="transform-origin: 100px 40px;">
+                <path d="M 100 40 L 112.5 61.65 A 25 25 0 1 1 87.5 61.65 Z" fill="#ec4899" />
               </g>
-              <g class="pacman-tr transition-transform duration-700 origin-center" style="transform-origin: 150px 50px;">
-                <path d="M 150,50 L 150,75 A 25,25 0 1,1 125,50 Z" fill="#ec4899" />
+              <!-- Pac-Man 2 - BOTTOM LEFT: center (53.5, 142.5), radius 25px -->
+              <g class="pacman-l transition-transform duration-700 origin-center" style="transform-origin: 53.5px 142.5px;">
+                <path d="M 53.5 142.5 L 60.4 118.5 A 25 25 0 1 1 77.8 136.45 Z" fill="#ec4899" />
               </g>
-              <g class="pacman-bl transition-transform duration-700 origin-center" style="transform-origin: 50px 150px;">
-                <path d="M 50,150 L 50,125 A 25,25 0 1,1 75,150 Z" fill="#ec4899" />
-              </g>
-              <g class="pacman-br transition-transform duration-700 origin-center" style="transform-origin: 150px 150px;">
-                <path d="M 150,150 L 125,150 A 25,25 0 1,1 150,125 Z" fill="#ec4899" />
+              <!-- Pac-Man 3 - BOTTOM RIGHT: center (146.5, 142.5), radius 25px -->
+              <g class="pacman-r transition-transform duration-700 origin-center" style="transform-origin: 146.5px 142.5px;">
+                <path d="M 146.5 142.5 L 122.2 136.45 A 25 25 0 1 1 139.6 118.5 Z" fill="#ec4899" />
               </g>
             </svg>
             <div class="kids-wow-badge absolute inset-0 flex items-center justify-center bg-slate-950/80 hidden select-none">
@@ -105,7 +105,7 @@ import Layout from '../layouts/Layout.astro';
             <span class="text-xs font-black px-2.5 py-0.5 rounded-full bg-yellow-500/20 text-yellow-400 border border-yellow-500/30">🟢 EASY</span>
             <span class="text-xs font-bold text-cyan-400 uppercase tracking-wider">Color Thief 🎨</span>
           </div>
-          <h2 class="font-display text-2xl sm:text-3xl font-black text-white">2. THE COLOR THIEF 🎨</h2>
+          <h2 class="font-display text-2xl sm:text-3xl font-black text-white">2. WERTHEIMER-KOFFKA RING 🎨</h2>
           <p class="text-lg sm:text-xl text-slate-200 font-semibold leading-relaxed">
             Are these two halves different colors? NOPE! They're exactly the same! Your eyes are LYING to you! 😂
           </p>
@@ -116,7 +116,7 @@ import Layout from '../layouts/Layout.astro';
           </div>
 
           <div class="flex items-center space-x-4">
-            <button class="kids-action-btn bg-gradient-to-r from-yellow-600 to-yellow-500 hover:from-yellow-500 hover:to-yellow-400 text-white font-black text-base px-6 py-3.5 rounded-2xl shadow-xl transition-all hover:scale-105 active:scale-95">
+            <button class="kids-action-btn bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-black text-base px-6 py-3.5 rounded-lg shadow-xl transition-all border-none cursor-pointer">
               Prove it! 🔎
             </button>
           </div>
@@ -159,15 +159,15 @@ import Layout from '../layouts/Layout.astro';
             <span class="text-xs font-black px-2.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-400 border border-cyan-500/30">🟡 MEDIUM</span>
             <span class="text-xs font-bold text-pink-400 uppercase tracking-wider">Line Illusion 〰️</span>
           </div>
-          <h2 class="font-display text-2xl sm:text-3xl font-black text-white">3. THE WOBBLY LINES 〰️</h2>
+          <h2 class="font-display text-2xl sm:text-3xl font-black text-white">3. CAFÉ WALL 〰️</h2>
           <p class="text-lg sm:text-xl text-slate-200 font-semibold leading-relaxed">
             Are these lines straight or tilted?
           </p>
           <div class="flex space-x-4 kids-poll-buttons">
-            <button class="poll-btn-tilted bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-black text-base px-6 py-3 rounded-2xl flex-1 shadow-md transition-all hover:scale-105 active:scale-95">
+            <button class="poll-btn-tilted bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-black text-base px-6 py-3 rounded-lg flex-1 shadow-md transition-all border-none cursor-pointer">
               Tilted! 📈
             </button>
-            <button class="poll-btn-straight bg-gradient-to-r from-cyan-600 to-cyan-500 hover:from-cyan-500 hover:to-cyan-400 text-white font-black text-base px-6 py-3 rounded-2xl flex-1 shadow-md transition-all hover:scale-105 active:scale-95">
+            <button class="poll-btn-straight bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-black text-base px-6 py-3 rounded-lg flex-1 shadow-md transition-all border-none cursor-pointer">
               Straight! 📏
             </button>
           </div>
@@ -205,7 +205,7 @@ import Layout from '../layouts/Layout.astro';
                 <p class="text-xs text-slate-200 font-bold max-w-[220px]">
                   Every single line is perfectly straight. The colored boxes trick your brain into seeing a tilt!
                 </p>
-                <button class="retry-btn mt-3 bg-slate-800 text-white font-bold text-xs px-3 py-1.5 rounded-lg border border-slate-700">See Illusion Again</button>
+                <button class="retry-btn mt-3 bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-bold text-xs px-3 py-1.5 rounded-lg border-none cursor-pointer">See Illusion Again</button>
               </div>
             </div>
           </div>
@@ -216,16 +216,16 @@ import Layout from '../layouts/Layout.astro';
     <a href="/illusions/hermann-grid" class="kids-card bg-slate-900/80 border-2 border-purple-500/30 rounded-3xl p-6 sm:p-8 shadow-2xl relative overflow-hidden transition-all duration-300 /50 block hover:-translate-y-1 hover:shadow-[0_0_25px_rgba(168,85,247,0.4)] hover:border-purple-500/50 cursor-pointer transition-all duration-300 group" data-id="ghosts">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
         <div class="space-y-4"><div class="flex items-center space-x-2">
-            <span class="text-xs font-black px-2.5 py-0.5 rounded-full bg-purple-500/20 text-purple-400 border border-purple-500/30">🔴 HARD</span>
+            <span class="text-xs font-black px-2.5 py-0.5 rounded-full bg-green-500/20 text-green-400 border border-green-500/30">🟢 EASY</span>
             <span class="text-xs font-bold text-yellow-400 uppercase tracking-wider">Ghost Hunt 👻</span>
           </div>
-          <h2 class="font-display text-2xl sm:text-3xl font-black text-white">4. THE GHOST DOTS 👻</h2>
+          <h2 class="font-display text-2xl sm:text-3xl font-black text-white">4. HERMANN GRID 👻</h2>
           <p class="text-lg sm:text-xl text-slate-200 font-semibold leading-relaxed">
             Count the black dots at the corners! How many do you see? Type your answer:
           </p>
           <div class="flex space-x-3 pt-2">
             <input type="text" id="kids-dots-input" placeholder="Enter number..." class="w-full max-w-[150px] bg-slate-950 border-2 border-slate-800 focus:border-purple-500 text-white font-black text-center text-lg rounded-2xl px-4 py-3 focus:outline-none transition-colors" />
-            <button class="kids-submit-dots bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-black text-base px-6 py-3 rounded-2xl shadow-lg transition-transform active:scale-95">
+            <button class="kids-submit-dots bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-black text-base px-6 py-3 rounded-lg shadow-lg transition-transform border-none cursor-pointer">
               Submit
             </button>
           </div>
@@ -280,7 +280,7 @@ import Layout from '../layouts/Layout.astro';
               <p class="text-xs text-slate-200 font-bold max-w-[220px]">
                 ZERO! There are NO black dots! Your brain made them up! Ghosts aren't real — but your brain ghost dots are! 👻
               </p>
-              <button class="retry-btn mt-3 bg-slate-800 text-white font-bold text-xs px-3 py-1.5 rounded-lg border border-slate-700">Try Again</button>
+              <button class="retry-btn mt-3 bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-bold text-xs px-3 py-1.5 rounded-lg border-none cursor-pointer">Try Again</button>
             </div>
           </div>
         </div>
@@ -297,7 +297,7 @@ import Layout from '../layouts/Layout.astro';
           <p class="text-lg sm:text-xl text-slate-200 font-semibold leading-relaxed">
             Watch the square breathe... NOW — is it actually getting bigger?
           </p>
-          <button class="kids-action-btn bg-gradient-to-r from-pink-600 to-pink-500 hover:from-pink-500 hover:to-pink-400 text-white font-black text-base px-6 py-3.5 rounded-2xl shadow-xl transition-all hover:scale-105 active:scale-95">
+          <button class="kids-action-btn bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-black text-base px-6 py-3.5 rounded-lg shadow-xl transition-all border-none cursor-pointer">
             Freeze it! 🧊
           </button>
           <div class="pt-4 flex items-center justify-between border-t border-slate-700/30 mt-2">
@@ -329,7 +329,7 @@ import Layout from '../layouts/Layout.astro';
               <p class="text-xs text-slate-200 font-bold max-w-[220px]">
                 It was just SPINNING the whole time! Sneaky square! 😄
               </p>
-              <button class="retry-btn mt-3 bg-slate-800 text-white font-bold text-xs px-3 py-1.5 rounded-lg border border-slate-700">Spin Again</button>
+              <button class="retry-btn mt-3 bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-bold text-xs px-3 py-1.5 rounded-lg border-none cursor-pointer">Spin Again</button>
             </div>
           </div>
         </div>
@@ -342,7 +342,7 @@ import Layout from '../layouts/Layout.astro';
             <span class="text-xs font-black px-2.5 py-0.5 rounded-full bg-yellow-500/20 text-yellow-400 border border-yellow-500/30">🟢 EASY</span>
             <span class="text-xs font-bold text-cyan-400 uppercase tracking-wider">Circle Size 🖍️</span>
           </div>
-          <h2 class="font-display text-2xl sm:text-3xl font-black text-white">6. THE COPYCAT COLORS 🖍️</h2>
+          <h2 class="font-display text-2xl sm:text-3xl font-black text-white">6. EBBINGHAUS CIRCLES 🖍️</h2>
           <p class="text-lg sm:text-xl text-slate-200 font-semibold leading-relaxed">
             Which orange circle is BIGGER?
           </p>
@@ -398,7 +398,7 @@ import Layout from '../layouts/Layout.astro';
               <p class="text-xs text-slate-200 font-bold max-w-[220px]">
                 They're the SAME! The circles around them tricked your brain into thinking one was bigger!
               </p>
-              <button class="retry-btn mt-3 bg-slate-800 text-white font-bold text-xs px-3 py-1.5 rounded-lg border border-slate-700">Try Again</button>
+              <button class="retry-btn mt-3 bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-bold text-xs px-3 py-1.5 rounded-lg border-none cursor-pointer">Try Again</button>
             </div>
           </div>
         </div>
@@ -408,14 +408,14 @@ import Layout from '../layouts/Layout.astro';
     <a href="/illusions/troxler-fading" class="kids-card bg-slate-900/80 border-2 border-cyan-500/30 rounded-3xl p-6 sm:p-8 shadow-2xl relative overflow-hidden transition-all duration-300 /50 block hover:-translate-y-1 hover:shadow-[0_0_25px_rgba(6,182,212,0.4)] hover:border-cyan-500/50 cursor-pointer transition-all duration-300 group" data-id="troxler">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
         <div class="space-y-4"><div class="flex items-center space-x-2">
-            <span class="text-xs font-black px-2.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-400 border border-cyan-500/30">🔴 HARD</span>
+            <span class="text-xs font-black px-2.5 py-0.5 rounded-full bg-yellow-500/20 text-yellow-400 border border-yellow-500/30">🟡 MEDIUM</span>
             <span class="text-xs font-bold text-pink-400 uppercase tracking-wider">Fading Dots 😵</span>
           </div>
-          <h2 class="font-display text-2xl sm:text-3xl font-black text-white">7. THE DIZZY DOTS 😵</h2>
+          <h2 class="font-display text-2xl sm:text-3xl font-black text-white">7. TROXLER FADING 😵</h2>
           <p class="text-lg sm:text-xl text-slate-200 font-semibold leading-relaxed">
             Stare at the black dot in the middle for 15 seconds... Don't look away! What happens to the pink dots?
           </p>
-          <button class="kids-start-troxler bg-gradient-to-r from-cyan-600 to-cyan-500 hover:from-cyan-500 hover:to-cyan-400 text-white font-black text-base px-6 py-3.5 rounded-2xl shadow-xl transition-all hover:scale-105 active:scale-95">
+          <button class="kids-start-troxler bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-black text-base px-6 py-3.5 rounded-lg shadow-xl transition-all border-none cursor-pointer">
             Start Staring! ⏱️
           </button>
           <div class="pt-4 flex items-center justify-between border-t border-slate-700/30 mt-2">
@@ -459,7 +459,7 @@ import Layout from '../layouts/Layout.astro';
               <p class="text-xs text-slate-200 font-bold max-w-[220px]">
                 Your brain erased them! This is 'Troxler Fading'. The pink dots never faded in the code — if they disappeared, it was 100% your brain's magic! 🧠✨
               </p>
-              <button class="retry-btn mt-3 bg-slate-800 text-white font-bold text-xs px-3 py-1.5 rounded-lg border border-slate-700">Try Staring Again</button>
+              <button class="retry-btn mt-3 bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-bold text-xs px-3 py-1.5 rounded-lg border-none cursor-pointer">Try Staring Again</button>
             </div>
           </div>
         </div>
@@ -469,10 +469,10 @@ import Layout from '../layouts/Layout.astro';
     <a href="/illusions/muller-lyer" class="kids-card bg-slate-900/80 border-2 border-purple-500/30 rounded-3xl p-6 sm:p-8 shadow-2xl relative overflow-hidden transition-all duration-300 /50 block hover:-translate-y-1 hover:shadow-[0_0_25px_rgba(168,85,247,0.4)] hover:border-purple-500/50 cursor-pointer transition-all duration-300 group" data-id="muller">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
         <div class="space-y-4"><div class="flex items-center space-x-2">
-            <span class="text-xs font-black px-2.5 py-0.5 rounded-full bg-purple-500/20 text-purple-400 border border-purple-500/30">🟢 EASY</span>
+            <span class="text-xs font-black px-2.5 py-0.5 rounded-full bg-yellow-500/20 text-yellow-400 border border-yellow-500/30">🟡 MEDIUM</span>
             <span class="text-xs font-bold text-yellow-400 uppercase tracking-wider">Length Test 📏</span>
           </div>
-          <h2 class="font-display text-2xl sm:text-3xl font-black text-white">8. THE FAKER LINES 📏</h2>
+          <h2 class="font-display text-2xl sm:text-3xl font-black text-white">8. MÜLLER-LYER 📏</h2>
           <p class="text-lg sm:text-xl text-slate-200 font-semibold leading-relaxed">
             Which red line is LONGER?
           </p>
@@ -526,7 +526,7 @@ import Layout from '../layouts/Layout.astro';
               <p class="text-xs text-slate-200 font-bold max-w-[220px]">
                 GOT YOU! Both lines are exactly the same length! The arrows trick your brain into seeing different sizes!
               </p>
-              <button class="retry-btn mt-3 bg-slate-800 text-white font-bold text-xs px-3 py-1.5 rounded-lg border border-slate-700">Try Again</button>
+              <button class="retry-btn mt-3 bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-bold text-xs px-3 py-1.5 rounded-lg border-none cursor-pointer">Try Again</button>
             </div>
           </div>
         </div>
@@ -541,7 +541,7 @@ import Layout from '../layouts/Layout.astro';
             <span class="text-xs font-black px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">🟢 EASY</span>
             <span class="text-xs font-bold text-yellow-400 uppercase tracking-wider">Size Test 📏</span>
           </div>
-          <h2 class="font-display text-2xl sm:text-3xl font-black text-white">9. THE RING SQUEEZER 🔵</h2>
+          <h2 class="font-display text-2xl sm:text-3xl font-black text-white">9. DELBOEUF 🔵</h2>
           <p class="text-lg sm:text-xl text-slate-200 font-semibold leading-relaxed">
             Which blue circle inside is BIGGER?
           </p>
@@ -580,7 +580,7 @@ import Layout from '../layouts/Layout.astro';
               <p class="text-xs text-slate-200 font-bold max-w-[220px]">
                 Both blue circles are exactly the same size! The outer rings trick your brain by making the left one look smaller!
               </p>
-              <button class="retry-btn mt-3 bg-slate-800 text-white font-bold text-xs px-3 py-1.5 rounded-lg border border-slate-700">Try Again</button>
+              <button class="retry-btn mt-3 bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-bold text-xs px-3 py-1.5 rounded-lg border-none cursor-pointer">Try Again</button>
             </div>
           </div>
         </div>
@@ -785,8 +785,8 @@ import Layout from '../layouts/Layout.astro';
           </div>
           
           <div class="flex space-x-2 w-full">
-            <button id="btn-spin-thaumatrope" class="flex-1 bg-gradient-to-r from-pink-600 to-pink-500 hover:from-pink-500 hover:to-pink-400 text-white font-black text-xs py-2 rounded-xl shadow-md transition-all active:scale-95">Spin Disc! 🔄</button>
-            <button id="btn-flip-thaumatrope" class="bg-slate-800 hover:bg-slate-700 text-slate-350 font-black text-xs px-3 py-2 rounded-xl border border-slate-700 transition-colors">Flip ↔️</button>
+            <button id="btn-spin-thaumatrope" class="flex-1 bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-black text-xs py-2 rounded-lg shadow-md transition-all border-none cursor-pointer">Spin Disc! 🔄</button>
+            <button id="btn-flip-thaumatrope" class="bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-black text-xs px-3 py-2 rounded-lg border-none transition-colors cursor-pointer">Flip ↔️</button>
           </div>
         </div>
       </div>
@@ -891,7 +891,7 @@ import Layout from '../layouts/Layout.astro';
             <div id="afterimage-kids-timer" class="absolute top-2 right-2 bg-slate-900/90 text-yellow-300 font-mono font-black text-xs px-2 py-0.5 rounded border border-white/10 hidden">20s</div>
           </div>
           
-          <button id="btn-stare-afterimage" class="w-full bg-gradient-to-r from-purple-600 to-purple-500 hover:from-purple-500 hover:to-purple-400 text-white font-black text-xs py-2 rounded-xl shadow-md transition-all active:scale-95">Stare Challenge (20s) ⏱️</button>
+          <button id="btn-stare-afterimage" class="w-full bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-black text-xs py-2 rounded-lg shadow-md transition-all border-none cursor-pointer">Stare Challenge (20s) ⏱️</button>
         </div>
       </div>
 
@@ -932,13 +932,13 @@ import Layout from '../layouts/Layout.astro';
           <div class="flex items-center space-x-2">
             <span class="px-3 py-1 rounded-full bg-purple-500/20 text-purple-300 font-black text-sm border border-purple-500/30">Question 2 of 5</span>
           </div>
-          <h4 class="text-lg font-black text-slate-100">In "THE IMPOSSIBLE SQUARE", why do you see a white square?</h4>
+          <h4 class="text-lg font-black text-slate-100">In "KANIZSA TRIANGLE", why do you see a white triangle?</h4>
           <div class="grid grid-cols-1 gap-3">
             <button class="quiz-option-btn text-left p-4 rounded-2xl border-2 border-slate-800 bg-slate-900 hover:bg-slate-800 font-bold text-slate-200 hover:text-white transition-all text-base" data-correct="false">
-              A) Because a white square is actually painted there 🎨
+              A) Because a white triangle is actually painted there 🎨
             </button>
             <button class="quiz-option-btn text-left p-4 rounded-2xl border-2 border-slate-800 bg-slate-900 hover:bg-slate-800 font-bold text-slate-200 hover:text-white transition-all text-base" data-correct="true">
-              B) Your brain draws the square to help you make sense of the shapes! 🧠
+              B) Your brain draws the triangle to help you make sense of the shapes! 🧠
             </button>
             <button class="quiz-option-btn text-left p-4 rounded-2xl border-2 border-slate-800 bg-slate-900 hover:bg-slate-800 font-bold text-slate-200 hover:text-white transition-all text-base" data-correct="false">
               C) The background is glowing 💡
@@ -951,7 +951,7 @@ import Layout from '../layouts/Layout.astro';
           <div class="flex items-center space-x-2">
             <span class="px-3 py-1 rounded-full bg-purple-500/20 text-purple-300 font-black text-sm border border-purple-500/30">Question 3 of 5</span>
           </div>
-          <h4 class="text-lg font-black text-slate-100">In "THE COLOR THIEF" ring, what color are the two halves?</h4>
+          <h4 class="text-lg font-black text-slate-100">In "WERTHEIMER-KOFFKA RING", what color are the two halves?</h4>
           <div class="grid grid-cols-1 gap-3">
             <button class="quiz-option-btn text-left p-4 rounded-2xl border-2 border-slate-800 bg-slate-900 hover:bg-slate-800 font-bold text-slate-200 hover:text-white transition-all text-base" data-correct="false">
               A) One is black and one is white ⚪⚫
@@ -1009,7 +1009,7 @@ import Layout from '../layouts/Layout.astro';
           <h4 id="quiz-score-text" class="text-3xl font-black text-yellow-300">Score: 0/5</h4>
         </div>
         <p id="quiz-message-text" class="text-xl font-bold text-slate-100 tracking-wide"></p>
-        <button id="restart-quiz-btn" class="bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-600 text-white font-black text-base px-8 py-3.5 rounded-2xl shadow-xl transition-all hover:scale-105 active:scale-95">
+        <button id="restart-quiz-btn" class="bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-black text-base px-8 py-3.5 rounded-lg shadow-xl transition-all border-none cursor-pointer">
           Play Again! 🔄
         </button>
       </div>

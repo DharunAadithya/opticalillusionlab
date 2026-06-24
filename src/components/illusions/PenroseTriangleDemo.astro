@@ -18,61 +18,26 @@ const { isCard = false } = Astro.props;
         </filter>
       </defs>
 
-      <!-- Faint isometric grid (Toggled via button) -->
-      <g class="penrose-grid hidden stroke-slate-300 stroke-[0.5] opacity-40 pointer-events-none">
-        <!-- Vertical grid lines -->
-        <line x1="50" y1="0" x2="50" y2="300" />
-        <line x1="100" y1="0" x2="100" y2="300" />
-        <line x1="150" y1="0" x2="150" y2="300" />
-        <line x1="200" y1="0" x2="200" y2="300" />
-        <line x1="250" y1="0" x2="250" y2="300" />
-        <!-- 30-degree slanted lines -->
-        <line x1="0" y1="50" x2="300" y2="223.2" />
-        <line x1="0" y1="100" x2="300" y2="273.2" />
-        <line x1="0" y1="0" x2="300" y2="173.2" />
-        <line x1="0" y1="150" x2="260" y2="300" />
-        <line x1="0" y1="-50" x2="300" y2="123.2" />
-        <line x1="0" y1="200" x2="173.2" y2="300" />
-        <!-- 150-degree slanted lines -->
-        <line x1="300" y1="50" x2="0" y2="223.2" />
-        <line x1="300" y1="100" x2="0" y2="273.2" />
-        <line x1="300" y1="0" x2="0" y2="173.2" />
-        <line x1="300" y1="150" x2="40" y2="300" />
-        <line x1="300" y1="-50" x2="0" y2="123.2" />
-        <line x1="300" y1="200" x2="126.8" y2="300" />
-      </g>
-
-      <!-- Penrose Triangle Group with Drop Shadow -->
-      <g class="penrose-g origin-center" transform="translate(150, 150) scale(1.1)" filter="url(#drop-shadow-penrose)">
+      <!-- Impossible Penrose Triangle with Drop Shadow -->
+      <g class="penrose-g origin-center" filter="url(#drop-shadow-penrose)">
         <!-- 
           Grayscale Scheme:
-          - TOP faces: lightest gray #E0E0E0
-          - LEFT faces: medium gray #A0A0A0
-          - RIGHT faces: darkest gray #606060
+          - TOP faces: lightest gray #FFFFFF
+          - LEFT faces: medium gray #8C8C8C
+          - RIGHT faces: darkest gray #2E2E2E
         -->
-        
-        <!-- Limb 1 (Bottom bar) -->
-        <!-- Left face (medium gray #A0A0A0) -->
-        <polygon points="-30,92 30,58 90,-68 90,-34 30,92 -30,126" fill="#A0A0A0" />
-        <!-- Top face (lightest gray #E0E0E0) -->
-        <polygon points="30,92 90,58 30,24 -30,58" fill="#E0E0E0" />
-        
-        <!-- Limb 2 (Left bar) -->
-        <!-- Left face (medium gray #A0A0A0) -->
-        <polygon points="0,-120 30,-102 30,58 -30,92 -30,-68" fill="#A0A0A0" />
-        <!-- Right face (darkest gray #606060) -->
-        <polygon points="30,-102 90,-68 30,-34 -30,-68" fill="#606060" />
-        
-        <!-- Limb 3 (Right bar) -->
-        <!-- Left face (medium gray #A0A0A0) -->
-        <polygon points="-30,126 30,92 -90,-68 -90,-102 -30,-68 -30,126" fill="#A0A0A0" />
-        <!-- Top face (lightest gray #E0E0E0) -->
-        <polygon points="-30,-68 -90,-102 -30,-136 30,-102" fill="#E0E0E0" />
-        
-        <!-- Corner shading overlays to enhance 3D realism -->
-        <polygon points="-30,-68 -30,-40 -50,-55" fill="rgba(0,0,0,0.15)" />
-        <polygon points="30,58 30,30 50,45" fill="rgba(0,0,0,0.15)" />
-        <polygon points="30,-102 10,-85 30,-75" fill="rgba(0,0,0,0.1)" />
+        <!-- Limb 1 Left face -->
+        <polygon points="260.00,213.51 241.67,245.26 150.00,86.49 168.33,54.74" fill="#8C8C8C" stroke="#8C8C8C" stroke-width="0.5" />
+        <!-- Limb 1 Right face -->
+        <polygon points="205.00,245.26 113.33,86.49 150.00,86.49 241.67,245.26" fill="#2E2E2E" stroke="#2E2E2E" stroke-width="0.5" />
+        <!-- Limb 2 Top face -->
+        <polygon points="131.67,54.74 40.00,213.51 76.67,213.51 168.33,54.74" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0.5" />
+        <!-- Limb 2 Left face -->
+        <polygon points="186.67,86.49 95.00,245.26 76.67,213.51 168.33,54.74" fill="#8C8C8C" stroke="#8C8C8C" stroke-width="0.5" />
+        <!-- Limb 3 Top face -->
+        <polygon points="58.33,181.75 40.00,213.51 223.33,213.51 241.67,181.75" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0.5" />
+        <!-- Limb 3 Right face -->
+        <polygon points="58.33,245.26 40.00,213.51 223.33,213.51 241.67,245.26" fill="#2E2E2E" stroke="#2E2E2E" stroke-width="0.5" />
       </g>
     </svg>
 

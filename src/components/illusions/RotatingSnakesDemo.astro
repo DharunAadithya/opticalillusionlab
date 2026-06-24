@@ -1,186 +1,127 @@
 ---
+// src/components/illusions/RotatingSnakesDemo.astro
 interface Props {
   isCard?: boolean;
 }
 
 const { isCard = false } = Astro.props;
-
-// Math Helper: draws a segment of a ring (annulus sector) between radii rIn and rOut
-function getAnnulusSectorPath(cx: number, cy: number, rIn: number, rOut: number, startAngle: number, endAngle: number) {
-  const rad = Math.PI / 180;
-  const x1_out = cx + rOut * Math.cos(startAngle * rad);
-  const y1_out = cy + rOut * Math.sin(startAngle * rad);
-  const x2_out = cx + rOut * Math.cos(endAngle * rad);
-  const y2_out = cy + rOut * Math.sin(endAngle * rad);
-  
-  const x1_in = cx + rIn * Math.cos(startAngle * rad);
-  const y1_in = cy + rIn * Math.sin(startAngle * rad);
-  const x2_in = cx + rIn * Math.cos(endAngle * rad);
-  const y2_in = cy + rIn * Math.sin(endAngle * rad);
-  
-  return `M ${x1_out},${y1_out} A ${rOut},${rOut} 0 0,1 ${x2_out},${y2_out} L ${x2_in},${y2_in} A ${rIn},${rIn} 0 0,0 ${x1_in},${y1_in} Z`;
-}
-
-// Generate sectors for a ring in strict sequence: Black -> Dark Blue -> White -> Yellow-Green
-function generateRingSectors(cx: number, cy: number, rIn: number, rOut: number, count: number, reversed: boolean) {
-  const sectors = [];
-  const colors = [
-    '#000000', // Black
-    '#1a1a6e', // Dark Blue
-    '#FFFFFF', // White
-    '#c8e600'  // Yellow-Green
-  ];
-  
-  const order = reversed ? [0, 3, 2, 1] : [0, 1, 2, 3]; // reverses sequence direction
-  
-  for (let i = 0; i < count; i++) {
-    const baseAngle = (i * 360) / count;
-    const step = 360 / count / 4;
-    for (let c = 0; c < 4; c++) {
-      const colorIndex = order[c];
-      sectors.push({
-        path: getAnnulusSectorPath(cx, cy, rIn, rOut, baseAngle + c * step, baseAngle + (c + 1) * step),
-        color: colors[colorIndex]
-      });
-    }
-  }
-  return sectors;
-}
-
-// Setup the grid of 12 rings (4 columns, 3 rows)
-// Circle diameter = 120px, spacing center-to-center = 124px (leaves 4px gap)
-const cols = 4;
-const rows = 3;
-const spacing = 124;
-const startX = 62;
-const startY = 66;
-
-const rings = [];
-for (let r = 0; r < rows; r++) {
-  for (let c = 0; c < cols; c++) {
-    const cx = startX + c * spacing;
-    const cy = startY + r * spacing;
-    
-    // Alternate direction based on grid position
-    const reversed = (r + c) % 2 === 0;
-    
-    rings.push({
-      cx,
-      cy,
-      ring1: generateRingSectors(cx, cy, 48, 60, 12, reversed),   // Outermost ring
-      ring2: generateRingSectors(cx, cy, 36, 48, 12, !reversed),  // Second ring
-      ring3: generateRingSectors(cx, cy, 24, 36, 12, reversed),   // Third ring
-      ring4: generateRingSectors(cx, cy, 12, 24, 12, !reversed)   // Innermost ring
-    });
-  }
-}
-
-// Grid lines for stabilization overlay
-const mxPoints = [startX + 0.5 * spacing, startX + 1.5 * spacing, startX + 2.5 * spacing];
-const myPoints = [startY + 0.5 * spacing, startY + 1.5 * spacing];
 ---
 
 <div class="snakes-container flex flex-col items-center w-full select-none" data-is-card={isCard ? "true" : "false"}>
-  <div class="relative flex flex-col items-center justify-center bg-white rounded-xl overflow-hidden border border-slate-200 shadow-inner w-full min-h-[380px] p-6 pb-24">
+  <div class="relative flex flex-col items-center justify-center bg-white rounded-xl overflow-hidden border border-slate-200 shadow-inner w-full min-h-[380px] p-6 pb-28">
     
-    <!-- SVG Area (Exactly 500x380 px) -->
+    <!-- SVG Area (Exactly 584x444 px) -->
     <svg 
-      class="snakes-svg w-full max-w-[500px] h-auto aspect-[500/380] select-none overflow-visible" 
-      viewBox="0 0 500 380"
+      class="snakes-svg w-full max-w-[500px] h-auto aspect-[584/444] select-none overflow-visible rounded-lg" 
+      viewBox="0 0 584 444"
+      width="584"
+      height="444"
+      style="background: #ffffff;"
     >
-      <!-- Background of SVG is White -->
-      <rect x="0" y="0" width="500" height="380" fill="#FFFFFF" />
+      <!-- Group where JS will inject the paths and center dots -->
+      <g class="snakes-content-group"></g>
 
-      <!-- Render Grid of Snakes -->
-      {rings.map(ring => (
-        <g>
-          <!-- 4 Concentric Rings -->
-          {ring.ring1.map(sect => (
-            <path d={sect.path} fill={sect.color} stroke="none" />
-          ))}
-          {ring.ring2.map(sect => (
-            <path d={sect.path} fill={sect.color} stroke="none" />
-          ))}
-          {ring.ring3.map(sect => (
-            <path d={sect.path} fill={sect.color} stroke="none" />
-          ))}
-          {ring.ring4.map(sect => (
-            <path d={sect.path} fill={sect.color} stroke="none" />
-          ))}
-          
-          <!-- Center white cap -->
-          <circle cx={ring.cx} cy={ring.cy} r="12" fill="#FFFFFF" />
-
-          <!-- Center fixation dot (+) -->
-          <line x1={ring.cx - 3} y1={ring.cy} x2={ring.cx + 3} y2={ring.cy} stroke="#333333" stroke-width="1.2" />
-          <line x1={ring.cx} y1={ring.cy - 3} x2={ring.cx} y2={ring.cy + 3} stroke="#333333" stroke-width="1.2" />
-
-          <!-- Tiny Red Snake Head at top perimeter of each circle -->
-          <g>
-            <!-- Tongue -->
-            <path d={`M ${ring.cx},${ring.cy - 61} L ${ring.cx - 2},${ring.cy - 65} M ${ring.cx},${ring.cy - 61} L ${ring.cx + 2},${ring.cy - 65}`} stroke="#dc2626" stroke-width="0.8" fill="none" />
-            <!-- Head body -->
-            <ellipse cx={ring.cx} cy={ring.cy - 59} rx="4.5" ry="3.5" fill="#dc2626" />
-            <!-- White eyes -->
-            <circle cx={ring.cx - 1.5} cy={ring.cy - 60} r="0.6" fill="#FFFFFF" />
-            <circle cx={ring.cx + 1.5} cy={ring.cy - 60} r="0.6" fill="#FFFFFF" />
-          </g>
-        </g>
-      ))}
-
-      <!-- Stabilization Grid Overlay (Thick black grid between circles, hidden by default) -->
+      <!-- Stabilization Grid Overlay (2px black grid lines, hidden by default) -->
       <g class="snakes-grid-overlay hidden pointer-events-none">
-        {myPoints.map(my => (
-          <line x1="0" y1={my} x2="500" y2={my} stroke="#000000" stroke-width="4" />
-        ))}
-        {mxPoints.map(mx => (
-          <line x1={mx} y1="0" x2={mx} y2="380" stroke="#000000" stroke-width="4" />
-        ))}
+        <!-- Vertical grid lines -->
+        <line x1="152" y1="0" x2="152" y2="444" stroke="#000000" stroke-width="2" />
+        <line x1="300" y1="0" x2="300" y2="444" stroke="#000000" stroke-width="2" />
+        <line x1="448" y1="0" x2="448" y2="444" stroke="#000000" stroke-width="2" />
+        <!-- Horizontal grid lines -->
+        <line x1="0" y1="152" x2="584" y2="152" stroke="#000000" stroke-width="2" />
+        <line x1="0" y1="300" x2="584" y2="300" stroke="#000000" stroke-width="2" />
       </g>
     </svg>
 
     <!-- Info text note -->
-    <p class="absolute bottom-16 text-[10px] text-red-650 font-bold text-center px-4">
-      ⚠ This image contains ZERO animation. All motion is in your visual cortex.
-    </p>
+    {!isCard && (
+      <p class="absolute bottom-16 text-[11px] text-red-650 font-bold text-center px-4">
+        ⚠ 100% static image. Zero animation. All motion is in your visual cortex.
+      </p>
+    )}
 
     <!-- Controls Panel -->
-    <div class="absolute bottom-3 z-20">
-      <button class="btn-toggle-snakes-grid bg-[#7C3AED] hover:bg-[#6D28D9] text-white text-[10px] font-black px-4 py-2 rounded-lg border-none transition-colors shadow cursor-pointer">
-        Show Stabilization Grid
-      </button>
-    </div>
+    {!isCard && (
+      <div class="absolute bottom-3 left-0 right-0 flex justify-center gap-2 px-4 z-20">
+        <button class="btn-toggle-grid bg-[#7C3AED] hover:bg-[#6D28D9] text-white text-[11px] font-bold px-5 py-2.5 rounded-lg border-none transition-colors shadow cursor-pointer">
+          Show Grid
+        </button>
+      </div>
+    )}
   </div>
 </div>
 
 <script>
-  function initSnakes() {
+  function initRotatingSnakes() {
     const containers = document.querySelectorAll('.snakes-container');
     containers.forEach(container => {
       if (container.getAttribute('data-initialized') === 'true') return;
       container.setAttribute('data-initialized', 'true');
 
-      const btnGrid = container.querySelector('.btn-toggle-snakes-grid');
-      const gridOverlay = container.querySelector('.snakes-grid-overlay');
+      const contentGroup = container.querySelector('.snakes-content-group');
+      if (!contentGroup) return;
 
-      btnGrid?.addEventListener('click', (e) => {
+      const cols = 4, rows = 3, D = 140, gap = 8;
+      const CW_COLORS  = [...Array(3).fill('#000000'),
+                          ...Array(3).fill('#606060'),
+                          ...Array(3).fill('#ffffff'),
+                          ...Array(3).fill('#b0b0b0')];
+      const CCW_COLORS = [...CW_COLORS].reverse();
+      const RINGS = [{ro:70,ri:55},{ro:55,ri:40},{ro:40,ri:25},{ro:25,ri:12}];
+
+      function wedge(cx: number, cy: number, ro: number, ri: number, a1: number, a2: number){
+        const r=Math.PI/180;
+        const cos1=Math.cos(a1*r),sin1=Math.sin(a1*r);
+        const cos2=Math.cos(a2*r),sin2=Math.sin(a2*r);
+        const lg=(a2-a1)>180?1:0;
+        return [
+          `M${cx+ro*cos1},${cy+ro*sin1}`,
+          `A${ro},${ro} 0 ${lg} 1 ${cx+ro*cos2},${cy+ro*sin2}`,
+          `L${cx+ri*cos2},${cy+ri*sin2}`,
+          `A${ri},${ri} 0 ${lg} 0 ${cx+ri*cos1},${cy+ri*sin1}`,
+          'Z'
+        ].join(' ');
+      }
+
+      let html = '';
+      for(let row=0;row<rows;row++){
+        for(let col=0;col<cols;col++){
+          const cx = gap + D/2 + col*(D+gap);
+          const cy = gap + D/2 + row*(D+gap);
+          const isAlt = (col+row)%2===1;
+          for(let ri=0;ri<4;ri++){
+            const {ro,ri:rin}=RINGS[ri];
+            const isCW = (ri%2===0) !== isAlt;
+            const colors = isCW ? CW_COLORS : CCW_COLORS;
+            for(let seg=0;seg<12;seg++){
+              const a1=seg*30, a2=(seg+1)*30;
+              const segs = isCW ? seg : (11-seg);
+              const color = colors[segs];
+              html += `<path d="${wedge(cx,cy,ro,rin,a1,a2)}" fill="${color}" stroke="none"/>`;
+            }
+          }
+          // Center black dot
+          html += `<circle cx="${cx}" cy="${cy}" r="10" fill="#000000"/>`;
+          html += `<circle cx="${cx}" cy="${cy}" r="4" fill="#ffffff"/>`;
+        }
+      }
+      contentGroup.innerHTML = html;
+
+      // Handle Grid Toggle
+      const btn = container.querySelector('.btn-toggle-grid');
+      const gridOverlay = container.querySelector('.snakes-grid-overlay');
+      let gridActive = false;
+
+      btn?.addEventListener('click', (e) => {
         e.preventDefault();
         e.stopPropagation();
-        
-        if (gridOverlay) {
-          const isHidden = gridOverlay.classList.contains('hidden');
-          if (isHidden) {
-            gridOverlay.classList.remove('hidden');
-            if (btnGrid) btnGrid.textContent = 'Hide Stabilization Grid';
-          } else {
-            gridOverlay.classList.add('hidden');
-            if (btnGrid) btnGrid.textContent = 'Show Stabilization Grid';
-          }
-        }
+        gridActive = !gridActive;
+        gridOverlay?.classList.toggle('hidden', !gridActive);
+        if (btn) btn.textContent = gridActive ? 'Hide Grid' : 'Show Grid';
       });
     });
   }
 
-  initSnakes();
-  document.addEventListener('astro:page-load', initSnakes);
+  initRotatingSnakes();
+  document.addEventListener('astro:page-load', initRotatingSnakes);
 </script>

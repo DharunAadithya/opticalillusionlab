@@ -1,0 +1,232 @@
+---
+// src/pages/illusions/breathing-square.astro
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout 
+  title="The Breathing Square — Interactive Kids Illusion | Optical Illusion Lab" 
+  description="Stare at the blue square. Does it look like it's breathing and changing size? Reveal the secret trick behind it!"
+>
+  <div class="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-12">
+    
+    <!-- Breadcrumb back navigation -->
+    <nav class="flex text-xs font-black uppercase tracking-wider text-slate-400 space-x-2 pb-2 border-b border-indigo-500/10">
+      <a href="/" class="hover:text-white transition-colors">Home</a>
+      <span>/</span>
+      <a href="/for-kids" class="hover:text-white transition-colors">For Kids</a>
+      <span>/</span>
+      <span class="text-pink-400">Breathing Square</span>
+    </nav>
+
+    <!-- Hero Header -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6">
+      <div class="space-y-3">
+        <div class="flex items-center space-x-2">
+          <span class="text-xs font-black px-2.5 py-0.5 rounded-full bg-pink-500/10 text-pink-400 border border-pink-500/20 uppercase tracking-wider">Motion Illusion</span>
+          <span class="text-xs font-black px-2.5 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 uppercase tracking-wider">🟡 Kids Pick</span>
+        </div>
+        <h1 class="font-display text-4xl sm:text-5xl font-black tracking-tight text-slate-900 dark:text-white">
+          The Breathing Square
+        </h1>
+        <p class="text-slate-600 dark:text-slate-355 text-base max-w-2xl font-medium">
+          Stare at the rotating blue square. Does it look like it is expanding and contracting ("breathing")? Click the controls to reveal the secret!
+        </p>
+      </div>
+
+      <!-- Share Button -->
+      <button 
+        id="share-illusion-page-btn"
+        class="relative shrink-0 flex items-center space-x-2 rounded-lg bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-black text-sm px-6 py-3.5 transition-colors shadow-lg cursor-pointer border-none"
+      >
+        <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M15 8a3 3 0 1 0-2.977-2.63l-4.94 2.47a3 3 0 1 0 0 4.319l4.94 2.47a3 3 0 1 0 .895-1.789l-4.94-2.47a3.027 3.027 0 0 0 0-.74l4.94-2.47C13.456 7.68 14.19 8 15 8Z"/></svg>
+        <span>Share Page</span>
+        <span id="page-share-toast" class="absolute bottom-full right-1/2 translate-x-1/2 mb-2 px-2.5 py-1 text-[10px] font-bold text-white bg-purple-650 rounded-lg shadow-md opacity-0 pointer-events-none transition-opacity duration-200 whitespace-nowrap">Link Copied! ✓</span>
+      </button>
+    </div>
+
+    <!-- LARGE INTERACTIVE DEMO -->
+    <div class="flex flex-col items-center justify-center py-6 border-b border-indigo-500/10">
+      <div class="w-full max-w-[600px] mx-auto space-y-4">
+        <div id="breathing-illusion-container" class="relative flex flex-col items-center justify-center h-[380px] w-full bg-slate-950 border border-slate-800 rounded-2xl overflow-hidden p-8 shadow-2xl">
+          
+          <!-- Breathing Square SVG -->
+          <svg id="svg-breathing-square" class="w-64 h-64 select-none overflow-visible" viewBox="0 0 200 200">
+            <!-- Rotating blue square -->
+            <rect 
+              id="breathing-square-rect"
+              class="fill-cyan-400 origin-center transition-all duration-300" 
+              x="65" 
+              y="65" 
+              width="70" 
+              height="70" 
+              style="transform-origin: 100px 100px; animation: spin-clockwise-anim 4s linear infinite;"
+            />
+            
+            <!-- Corner Occluders (Navy/Dark slate to blend with background, toggles opacity/color) -->
+            <g id="breathing-occluders" class="fill-slate-950 stroke-slate-800 stroke-[1.5] transition-all duration-300">
+              <rect x="0" y="0" width="55" height="55" />
+              <rect x="145" y="0" width="55" height="55" />
+              <rect x="0" y="145" width="55" height="55" />
+              <rect x="145" y="145" width="55" height="55" />
+            </g>
+
+            <!-- Guide Line Borders (toggled to prove alignment) -->
+            <g id="breathing-guides" class="hidden stroke-pink-500 stroke-[1] stroke-dasharray-[3,3]">
+              <line x1="55" y1="0" x2="55" y2="200" />
+              <line x1="145" y1="0" x2="145" y2="200" />
+              <line x1="0" y1="55" x2="200" y2="55" />
+              <line x1="0" y1="145" x2="200" y2="145" />
+            </g>
+          </svg>
+
+          <!-- Control Overlay -->
+          <div class="absolute bottom-4 flex flex-wrap justify-center gap-3 bg-slate-900/90 px-4 py-3 rounded-2xl border border-white/10 text-center w-11/12 max-w-md z-20">
+            <button id="btn-toggle-rotation" class="text-[10px] font-black px-3.5 py-2 rounded-lg bg-pink-600 hover:bg-pink-500 text-white transition-all shadow cursor-pointer border-none uppercase">Freeze Ice 🧊</button>
+            <button id="btn-toggle-occluders" class="text-[10px] font-black px-3.5 py-2 rounded-lg bg-pink-600 hover:bg-pink-500 text-white transition-all shadow cursor-pointer border-none uppercase">Show Corners 🔲</button>
+            <button id="btn-toggle-guides" class="text-[10px] font-black px-3.5 py-2 rounded-lg bg-pink-600 hover:bg-pink-500 text-white transition-all shadow cursor-pointer border-none uppercase">Show Guides 📐</button>
+          </div>
+        </div>
+
+        <div class="text-center text-xs text-slate-500 dark:text-slate-400 italic">
+          Click the controls to toggle rotation, reveal the corner blocks, or overlay alignment guides.
+        </div>
+      </div>
+    </div>
+
+    <!-- Content Split Layout -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 pt-4">
+      <!-- Left 2-Columns -->
+      <div class="lg:col-span-2 space-y-10">
+        <section class="space-y-4">
+          <h2 class="font-display text-2xl font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-pink-500">🎮</span>
+            <span>HOW TO TEST IT</span>
+          </h2>
+          <div class="bg-indigo-950/20 border-2 border-indigo-500/15 rounded-3xl p-6 text-slate-700 dark:text-slate-350">
+            <p class="font-bold text-sm sm:text-base text-slate-200">Test the Breathing Square with these steps:</p>
+            <ul class="list-disc pl-5 mt-3 space-y-2 text-xs sm:text-sm font-semibold">
+              <li>Stare at the rotating cyan square. Notice how it appears to pulsate and change size like it is breathing in and out.</li>
+              <li>Click <strong class="text-pink-400">Show Corners 🔲</strong>. The corner blocks will highlight in transparent pink. Suddenly, the square clearly looks like it is just rotating!</li>
+              <li>Click <strong class="text-pink-400">Show Guides 📐</strong> to overlay guide lines. You can see the edges of the square never leave their alignment.</li>
+              <li>Click <strong class="text-pink-400">Freeze Ice 🧊</strong> to stop the movement.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="space-y-4">
+          <h2 class="font-display text-2xl font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-pink-500">🧠</span>
+            <span>THE SCIENCE</span>
+          </h2>
+          <div class="prose prose-indigo dark:prose-invert text-slate-700 dark:text-slate-300 leading-relaxed text-xs sm:text-sm font-semibold text-justify">
+            <p>The Breathing Square is a brilliant visual trick based on the <strong>aperture problem</strong> in visual neuroscience. When a shape rotates, its edges move in multiple directions. However, when we place blocks over the corners of the square, we can only see the center parts of its four sides through small openings (apertures).</p>
+            <p>Because the corners are hidden, our eyes can only track the perpendicular movement of the lines sliding back and forth behind the gaps. Since the brain cannot see the rotation of the corners, it attempts to solve this ambiguity by assuming the lines are moving in and out simultaneously. This causes the static rigid square to appear to expand and contract ("breathe") dynamically!</p>
+          </div>
+        </section>
+      </div>
+
+      <!-- Right Column -->
+      <div class="space-y-8">
+        <section class="rounded-3xl border border-indigo-950/20 bg-slate-900/60 p-6 space-y-4 shadow-xl">
+          <h3 class="font-display text-lg font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-pink-500">💡</span>
+            <span>FUN FACTS</span>
+          </h3>
+          <ul class="space-y-3 text-xs sm:text-sm text-slate-650 dark:text-slate-300 font-semibold">
+            <li class="flex items-start space-x-2">
+              <span class="text-pink-500 font-black">•</span>
+              <span>This illusion is a perfect example of "local vs global" motion processing.</span>
+            </li>
+            <li class="flex items-start space-x-2">
+              <span class="text-pink-500 font-black">•</span>
+              <span>By simply revealing the corners, the illusion disappears instantly because your brain gains the necessary spatial context.</span>
+            </li>
+            <li class="flex items-start space-x-2">
+              <span class="text-pink-500 font-black">•</span>
+              <span>It is frequently used in visual research to study how the visual cortex solves the aperture problem.</span>
+            </li>
+          </ul>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <style is:global>
+    @keyframes spin-clockwise-anim {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+
+  <script>
+    const sharePageBtn = document.getElementById('share-illusion-page-btn');
+    const pageToast = document.getElementById('page-share-toast');
+
+    sharePageBtn?.addEventListener('click', () => {
+      const pageUrl = window.location.href;
+      navigator.clipboard.writeText(pageUrl).then(() => {
+        if (pageToast) {
+          pageToast.classList.remove('opacity-0');
+          pageToast.classList.add('opacity-100');
+          setTimeout(() => {
+            pageToast.classList.remove('opacity-100');
+            pageToast.classList.add('opacity-0');
+          }, 2000);
+        }
+      });
+    });
+
+    // Breathing Square Controls
+    const btnRotation = document.getElementById('btn-toggle-rotation');
+    const btnOccluders = document.getElementById('btn-toggle-occluders');
+    const btnGuides = document.getElementById('btn-toggle-guides');
+    const squareRect = document.getElementById('breathing-square-rect');
+    const occludersGroup = document.getElementById('breathing-occluders');
+    const guidesGroup = document.getElementById('breathing-guides');
+
+    let rotationActive = true;
+    let occludersHidden = false;
+    let guidesActive = false;
+
+    btnRotation?.addEventListener('click', () => {
+      rotationActive = !rotationActive;
+      if (squareRect) {
+        if (rotationActive) {
+          squareRect.style.animation = 'spin-clockwise-anim 4s linear infinite';
+          if (btnRotation) btnRotation.textContent = 'Freeze Ice 🧊';
+        } else {
+          squareRect.style.animation = 'none';
+          if (btnRotation) btnRotation.textContent = 'Spin Square 🔄';
+        }
+      }
+    });
+
+    btnOccluders?.addEventListener('click', () => {
+      occludersHidden = !occludersHidden;
+      if (occludersGroup) {
+        if (occludersHidden) {
+          occludersGroup.classList.remove('fill-slate-950');
+          occludersGroup.classList.add('fill-pink-500/20');
+          if (btnOccluders) btnOccluders.textContent = 'Hide Corners 🔲';
+        } else {
+          occludersGroup.classList.remove('fill-pink-500/20');
+          occludersGroup.classList.add('fill-slate-950');
+          if (btnOccluders) btnOccluders.textContent = 'Show Corners 🔲';
+        }
+      }
+    });
+
+    btnGuides?.addEventListener('click', () => {
+      guidesActive = !guidesActive;
+      if (guidesGroup) {
+        if (guidesActive) {
+          guidesGroup.classList.remove('hidden');
+          if (btnGuides) btnGuides.textContent = 'Hide Guides 📐';
+        } else {
+          guidesGroup.classList.add('hidden');
+          if (btnGuides) btnGuides.textContent = 'Show Guides 📐';
+        }
+      }
+    });
+  </script>
+</Layout>

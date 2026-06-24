@@ -5,41 +5,47 @@ interface Props {
 
 const { isCard = false } = Astro.props;
 
-// Generate parallel lines at 30 degrees (slope = 0.57735)
+// Generate parallel lines at -45 degrees (slope = -1)
 // Spaced to fill the entire 500x400 viewBox
-const lineSpacing = 45; // vertical offset spacing
+const lineSpacing = 75; // spaced out nicely
 const offsets = [];
-for (let y = -200; y <= 500; y += lineSpacing) {
-  offsets.push(y);
+for (let offset = -100; offset <= 900; offset += lineSpacing) {
+  offsets.push(offset);
 }
 
 const lines = offsets.map((offset, idx) => {
+  // Line formula: y = -x + offset
   const x1 = -50;
-  const y1 = 0.57735 * x1 + offset;
+  const y1 = 50 + offset;
   const x2 = 550;
-  const y2 = 0.57735 * x2 + offset;
+  const y2 = -550 + offset;
   
-  // Cross hatch angle: alternating +45 and -45 degrees relative to the 30 degree main line
-  const baseAngle = idx % 2 === 0 ? 30 + 45 : 30 - 45;
-  const angleRad = baseAngle * Math.PI / 180;
-  
-  // Spacing along the line: 35px intervals
+  // Cross hatch: alternating vertical (even index) and horizontal (odd index)
+  // Spacing along the line: 25px intervals
   const hatches = [];
-  for (let s = -50; s <= 650; s += 35) {
-    const cx = s;
-    const cy = 0.57735 * s + offset;
+  for (let cx = -50; cx <= 550; cx += 28) {
+    const cy = -cx + offset;
     
     // Check if the hatch center lies inside the viewBox (plus some bleed)
-    if (cx >= -20 && cx <= 520 && cy >= -20 && cy <= 420) {
-      // Calculate end points of the 20px long hatch line
-      const dx = 10 * Math.cos(angleRad);
-      const dy = 10 * Math.sin(angleRad);
-      hatches.push({
-        x1: cx - dx,
-        y1: cy - dy,
-        x2: cx + dx,
-        y2: cy + dy
-      });
+    if (cx >= -10 && cx <= 510 && cy >= -10 && cy <= 410) {
+      const isVertical = idx % 2 === 0;
+      if (isVertical) {
+        // Vertical hatch: x stays cx, y varies
+        hatches.push({
+          x1: cx,
+          y1: cy - 14,
+          x2: cx,
+          y2: cy + 14
+        });
+      } else {
+        // Horizontal hatch: y stays cy, x varies
+        hatches.push({
+          x1: cx - 14,
+          y1: cy,
+          x2: cx + 14,
+          y2: cy
+        });
+      }
     }
   }
   
@@ -51,10 +57,9 @@ const lines = offsets.map((offset, idx) => {
   
   <div class="relative flex flex-col items-center justify-center bg-white rounded-xl overflow-hidden border border-slate-200 shadow-inner w-full min-h-[380px] p-0">
     
-    <!-- SVG Area (500x400 px, White background, black lines) -->
+    <!-- SVG Area (500x400 px, White background, indigo lines) -->
     <svg class="w-full h-full min-h-[380px] select-none overflow-hidden" viewBox="0 0 500 400">
       <defs>
-        <!-- Clip path to keep lines and hatches bounded within the viewBox -->
         <clipPath id="zoellner-viewport">
           <rect x="0" y="0" width="500" height="400" />
         </clipPath>
@@ -65,15 +70,15 @@ const lines = offsets.map((offset, idx) => {
         <!-- Background fill: Pure White -->
         <rect x="0" y="0" width="500" height="400" fill="#FFFFFF" />
 
-        <!-- Main Parallel Lines (4px stroke, color #111111) -->
-        <g class="zoellner-main-lines stroke-[#111111] stroke-[4] stroke-linecap-round">
+        <!-- Main Parallel Lines (4px stroke, color #312E81 - Indigo) -->
+        <g class="zoellner-main-lines stroke-[#312E81] stroke-[5] stroke-linecap-round">
           {lines.map(line => (
             <line x1={line.x1} y1={line.y1} x2={line.x2} y2={line.y2} />
           ))}
         </g>
 
-        <!-- Crossing Hatches Group (3px stroke, color #111111, hidden on reveal) -->
-        <g class="zoellner-hatches stroke-[#111111] stroke-[3] stroke-linecap-round transition-opacity duration-300">
+        <!-- Crossing Hatches Group (3px stroke, color #312E81, hidden on reveal) -->
+        <g class="zoellner-hatches stroke-[#312E81] stroke-[3.5] stroke-linecap-round transition-opacity duration-300">
           {lines.map(line => 
             line.hatches.map(h => (
               <line x1={h.x1} y1={h.y1} x2={h.x2} y2={h.y2} />
@@ -81,10 +86,11 @@ const lines = offsets.map((offset, idx) => {
           )}
         </g>
 
-        <!-- Horizontal Red Guide Lines (Shown on reveal at top and bottom of display area) -->
-        <g class="zoellner-guides hidden stroke-[#EF4444] stroke-[2.5] stroke-linecap-round stroke-dasharray-[6,4]">
-          <line x1="0" y1="30" x2="500" y2="30" />
-          <line x1="0" y1="370" x2="500" y2="370" />
+        <!-- Guide Lines: Parallel lines in red, shown on reveal, overlaying the main lines to prove alignment -->
+        <g class="zoellner-guides hidden stroke-[#EF4444] stroke-[2] stroke-linecap-round stroke-dasharray-[6,4]">
+          {lines.map(line => (
+            <line x1={line.x1} y1={line.y1} x2={line.x2} y2={line.y2} />
+          ))}
         </g>
       </g>
     </svg>
@@ -99,8 +105,8 @@ const lines = offsets.map((offset, idx) => {
 
   <!-- Instructions -->
   <div class="mt-3 p-3 bg-white/40 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 rounded-xl text-center w-full max-w-md">
-    <p class="text-xs text-slate-755 dark:text-slate-300 leading-relaxed">
-      <strong>Instruction:</strong> Observe the long diagonal lines. Do they look tilted or non-parallel? Click "Reveal Parallel Lines" to overlay horizontal red lines and hide the cross-hatches, proving the lines are parallel and equidistant.
+    <p class="text-xs text-slate-700 dark:text-slate-350 leading-relaxed">
+      <strong>Instruction:</strong> Observe the long diagonal lines. Do they look tilted or non-parallel? Click "Reveal Parallel Lines" to overlay red guide lines and hide the cross-hatches, proving the lines are parallel.
     </p>
   </div>
 </div>

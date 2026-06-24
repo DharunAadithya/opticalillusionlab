@@ -1,11 +1,12 @@
 ---
 // src/pages/hidden.astro
 import Layout from '../layouts/Layout.astro';
+import ImpossibleTridentDemo from '../components/illusions/ImpossibleTridentDemo.astro';
 ---
 
 <Layout 
-  title="Ambiguous Optical Illusions & Hidden Figures | Optical Illusion Lab" 
-  description="Explore 10 classic ambiguous and hidden figure illusions. Test your perception, challenge your brain's interpretation, and beat your personal best times."
+  title="Hidden & Ambiguous Optical Illusions | Optical Illusion Lab" 
+  description="Explore interactive ambiguous figures, impossible objects, and hidden shapes. Challenge your visual processing under 30-second timers."
 >
 
   <!-- Hero Section -->
@@ -17,746 +18,130 @@ import Layout from '../layouts/Layout.astro';
       <nav class="flex justify-center text-xs font-semibold text-purple-400 space-x-2" aria-label="Breadcrumb">
         <a href="/" class="hover:underline hover:text-white transition-colors">Home</a>
         <span>/</span>
-        <span class="text-slate-400">Ambiguous Figures</span>
+        <span class="text-slate-400">Hidden & Ambiguous Figures</span>
       </nav>
       
       <h1 class="font-display text-4xl sm:text-6xl font-black tracking-tight text-white">
-        Ambiguous Figures
+        Hidden & Ambiguous
       </h1>
       <p class="mx-auto max-w-2xl text-base sm:text-lg text-slate-300 leading-relaxed font-medium">
         These aren't magic tricks. They're AMBIGUOUS FIGURES — images 
-        your brain can interpret in two completely valid ways. Neither 
-        interpretation is wrong. Your brain is just choosing. The 
-        question is: can you make it choose differently?
+        your brain can interpret in multiple completely valid ways. Try our interactive visual labs or browse the hidden figures gallery to test your perception.
       </p>
 
       <div class="inline-flex items-center space-x-2 rounded-xl border border-purple-500/30 bg-purple-950/45 px-5 py-3 text-xs font-bold text-purple-300 shadow-lg shadow-purple-900/10 max-w-xl mx-auto backdrop-blur-sm">
-        ⏱️ Game Rules: Click "I See It!" / "Found It!" as soon as you spot both interpretations to save your time.
+        ⏱️ Visual Labs: Challenge your visual brain under 30-second countdown timers.
       </div>
     </div>
   </section>
 
-  <!-- Main Content Grid -->
-  <main class="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-    <div class="grid grid-cols-1 gap-16">
-      
-      <!--
-      <!-- Illusion 1. My Wife and My Mother-in-Law -->
-      <section class="illusion-container bg-white dark:bg-slate-900/40 rounded-3xl border border-slate-200 dark:border-slate-800 p-8 shadow-sm flex flex-col gap-6 max-w-[800px] w-full mx-auto relative overflow-hidden" data-id="wife-mother-in-law">
+  <main class="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-20">
+    
+    <!-- SECTION 1: INTERACTIVE VISUAL LABS (Trident, Dancer, Hermann Grid) -->
+    <section class="space-y-10">
+      <div class="text-center space-y-2">
+        <h2 class="font-display text-3xl font-black text-slate-900 dark:text-white">Interactive Visual Labs 🧪</h2>
+        <p class="text-xs text-slate-500 dark:text-slate-400">Control visual parameters directly in these live experimental models.</p>
+        <div class="mx-auto h-1 w-20 rounded-full bg-gradient-to-r from-purple-500 to-indigo-500 mt-2"></div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
         
-        <!-- Header -->
-        <div class="w-full space-y-4 text-center">
-          <div class="flex items-center justify-between">
-            <div class="flex items-center space-x-2">
-              <span class="text-xs font-bold px-2 py-0.5 rounded bg-yellow-500/10 text-yellow-500 border border-yellow-500/25">🟡 Medium</span>
-              <span class="text-xs font-bold text-indigo-400 uppercase tracking-wider">Ambiguous</span>
-            </div>
-            <button class="share-btn p-2 rounded-lg bg-slate-50 dark:bg-slate-800 text-slate-400 hover:text-purple-400 transition-colors z-20" data-name="My Wife and My Mother-in-Law">
-              <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M15 8a3 3 0 1 0-2.977-2.63l-4.94 2.47a3 3 0 1 0 0 4.319l4.94 2.47a3 3 0 1 0 .895-1.789l-4.94-2.47a3.027 3.027 0 0 0 0-.74l4.94-2.47C13.456 7.68 14.19 8 15 8Z"/></svg>
-            </button>
-          </div>
-          
-          <h2 class="font-display text-3xl font-black text-slate-900 dark:text-white">1. My Wife and My Mother-in-Law</h2>
-          <p class="text-sm text-slate-650 dark:text-slate-400 max-w-xl mx-auto leading-relaxed font-semibold">
-            One of the most famous ambiguous figures in history. A single drawing depicts both a young lady facing away and an old woman looking downwards.
-          </p>
-        </div>
-
-        <!-- Highlighted Instruction Box -->
-        <div class="w-full my-3 flex items-start gap-2 rounded-xl border border-indigo-500/10 bg-indigo-500/5 p-3 text-xs text-slate-350 text-left">
-          <span class="text-base leading-none">👁️</span>
+        <!-- Lab Card 1: Impossible Trident -->
+        <section class="illusion-container bg-white dark:bg-slate-900/60 rounded-3xl border border-slate-200 dark:border-slate-800 p-6 shadow-md flex flex-col justify-between relative overflow-hidden group" data-id="impossible-trident">
           <div>
-            <strong class="text-slate-200">👁️ WHAT TO LOOK FOR:</strong> Can you see both? The young woman's chin is the old woman's nose. The young woman's ear is the old woman's eye. The young woman's necklace is the old woman's mouth.
-          </div>
-        </div>
-
-        <!-- Visual Display -->
-        <div class="w-full flex flex-col items-center justify-center bg-slate-150 dark:bg-slate-950/60 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 min-h-[400px]">
-          <div class="relative w-full max-w-[400px] h-[300px] flex items-center justify-center">
-            <svg class="w-full h-full select-none" viewBox="0 0 350 400" id="svg-wife-mother" style="background: #808080; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.35);">
-            <!-- Background scarf (dark charcoal) -->
-            <path d="M 60,80 C 120,30 230,30 290,80 C 340,140 310,240 270,290 C 230,330 150,330 110,290 C 70,240 50,140 60,80 Z" fill="#1e293b" stroke="#0f172a" stroke-width="3" />
-            <!-- Face silhouette (light gray) -->
-            <path d="M 120,110 C 180,80 240,80 260,110 C 280,140 270,210 250,240 C 220,270 170,270 140,240 C 115,200 110,140 120,110 Z" fill="#cbd5e1" stroke="#0f172a" stroke-width="2" />
-            <!-- Hair/fur collar (medium-dark gray) -->
-            <path d="M 100,270 C 160,290 220,290 260,270 C 280,240 290,200 295,170 L 255,170 C 240,210 210,240 160,230 C 120,220 105,240 100,270 Z" fill="#475569" stroke="#0f172a" stroke-width="2" />
-            <!-- Nose (Old woman nose / young woman cheek) -->
-            <path d="M 160,170 C 125,185 130,205 145,215 C 160,225 165,215 155,205 C 170,195 175,180 160,170 Z" fill="#94a3b8" stroke="#0f172a" stroke-width="2.5" />
-            <!-- Neckband / Mouth (Young necklace / old mouth) -->
-            <path d="M 160,240 Q 185,245 210,240" fill="none" stroke="#ef4444" stroke-width="5" stroke-linecap="round" />
-            <!-- Ear / Eye (Young ear / old eye) -->
-            <path d="M 205,180 C 200,175 195,180 196,186 C 198,190 205,188 205,180 Z" fill="#f8fafc" stroke="#0f172a" stroke-width="2" />
-            <!-- Eyelash / Wrinkle -->
-            <path d="M 152,175 Q 148,180 142,185" fill="none" stroke="#0f172a" stroke-width="2" />
-            <!-- Feather (white accent) -->
-            <path d="M 210,80 Q 230,20 210,5 Q 190,20 210,80 Z" fill="#f1f5f9" stroke="#0f172a" stroke-width="1.5" />
-            
-            <!-- Diagram Highlights Overlay (Revealed via JS) -->
-            <g class="diagram-overlay opacity-0 transition-opacity duration-300">
-              <!-- Young Woman markers -->
-              <circle cx="205" cy="180" r="10" stroke="#3b82f6" stroke-width="2.5" fill="none" />
-              <path d="M 160,240 Q 185,245 210,240" stroke="#3b82f6" stroke-width="4.5" fill="none" />
-              <text x="225" y="180" fill="#3b82f6" font-size="12" font-weight="900">Young Ear</text>
-              <text x="225" y="250" fill="#3b82f6" font-size="12" font-weight="900">Choker Necklace</text>
-
-              <!-- Old Woman markers -->
-              <path d="M 160,170 C 125,185 130,205 145,215" stroke="#ef4444" stroke-width="4.5" fill="none" />
-              <circle cx="205" cy="180" r="5" fill="#ef4444" />
-              <text x="60" y="170" fill="#ef4444" font-size="12" font-weight="900">Old Large Nose</text>
-              <text x="225" y="200" fill="#ef4444" font-size="12" font-weight="900">Old Eye</text>
-            </g>
-          </svg>
-          </div>
-        </div>
-
-        <!-- Controls, Voting, and Stopwatch Time Tracker -->
-        <div class="w-full space-y-4 pt-2 flex flex-col items-center text-center">
-          
-          <!-- Time Tracker Bar -->
-          <div class="w-full flex items-center justify-between p-3 bg-slate-50 dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800 text-xs">
-            <div class="flex items-center space-x-2">
-              <button class="btn-spot bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-3 py-1.5 rounded-lg">I See It! ⏱️</button>
-              <span class="spot-time font-mono font-bold text-slate-700 dark:text-slate-300">0.0s</span>
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-red-500/10 text-red-550 border border-red-500/20">🔴 Hard</span>
+              <span class="text-[10px] font-bold text-indigo-455 uppercase tracking-wider">Impossible</span>
             </div>
-            <div class="text-slate-550 dark:text-slate-400 font-bold">
-              Personal Best: <span class="pb-time font-mono text-purple-400">-.-s</span>
-            </div>
-          </div>
-
-          <!-- Controls panel -->
-          <div class="flex flex-wrap gap-3 justify-center">
-              <button class="btn-vote bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs px-4 py-2.5 rounded-xl transition-all shadow" data-vote="young">👱‍♀️ Young Woman first</button>
-              <button class="btn-vote bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs px-4 py-2.5 rounded-xl transition-all shadow" data-vote="old">👵 Old Woman first</button>
-              <button class="btn-reveal border border-purple-500/30 text-purple-400 hover:bg-purple-500/10 font-bold text-xs px-4 py-2.5 rounded-xl transition-all">Reveal Outlines</button>
-            </div>
-            
-            <div class="stats-panel hidden w-full p-4 bg-purple-500/5 border border-purple-500/20 rounded-xl text-xs space-y-2">
-              <div class="flex justify-between font-black text-slate-900 dark:text-white">
-                <span>👱‍♀️ Young Woman: <span class="pct-young">52%</span></span>
-                <span>👵 Old Woman: <span class="pct-old">48%</span></span>
-              </div>
-              <div class="w-full bg-slate-700 h-2 rounded-full overflow-hidden flex">
-                <div class="bg-purple-500 h-full bar-young" style="width: 52%;"></div>
-                <div class="bg-indigo-400 h-full bar-old" style="width: 48%;"></div>
-              </div>
-              <p class="text-[10px] text-slate-400 italic">Which one you see first may depend on your age! Fun fact: younger viewers usually spot the young woman first.</p>
-            </div>
-
-        </div>
-
-        <!-- Collapsible Explanation -->
-        <details class="w-full mt-4 border-t border-slate-800/40 pt-3 text-xs text-slate-400 select-none text-left">
-          <summary class="font-bold cursor-pointer hover:text-purple-400">👁️ Reveal Answer & Science</summary>
-          <p class="mt-2 font-normal leading-relaxed text-slate-400">
-            My Wife and My Mother-in-Law is one of the most famous bistable ambiguous figures. Popularized by cartoonist W. E. Hill in 1915, the drawing contains both a young woman facing away into the background and an old woman looking downward in profile. The visual cortex experiences a rivalry between the two interpretations because the same line segments represent different facial features in each version: the young woman's chin functions as the old woman's nose, the young woman's ear acts as the old woman's eye, and the young woman's necklace is perceived as the old woman's mouth. This demonstrates that object recognition is a top-down prediction process.
-          </p>
-        </details>
-
-        <!-- Explore Link -->
-        <div class="w-full mt-4 pt-4 border-t border-slate-500/10 flex justify-between items-center text-xs font-black text-purple-650 dark:text-purple-400 hover:text-purple-500 transition-colors">
-          <span>Explore Full Science & Facts</span>
-          <a href="/illusions/wife-mother-in-law" class="hover:underline">Explore &rarr;</a>
-        </div>
-
-      </section>
-
-      <!-- Illusion 2. All is Vanity -->
-      <section class="illusion-container bg-white dark:bg-slate-900/40 rounded-3xl border border-slate-200 dark:border-slate-800 p-8 shadow-sm flex flex-col gap-6 max-w-[800px] w-full mx-auto relative overflow-hidden" data-id="all-is-vanity">
-        
-        <!-- Header -->
-        <div class="w-full space-y-4 text-center">
-          <div class="flex items-center justify-between">
-            <div class="flex items-center space-x-2">
-              <span class="text-xs font-bold px-2 py-0.5 rounded bg-yellow-500/10 text-yellow-500 border border-yellow-500/25">🟡 Medium</span>
-              <span class="text-xs font-bold text-indigo-400 uppercase tracking-wider">Ambiguous</span>
-            </div>
-            <button class="share-btn p-2 rounded-lg bg-slate-50 dark:bg-slate-800 text-slate-400 hover:text-purple-400 transition-colors z-20" data-name="All is Vanity">
-              <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M15 8a3 3 0 1 0-2.977-2.63l-4.94 2.47a3 3 0 1 0 0 4.319l4.94 2.47a3 3 0 1 0 .895-1.789l-4.94-2.47a3.027 3.027 0 0 0 0-.74l4.94-2.47C13.456 7.68 14.19 8 15 8Z"/></svg>
-            </button>
+            <h3 class="font-display text-xl font-bold text-slate-900 dark:text-white mb-2">Impossible Trident</h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mb-6">A mind-bending geometric blivet where three cylinders at one end merge into two rectangular bars at the other.</p>
           </div>
           
-          <h2 class="font-display text-3xl font-black text-slate-900 dark:text-white">2. All is Vanity</h2>
-          <p class="text-sm text-slate-650 dark:text-slate-400 max-w-xl mx-auto leading-relaxed font-semibold">
-            Created by Charles Allan Gilbert in 1892. This illustration shows a woman sitting at a vanity table, but the overall composition morphs into a giant human skull.
-          </p>
-        </div>
+          <div class="w-full flex items-center justify-center bg-slate-100 dark:bg-slate-950/40 rounded-2xl p-4 border border-slate-200 dark:border-slate-800 min-h-[260px] relative overflow-hidden">
+            <ImpossibleTridentDemo isCard={true} />
+          </div>
 
-        <!-- Highlighted Instruction Box -->
-        <div class="w-full my-3 flex items-start gap-2 rounded-xl border border-indigo-500/10 bg-indigo-500/5 p-3 text-xs text-slate-350 text-left">
-          <span class="text-base leading-none">👁️</span>
+          <div class="w-full space-y-4 pt-4 flex flex-col items-center">
+            <div class="w-full flex items-center justify-between p-3 bg-slate-50 dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800 text-xs">
+              <button class="btn-give-up bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-bold px-4 py-2 rounded-lg border-none transition-colors cursor-pointer">Give Up / Reveal ⏱️</button>
+              <span class="countdown-timer font-mono font-bold text-slate-700 dark:text-slate-350">30.0s</span>
+            </div>
+
+            <div class="science-explanation hidden w-full text-left text-xs bg-slate-950/90 p-4 rounded-xl border border-slate-800 space-y-2">
+              <h4 class="font-extrabold text-purple-400 text-sm">Scientific Explanation</h4>
+              <p class="text-slate-300 leading-relaxed font-normal">
+                <strong>Figure-Ground Swap:</strong> The line borders representing background gaps between the two rectangles at the base are extended to become the contours of the middle cylinder prong, creating a figure-ground swap conflict.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Lab Card 2: Spinning Dancer -->
+        <section class="illusion-container bg-white dark:bg-slate-900/60 rounded-3xl border border-slate-200 dark:border-slate-800 p-6 shadow-md flex flex-col justify-between relative overflow-hidden group" data-id="spinning-dancer">
           <div>
-            <strong class="text-slate-200">👁️ WHAT TO LOOK FOR:</strong> Squint your eyes or step back from the screen. The round vanity mirror forms the skull dome; the woman's head and reflection form the eye sockets; the makeup bottles on the counter form the teeth.
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-red-500/10 text-red-550 border border-red-500/20">🔴 Hard</span>
+              <span class="text-[10px] font-bold text-indigo-400 uppercase tracking-wider">Ambiguous</span>
+            </div>
+            <h3 class="font-display text-xl font-bold text-slate-900 dark:text-white mb-2">The Spinning Dancer</h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mb-6">A rotating silhouette whose direction of spin (clockwise or counter-clockwise) is entirely decided by your mind.</p>
           </div>
-        </div>
-
-        <!-- Visual Display -->
-        <div class="w-full flex flex-col items-center justify-center bg-slate-150 dark:bg-slate-950/60 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 min-h-[400px]">
-          <div class="relative w-full max-w-[400px] h-[300px] flex items-center justify-center">
-            <svg class="w-full h-full select-none" viewBox="0 0 200 200" id="svg-vanity">
-              <!-- Vanity mirror (Skull head outline) -->
-              <circle cx="100" cy="80" r="50" fill="none" stroke="currentColor" stroke-width="2.5" class="text-slate-900 dark:text-slate-200" />
-              <!-- Eye sockets (Woman's head and its reflection) -->
-              <circle cx="85" cy="85" r="14" fill="none" stroke="currentColor" stroke-width="1.5" class="text-slate-400 dark:text-slate-600" />
-              <circle cx="115" cy="85" r="14" fill="none" stroke="currentColor" stroke-width="1.5" class="text-slate-400 dark:text-slate-600" />
-              <path d="M 80,85 C 80,75 90,75 90,85" fill="none" stroke="currentColor" stroke-width="2.5" class="text-slate-900 dark:text-slate-200" />
-              <path d="M 110,85 C 110,75 120,75 120,85" fill="none" stroke="currentColor" stroke-width="2.5" class="text-slate-900 dark:text-slate-200" />
-              <!-- Table / Jaw line -->
-              <path d="M 40,140 L 160,140 L 150,175 L 50,175 Z" fill="none" stroke="currentColor" stroke-width="2.5" class="text-slate-900 dark:text-slate-200" />
-              <!-- Perfume bottles (Teeth) -->
-              <g stroke="currentColor" stroke-width="1.5" class="text-slate-900 dark:text-slate-200">
-                <line x1="85" y1="140" x2="85" y2="152" />
-                <line x1="92" y1="140" x2="92" y2="152" />
-                <line x1="100" y1="140" x2="100" y2="152" />
-                <line x1="108" y1="140" x2="108" y2="152" />
-                <line x1="115" y1="140" x2="115" y2="152" />
-              </g>
-              
-              <!-- Skull Overlay -->
-              <g id="vanity-overlay-skull" class="opacity-0 transition-opacity duration-300 pointer-events-none">
-                <circle cx="100" cy="80" r="50" fill="none" stroke="#ef4444" stroke-width="3" />
-                <path d="M 75,130 L 125,130 L 115,160 L 85,160 Z" fill="none" stroke="#ef4444" stroke-width="3" />
-                <text x="100" y="25" fill="#ef4444" font-size="11" font-weight="900" text-anchor="middle">Skull Shape</text>
-              </g>
-              <!-- Woman Overlay -->
-              <g id="vanity-overlay-woman" class="opacity-0 transition-opacity duration-300 pointer-events-none">
-                <circle cx="85" cy="85" r="16" fill="none" stroke="#3b82f6" stroke-width="2.5" />
-                <circle cx="115" cy="85" r="16" fill="none" stroke="#3b82f6" stroke-width="2.5" />
-                <text x="100" y="62" fill="#60a5fa" font-size="10" font-weight="900" text-anchor="middle">Woman & Reflection</text>
-              </g>
-            </svg>
-          </div>
-        </div>
-
-        <!-- Controls, Voting, and Stopwatch Time Tracker -->
-        <div class="w-full space-y-4 pt-2 flex flex-col items-center text-center">
           
-          <!-- Time Tracker Bar -->
-          <div class="w-full flex items-center justify-between p-3 bg-slate-50 dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800 text-xs">
-            <div class="flex items-center space-x-2">
-              <button class="btn-spot bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-3 py-1.5 rounded-lg">I See It! ⏱️</button>
-              <span class="spot-time font-mono font-bold text-slate-700 dark:text-slate-300">0.0s</span>
-            </div>
-            <div class="text-slate-550 dark:text-slate-400 font-bold">
-              Personal Best: <span class="pb-time font-mono text-purple-400">-.-s</span>
+          <div class="w-full flex items-center justify-center bg-slate-100 dark:bg-slate-950/40 rounded-2xl p-4 border border-slate-200 dark:border-slate-800 min-h-[260px] relative overflow-hidden">
+            <div class="flex items-center justify-center w-full h-full" style="perspective: 600px;">
+              <svg id="dancer-svg" class="dancer-svg w-28 h-40 text-slate-900 dark:text-slate-200" viewBox="0 0 200 200" style="transform-style: preserve-3d; animation: spin-dancer-scale 4s linear infinite;">
+                <circle cx="100" cy="30" r="8" fill="currentColor" />
+                <path d="M95,42 C92,60 92,80 96,95 L104,95 C108,80 108,60 105,42 Z" fill="currentColor" />
+                <path class="dancer-left-limb" d="M96,44 Q65,42 40,35 Q65,48 96,49 Z M97,95 L97,165 C97,168 99,170 101,170 L101,95 Z" fill="currentColor" />
+                <path class="dancer-right-limb" d="M104,44 Q135,42 160,35 Q135,48 104,49 Z M103,95 Q125,115 130,125 Q115,125 103,115 Z" fill="currentColor" />
+                
+                <!-- Helper colored belt -->
+                <path id="dancer-belt" class="opacity-0 transition-opacity duration-300" d="M 96,94 L 104,94" stroke="#ec4899" stroke-width="4" stroke-linecap="round" />
+              </svg>
             </div>
           </div>
 
-          <!-- Controls panel -->
-          <div class="flex flex-col gap-3 w-full max-w-sm">
-            <div class="flex w-full gap-2">
-              <button class="btn-vote flex-1 bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs py-2.5 rounded-xl transition-all shadow" data-vote="woman">A Woman 👩</button>
-              <button class="btn-vote flex-1 bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs py-2.5 rounded-xl transition-all shadow" data-vote="skull">A Skull 💀</button>
+          <div class="w-full space-y-4 pt-4 flex flex-col items-center">
+            <div class="w-full flex items-center justify-between p-3 bg-slate-50 dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800 text-xs">
+              <button class="btn-give-up bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-bold px-4 py-2 rounded-lg border-none transition-colors cursor-pointer">Give Up / Reveal ⏱️</button>
+              <span class="countdown-timer font-mono font-bold text-slate-700 dark:text-slate-350">30.0s</span>
             </div>
-            
-            <div class="stats-panel hidden w-full p-4 bg-purple-500/5 border border-purple-500/20 rounded-xl text-xs space-y-2">
-              <p class="text-[10px] text-purple-400 font-bold text-left">Your selection: <span class="user-selection text-white"></span></p>
-              <div class="flex justify-between font-black text-slate-900 dark:text-white">
-                <span>👩 A Woman: <span class="pct-woman">45%</span></span>
-                <span>💀 A Skull: <span class="pct-skull">55%</span></span>
-              </div>
-              <div class="w-full bg-slate-700 h-2 rounded-full overflow-hidden flex">
-                <div class="bg-purple-500 h-full bar-woman" style="width: 45%;"></div>
-                <div class="bg-indigo-400 h-full bar-skull" style="width: 55%;"></div>
+
+            <div class="flex wrap items-center justify-between w-full p-2.5 bg-slate-900/60 border border-slate-800 rounded-xl text-xs gap-3">
+              <label class="flex items-center space-x-2 cursor-pointer font-bold select-none text-slate-300">
+                <input type="checkbox" id="dancer-belt-toggle" class="rounded border-slate-700 bg-slate-950 text-purple-600 accent-purple-600" />
+                <span>Color Guide 🎨</span>
+              </label>
+              <div class="flex gap-1.5">
+                <button class="btn-vote bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-bold px-2.5 py-1 rounded border-none cursor-pointer text-[10px]" data-vote="cw">CW ➡️</button>
+                <button class="btn-vote bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-bold px-2.5 py-1 rounded border-none cursor-pointer text-[10px]" data-vote="ccw">CCW ⬅️</button>
               </div>
             </div>
 
-            <div class="flex w-full gap-2">
-              <button class="btn-toggle-woman flex-1 border border-blue-500/30 text-blue-400 hover:bg-blue-500/10 font-bold text-[10px] py-2 rounded-xl transition-all">Show Woman 👩</button>
-              <button class="btn-toggle-skull flex-1 border border-rose-500/30 text-rose-400 hover:bg-rose-500/10 font-bold text-[10px] py-2 rounded-xl transition-all">Show Skull 💀</button>
+            <div class="science-explanation hidden w-full text-left text-xs bg-slate-950/90 p-4 rounded-xl border border-slate-800 space-y-2">
+              <h4 class="font-extrabold text-purple-400 text-sm">Scientific Explanation</h4>
+              <p class="text-slate-300 leading-relaxed font-normal">
+                <strong>Depth Cue Absence:</strong> Because the silhouette lacks volumetric cues, shadows, or texture shading, the brain cannot determine whether the dancer is spinning clockwise on her left leg or counter-clockwise on her right leg.
+              </p>
             </div>
           </div>
+        </section>
 
-        </div>
-
-        <!-- Collapsible Explanation -->
-        <details class="w-full mt-4 border-t border-slate-800/40 pt-3 text-xs text-slate-400 select-none text-left">
-          <summary class="font-bold cursor-pointer hover:text-purple-400">👁️ Reveal Answer & Science</summary>
-          <p class="mt-2 font-normal leading-relaxed text-slate-400">
-            All is Vanity is a classic ambiguous composite drawing created by American illustrator Charles Allan Gilbert in 1892. It depicts a young woman sitting at a vanity mirror, looking at her reflection. However, when viewed from a distance, the entire scene blends to form the shape of a human skull. The round vanity mirror forms the dome of the skull, the woman's head and its reflection form the dark eye sockets, and the perfume bottles and cosmetics on the table form the row of teeth along the jaw. This illusion demonstrates how the visual system groups high-frequency detail (the woman and cosmetics) and low-frequency structures (the skull) differently based on viewing distance and focus.
-          </p>
-        </details>
-
-        <!-- Explore Link -->
-        <div class="w-full mt-4 pt-4 border-t border-slate-500/10 flex justify-between items-center text-xs font-black text-purple-650 dark:text-purple-400 hover:text-purple-500 transition-colors">
-          <span>Explore Full Science & Facts</span>
-          <a href="/illusions/all-is-vanity" class="hover:underline">Explore &rarr;</a>
-        </div>
-
-      </section>
-
-      <!-- Illusion 3. Duck or Rabbit? -->
-      <section class="illusion-container bg-white dark:bg-slate-900/40 rounded-3xl border border-slate-200 dark:border-slate-800 p-8 shadow-sm flex flex-col gap-6 max-w-[800px] w-full mx-auto relative overflow-hidden" data-id="duck-rabbit">
-        
-        <!-- Header -->
-        <div class="w-full space-y-4 text-center">
-          <div class="flex items-center justify-between">
-            <div class="flex items-center space-x-2">
-              <span class="text-xs font-bold px-2 py-0.5 rounded bg-yellow-500/10 text-yellow-500 border border-yellow-500/25">🟢 Easy</span>
-              <span class="text-xs font-bold text-indigo-400 uppercase tracking-wider">Ambiguous</span>
-            </div>
-            <button class="share-btn p-2 rounded-lg bg-slate-50 dark:bg-slate-800 text-slate-400 hover:text-purple-400 transition-colors z-20" data-name="Duck or Rabbit?">
-              <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M15 8a3 3 0 1 0-2.977-2.63l-4.94 2.47a3 3 0 1 0 0 4.319l4.94 2.47a3 3 0 1 0 .895-1.789l-4.94-2.47a3.027 3.027 0 0 0 0-.74l4.94-2.47C13.456 7.68 14.19 8 15 8Z"/></svg>
-            </button>
-          </div>
-          
-          <h2 class="font-display text-3xl font-black text-slate-900 dark:text-white">3. Duck or Rabbit?</h2>
-          <p class="text-sm text-slate-650 dark:text-slate-400 max-w-xl mx-auto leading-relaxed font-semibold">
-            First published in Germany in 1892 and popularized by Joseph Jastrow in 1899. A single outline forms either a duck facing left or a rabbit facing right.
-          </p>
-        </div>
-
-        <!-- Highlighted Instruction Box -->
-        <div class="w-full my-3 flex items-start gap-2 rounded-xl border border-indigo-500/10 bg-indigo-500/5 p-3 text-xs text-slate-350 text-left">
-          <span class="text-base leading-none">👁️</span>
+        <!-- Lab Card 3: Hermann Grid -->
+        <section class="illusion-container bg-white dark:bg-slate-900/60 rounded-3xl border border-slate-200 dark:border-slate-800 p-6 shadow-md flex flex-col justify-between relative overflow-hidden group" data-id="hermann-grid">
           <div>
-            <strong class="text-slate-200">👁️ WHAT TO LOOK FOR:</strong> Observe the two protrusions on the left. Are they a duck's open bill or a rabbit's long ears? Use the hint button to see how seasonal contexts prime your brain.
-          </div>
-        </div>
-
-        <!-- Visual Display -->
-        <div class="w-full flex flex-col items-center justify-center bg-slate-150 dark:bg-slate-950/60 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 min-h-[300px]">
-          <div class="relative w-full max-w-[400px] h-[300px] flex items-center justify-center">
-            <svg class="w-full max-w-[300px] h-[200px] select-none bg-slate-900 rounded-xl" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
-              <!-- Upgraded high contrast Duck-Rabbit with white fill on dark background -->
-              <ellipse cx="160" cy="110" rx="75" ry="55" fill="#ffffff" />
-              <ellipse cx="95" cy="100" rx="40" ry="35" fill="#ffffff" />
-              <path d="M 58,82 Q 25,72 10,90 Q 18,103 58,100 Z" fill="#ffffff" />
-              <path d="M 58,100 Q 25,103 12,120 Q 20,133 58,117 Z" fill="#ffffff" />
-              <circle cx="82" cy="86" r="6" fill="#0f172a" />
-              <circle cx="82" cy="86" r="3" fill="#ffffff" />
-              <path d="M 95,120 Q 90,110 95,100" stroke="#0f172a" stroke-width="2.5" fill="none" />
-              
-              <g class="diagram-overlay opacity-0 transition-opacity duration-300">
-                <text x="150" y="45" fill="#ef4444" font-size="12" font-weight="900" text-anchor="middle">Left: Bill/Ears | Right: Tail</text>
-              </g>
-            </svg>
-          </div>
-        </div>
-
-        <!-- Controls, Voting, and Stopwatch Time Tracker -->
-        <div class="w-full space-y-4 pt-2 flex flex-col items-center text-center">
-          
-          <!-- Time Tracker Bar -->
-          <div class="w-full flex items-center justify-between p-3 bg-slate-50 dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800 text-xs">
-            <div class="flex items-center space-x-2">
-              <button class="btn-spot bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-3 py-1.5 rounded-lg">I See It! ⏱️</button>
-              <span class="spot-time font-mono font-bold text-slate-700 dark:text-slate-300">0.0s</span>
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-yellow-500/10 text-yellow-600 border border-yellow-500/20">🟡 Medium</span>
+              <span class="text-[10px] font-bold text-indigo-400 uppercase tracking-wider">Physiological</span>
             </div>
-            <div class="text-slate-550 dark:text-slate-400 font-bold">
-              Personal Best: <span class="pb-time font-mono text-purple-400">-.-s</span>
-            </div>
-          </div>
-
-          <!-- Controls panel -->
-          <div class="flex flex-wrap gap-3 justify-center">
-              <button class="btn-vote bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs px-4 py-2.5 rounded-xl transition-all shadow" data-vote="duck">Duck 🦆</button>
-              <button class="btn-vote bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs px-4 py-2.5 rounded-xl transition-all shadow" data-vote="rabbit">Rabbit 🐇</button>
-              <button class="btn-reveal border border-purple-500/30 text-purple-400 hover:bg-purple-500/10 font-bold text-xs px-4 py-2.5 rounded-xl transition-all">Show Hint</button>
-            </div>
-            
-            <div class="stats-panel hidden w-full p-4 bg-purple-500/5 border border-purple-500/20 rounded-xl text-xs space-y-2 text-left">
-              <div class="flex justify-between font-black text-slate-900 dark:text-white">
-                <span>🦆 Duck: <span class="pct-young">50%</span></span>
-                <span>🐇 Rabbit: <span class="pct-old">50%</span></span>
-              </div>
-              <div class="w-full bg-slate-700 h-2 rounded-full overflow-hidden flex">
-                <div class="bg-purple-500 h-full bar-young" style="width: 50%;"></div>
-                <div class="bg-indigo-400 h-full bar-old" style="width: 50%;"></div>
-              </div>
-              <p class="text-[10px] text-slate-400 id='seasonal-hint-box'"></p>
-            </div>
-
-        </div>
-
-        <!-- Collapsible Explanation -->
-        <details class="w-full mt-4 border-t border-slate-800/40 pt-3 text-xs text-slate-400 select-none text-left">
-          <summary class="font-bold cursor-pointer hover:text-purple-400">👁️ Reveal Answer & Science</summary>
-          <p class="mt-2 font-normal leading-relaxed text-slate-400">
-            The Duck-Rabbit Illusion is a classic ambiguous figure popularized by psychologist Joseph Jastrow in 1899. The silhouette is bistable: it can be seen as a duck facing to the left (where the protrusions are its bill) or a rabbit facing to the right (where the same protrusions are its ears). The visual system cannot hold both interpretations in conscious awareness simultaneously, forcing a perceptual toggle. Jastrow used the illusion to demonstrate that perception is not a passive recording of sensory data, but an active, cognitive interpretation that is heavily influenced by mental focus, context, and semantic priming.
-          </p>
-        </details>
-
-        <!-- Explore Link -->
-        <div class="w-full mt-4 pt-4 border-t border-slate-500/10 flex justify-between items-center text-xs font-black text-purple-650 dark:text-purple-400 hover:text-purple-500 transition-colors">
-          <span>Explore Full Science & Facts</span>
-          <a href="/illusions/duck-rabbit" class="hover:underline">Explore &rarr;</a>
-        </div>
-
-      </section>
-
-      <!-- Illusion 4. Young Woman or Old Woman (Boring Figure) -->
-      <section class="illusion-container bg-white dark:bg-slate-900/40 rounded-3xl border border-slate-200 dark:border-slate-800 p-8 shadow-sm flex flex-col gap-6 max-w-[800px] w-full mx-auto relative overflow-hidden" data-id="boring-figure">
-        
-        <!-- Header -->
-        <div class="w-full space-y-4 text-center">
-          <div class="flex items-center justify-between">
-            <div class="flex items-center space-x-2">
-              <span class="text-xs font-bold px-2 py-0.5 rounded bg-yellow-500/10 text-yellow-500 border border-yellow-500/25">🟡 Medium</span>
-              <span class="text-xs font-bold text-indigo-400 uppercase tracking-wider">Ambiguous</span>
-            </div>
-            <button class="share-btn p-2 rounded-lg bg-slate-50 dark:bg-slate-800 text-slate-400 hover:text-purple-400 transition-colors z-20" data-name="Young Woman or Old Woman (Boring Figure)">
-              <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M15 8a3 3 0 1 0-2.977-2.63l-4.94 2.47a3 3 0 1 0 0 4.319l4.94 2.47a3 3 0 1 0 .895-1.789l-4.94-2.47a3.027 3.027 0 0 0 0-.74l4.94-2.47C13.456 7.68 14.19 8 15 8Z"/></svg>
-            </button>
+            <h3 class="font-display text-xl font-bold text-slate-900 dark:text-white mb-2">Hermann Grid Dots</h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mb-6">A grid layout of black tiles with gray intersections. Ghostly dark dots appear in your periphery, disappearing when you look at them.</p>
           </div>
           
-          <h2 class="font-display text-3xl font-black text-slate-900 dark:text-white">4. Young Woman or Old Woman (Boring Figure)</h2>
-          <p class="text-sm text-slate-650 dark:text-slate-400 max-w-xl mx-auto leading-relaxed font-semibold">
-            This alternative rendering of the classic Boring Figure provides an elegant layout illustrating visual bistability.
-          </p>
-        </div>
-
-        <!-- Highlighted Instruction Box -->
-        <div class="w-full my-3 flex items-start gap-2 rounded-xl border border-indigo-500/10 bg-indigo-500/5 p-3 text-xs text-slate-350 text-left">
-          <span class="text-base leading-none">👁️</span>
-          <div>
-            <strong class="text-slate-200">👁️ WHAT TO LOOK FOR:</strong> Stare at the center. Do you see the young woman's ear and jawline, or the old woman's large hooked nose and mouth?
-          </div>
-        </div>
-
-        <!-- Visual Display -->
-        <div class="w-full flex flex-col items-center justify-center bg-slate-150 dark:bg-slate-950/60 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 min-h-[400px]">
-          <div class="relative w-full max-w-[400px] h-[300px] flex items-center justify-center">
-            <svg class="w-full h-full select-none" viewBox="0 0 200 200" id="svg-boring">
-              <!-- Hat and hair -->
-              <path d="M 50,40 Q 100,20 150,40 Q 170,80 140,130" fill="none" stroke="currentColor" stroke-width="2.5" class="text-slate-900 dark:text-slate-200" />
-              <!-- Face contour -->
-              <path d="M 90,40 Q 70,60 80,85 Q 85,95 83,100 Q 92,113 86,125 Q 92,133 95,138 Q 102,145 105,153" fill="none" stroke="currentColor" stroke-width="2.5" class="text-slate-900 dark:text-slate-100" />
-              <!-- Eye / Ear -->
-              <path d="M 115,100 C 111,98 109,102 111,106 C 113,108 118,106 116,102" fill="none" stroke="currentColor" stroke-width="2" class="text-slate-900 dark:text-slate-200" />
-              <!-- Neckband / Mouth -->
-              <path d="M 95,138 Q 105,139 115,137" fill="none" stroke="currentColor" stroke-width="2" class="text-slate-900 dark:text-slate-200" stroke-linecap="round" />
-              <!-- Feather -->
-              <path d="M 120,40 Q 140,5 120,0" fill="none" stroke="currentColor" stroke-width="2" class="text-slate-900 dark:text-slate-200" />
-
-              <g class="diagram-overlay opacity-0 transition-opacity duration-300">
-                <circle cx="113" cy="103" r="8" stroke="#ef4444" stroke-width="2" fill="none" />
-                <text x="130" y="105" fill="#ef4444" font-size="10" font-weight="900">Young Ear / Old Eye</text>
-                <path d="M 80,85 Q 85,95 83,100" stroke="#ef4444" stroke-width="3.5" fill="none" />
-                <text x="20" y="95" fill="#ef4444" font-size="10" font-weight="900">Young Nose / Old Eye lash</text>
-              </g>
-            </svg>
-          </div>
-        </div>
-
-        <!-- Controls, Voting, and Stopwatch Time Tracker -->
-        <div class="w-full space-y-4 pt-2 flex flex-col items-center text-center">
-          
-          <!-- Time Tracker Bar -->
-          <div class="w-full flex items-center justify-between p-3 bg-slate-50 dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800 text-xs">
-            <div class="flex items-center space-x-2">
-              <button class="btn-spot bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-3 py-1.5 rounded-lg">I See It! ⏱️</button>
-              <span class="spot-time font-mono font-bold text-slate-700 dark:text-slate-300">0.0s</span>
-            </div>
-            <div class="text-slate-550 dark:text-slate-400 font-bold">
-              Personal Best: <span class="pb-time font-mono text-purple-400">-.-s</span>
-            </div>
-          </div>
-
-          <!-- Controls panel -->
-          <div class="flex flex-wrap gap-3 justify-center">
-              <button class="btn-vote bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs px-4 py-2.5 rounded-xl transition-all shadow" data-vote="young">👱‍♀️ Young Woman</button>
-              <button class="btn-vote bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs px-4 py-2.5 rounded-xl transition-all shadow" data-vote="old">👵 Old Woman</button>
-              <button class="btn-reveal border border-purple-500/30 text-purple-400 hover:bg-purple-500/10 font-bold text-xs px-4 py-2.5 rounded-xl transition-all">Reveal Labels</button>
-            </div>
-            
-            <div class="stats-panel hidden w-full p-4 bg-purple-500/5 border border-purple-500/20 rounded-xl text-xs space-y-2">
-              <div class="flex justify-between font-black text-slate-900 dark:text-white">
-                <span>👱‍♀️ Young: <span class="pct-young">58%</span></span>
-                <span>👵 Old: <span class="pct-old">42%</span></span>
-              </div>
-              <div class="w-full bg-slate-700 h-2 rounded-full overflow-hidden flex">
-                <div class="bg-purple-500 h-full bar-young" style="width: 58%;"></div>
-                <div class="bg-indigo-400 h-full bar-old" style="width: 42%;"></div>
-              </div>
-            </div>
-
-        </div>
-
-        <!-- Collapsible Explanation -->
-        <details class="w-full mt-4 border-t border-slate-800/40 pt-3 text-xs text-slate-400 select-none text-left">
-          <summary class="font-bold cursor-pointer hover:text-purple-400">👁️ Reveal Answer & Science</summary>
-          <p class="mt-2 font-normal leading-relaxed text-slate-400">
-            The Boring Figure is another name for the classic Wife and Mother-in-Law illusion. It is named after American psychologist Edwin Boring, who published a detailed analysis of the drawing in 1930. Boring used the figure to map out the mathematical boundaries of visual bistability and investigate how the brain assigns outlines to different shapes. The illusion demonstrates how the visual cortex alternates between two completely separate semantic frameworks when interpreting identical visual contours.
-          </p>
-        </details>
-
-        <!-- Explore Link -->
-        <div class="w-full mt-4 pt-4 border-t border-slate-500/10 flex justify-between items-center text-xs font-black text-purple-650 dark:text-purple-400 hover:text-purple-500 transition-colors">
-          <span>Explore Full Science & Facts</span>
-          <a href="/illusions/boring-figure" class="hover:underline">Explore &rarr;</a>
-        </div>
-
-      </section>
-
-      <!-- Illusion 5. 6 Hidden Faces in the Trees -->
-      <section class="illusion-container bg-white dark:bg-slate-900/40 rounded-3xl border border-slate-200 dark:border-slate-800 p-8 shadow-sm flex flex-col gap-6 max-w-[800px] w-full mx-auto relative overflow-hidden" data-id="hidden-faces-trees">
-        
-        <!-- Header -->
-        <div class="w-full space-y-4 text-center">
-          <div class="flex items-center justify-between">
-            <div class="flex items-center space-x-2">
-              <span class="text-xs font-bold px-2 py-0.5 rounded bg-yellow-500/10 text-yellow-500 border border-yellow-500/25">🔴 Hard</span>
-              <span class="text-xs font-bold text-indigo-400 uppercase tracking-wider">Ambiguous</span>
-            </div>
-            <button class="share-btn p-2 rounded-lg bg-slate-50 dark:bg-slate-800 text-slate-400 hover:text-purple-400 transition-colors z-20" data-name="6 Hidden Faces in the Trees">
-              <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M15 8a3 3 0 1 0-2.977-2.63l-4.94 2.47a3 3 0 1 0 0 4.319l4.94 2.47a3 3 0 1 0 .895-1.789l-4.94-2.47a3.027 3.027 0 0 0 0-.74l4.94-2.47C13.456 7.68 14.19 8 15 8Z"/></svg>
-            </button>
-          </div>
-          
-          <h2 class="font-display text-3xl font-black text-slate-900 dark:text-white">5. 6 Hidden Faces in the Trees</h2>
-          <p class="text-sm text-slate-650 dark:text-slate-400 max-w-xl mx-auto leading-relaxed font-semibold">
-            A complex botanical sketch containing negative spaces that map to six distinct human profiles.
-          </p>
-        </div>
-
-        <!-- Highlighted Instruction Box -->
-        <div class="w-full my-3 flex items-start gap-2 rounded-xl border border-indigo-500/10 bg-indigo-500/5 p-3 text-xs text-slate-350 text-left">
-          <span class="text-base leading-none">👁️</span>
-          <div>
-            <strong class="text-slate-200">👁️ WHAT TO LOOK FOR:</strong> Scan the branches and negative spaces. Can you find all 6 hidden faces? Tap the face outlines directly in the drawing to highlight them.
-          </div>
-        </div>
-
-        <!-- Visual Display -->
-        <div class="w-full flex flex-col items-center justify-center bg-slate-150 dark:bg-slate-950/60 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 min-h-[300px]">
-          <div class="relative w-full max-w-[400px] h-[300px] flex items-center justify-center">
-            <svg class="w-full h-full select-none" viewBox="0 0 200 200" id="svg-trees">
-              <!-- Base trunk & branches -->
-              <path d="M 30,190 Q 50,130 50,80 Q 30,40 20,20 Q 50,40 60,70 L 60,190" fill="none" stroke="currentColor" stroke-width="2.5" class="text-slate-900 dark:text-slate-300" />
-              <path d="M 170,190 Q 150,120 150,70 Q 170,30 180,10 Q 150,30 140,60 L 140,190" fill="none" stroke="currentColor" stroke-width="2.5" class="text-slate-900 dark:text-slate-300" />
-              
-              <!-- Face 1 target (young profile on left trunk branch) -->
-              <path d="M 50,80 Q 42,75 42,70 Q 45,66 48,68 Q 45,60 50,55" fill="none" stroke="transparent" stroke-width="8" class="face-target cursor-pointer" data-idx="1" />
-              <path id="highlight-1" d="M 50,80 Q 42,75 42,70 Q 45,66 48,68 Q 45,60 50,55" fill="none" stroke="#22c55e" stroke-width="2" class="opacity-0 transition-opacity" />
-              
-              <!-- Face 2 target (old profile on right trunk branch) -->
-              <path d="M 150,70 Q 158,65 158,60 Q 155,56 152,58 Q 155,50 150,45" fill="none" stroke="transparent" stroke-width="8" class="face-target cursor-pointer" data-idx="2" />
-              <path id="highlight-2" d="M 150,70 Q 158,65 158,60 Q 155,56 152,58 Q 155,50 150,45" fill="none" stroke="#22c55e" stroke-width="2" class="opacity-0 transition-opacity" />
-
-              <!-- Face 3 target (lower branches left) -->
-              <path d="M 60,130 Q 52,125 52,120 Q 55,116 58,118 Q 55,110 60,105" fill="none" stroke="transparent" stroke-width="8" class="face-target cursor-pointer" data-idx="3" />
-              <path id="highlight-3" d="M 60,130 Q 52,125 52,120 Q 55,116 58,118 Q 55,110 60,105" fill="none" stroke="#22c55e" stroke-width="2" class="opacity-0 transition-opacity" />
-
-              <!-- Face 4 target (lower branches right) -->
-              <path d="M 140,130 Q 148,125 148,120 Q 145,116 142,118 Q 145,110 140,105" fill="none" stroke="transparent" stroke-width="8" class="face-target cursor-pointer" data-idx="4" />
-              <path id="highlight-4" d="M 140,130 Q 148,125 148,120 Q 145,116 142,118 Q 145,110 140,105" fill="none" stroke="#22c55e" stroke-width="2" class="opacity-0 transition-opacity" />
-
-              <!-- Face 5 target (ground root left) -->
-              <path d="M 60,170 Q 50,165 50,160 M 50,160 Q 55,155 60,152" fill="none" stroke="transparent" stroke-width="8" class="face-target cursor-pointer" data-idx="5" />
-              <path id="highlight-5" d="M 60,170 Q 50,165 50,160 M 50,160 Q 55,155 60,152" fill="none" stroke="#22c55e" stroke-width="2" class="opacity-0 transition-opacity" />
-
-              <!-- Face 6 target (ground root right) -->
-              <path d="M 140,170 Q 150,165 150,160 M 150,160 Q 145,155 140,152" fill="none" stroke="transparent" stroke-width="8" class="face-target cursor-pointer" data-idx="6" />
-              <path id="highlight-6" d="M 140,170 Q 150,165 150,160 M 150,160 Q 145,155 140,152" fill="none" stroke="#22c55e" stroke-width="2" class="opacity-0 transition-opacity" />
-            </svg>
-          </div>
-        </div>
-
-        <!-- Controls, Voting, and Stopwatch Time Tracker -->
-        <div class="w-full space-y-4 pt-2 flex flex-col items-center text-center">
-          
-          <!-- Time Tracker Bar -->
-          <div class="w-full flex items-center justify-between p-3 bg-slate-50 dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800 text-xs">
-            <div class="flex items-center space-x-2">
-              <button class="btn-spot bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-3 py-1.5 rounded-lg">I See It! ⏱️</button>
-              <span class="spot-time font-mono font-bold text-slate-700 dark:text-slate-300">0.0s</span>
-            </div>
-            <div class="text-slate-550 dark:text-slate-400 font-bold">
-              Personal Best: <span class="pb-time font-mono text-purple-400">-.-s</span>
-            </div>
-          </div>
-
-          <!-- Controls panel -->
-          <div class="flex flex-col sm:flex-row items-center justify-between w-full p-4 bg-slate-900/60 border border-slate-800 rounded-xl text-xs gap-3">
-              <div class="font-bold">Faces found: <span class="faces-count text-green-400 text-sm">0</span> / 6</div>
-              <div class="flex gap-2">
-                <button class="reset-faces-btn bg-purple-600 hover:bg-purple-500 text-white font-bold px-3 py-1.5 rounded-lg">Reset 🔄</button>
-              </div>
-            </div>
-            <p class="face-message hidden text-xs font-bold text-green-400 uppercase tracking-widest text-center">🎉 Amazing! You found all 6 faces!</p>
-
-        </div>
-
-        <!-- Collapsible Explanation -->
-        <details class="w-full mt-4 border-t border-slate-800/40 pt-3 text-xs text-slate-400 select-none text-left">
-          <summary class="font-bold cursor-pointer hover:text-purple-400">👁️ Reveal Answer & Science</summary>
-          <p class="mt-2 font-normal leading-relaxed text-slate-400">
-            The 6 Hidden Faces in Trees is a popular ambiguous puzzle that exploits the brain's tendency toward pareidolia—our natural urge to find human faces and familiar shapes in random patterns. The branches and trunks of the trees are drawn such that their negative spaces and bark contours trace the profiles of human faces. Because the brain's fusiform face area (FFA) is highly specialized to detect face configurations, it actively scans the forest outlines, assembling the profiles out of the raw branches. This shows how top-down face processing override works.
-          </p>
-        </details>
-
-        <!-- Explore Link -->
-        <div class="w-full mt-4 pt-4 border-t border-slate-500/10 flex justify-between items-center text-xs font-black text-purple-650 dark:text-purple-400 hover:text-purple-500 transition-colors">
-          <span>Explore Full Science & Facts</span>
-          <a href="/illusions/hidden-faces-trees" class="hover:underline">Explore &rarr;</a>
-        </div>
-
-      </section>
-
-      <!-- Illusion 6. Coffee Skull -->
-      <section class="illusion-container bg-white dark:bg-slate-900/40 rounded-3xl border border-slate-200 dark:border-slate-800 p-8 shadow-sm flex flex-col gap-6 max-w-[800px] w-full mx-auto relative overflow-hidden" data-id="skull-coffee">
-        
-        <!-- Header -->
-        <div class="w-full space-y-4 text-center">
-          <div class="flex items-center justify-between">
-            <div class="flex items-center space-x-2">
-              <span class="text-xs font-bold px-2 py-0.5 rounded bg-yellow-500/10 text-yellow-500 border border-yellow-500/25">🔴 Hard</span>
-              <span class="text-xs font-bold text-indigo-400 uppercase tracking-wider">Ambiguous</span>
-            </div>
-            <button class="share-btn p-2 rounded-lg bg-slate-50 dark:bg-slate-800 text-slate-400 hover:text-purple-400 transition-colors z-20" data-name="Coffee Skull">
-              <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M15 8a3 3 0 1 0-2.977-2.63l-4.94 2.47a3 3 0 1 0 0 4.319l4.94 2.47a3 3 0 1 0 .895-1.789l-4.94-2.47a3.027 3.027 0 0 0 0-.74l4.94-2.47C13.456 7.68 14.19 8 15 8Z"/></svg>
-            </button>
-          </div>
-          
-          <h2 class="font-display text-3xl font-black text-slate-900 dark:text-white">6. Coffee Skull</h2>
-          <p class="text-sm text-slate-650 dark:text-slate-400 max-w-xl mx-auto leading-relaxed font-semibold">
-            A foam design on top of an espresso cup that creates a bistable interpretation of coffee froth vs a human skull.
-          </p>
-        </div>
-
-        <!-- Highlighted Instruction Box -->
-        <div class="w-full my-3 flex items-start gap-2 rounded-xl border border-indigo-500/10 bg-indigo-500/5 p-3 text-xs text-slate-350 text-left">
-          <span class="text-base leading-none">👁️</span>
-          <div>
-            <strong class="text-slate-200">👁️ WHAT TO LOOK FOR:</strong> Observe the mug. Do you see the rich brown coffee froth forming a skull, or the white milk foam outlining two cups/saucers?
-          </div>
-        </div>
-
-        <!-- Visual Display -->
-        <div class="w-full flex flex-col items-center justify-center bg-slate-150 dark:bg-slate-950/60 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 min-h-[300px]">
-          <div class="relative w-full max-w-[400px] h-[300px] flex items-center justify-center">
-            <svg class="w-full h-full select-none" viewBox="0 0 200 200" id="svg-coffee-skull">
-              <!-- Outer cup edge -->
-              <circle cx="100" cy="100" r="80" fill="none" stroke="currentColor" stroke-width="3.5" class="text-slate-900 dark:text-slate-300" />
-              <circle cx="100" cy="100" r="70" fill="url(#coffee-foam-grad)" />
-              
-              <!-- Skull eye cavities / Coffee pools -->
-              <circle cx="80" cy="85" r="14" fill="#582f0e" />
-              <circle cx="120" cy="85" r="14" fill="#582f0e" />
-              <path d="M 92,110 L 108,110 L 100,122 Z" fill="#582f0e" /> <!-- Nose cavity -->
-              
-              <!-- Teeth dashes -->
-              <line x1="88" y1="140" x2="88" y2="148" stroke="#582f0e" stroke-width="2" />
-              <line x1="96" y1="140" x2="96" y2="148" stroke="#582f0e" stroke-width="2" />
-              <line x1="104" y1="140" x2="104" y2="148" stroke="#582f0e" stroke-width="2" />
-              <line x1="112" y1="140" x2="112" y2="148" stroke="#582f0e" stroke-width="2" />
-
-              <!-- Coffee Foam Overlay -->
-              <g id="coffee-overlay-foam" class="opacity-0 transition-opacity duration-300 pointer-events-none">
-                <circle cx="100" cy="100" r="70" fill="none" stroke="#3b82f6" stroke-width="3" />
-                <text x="100" y="45" fill="#60a5fa" font-size="10" font-weight="900" text-anchor="middle">Coffee Cup & Froth</text>
-              </g>
-              <!-- Skull Overlay -->
-              <g id="coffee-overlay-skull" class="opacity-0 transition-opacity duration-300 pointer-events-none">
-                <circle cx="80" cy="85" r="16" fill="none" stroke="#ef4444" stroke-width="2" />
-                <circle cx="120" cy="85" r="16" fill="none" stroke="#ef4444" stroke-width="2" />
-                <path d="M 90,108 L 110,108 L 100,124 Z" fill="none" stroke="#ef4444" stroke-width="2" />
-                <path d="M 60,85 C 60,40 140,40 140,85 C 140,110 130,120 130,135 L 70,135 C 70,120 60,110 60,85 Z" fill="none" stroke="#ef4444" stroke-width="3.5" />
-                <text x="100" y="28" fill="#ef4444" font-size="11" font-weight="900" text-anchor="middle">Skull Outline</text>
-              </g>
-
-              <defs>
-                <radialGradient id="coffee-foam-grad" cx="50%" cy="50%" r="50%">
-                  <stop offset="0%" stop-color="#ddb892" />
-                  <stop offset="100%" stop-color="#ede0d4" />
-                </radialGradient>
-              </defs>
-            </svg>
-          </div>
-        </div>
-
-        <!-- Controls, Voting, and Stopwatch Time Tracker -->
-        <div class="w-full space-y-4 pt-2 flex flex-col items-center text-center">
-          
-          <!-- Time Tracker Bar -->
-          <div class="w-full flex items-center justify-between p-3 bg-slate-50 dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800 text-xs">
-            <div class="flex items-center space-x-2">
-              <button class="btn-spot bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-3 py-1.5 rounded-lg">I See It! ⏱️</button>
-              <span class="spot-time font-mono font-bold text-slate-700 dark:text-slate-300">0.0s</span>
-            </div>
-            <div class="text-slate-550 dark:text-slate-400 font-bold">
-              Personal Best: <span class="pb-time font-mono text-purple-400">-.-s</span>
-            </div>
-          </div>
-
-          <!-- Controls panel -->
-          <div class="flex flex-col gap-3 w-full max-w-sm">
-            <div class="flex w-full gap-2">
-              <button class="btn-vote flex-1 bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs py-2.5 rounded-xl transition-all shadow" data-vote="coffee">Coffee Foam ☕</button>
-              <button class="btn-vote flex-1 bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs py-2.5 rounded-xl transition-all shadow" data-vote="skull">Skull 💀</button>
-            </div>
-            
-            <div class="stats-panel hidden w-full p-4 bg-purple-500/5 border border-purple-500/20 rounded-xl text-xs space-y-2">
-              <p class="text-[10px] text-purple-400 font-bold text-left">Your selection: <span class="user-selection text-white"></span></p>
-              <div class="flex justify-between font-black text-slate-900 dark:text-white">
-                <span>☕ Foam: <span class="pct-foam">42%</span></span>
-                <span>💀 Skull: <span class="pct-skull">58%</span></span>
-              </div>
-              <div class="w-full bg-slate-700 h-2 rounded-full overflow-hidden flex">
-                <div class="bg-purple-500 h-full bar-foam" style="width: 42%;"></div>
-                <div class="bg-indigo-400 h-full bar-skull" style="width: 58%;"></div>
-              </div>
-            </div>
-
-            <div class="flex w-full gap-2">
-              <button class="btn-toggle-foam flex-1 border border-blue-500/30 text-blue-400 hover:bg-blue-500/10 font-bold text-[10px] py-2 rounded-xl transition-all">Show Foam ☕</button>
-              <button class="btn-toggle-skull flex-1 border border-rose-500/30 text-rose-400 hover:bg-rose-500/10 font-bold text-[10px] py-2 rounded-xl transition-all">Show Skull 💀</button>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- Collapsible Explanation -->
-        <details class="w-full mt-4 border-t border-slate-800/40 pt-3 text-xs text-slate-400 select-none text-left">
-          <summary class="font-bold cursor-pointer hover:text-purple-400">👁️ Reveal Answer & Science</summary>
-          <p class="mt-2 font-normal leading-relaxed text-slate-400">
-            The Coffee Skull is a modern ambiguous figure where the foam patterns in a cup of coffee form a skull. The dark coffee liquid represents the empty eye sockets and nose cavity, while the surrounding light foam forms the bone structure and teeth. Like the Salvador Dalí and Charles Allan Gilbert skull illusions, this highlights how our visual system matches raw contrast boundaries to familiar cognitive templates. The brain toggles between seeing a cup of espresso and a human skull.
-          </p>
-        </details>
-
-        <!-- Explore Link -->
-        <div class="w-full mt-4 pt-4 border-t border-slate-500/10 flex justify-between items-center text-xs font-black text-purple-650 dark:text-purple-400 hover:text-purple-500 transition-colors">
-          <span>Explore Full Science & Facts</span>
-          <a href="/illusions/skull-coffee" class="hover:underline">Explore &rarr;</a>
-        </div>
-
-      </section>
-
-      <!-- Illusion 7. Hermann Grid Dots -->
-      <section class="illusion-container bg-white dark:bg-slate-900/40 rounded-3xl border border-slate-200 dark:border-slate-800 p-8 shadow-sm flex flex-col gap-6 max-w-[800px] w-full mx-auto relative overflow-hidden" data-id="hermann-grid">
-        
-        <!-- Header -->
-        <div class="w-full space-y-4 text-center">
-          <div class="flex items-center justify-between">
-            <div class="flex items-center space-x-2">
-              <span class="text-xs font-bold px-2 py-0.5 rounded bg-yellow-500/10 text-yellow-500 border border-yellow-500/25">🟡 Medium</span>
-              <span class="text-xs font-bold text-indigo-400 uppercase tracking-wider">Physiological</span>
-            </div>
-            <button class="share-btn p-2 rounded-lg bg-slate-50 dark:bg-slate-800 text-slate-400 hover:text-purple-400 transition-colors z-20" data-name="Hermann Grid Dots">
-              <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M15 8a3 3 0 1 0-2.977-2.63l-4.94 2.47a3 3 0 1 0 0 4.319l4.94 2.47a3 3 0 1 0 .895-1.789l-4.94-2.47a3.027 3.027 0 0 0 0-.74l4.94-2.47C13.456 7.68 14.19 8 15 8Z"/></svg>
-            </button>
-          </div>
-          
-          <h2 class="font-display text-3xl font-black text-slate-900 dark:text-white">7. Hermann Grid Dots</h2>
-          <p class="text-sm text-slate-650 dark:text-slate-400 max-w-xl mx-auto leading-relaxed font-semibold">
-            A grid layout of black tiles with gray intersections. Ghostly dark dots appear in your periphery, disappearing when you look at them.
-          </p>
-        </div>
-
-        <!-- Highlighted Instruction Box -->
-        <div class="w-full my-3 flex items-start gap-2 rounded-xl border border-indigo-500/10 bg-indigo-500/5 p-3 text-xs text-slate-350 text-left">
-          <span class="text-base leading-none">👁️</span>
-          <div>
-            <strong class="text-slate-200">👁️ WHAT TO LOOK FOR:</strong> Look at the intersections of the white paths. Do you see dark spots flickering? Try to count them, or input your guess below.
-          </div>
-        </div>
-
-        <!-- Visual Display -->
-        <div class="w-full flex flex-col items-center justify-center bg-slate-150 dark:bg-slate-950/60 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 min-h-[300px]">
-          <div class="relative w-full max-w-[400px] h-[300px] flex items-center justify-center">
-            <svg class="w-full h-full select-none" viewBox="0 0 200 200" id="svg-hermann">
+          <div class="w-full flex items-center justify-center bg-slate-100 dark:bg-slate-950/40 rounded-2xl p-4 border border-slate-200 dark:border-slate-800 min-h-[260px] relative overflow-hidden">
+            <svg class="w-full max-w-[200px] h-auto aspect-square select-none rounded-lg" viewBox="0 0 200 200">
               <rect width="200" height="200" fill="#000000" />
-              <!-- Grid lines -->
               <g stroke="#ffffff" stroke-width="12">
                 <line x1="40" y1="0" x2="40" y2="200" />
                 <line x1="80" y1="0" x2="80" y2="200" />
@@ -770,449 +155,271 @@ import Layout from '../layouts/Layout.astro';
               </g>
             </svg>
           </div>
-        </div>
 
-        <!-- Controls, Voting, and Stopwatch Time Tracker -->
-        <div class="w-full space-y-4 pt-2 flex flex-col items-center text-center">
-          
-          <!-- Time Tracker Bar -->
-          <div class="w-full flex items-center justify-between p-3 bg-slate-50 dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800 text-xs">
-            <div class="flex items-center space-x-2">
-              <button class="btn-spot bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-3 py-1.5 rounded-lg">I See It! ⏱️</button>
-              <span class="spot-time font-mono font-bold text-slate-700 dark:text-slate-300">0.0s</span>
+          <div class="w-full space-y-4 pt-4 flex flex-col items-center">
+            <div class="w-full flex items-center justify-between p-3 bg-slate-50 dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800 text-xs">
+              <button class="btn-give-up bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-bold px-4 py-2 rounded-lg border-none transition-colors cursor-pointer">Give Up / Reveal ⏱️</button>
+              <span class="countdown-timer font-mono font-bold text-slate-700 dark:text-slate-355">30.0s</span>
             </div>
-            <div class="text-slate-550 dark:text-slate-400 font-bold">
-              Personal Best: <span class="pb-time font-mono text-purple-400">-.-s</span>
+
+            <div class="flex items-center justify-between w-full p-2.5 bg-slate-900/60 border border-slate-800 rounded-xl text-xs gap-3">
+              <div class="flex items-center space-x-1.5 w-full">
+                <label for="dots-count-input" class="font-bold shrink-0 text-slate-300">How many dots? </label>
+                <input type="number" id="dots-count-input" class="w-14 bg-slate-950 border border-slate-700 text-center font-bold text-white rounded p-1 text-xs" value="0" min="0" />
+              </div>
+              <button id="submit-dots-btn" class="bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-bold px-3 py-1.5 rounded-lg shrink-0 border-none cursor-pointer transition-colors text-xs">Submit</button>
+            </div>
+
+            <div class="science-explanation hidden w-full text-left text-xs bg-slate-950/90 p-4 rounded-xl border border-slate-800 space-y-2">
+              <h4 class="font-extrabold text-purple-400 text-sm">Scientific Explanation</h4>
+              <p class="text-slate-300 leading-relaxed font-normal">
+                <strong>Lateral Inhibition:</strong> Retinal receptive fields at intersections receive surround inhibition from white lines on four sides, whereas straight lines receive it on only two sides. This makes intersections look dimmer in your periphery.
+              </p>
             </div>
           </div>
+        </section>
 
-          <!-- Controls panel -->
-          <div class="flex flex-col sm:flex-row items-center justify-between w-full p-4 bg-slate-900/60 border border-slate-800 rounded-xl text-xs gap-3">
-            <div class="flex items-center space-x-2 w-full">
-              <label for="dots-count-input" class="font-bold shrink-0 text-slate-300">How many dark dots? </label>
-              <input type="number" id="dots-count-input" class="w-20 bg-slate-950 border border-slate-700 text-center font-bold text-white rounded p-1" value="0" min="0" />
+      </div>
+    </section>
+
+    <!-- SECTION 2: HIDDEN FIGURES GALLERY (2-column Grid, 8 cards) -->
+    <section class="space-y-10">
+      <div class="text-center space-y-2">
+        <h2 class="font-display text-3xl font-black text-slate-900 dark:text-white">Hidden Figures Gallery 🖼️</h2>
+        <p class="text-xs text-slate-500 dark:text-slate-400">Click on any card to access its dedicated detail page, 30s timer, and outlines drawing.</p>
+        <div class="mx-auto h-1 w-20 rounded-full bg-gradient-to-r from-purple-500 to-indigo-500 mt-2"></div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
+        <!-- Card 1: Rubin's Vase -->
+        <div class="group relative rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-6 flex flex-col justify-between shadow-sm hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
+          <div class="space-y-2">
+            <div class="flex items-center justify-between text-[10px] font-bold">
+              <span class="text-indigo-400 uppercase tracking-wider">Ambiguous</span>
+              <span class="px-2 py-0.5 rounded bg-green-500/10 text-green-550 border border-green-500/20">🟢 Easy</span>
             </div>
-            <button id="submit-dots-btn" class="bg-purple-600 hover:bg-purple-500 text-white font-bold px-4 py-2 rounded-lg shrink-0 transition-colors">Submit</button>
-          </div>
-          
-          <!-- Overhauled feedback panel -->
-          <div id="dots-feedback-panel" class="hidden w-full text-left text-xs bg-slate-950/90 p-4 rounded-xl border border-slate-800 space-y-3">
-            <h4 class="font-extrabold text-purple-400 text-sm border-b border-slate-800 pb-1.5 flex items-center justify-between">
-              <span>Result Validation</span>
-              <span id="dots-feedback-status" class="font-bold text-rose-500 font-mono">Incorrect ✗</span>
-            </h4>
-            <p class="text-slate-300 text-xs">
-              Correct answer: <strong class="text-white">0</strong>. You guessed: <strong id="dots-user-guess" class="text-white">0</strong>.
-            </p>
-            <p class="text-slate-400 font-medium leading-relaxed">
-              <strong>Why:</strong> The Hermann Grid exploits lateral inhibition. Visual receptors in your retina compete with neighboring cells (sensory receptive fields). Receptors processing line intersections receive surround inhibition from four sides, causing them to signal less brightness to the brain, producing illusionary gray spots. But physically, there are exactly 0 dark dots!
-            </p>
-            <button id="dots-try-again-btn" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold py-2 rounded-lg text-xs border border-slate-700 shadow transition-all active:scale-95">Try Again</button>
-          </div>
-
-        </div>
-
-        <!-- Collapsible Explanation -->
-        <details class="w-full mt-4 border-t border-slate-800/40 pt-3 text-xs text-slate-400 select-none text-left">
-          <summary class="font-bold cursor-pointer hover:text-purple-400">👁️ Reveal Answer & Science</summary>
-          <p class="mt-2 font-normal leading-relaxed text-slate-400">
-            The Hermann Grid is a lateral inhibition illusion. Visual receptors in your retina compete with neighboring cells to process light. The intersections of white lines are flanked by white areas on four sides, while the straight path segments are flanked by black on only two sides. Consequently, the receptors processing the intersections receive more surround inhibition, causing them to signal less brightness to the brain, which creates the illusion of gray dots.
-          </p>
-        </details>
-
-        <!-- Explore Link -->
-        <div class="w-full mt-4 pt-4 border-t border-slate-500/10 flex justify-between items-center text-xs font-black text-purple-650 dark:text-purple-400 hover:text-purple-500 transition-colors">
-          <span>Explore Full Science & Facts</span>
-          <a href="/illusions/hermann-grid" class="hover:underline">Explore &rarr;</a>
-        </div>
-
-      </section>
-
-      <!-- Illusion 8. The Spinning Dancer -->
-      <section class="illusion-container bg-white dark:bg-slate-900/40 rounded-3xl border border-slate-200 dark:border-slate-800 p-8 shadow-sm flex flex-col gap-6 max-w-[800px] w-full mx-auto relative overflow-hidden" data-id="spinning-dancer">
-        
-        <!-- Header -->
-        <div class="w-full space-y-4 text-center">
-          <div class="flex items-center justify-between">
-            <div class="flex items-center space-x-2">
-              <span class="text-xs font-bold px-2 py-0.5 rounded bg-yellow-500/10 text-yellow-500 border border-yellow-500/25">🔴 Hard</span>
-              <span class="text-xs font-bold text-indigo-400 uppercase tracking-wider">Ambiguous</span>
-            </div>
-            <button class="share-btn p-2 rounded-lg bg-slate-50 dark:bg-slate-800 text-slate-400 hover:text-purple-400 transition-colors z-20" data-name="The Spinning Dancer">
-              <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M15 8a3 3 0 1 0-2.977-2.63l-4.94 2.47a3 3 0 1 0 0 4.319l4.94 2.47a3 3 0 1 0 .895-1.789l-4.94-2.47a3.027 3.027 0 0 0 0-.74l4.94-2.47C13.456 7.68 14.19 8 15 8Z"/></svg>
-            </button>
-          </div>
-          
-          <h2 class="font-display text-3xl font-black text-slate-900 dark:text-white">8. The Spinning Dancer</h2>
-          <p class="text-sm text-slate-650 dark:text-slate-400 max-w-xl mx-auto leading-relaxed font-semibold">
-            A rotating silhouette whose direction of spin (clockwise or counter-clockwise) is entirely decided by your mind.
-          </p>
-        </div>
-
-        <!-- Highlighted Instruction Box -->
-        <div class="w-full my-3 flex items-start gap-2 rounded-xl border border-indigo-500/10 bg-indigo-500/5 p-3 text-xs text-slate-350 text-left">
-          <span class="text-base leading-none">👁️</span>
-          <div>
-            <strong class="text-slate-200">👁️ WHAT TO LOOK FOR:</strong> Observe the dancer. Is she spinning clockwise on her left foot, or counter-clockwise on her right foot? Use the belt checkbox below to assist your focus.
-          </div>
-        </div>
-
-        <!-- Visual Display -->
-        <div class="w-full flex flex-col items-center justify-center bg-slate-150 dark:bg-slate-950/60 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 min-h-[300px]">
-          <div class="relative w-full max-w-[400px] h-[300px] flex items-center justify-center">
-            <div class="flex items-center justify-center w-full h-full" style="perspective: 600px;">
-              <svg id="dancer-svg" class="dancer-svg w-32 h-44 text-slate-900 dark:text-slate-200" viewBox="0 0 200 200" style="transform-style: preserve-3d; animation: spin-dancer-scale 4s linear infinite;">
-                <circle cx="100" cy="30" r="8" fill="currentColor" />
-                <path d="M95,42 C92,60 92,80 96,95 L104,95 C108,80 108,60 105,42 Z" fill="currentColor" />
-                <path class="dancer-left-limb" d="M96,44 Q65,42 40,35 Q65,48 96,49 Z M97,95 L97,165 C97,168 99,170 101,170 L101,95 Z" fill="currentColor" />
-                <path class="dancer-right-limb" d="M104,44 Q135,42 160,35 Q135,48 104,49 Z M103,95 Q125,115 130,125 Q115,125 103,115 Z" fill="currentColor" />
-                
-                <!-- Helper colored belt -->
-                <path id="dancer-belt" class="opacity-0 transition-opacity duration-300" d="M 96,94 L 104,94" stroke="#ec4899" stroke-width="4" stroke-linecap="round" />
+            <div class="w-full h-36 bg-slate-100 dark:bg-slate-950/40 rounded-xl overflow-hidden mb-4 flex items-center justify-center border border-slate-200 dark:border-slate-800">
+              <svg class="w-32 h-32 select-none" viewBox="0 0 300 300">
+                <rect width="300" height="300" fill="#FFFFFF"/>
+                <path d="M 0,0 L 110,0 C 130,40 140,50 120,70 C 105,85 110,100 135,110 C 150,115 150,125 130,130 C 110,135 115,150 130,170 C 145,190 120,240 100,250 L 100,300 L 0,300 Z" fill="#000000" />
+                <path d="M 300,0 L 190,0 C 170,40 160,50 180,70 C 195,85 190,100 165,110 C 150,115 150,125 170,130 C 190,135 185,150 170,170 C 155,190 180,240 200,250 L 200,300 L 300,300 Z" fill="#000000" />
               </svg>
             </div>
+            <h3 class="font-display text-lg font-bold text-slate-900 dark:text-white">Rubin's Vase</h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+              Edgar Rubin (1915). Flip between seeing a white central vase or two black face profiles looking at each other.
+            </p>
           </div>
+          <a href="/illusions/rubin-vase" class="mt-4 block text-center rounded-lg bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-extrabold text-xs py-2.5 transition-colors">
+            Explore Illusion &rarr;
+          </a>
         </div>
 
-        <!-- Controls, Voting, and Stopwatch Time Tracker -->
-        <div class="w-full space-y-4 pt-2 flex flex-col items-center text-center">
-          
-          <!-- Time Tracker Bar -->
-          <div class="w-full flex items-center justify-between p-3 bg-slate-50 dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800 text-xs">
-            <div class="flex items-center space-x-2">
-              <button class="btn-spot bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-3 py-1.5 rounded-lg">I See It! ⏱️</button>
-              <span class="spot-time font-mono font-bold text-slate-700 dark:text-slate-300">0.0s</span>
+        <!-- Card 2: Duck-Rabbit -->
+        <div class="group relative rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-6 flex flex-col justify-between shadow-sm hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
+          <div class="space-y-2">
+            <div class="flex items-center justify-between text-[10px] font-bold">
+              <span class="text-indigo-400 uppercase tracking-wider">Ambiguous</span>
+              <span class="px-2 py-0.5 rounded bg-green-500/10 text-green-550 border border-green-500/20">🟢 Easy</span>
             </div>
-            <div class="text-slate-550 dark:text-slate-400 font-bold">
-              Personal Best: <span class="pb-time font-mono text-purple-400">-.-s</span>
+            <div class="w-full h-36 bg-slate-100 dark:bg-slate-950/40 rounded-xl overflow-hidden mb-4 flex items-center justify-center border border-slate-200 dark:border-slate-800">
+              <svg class="w-32 h-32 select-none" viewBox="0 0 300 300">
+                <rect width="300" height="300" fill="#FFFFFF"/>
+                <path d="M 220,110 C 260,110 290,135 290,170 C 290,205 260,230 220,230 C 210,210 205,190 200,175 L 100,195 C 90,195 85,185 95,180 C 120,165 150,160 180,155 C 180,150 180,140 180,135 C 150,130 120,125 95,110 C 85,105 90,95 100,95 L 200,110 C 205,105 210,110 220,110 Z" fill="none" stroke="#000000" stroke-width="6" />
+                <circle cx="215" cy="140" r="6" fill="#000000" />
+              </svg>
             </div>
+            <h3 class="font-display text-lg font-bold text-slate-900 dark:text-white">Duck-Rabbit</h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+              Joseph Jastrow (1899). A classic outline drawing that instantly shifts from a duck to a rabbit depending on focus.
+            </p>
           </div>
+          <a href="/illusions/duck-rabbit" class="mt-4 block text-center rounded-lg bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-extrabold text-xs py-2.5 transition-colors">
+            Explore Illusion &rarr;
+          </a>
+        </div>
 
-          <!-- Controls panel -->
-          <div class="flex flex-wrap gap-4 items-center justify-between w-full p-4 bg-slate-900/60 border border-slate-800 rounded-xl text-xs">
-              <label class="flex items-center space-x-2 cursor-pointer font-bold select-none">
-                <input type="checkbox" id="dancer-belt-toggle" class="rounded border-slate-700 bg-slate-950 text-purple-650 accent-purple-650" />
-                <span>Show Color Guide 🎨</span>
-              </label>
-              <div class="flex gap-2">
-                <button class="btn-vote bg-purple-600 hover:bg-purple-500 text-white font-bold px-3 py-1.5 rounded-lg" data-vote="cw">Clockwise ➡️</button>
-                <button class="btn-vote bg-purple-600 hover:bg-purple-500 text-white font-bold px-3 py-1.5 rounded-lg" data-vote="ccw">Counter-Clockwise ⬅️</button>
-              </div>
+        <!-- Card 3: My Wife and My Mother-in-Law -->
+        <div class="group relative rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-6 flex flex-col justify-between shadow-sm hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
+          <div class="space-y-2">
+            <div class="flex items-center justify-between text-[10px] font-bold">
+              <span class="text-indigo-400 uppercase tracking-wider">Ambiguous</span>
+              <span class="px-2 py-0.5 rounded bg-yellow-500/10 text-yellow-600 border border-yellow-500/20">🟡 Medium</span>
             </div>
-
-        </div>
-
-        <!-- Collapsible Explanation -->
-        <details class="w-full mt-4 border-t border-slate-800/40 pt-3 text-xs text-slate-400 select-none text-left">
-          <summary class="font-bold cursor-pointer hover:text-purple-400">👁️ Reveal Answer & Science</summary>
-          <p class="mt-2 font-normal leading-relaxed text-slate-400">
-            The Spinning Dancer is an ambiguous bistable illusion presenting a silhouette of a dancer. Because there is a lack of depth cues (no shadows, light reflections, or volumetric hints), the brain cannot determine whether the dancer is spinning clockwise on her left leg or counter-clockwise on her right leg. The visual cortex oscillates between two equally plausible 3D reconstructions.
-          </p>
-        </details>
-
-        <!-- Explore Link -->
-        <div class="w-full mt-4 pt-4 border-t border-slate-500/10 flex justify-between items-center text-xs font-black text-purple-650 dark:text-purple-400 hover:text-purple-500 transition-colors">
-          <span>Explore Full Science & Facts</span>
-          <a href="/illusions/spinning-dancer" class="hover:underline">Explore &rarr;</a>
-        </div>
-
-      </section>
-
-      <!-- Illusion 9. Hidden Tiger -->
-      <section class="illusion-container bg-white dark:bg-slate-900/40 rounded-3xl border border-slate-200 dark:border-slate-800 p-8 shadow-sm flex flex-col gap-6 max-w-[800px] w-full mx-auto relative overflow-hidden" data-id="hidden-tiger">
-        
-        <!-- Header -->
-        <div class="w-full space-y-4 text-center">
-          <div class="flex items-center justify-between">
-            <div class="flex items-center space-x-2">
-              <span class="text-xs font-bold px-2 py-0.5 rounded bg-yellow-500/10 text-yellow-500 border border-yellow-500/25">🟡 Medium</span>
-              <span class="text-xs font-bold text-indigo-400 uppercase tracking-wider">Ambiguous</span>
+            <div class="w-full h-36 bg-slate-100 dark:bg-slate-950/40 rounded-xl overflow-hidden mb-4 flex items-center justify-center border border-slate-200 dark:border-slate-800">
+              <svg class="w-32 h-32 select-none" viewBox="0 0 350 400">
+                <rect width="350" height="400" fill="#808080" />
+                <path d="M 60,80 C 120,30 230,30 290,80 C 340,140 310,240 270,290 C 230,330 150,330 110,290 C 70,240 50,140 60,80 Z" fill="#1e293b" />
+                <path d="M 120,110 C 180,80 240,80 260,110 C 280,140 270,210 250,240 C 220,270 170,270 140,240 C 115,200 110,140 120,110 Z" fill="#cbd5e1" />
+                <path d="M 100,270 C 160,290 220,290 260,270 C 280,240 290,200 295,170 L 255,170 C 240,210 210,240 160,230 C 120,220 105,240 100,270 Z" fill="#475569" />
+                <path d="M 160,170 C 125,185 130,205 145,215 C 160,225 165,215 155,205 C 170,195 175,180 160,170 Z" fill="#94a3b8" stroke="#0f172a" stroke-width="2" />
+                <circle cx="205" cy="180" r="3" fill="#ffffff" stroke="#0f172a" stroke-width="1.5" />
+              </svg>
             </div>
-            <button class="share-btn p-2 rounded-lg bg-slate-50 dark:bg-slate-800 text-slate-400 hover:text-purple-400 transition-colors z-20" data-name="Hidden Tiger">
-              <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M15 8a3 3 0 1 0-2.977-2.63l-4.94 2.47a3 3 0 1 0 0 4.319l4.94 2.47a3 3 0 1 0 .895-1.789l-4.94-2.47a3.027 3.027 0 0 0 0-.74l4.94-2.47C13.456 7.68 14.19 8 15 8Z"/></svg>
-            </button>
+            <h3 class="font-display text-lg font-bold text-slate-900 dark:text-white">My Wife and My Mother-in-Law</h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+              W.E. Hill (1915). A portrait where a young wife looking away shares contours with an old mother-in-law looking down.
+            </p>
           </div>
-          
-          <h2 class="font-display text-3xl font-black text-slate-900 dark:text-white">9. Hidden Tiger</h2>
-          <p class="text-sm text-slate-650 dark:text-slate-400 max-w-xl mx-auto leading-relaxed font-semibold">
-            A visual puzzle where the words 'the hidden tiger' are spelled out along the tiger's side stripes.
-          </p>
+          <a href="/illusions/my-wife-and-my-mother" class="mt-4 block text-center rounded-lg bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-extrabold text-xs py-2.5 transition-colors">
+            Explore Illusion &rarr;
+          </a>
         </div>
 
-        <!-- Highlighted Instruction Box -->
-        <div class="w-full my-3 flex items-start gap-2 rounded-xl border border-indigo-500/10 bg-indigo-500/5 p-3 text-xs text-slate-350 text-left">
-          <span class="text-base leading-none">👁️</span>
-          <div>
-            <strong class="text-slate-200">👁️ WHAT TO LOOK FOR:</strong> Observe the stripes on the tiger's side. Can you read the words 'the hidden tiger' written in them? Click 'Reveal Outlines' to see them highlighted.
-          </div>
-        </div>
-
-        <!-- Visual Display -->
-        <div class="w-full flex flex-col items-center justify-center bg-slate-150 dark:bg-slate-950/60 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 min-h-[300px]">
-          <div class="relative w-full max-w-[400px] h-[300px] flex items-center justify-center">
-            <svg class="w-full h-full select-none bg-amber-500 rounded-2xl" viewBox="0 0 200 120" id="svg-tiger">
-              <!-- Tiger body representation -->
-              <ellipse cx="100" cy="60" rx="70" ry="40" fill="#f59e0b" stroke="#000000" stroke-width="2" />
-              <!-- Head -->
-              <circle cx="40" cy="50" r="24" fill="#f59e0b" stroke="#000000" stroke-width="2" />
-              <circle cx="32" cy="45" r="3" fill="#000000" />
-              <!-- Side stripes spelling out 'the hidden tiger' -->
-              <path d="M 70,30 Q 75,50 72,70 M 80,25 Q 86,50 82,75 M 92,20 Q 98,60 94,90 M 110,22 Q 116,60 112,85 M 125,24 Q 130,55 127,82 M 140,28 Q 142,50 144,76" fill="none" stroke="#000000" stroke-width="3" />
-              
-              <g class="diagram-overlay opacity-0 transition-opacity duration-300">
-                <!-- Highlighted stripes representing text -->
-                <path d="M 70,30 Q 75,50 72,70 M 80,25 Q 86,50 82,75 M 92,20 Q 98,60 94,90" fill="none" stroke="#ef4444" stroke-width="4.5" />
-                <text x="100" y="112" fill="#ef4444" font-size="10" font-weight="900" text-anchor="middle">Text in Stripes: T-H-E H-I-D-D-E-N T-I-G-E-R</text>
-              </g>
-            </svg>
-          </div>
-        </div>
-
-        <!-- Controls, Voting, and Stopwatch Time Tracker -->
-        <div class="w-full space-y-4 pt-2 flex flex-col items-center text-center">
-          
-          <!-- Time Tracker Bar -->
-          <div class="w-full flex items-center justify-between p-3 bg-slate-50 dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800 text-xs">
-            <div class="flex items-center space-x-2">
-              <button class="btn-spot bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-3 py-1.5 rounded-lg">I See It! ⏱️</button>
-              <span class="spot-time font-mono font-bold text-slate-700 dark:text-slate-300">0.0s</span>
+        <!-- Card 4: Tiger in the Bamboo -->
+        <div class="group relative rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-6 flex flex-col justify-between shadow-sm hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
+          <div class="space-y-2">
+            <div class="flex items-center justify-between text-[10px] font-bold">
+              <span class="text-indigo-400 uppercase tracking-wider">Camouflage</span>
+              <span class="px-2 py-0.5 rounded bg-red-550/10 text-red-500 border border-red-500/20">🔴 Hard</span>
             </div>
-            <div class="text-slate-550 dark:text-slate-400 font-bold">
-              Personal Best: <span class="pb-time font-mono text-purple-400">-.-s</span>
+            <div class="w-full h-36 bg-slate-100 dark:bg-slate-950/40 rounded-xl overflow-hidden mb-4 flex items-center justify-center border border-slate-200 dark:border-slate-800">
+              <svg class="w-32 h-32 select-none" viewBox="0 0 400 300">
+                <rect width="400" height="300" fill="#132a13" />
+                <g stroke="#061e06" stroke-width="15">
+                  <line x1="40" y1="0" x2="40" y2="300" />
+                  <line x1="120" y1="0" x2="120" y2="300" />
+                  <line x1="200" y1="0" x2="200" y2="300" />
+                  <line x1="280" y1="0" x2="280" y2="300" />
+                  <line x1="360" y1="0" x2="360" y2="300" />
+                </g>
+                <path d="M 80,180 C 60,170 50,130 65,110 C 85,90 120,80 180,85 C 240,85 320,90 330,110 C 340,130 335,160 295,190 C 240,195 140,190 80,180 Z" fill="#EA580C" />
+                <g stroke="#061e06" stroke-width="15">
+                  <line x1="120" y1="80" x2="120" y2="190" />
+                  <line x1="200" y1="80" x2="200" y2="190" />
+                  <line x1="280" y1="80" x2="280" y2="190" />
+                </g>
+              </svg>
             </div>
+            <h3 class="font-display text-lg font-bold text-slate-900 dark:text-white">Tiger in the Bamboo</h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+              A camouflaged typographic forest scene where literal English text is styled directly into the tiger's side coat.
+            </p>
           </div>
+          <a href="/illusions/hidden-tiger" class="mt-4 block text-center rounded-lg bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-extrabold text-xs py-2.5 transition-colors">
+            Explore Illusion &rarr;
+          </a>
+        </div>
 
-          <!-- Controls panel -->
-          <div class="flex flex-wrap gap-3 justify-center">
-              <button class="btn-vote bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs px-4 py-2.5 rounded-xl transition-all shadow" data-vote="yes">I Read It! 📖</button>
-              <button class="btn-vote bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs px-4 py-2.5 rounded-xl transition-all shadow" data-vote="no">No, Just Stripes 🦓</button>
-              <button class="btn-reveal border border-purple-500/30 text-purple-400 hover:bg-purple-500/10 font-bold text-xs px-4 py-2.5 rounded-xl transition-all">Reveal Text</button>
+        <!-- Card 5: Faces in the Tree -->
+        <div class="group relative rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-6 flex flex-col justify-between shadow-sm hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
+          <div class="space-y-2">
+            <div class="flex items-center justify-between text-[10px] font-bold">
+              <span class="text-indigo-400 uppercase tracking-wider">Negative Space</span>
+              <span class="px-2 py-0.5 rounded bg-red-550/10 text-red-550 border border-red-500/20">🔴 Hard</span>
             </div>
-
-        </div>
-
-        <!-- Collapsible Explanation -->
-        <details class="w-full mt-4 border-t border-slate-800/40 pt-3 text-xs text-slate-400 select-none text-left">
-          <summary class="font-bold cursor-pointer hover:text-purple-400">👁️ Reveal Answer & Science</summary>
-          <p class="mt-2 font-normal leading-relaxed text-slate-400">
-            The Hidden Tiger is a classic visual puzzle where a tiger is standing in a forest, but a second tiger is hidden in the stripes of the first tiger. Specifically, the words 'the hidden tiger' are spelled out along the tiger's side stripes. This illusion demonstrates how semantic text patterns can be hidden within natural biological patterns, requiring the visual cortex to switch from object/pattern recognition to text reading to solve the puzzle.
-          </p>
-        </details>
-
-        <!-- Explore Link -->
-        <div class="w-full mt-4 pt-4 border-t border-slate-500/10 flex justify-between items-center text-xs font-black text-purple-650 dark:text-purple-400 hover:text-purple-500 transition-colors">
-          <span>Explore Full Science & Facts</span>
-          <a href="/illusions/hidden-tiger" class="hover:underline">Explore &rarr;</a>
-        </div>
-
-      </section>
-
-      <!-- Illusion 10. Impossible Elephant -->
-      <section class="illusion-container bg-white dark:bg-slate-900/40 rounded-3xl border border-slate-200 dark:border-slate-800 p-8 shadow-sm flex flex-col gap-6 max-w-[800px] w-full mx-auto relative overflow-hidden" data-id="impossible-elephant">
-        
-        <!-- Header -->
-        <div class="w-full space-y-4 text-center">
-          <div class="flex items-center justify-between">
-            <div class="flex items-center space-x-2">
-              <span class="text-xs font-bold px-2 py-0.5 rounded bg-yellow-500/10 text-yellow-500 border border-yellow-500/25">🔴 Hard</span>
-              <span class="text-xs font-bold text-indigo-400 uppercase tracking-wider">Impossible</span>
+            <div class="w-full h-36 bg-slate-100 dark:bg-slate-950/40 rounded-xl overflow-hidden mb-4 flex items-center justify-center border border-slate-200 dark:border-slate-800">
+              <svg class="w-32 h-32 select-none" viewBox="0 0 400 360">
+                <rect width="400" height="360" fill="#FFFFFF"/>
+                <path d="M 20,330 Q 200,320 380,330 L 380,360 L 20,360 Z" fill="#000000" />
+                <path d="M 150,330 C 140,300 135,270 145,250 C 155,230 148,220 152,215 C 155,210 142,200 146,192 C 150,185 140,175 145,160 C 130,150 115,130 110,100 C 125,105 135,100 142,80 C 150,60 170,45 200,30 C 230,45 250,60 258,80 C 265,100 275,105 290,100 C 285,130 270,150 255,160 C 260,175 250,185 254,192 C 258,200 245,210 248,215 C 252,220 245,230 255,250 C 265,270 260,300 250,330 Z" fill="#000000" />
+                <path d="M 125,100 C 100,80 80,90 60,60" fill="none" stroke="#000000" stroke-width="12" />
+                <path d="M 275,100 C 300,80 320,90 340,60" fill="none" stroke="#000000" stroke-width="12" />
+              </svg>
             </div>
-            <button class="share-btn p-2 rounded-lg bg-slate-50 dark:bg-slate-800 text-slate-400 hover:text-purple-400 transition-colors z-20" data-name="Impossible Elephant">
-              <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M15 8a3 3 0 1 0-2.977-2.63l-4.94 2.47a3 3 0 1 0 0 4.319l4.94 2.47a3 3 0 1 0 .895-1.789l-4.94-2.47a3.027 3.027 0 0 0 0-.74l4.94-2.47C13.456 7.68 14.19 8 15 8Z"/></svg>
-            </button>
+            <h3 class="font-display text-lg font-bold text-slate-900 dark:text-white">Faces in the Tree</h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+              Look closely at the roots and bare branches of this organic tree to count exactly 5 hidden face profiles.
+            </p>
           </div>
-          
-          <h2 class="font-display text-3xl font-black text-slate-900 dark:text-white">10. Impossible Elephant</h2>
-          <p class="text-sm text-slate-650 dark:text-slate-400 max-w-xl mx-auto leading-relaxed font-semibold">
-            A classic impossible drawing of an elephant (also known as L'egs-istential Dread) containing a leg paradox.
-          </p>
+          <a href="/illusions/faces-in-tree" class="mt-4 block text-center rounded-lg bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-extrabold text-xs py-2.5 transition-colors">
+            Explore Illusion &rarr;
+          </a>
         </div>
 
-        <!-- Highlighted Instruction Box -->
-        <div class="w-full my-3 flex items-start gap-2 rounded-xl border border-indigo-500/10 bg-indigo-500/5 p-3 text-xs text-slate-350 text-left">
-          <span class="text-base leading-none">👁️</span>
-          <div>
-            <strong class="text-slate-200">👁️ WHAT TO LOOK FOR:</strong> Observe the elephant's legs. How many legs does it have? Count them carefully. Click 'Reveal Highlights' to see why your brain gets confused.
-          </div>
-        </div>
-
-        <!-- Visual Display -->
-        <div class="w-full flex flex-col items-center justify-center bg-slate-150 dark:bg-slate-950/60 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 min-h-[300px]">
-          <div class="relative w-full max-w-[400px] h-[300px] flex items-center justify-center">
-            <svg class="w-full h-full select-none" viewBox="0 0 200 200" id="svg-elephant">
-              <!-- Body outline -->
-              <path d="M 50,60 C 50,40 160,40 160,70 L 160,110 C 160,110 150,115 140,110" fill="none" stroke="currentColor" stroke-width="2.5" class="text-slate-900 dark:text-slate-200" />
-              <!-- 4 Leg connections from top body -->
-              <line x1="60" y1="100" x2="60" y2="130" stroke="currentColor" stroke-width="2.5" class="text-slate-900 dark:text-slate-200" />
-              <line x1="85" y1="100" x2="85" y2="130" stroke="currentColor" stroke-width="2.5" class="text-slate-900 dark:text-slate-200" />
-              <line x1="110" y1="100" x2="110" y2="130" stroke="currentColor" stroke-width="2.5" class="text-slate-900 dark:text-slate-200" />
-              <line x1="135" y1="100" x2="135" y2="130" stroke="currentColor" stroke-width="2.5" class="text-slate-900 dark:text-slate-200" />
-              <!-- Hooves drawn out of sync at bottom -->
-              <path d="M 50,160 Q 55,160 55,155 L 55,130" fill="none" stroke="currentColor" stroke-width="2.5" class="text-slate-900 dark:text-slate-200" />
-              <path d="M 72,160 Q 77,160 77,155 L 77,130" fill="none" stroke="currentColor" stroke-width="2.5" class="text-slate-900 dark:text-slate-200" />
-              <path d="M 97,160 Q 102,160 102,155 L 102,130" fill="none" stroke="currentColor" stroke-width="2.5" class="text-slate-900 dark:text-slate-200" />
-              <path d="M 122,160 Q 127,160 127,155 L 127,130" fill="none" stroke="currentColor" stroke-width="2.5" class="text-slate-900 dark:text-slate-200" />
-              <path d="M 147,160 Q 152,160 152,155 L 152,130" fill="none" stroke="currentColor" stroke-width="2.5" class="text-slate-900 dark:text-slate-200" />
-              
-              <!-- Bottom curves of hooves -->
-              <circle cx="50" cy="160" r="3.5" class="fill-slate-900 dark:fill-slate-200" />
-              <circle cx="72" cy="160" r="3.5" class="fill-slate-900 dark:fill-slate-200" />
-              <circle cx="97" cy="160" r="3.5" class="fill-slate-900 dark:fill-slate-200" />
-              <circle cx="122" cy="160" r="3.5" class="fill-slate-900 dark:fill-slate-200" />
-              <circle cx="147" cy="160" r="3.5" class="fill-slate-900 dark:fill-slate-200" />
-
-              <!-- Red highlight overlay pointing to spaces between legs -->
-              <g class="diagram-overlay opacity-0 transition-opacity duration-300">
-                <circle cx="68" cy="138" r="7" stroke="#ef4444" stroke-width="2" fill="none" />
-                <circle cx="115" cy="138" r="7" stroke="#ef4444" stroke-width="2" fill="none" />
-                <text x="100" y="180" fill="#ef4444" font-size="10" font-weight="900" text-anchor="middle">Spaces drawn as legs!</text>
-              </g>
-            </svg>
-          </div>
-        </div>
-
-        <!-- Controls, Voting, and Stopwatch Time Tracker -->
-        <div class="w-full space-y-4 pt-2 flex flex-col items-center text-center">
-          
-          <!-- Time Tracker Bar -->
-          <div class="w-full flex items-center justify-between p-3 bg-slate-50 dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800 text-xs">
-            <div class="flex items-center space-x-2">
-              <button class="btn-spot bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-3 py-1.5 rounded-lg">I See It! ⏱️</button>
-              <span class="spot-time font-mono font-bold text-slate-700 dark:text-slate-300">0.0s</span>
+        <!-- Card 6: Camouflaged Dalmatian -->
+        <div class="group relative rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-6 flex flex-col justify-between shadow-sm hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
+          <div class="space-y-2">
+            <div class="flex items-center justify-between text-[10px] font-bold">
+              <span class="text-indigo-400 uppercase tracking-wider">Visual Closure</span>
+              <span class="px-2 py-0.5 rounded bg-red-550/10 text-red-550 border border-red-500/20">🔴 Hard</span>
             </div>
-            <div class="text-slate-550 dark:text-slate-400 font-bold">
-              Personal Best: <span class="pb-time font-mono text-purple-400">-.-s</span>
+            <div class="w-full h-36 bg-slate-100 dark:bg-slate-950/40 rounded-xl overflow-hidden mb-4 flex items-center justify-center border border-slate-200 dark:border-slate-800">
+              <svg class="w-32 h-32 select-none" viewBox="0 0 300 300">
+                <rect width="300" height="300" fill="#FFFFFF"/>
+                <circle cx="50" cy="50" r="12" fill="#000000"/>
+                <circle cx="120" cy="40" r="15" fill="#000000"/>
+                <circle cx="230" cy="60" r="18" fill="#000000"/>
+                <circle cx="200" cy="180" r="14" fill="#000000"/>
+                <circle cx="80" cy="220" r="16" fill="#000000"/>
+                <circle cx="140" cy="150" r="10" fill="#000000"/>
+                <circle cx="160" cy="120" r="15" fill="#000000"/>
+                <circle cx="100" cy="110" r="8" fill="#000000"/>
+                <!-- Dalmatian shape indicator -->
+                <ellipse cx="140" cy="180" rx="40" ry="20" fill="#000000" opacity="0.4" />
+                <ellipse cx="100" cy="210" rx="15" ry="30" fill="#000000" opacity="0.4" transform="rotate(30,100,210)" />
+              </svg>
             </div>
+            <h3 class="font-display text-lg font-bold text-slate-900 dark:text-white">Camouflaged Dalmatian</h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+              Ronald C. James (1966). Scattered black spots on a white background suddenly resolve into a sniffing Dalmatian dog.
+            </p>
           </div>
+          <a href="/illusions/dalmatian-dog" class="mt-4 block text-center rounded-lg bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-extrabold text-xs py-2.5 transition-colors">
+            Explore Illusion &rarr;
+          </a>
+        </div>
 
-          <!-- Controls panel -->
-          <div class="flex flex-col items-center gap-3 w-full">
-            <div class="flex flex-wrap gap-3 justify-center">
-              <button id="btn-elephant-4" class="bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs px-4 py-2.5 rounded-xl transition-all shadow active:scale-95">4 Legs 🐘</button>
-              <button id="btn-elephant-5" class="bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs px-4 py-2.5 rounded-xl transition-all shadow active:scale-95">5 Legs 🐘</button>
-              <button id="btn-elephant-reveal" class="border border-purple-500/30 text-purple-400 hover:bg-purple-500/10 font-bold text-xs px-4 py-2.5 rounded-xl transition-all">Reveal Highlights</button>
+        <!-- Card 7: Hidden Arrow -->
+        <div class="group relative rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-6 flex flex-col justify-between shadow-sm hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
+          <div class="space-y-2">
+            <div class="flex items-center justify-between text-[10px] font-bold">
+              <span class="text-indigo-400 uppercase tracking-wider">Negative Space</span>
+              <span class="px-2 py-0.5 rounded bg-yellow-500/10 text-yellow-600 border border-yellow-500/20">🟡 Medium</span>
             </div>
-            
-            <!-- Overhauled feedback panel for Elephant -->
-            <div id="elephant-feedback-panel" class="hidden w-full text-left text-xs bg-slate-950/90 p-4 rounded-xl border border-slate-800 space-y-3 mt-4">
-              <h4 class="font-extrabold text-purple-400 text-sm border-b border-slate-800 pb-1.5 flex items-center justify-between">
-                <span>Result Validation</span>
-                <span class="font-bold text-rose-500 font-mono">Incorrect ✗</span>
-              </h4>
-              <p class="text-slate-350 text-xs">
-                Correct answer: <strong class="text-white">Impossible (Paradox)</strong>. You guessed: <strong id="elephant-user-guess" class="text-white">4 Legs</strong>.
-              </p>
-              <p class="text-slate-400 font-medium leading-relaxed">
-                <strong>Why:</strong> The Impossible Elephant (Roger Shepard's "L'egs-istential Dread") is a cognitive paradox. The blank spaces between the legs are drawn with hooves, while the actual legs end abruptly in blank space. Your visual cortex tries to construct a 3D model, but gets caught in a loop because contour lines are shared inconsistently between positive shapes and negative space.
-              </p>
-              <button id="elephant-try-again-btn" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold py-2 rounded-lg text-xs border border-slate-700 shadow transition-all active:scale-95">Try Again</button>
+            <div class="w-full h-36 bg-slate-100 dark:bg-slate-950/40 rounded-xl overflow-hidden mb-4 flex items-center justify-center border border-slate-200 dark:border-slate-800">
+              <svg class="w-32 h-32 select-none" viewBox="0 0 300 300">
+                <rect width="300" height="300" fill="#FFFFFF"/>
+                <path d="M 20,70 L 140,70 L 140,110 L 60,110 L 60,130 L 140,130 L 140,170 L 60,170 L 60,190 L 140,190 L 140,230 L 20,230 Z" fill="#7C3AED" />
+                <path d="M 140,110 L 170,70 L 210,70 L 230,110 L 270,70 L 290,110 L 250,150 L 290,190 L 270,230 L 230,190 L 210,230 L 170,230 L 140,190 L 190,150 Z" fill="#4F46E5" />
+              </svg>
             </div>
+            <h3 class="font-display text-lg font-bold text-slate-900 dark:text-white">Hidden Arrow</h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+              A geometric layout where the empty negative space between colored blocks hides a perfect horizontal arrow.
+            </p>
           </div>
-
+          <a href="/illusions/hidden-arrow" class="mt-4 block text-center rounded-lg bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-extrabold text-xs py-2.5 transition-colors">
+            Explore Illusion &rarr;
+          </a>
         </div>
 
-        <!-- Collapsible Explanation -->
-        <details class="w-full mt-4 border-t border-slate-800/40 pt-3 text-xs text-slate-400 select-none text-left">
-          <summary class="font-bold cursor-pointer hover:text-purple-400">👁️ Reveal Answer & Science</summary>
-          <p class="mt-2 font-normal leading-relaxed text-slate-400">
-            The Impossible Elephant (also known as L'egs-istential Dread) is an impossible object created by cognitive scientist Roger Shepard. The drawing depicts an elephant with a normal body, but its legs and feet are drawn inconsistently. The blank space between its legs is drawn as feet, while the actual legs end in blank space. The brain tries to construct a 3D model of the elephant but experiences cognitive friction because the contour lines are shared between the positive shapes (legs) and negative spaces (gaps), leading to a paradox.
-          </p>
-        </details>
-
-        <!-- Explore Link -->
-        <div class="w-full mt-4 pt-4 border-t border-slate-500/10 flex justify-between items-center text-xs font-black text-purple-650 dark:text-purple-400 hover:text-purple-500 transition-colors">
-          <span>Explore Full Science & Facts</span>
-          <a href="/illusions/impossible-elephant" class="hover:underline">Explore &rarr;</a>
-        </div>
-
-      </section>
-
-      <!-- Illusion 11. Impossible Trident -->
-      <section class="illusion-container bg-white dark:bg-slate-900/40 rounded-3xl border border-slate-200 dark:border-slate-800 p-8 shadow-sm flex flex-col gap-6 max-w-[800px] w-full mx-auto relative overflow-hidden" data-id="impossible-trident">
-        
-        <!-- Header -->
-        <div class="w-full space-y-4 text-center">
-          <div class="flex items-center justify-between">
-            <div class="flex items-center space-x-2">
-              <span class="text-xs font-bold px-2 py-0.5 rounded bg-yellow-500/10 text-yellow-500 border border-yellow-500/25">🟡 Medium</span>
-              <span class="text-xs font-bold text-indigo-400 uppercase tracking-wider">Impossible</span>
+        <!-- Card 8: Hidden Face in Pattern -->
+        <div class="group relative rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-6 flex flex-col justify-between shadow-sm hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
+          <div class="space-y-2">
+            <div class="flex items-center justify-between text-[10px] font-bold">
+              <span class="text-indigo-400 uppercase tracking-wider">Camouflage</span>
+              <span class="px-2 py-0.5 rounded bg-red-550/10 text-red-550 border border-red-500/20">🔴 Hard</span>
             </div>
-            <button class="share-btn p-2 rounded-lg bg-slate-50 dark:bg-slate-800 text-slate-400 hover:text-purple-400 transition-colors z-20" data-name="Impossible Trident">
-              <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M15 8a3 3 0 1 0-2.977-2.63l-4.94 2.47a3 3 0 1 0 0 4.319l4.94 2.47a3 3 0 1 0 .895-1.789l-4.94-2.47a3.027 3.027 0 0 0 0-.74l4.94-2.47C13.456 7.68 14.19 8 15 8Z"/></svg>
-            </button>
+            <div class="w-full h-36 bg-slate-100 dark:bg-slate-950/40 rounded-xl overflow-hidden mb-4 flex items-center justify-center border border-slate-200 dark:border-slate-800">
+              <svg class="w-32 h-32 select-none" viewBox="0 0 300 300">
+                <rect width="300" height="300" fill="#3d2314"/>
+                <g fill="#5c3d2e" opacity="0.9">
+                  <ellipse cx="60" cy="60" rx="20" ry="12" />
+                  <ellipse cx="240" cy="60" rx="18" ry="15" />
+                  <ellipse cx="150" cy="150" rx="15" ry="25" />
+                  <ellipse cx="150" cy="220" rx="25" ry="12" />
+                  <ellipse cx="70" cy="230" rx="18" ry="20" />
+                  <ellipse cx="230" cy="230" rx="20" ry="15" />
+                </g>
+              </svg>
+            </div>
+            <h3 class="font-display text-lg font-bold text-slate-900 dark:text-white">Hidden Face in Pattern</h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+              Analyze a field of repeated coffee ovals to identify a human face hidden directly in the pattern's alignment.
+            </p>
           </div>
-          
-          <h2 class="font-display text-3xl font-black text-slate-900 dark:text-white">11. Impossible Trident (Blivet)</h2>
-          <p class="text-sm text-slate-650 dark:text-slate-400 max-w-xl mx-auto leading-relaxed font-semibold">
-            A mind-bending geometric blivet where three cylinders at one end merge into two rectangular bars at the other.
-          </p>
+          <a href="/illusions/hidden-face-pattern" class="mt-4 block text-center rounded-lg bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-extrabold text-xs py-2.5 transition-colors">
+            Explore Illusion &rarr;
+          </a>
         </div>
 
-        <!-- Highlighted Instruction Box -->
-        <div class="w-full my-3 flex items-start gap-2 rounded-xl border border-indigo-500/10 bg-indigo-500/5 p-3 text-xs text-slate-350 text-left">
-          <span class="text-base leading-none">👁️</span>
-          <div>
-            <strong class="text-slate-200">👁️ WHAT TO LOOK FOR:</strong> Track the prongs from right to left. Count them carefully. Click 'Reveal Highlights' to see the shared lines.
-          </div>
-        </div>
+      </div>
+    </section>
 
-        <!-- Visual Display -->
-        <div class="w-full flex flex-col items-center justify-center bg-slate-150 dark:bg-slate-950/60 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 min-h-[300px]">
-          <div class="relative w-full max-w-[400px] h-[300px] flex items-center justify-center">
-            <svg class="w-full h-full select-none" viewBox="0 0 320 160" id="svg-trident-list">
-              <g stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" class="text-slate-900 dark:text-slate-200">
-                <path d="M 50,45 L 260,45" />
-                <path d="M 50,115 L 260,115" />
-                <path d="M 50,45 C 30,45 30,115 50,115" />
-                <path d="M 50,60 C 45,60 45,100 50,100" />
-                <path d="M 50,60 L 170,60 C 180,60 180,80 190,80 L 260,80" />
-                <path d="M 50,100 L 170,100 C 180,100 180,80 190,80" />
-                <path d="M 120,45 L 120,60" />
-                <path d="M 120,100 L 120,115" />
-                <path d="M 260,45 C 265,45 265,60 260,60 C 255,60 255,45 260,45 Z" fill="#312e81" />
-                <path d="M 260,60 L 170,60" />
-                <path d="M 260,70 C 265,70 265,90 260,90 C 255,90 255,70 260,70 Z" fill="#312e81" />
-                <path d="M 260,70 L 190,70" />
-                <path d="M 260,90 L 190,90" />
-                <path d="M 260,100 C 265,100 265,115 260,115 C 255,115 255,100 260,100 Z" fill="#312e81" />
-                <path d="M 260,100 L 170,100" />
-              </g>
-              <!-- Highlight Overlay -->
-              <g class="trident-overlay opacity-0 transition-opacity duration-300 pointer-events-none">
-                <path d="M 50,60 L 170,60 C 180,60 180,80 190,80 L 260,80" stroke="#ef4444" stroke-width="4" fill="none" />
-                <text x="160" y="145" fill="#ef4444" font-size="10" font-weight="900" text-anchor="middle">Contour acts as a gap & a solid prong!</text>
-              </g>
-            </svg>
-          </div>
-        </div>
-
-        <!-- Controls -->
-        <div class="w-full space-y-4 pt-2 flex flex-col items-center text-center">
-          <div class="flex gap-2">
-            <button class="btn-toggle-trident border border-purple-500/30 text-purple-400 hover:bg-purple-500/10 font-bold text-xs px-4 py-2 rounded-xl transition-all">Reveal Highlights 👁️</button>
-          </div>
-        </div>
-
-        <!-- Collapsible Explanation -->
-        <details class="w-full mt-4 border-t border-slate-800/40 pt-3 text-xs text-slate-400 select-none text-left">
-          <summary class="font-bold cursor-pointer hover:text-purple-400">👁️ Reveal Answer & Science</summary>
-          <p class="mt-2 font-normal leading-relaxed text-slate-400">
-            The Impossible Trident is an impossible figure-ground drawing. The line borders representing background gaps between the two rectangles at the base are extended to become the contours of the middle cylinder prong on the right. This causes a figure-ground swap conflict, creating cognitive loop confusion in the visual cortex.
-          </p>
-        </details>
-
-        <!-- Explore Link -->
-        <div class="w-full mt-4 pt-4 border-t border-slate-500/10 flex justify-between items-center text-xs font-black text-purple-650 dark:text-purple-400 hover:text-purple-500 transition-colors">
-          <span>Explore Full Science & Facts</span>
-          <a href="/illusions/impossible-trident" class="hover:underline">Explore &rarr;</a>
-        </div>
-
-      </section>
-
-    </div>
   </main>
 
-<style>
+  <style>
     /* Continuous rotating animation for Spinning Dancer */
     @keyframes spin-dancer-scale {
       0% { transform: scaleX(1); }
@@ -1222,463 +429,93 @@ import Layout from '../layouts/Layout.astro';
   </style>
 
   <script>
-    // ----------------------------------------------------
-    // Stopwatch and Personal Bests Script
-    // ----------------------------------------------------
-    const startGlobalTimer = () => {
-      const pageLoadTime = Date.now();
+    function initHiddenLabs() {
+      const cards = document.querySelectorAll('.illusion-container');
       
-      setInterval(() => {
-        const elapsedMs = Date.now() - pageLoadTime;
-        const seconds = (elapsedMs / 1000).toFixed(1);
-        const timeStr = `${seconds}s`;
-        
-        document.querySelectorAll('.spot-time').forEach(el => {
-          if (!el.classList.contains('stopped')) {
-            el.textContent = timeStr;
-          }
-        });
-      }, 100);
-    };
-
-    // Load PBs
-    const loadPersonalBests = () => {
-      document.querySelectorAll('.illusion-container').forEach(card => {
+      cards.forEach(card => {
         const id = card.getAttribute('data-id');
-        const pbEl = card.querySelector('.pb-time');
-        if (id && pbEl) {
-          const pb = localStorage.getItem(`pb-hidden-${id}`);
-          if (pb) {
-            pbEl.textContent = pb;
-          }
-        }
-      });
-    };
-
-    // Setup spot buttons
-    const initSpotButtons = () => {
-      document.querySelectorAll('.illusion-container').forEach(card => {
-        const id = card.getAttribute('data-id');
-        const btnSpot = card.querySelector('.btn-spot');
-        const spotTimeEl = card.querySelector('.spot-time');
-        const pbEl = card.querySelector('.pb-time');
+        const timerText = card.querySelector('.countdown-timer') as HTMLElement;
+        const btnGiveUp = card.querySelector('.btn-give-up') as HTMLButtonElement;
+        const explanation = card.querySelector('.science-explanation') as HTMLElement;
         
-        btnSpot?.addEventListener('click', (e) => {
-          e.stopPropagation();
-          if (spotTimeEl && !spotTimeEl.classList.contains('stopped')) {
-            spotTimeEl.classList.add('stopped', 'text-green-500');
-            const spotTime = spotTimeEl.textContent || "0.0s";
-            
-            // Check PB
-            const currentPb = localStorage.getItem(`pb-hidden-${id}`);
-            if (!currentPb || spotTime < currentPb) {
-              localStorage.setItem(`pb-hidden-${id}`, spotTime);
-              if (pbEl) pbEl.textContent = spotTime;
+        let secondsLeft = 30.0;
+        let isRevealed = false;
+        
+        const startTime = Date.now();
+        const intervalId = setInterval(() => {
+          if (isRevealed) {
+            clearInterval(intervalId);
+            return;
+          }
+          
+          const elapsed = (Date.now() - startTime) / 1000;
+          secondsLeft = Math.max(30.0 - elapsed, 0.0);
+          
+          if (timerText) timerText.textContent = `${secondsLeft.toFixed(1)}s`;
+          
+          if (secondsLeft <= 0) {
+            clearInterval(intervalId);
+            triggerReveal();
+          }
+        }, 100);
+        
+        const triggerReveal = () => {
+          if (isRevealed) return;
+          isRevealed = true;
+          clearInterval(intervalId);
+          if (timerText) timerText.textContent = '0.0s';
+          
+          card.classList.add('revealed-active');
+          if (explanation) explanation.classList.remove('hidden');
+          if (btnGiveUp) {
+            btnGiveUp.textContent = 'Revealed ✓';
+            btnGiveUp.disabled = true;
+          }
+
+          if (id === 'impossible-trident') {
+            const btnTrace = card.querySelector('.btn-trace-trident') as HTMLButtonElement;
+            if (btnTrace) btnTrace.click();
+          } else if (id === 'spinning-dancer') {
+            const dancerBelt = card.querySelector('#dancer-belt-toggle') as HTMLInputElement;
+            if (dancerBelt) {
+              dancerBelt.checked = true;
+              dancerBelt.dispatchEvent(new Event('change'));
             }
+          } else if (id === 'hermann-grid') {
+            const checkBtn = card.querySelector('#submit-dots-btn') as HTMLButtonElement;
+            const checkInput = card.querySelector('#dots-count-input') as HTMLInputElement;
+            if (checkInput) checkInput.value = '0';
+            if (checkBtn) checkBtn.click();
           }
-        });
-      });
-    };
-
-    // Init Voting & Reveals
-    const initVotingAndReveals = () => {
-      document.querySelectorAll('.illusion-container').forEach(card => {
-        const btnVotes = card.querySelectorAll('.btn-vote');
-        const btnReveal = card.querySelector('.btn-reveal');
-        const statsPanel = card.querySelector('.stats-panel');
-        const overlay = card.querySelector('.diagram-overlay');
-
-        btnVotes.forEach(btn => {
-          btn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            statsPanel?.classList.remove('hidden');
-          });
-        });
-
-        btnReveal?.addEventListener('click', (e) => {
-          e.stopPropagation();
-          if (overlay) {
-            const shown = overlay.classList.contains('opacity-100');
-            if (shown) {
-              overlay.classList.remove('opacity-100');
-              overlay.classList.add('opacity-0');
-            } else {
-              overlay.classList.remove('opacity-0');
-              overlay.classList.add('opacity-100');
-            }
-          }
-        });
-      });
-    };
-
-    // Init Special Interactivity
-    const initSpecialDemos = () => {
-      // 2. All is Vanity
-      const vanityCard = document.querySelector('[data-id="all-is-vanity"]') as HTMLElement;
-      if (vanityCard) {
-        const votes = vanityCard.querySelectorAll('.btn-vote');
-        const statsPanel = vanityCard.querySelector('.stats-panel');
-        const userSel = vanityCard.querySelector('.user-selection');
-        const pctWoman = vanityCard.querySelector('.pct-woman');
-        const pctSkull = vanityCard.querySelector('.pct-skull');
-        const barWoman = vanityCard.querySelector('.bar-woman') as HTMLElement;
-        const barSkull = vanityCard.querySelector('.bar-skull') as HTMLElement;
-        const btnToggleW = vanityCard.querySelector('.btn-toggle-woman');
-        const btnToggleS = vanityCard.querySelector('.btn-toggle-skull');
-        const overlayW = vanityCard.querySelector('#vanity-overlay-woman');
-        const overlayS = vanityCard.querySelector('#vanity-overlay-skull');
-
-        votes.forEach(btn => {
-          btn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            const choice = btn.getAttribute('data-vote');
-            if (userSel) userSel.textContent = choice === 'woman' ? "A Woman 👩" : "A Skull 💀";
-            if (statsPanel) statsPanel.classList.remove('hidden');
-            
-            let wVal = choice === 'woman' ? 48 : 43;
-            let sVal = 100 - wVal;
-            if (pctWoman) pctWoman.textContent = wVal + '%';
-            if (pctSkull) pctSkull.textContent = sVal + '%';
-            if (barWoman) barWoman.style.width = wVal + '%';
-            if (barSkull) barSkull.style.width = sVal + '%';
-
-            // Disable buttons
-            votes.forEach(b => (b as HTMLButtonElement).disabled = true);
-            
-            // Trigger Spot Best Time
-            btnSpotTrigger(vanityCard);
-          });
-        });
-
-        btnToggleW?.addEventListener('click', (e) => {
-          e.stopPropagation();
-          const shown = overlayW?.classList.contains('opacity-100');
-          if (shown) {
-            overlayW?.classList.replace('opacity-100', 'opacity-0');
-            if (btnToggleW) btnToggleW.textContent = "Show Woman 👩";
-          } else {
-            overlayW?.classList.replace('opacity-0', 'opacity-100');
-            if (btnToggleW) btnToggleW.textContent = "Hide Woman 👩";
-          }
-        });
-
-        btnToggleS?.addEventListener('click', (e) => {
-          e.stopPropagation();
-          const shown = overlayS?.classList.contains('opacity-100');
-          if (shown) {
-            overlayS?.classList.replace('opacity-100', 'opacity-0');
-            if (btnToggleS) btnToggleS.textContent = "Show Skull 💀";
-          } else {
-            overlayS?.classList.replace('opacity-0', 'opacity-100');
-            if (btnToggleS) btnToggleS.textContent = "Hide Skull 💀";
-          }
-        });
-      }
-
-      // 6. Coffee Skull
-      const coffeeCard = document.querySelector('[data-id="skull-coffee"]') as HTMLElement;
-      if (coffeeCard) {
-        const votes = coffeeCard.querySelectorAll('.btn-vote');
-        const statsPanel = coffeeCard.querySelector('.stats-panel');
-        const userSel = coffeeCard.querySelector('.user-selection');
-        const pctFoam = coffeeCard.querySelector('.pct-foam');
-        const pctSkull = coffeeCard.querySelector('.pct-skull');
-        const barFoam = coffeeCard.querySelector('.bar-foam') as HTMLElement;
-        const barSkull = coffeeCard.querySelector('.bar-skull') as HTMLElement;
-        const btnToggleF = coffeeCard.querySelector('.btn-toggle-foam');
-        const btnToggleS = coffeeCard.querySelector('.btn-toggle-skull');
-        const overlayF = coffeeCard.querySelector('#coffee-overlay-foam');
-        const overlayS = coffeeCard.querySelector('#coffee-overlay-skull');
-
-        votes.forEach(btn => {
-          btn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            const choice = btn.getAttribute('data-vote');
-            if (userSel) userSel.textContent = choice === 'coffee' ? "Coffee Foam ☕" : "Skull 💀";
-            if (statsPanel) statsPanel.classList.remove('hidden');
-            
-            let fVal = choice === 'coffee' ? 44 : 39;
-            let sVal = 100 - fVal;
-            if (pctFoam) pctFoam.textContent = fVal + '%';
-            if (pctSkull) pctSkull.textContent = sVal + '%';
-            if (barFoam) barFoam.style.width = fVal + '%';
-            if (barSkull) barSkull.style.width = sVal + '%';
-
-            // Disable buttons
-            votes.forEach(b => (b as HTMLButtonElement).disabled = true);
-            
-            // Trigger Spot Best Time
-            btnSpotTrigger(coffeeCard);
-          });
-        });
-
-        btnToggleF?.addEventListener('click', (e) => {
-          e.stopPropagation();
-          const shown = overlayF?.classList.contains('opacity-100');
-          if (shown) {
-            overlayF?.classList.replace('opacity-100', 'opacity-0');
-            if (btnToggleF) btnToggleF.textContent = "Show Foam ☕";
-          } else {
-            overlayF?.classList.replace('opacity-0', 'opacity-100');
-            if (btnToggleF) btnToggleF.textContent = "Hide Foam ☕";
-          }
-        });
-
-        btnToggleS?.addEventListener('click', (e) => {
-          e.stopPropagation();
-          const shown = overlayS?.classList.contains('opacity-100');
-          if (shown) {
-            overlayS?.classList.replace('opacity-100', 'opacity-0');
-            if (btnToggleS) btnToggleS.textContent = "Show Skull 💀";
-          } else {
-            overlayS?.classList.replace('opacity-0', 'opacity-100');
-            if (btnToggleS) btnToggleS.textContent = "Hide Skull 💀";
-          }
-        });
-      }
-      // 3. Duck-Rabbit Seasonal Hint
-      const seasonalHintBox = document.getElementById('seasonal-hint-box');
-      if (seasonalHintBox) {
-        const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-        const currentMonth = months[new Date().getMonth()];
-        let hint = "";
-        if (currentMonth === 'April') {
-          hint = `🐰 <strong>Easter (April) Hint:</strong> 75% of users report seeing the Rabbit first due to recent holiday bias!`;
-        } else if (currentMonth === 'November' || currentMonth === 'December') {
-          hint = `🦆 <strong>Fall Hint:</strong> 80% of users report seeing the Duck first as wild ducks migrate!`;
-        } else {
-          hint = `📅 <strong>Seasonal Fact:</strong> Currently it is ${currentMonth}. Duck/Rabbit perception changes seasonally based on ambient exposure!`;
-        }
-        seasonalHintBox.innerHTML = hint;
-      }
-
-      // 5. Hidden Faces Trees
-      const treeCard = document.querySelector('[data-id="hidden-faces-trees"]') as HTMLElement;
-      if (treeCard) {
-        const targets = treeCard.querySelectorAll('.face-target');
-        const countText = treeCard.querySelector('.faces-count');
-        const resetBtn = treeCard.querySelector('.reset-faces-btn');
-        const spotBtn = treeCard.querySelector('.btn-spot');
-        const faceMsg = treeCard.querySelector('.face-message');
-        const timeEl = treeCard.querySelector('.spot-time');
+        };
         
-        let foundSet = new Set();
-        
-        targets.forEach(target => {
-          target.addEventListener('click', (e) => {
-            e.stopPropagation();
-            const idx = target.getAttribute('data-idx');
-            if (idx && !foundSet.has(idx)) {
-              foundSet.add(idx);
-              const highlight = document.getElementById(`highlight-${idx}`);
-              if (highlight) highlight.classList.replace('opacity-0', 'opacity-100');
-              
-              if (countText) countText.textContent = foundSet.size.toString();
-              
-              if (foundSet.size === 6) {
-                faceMsg?.classList.remove('hidden');
-                // Auto trigger spot button click
-                btnSpotTrigger(treeCard);
+        btnGiveUp?.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          triggerReveal();
+        });
+
+        if (id === 'spinning-dancer') {
+          const beltToggle = card.querySelector('#dancer-belt-toggle') as HTMLInputElement;
+          const leftLimb = card.querySelector('.dancer-left-limb');
+          const rightLimb = card.querySelector('.dancer-right-limb');
+          beltToggle?.addEventListener('change', (e) => {
+            const checked = (e.target as HTMLInputElement).checked;
+            if (leftLimb && rightLimb) {
+              if (checked) {
+                leftLimb.setAttribute('fill', '#ef4444');  // Red
+                rightLimb.setAttribute('fill', '#3b82f6'); // Blue
+              } else {
+                leftLimb.setAttribute('fill', 'currentColor');
+                rightLimb.setAttribute('fill', 'currentColor');
               }
             }
           });
-        });
-
-        resetBtn?.addEventListener('click', (e) => {
-          e.stopPropagation();
-          foundSet.clear();
-          if (countText) countText.textContent = "0";
-          faceMsg?.classList.add('hidden');
-          if (timeEl) timeEl.classList.remove('stopped', 'text-green-500');
-          treeCard.querySelectorAll('[id^="highlight-"]').forEach(hl => {
-            hl.classList.replace('opacity-100', 'opacity-0');
-          });
-        });
-      }
-
-      // 7. Hermann Grid Dots Input
-      const hermannCard = document.querySelector('[data-id="hermann-grid"]') as HTMLElement;
-      const dotsInput = document.getElementById('dots-count-input') as HTMLInputElement;
-      const submitDotsBtn = document.getElementById('submit-dots-btn');
-      const dotsFeedback = document.getElementById('dots-feedback-panel');
-      const dotsFeedbackStatus = document.getElementById('dots-feedback-status');
-      const dotsUserGuess = document.getElementById('dots-user-guess');
-      const dotsTryAgainBtn = document.getElementById('dots-try-again-btn');
-
-      submitDotsBtn?.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const guess = parseInt(dotsInput.value || '0');
-        if (dotsUserGuess) dotsUserGuess.textContent = guess.toString();
-        
-        if (dotsFeedback) dotsFeedback.classList.remove('hidden');
-        
-        if (guess === 0) {
-          if (dotsFeedbackStatus) {
-            dotsFeedbackStatus.textContent = "Correct ✓";
-            dotsFeedbackStatus.className = "font-bold text-emerald-450 font-mono text-sm";
-          }
-          btnSpotTrigger(hermannCard);
-        } else {
-          if (dotsFeedbackStatus) {
-            dotsFeedbackStatus.textContent = "Incorrect ✗";
-            dotsFeedbackStatus.className = "font-bold text-rose-500 font-mono text-sm";
-          }
         }
       });
+    }
 
-      dotsTryAgainBtn?.addEventListener('click', (e) => {
-        e.stopPropagation();
-        if (dotsInput) dotsInput.value = "0";
-        if (dotsFeedback) dotsFeedback.classList.add('hidden');
-      });
-
-      // 8. Spinning Dancer Color Guide Toggle
-      const beltToggle = document.getElementById('dancer-belt-toggle') as HTMLInputElement;
-      const dancerCard = document.querySelector('[data-id="spinning-dancer"]') as HTMLElement;
-      const leftLimb = dancerCard?.querySelector('.dancer-left-limb');
-      const rightLimb = dancerCard?.querySelector('.dancer-right-limb');
-      beltToggle?.addEventListener('change', (e) => {
-        const checked = (e.target as HTMLInputElement).checked;
-        if (leftLimb && rightLimb) {
-          if (checked) {
-            leftLimb.setAttribute('fill', '#ef4444');  // Red
-            rightLimb.setAttribute('fill', '#3b82f6'); // Blue
-          } else {
-            leftLimb.setAttribute('fill', 'currentColor');
-            rightLimb.setAttribute('fill', 'currentColor');
-          }
-        }
-      });
-
-      // 10. Impossible Elephant
-      const elephantCard = document.querySelector('[data-id="impossible-elephant"]') as HTMLElement;
-      const btnElephant4 = document.getElementById('btn-elephant-4');
-      const btnElephant5 = document.getElementById('btn-elephant-5');
-      const btnElephantReveal = document.getElementById('btn-elephant-reveal');
-      const elephantFeedback = document.getElementById('elephant-feedback-panel');
-      const elephantUserGuess = document.getElementById('elephant-user-guess');
-      const elephantTryAgain = document.getElementById('elephant-try-again-btn');
-      const elephantOverlay = elephantCard?.querySelector('.diagram-overlay');
-
-      const handleElephantGuess = (guessStr: string) => {
-        if (elephantUserGuess) elephantUserGuess.textContent = guessStr;
-        if (elephantFeedback) elephantFeedback.classList.remove('hidden');
-        if (elephantOverlay) {
-          elephantOverlay.classList.remove('opacity-0');
-          elephantOverlay.classList.add('opacity-100');
-        }
-        btnSpotTrigger(elephantCard);
-      };
-
-      btnElephant4?.addEventListener('click', (e) => {
-        e.stopPropagation();
-        handleElephantGuess("4 Legs");
-      });
-
-      btnElephant5?.addEventListener('click', (e) => {
-        e.stopPropagation();
-        handleElephantGuess("5 Legs");
-      });
-
-      btnElephantReveal?.addEventListener('click', (e) => {
-        e.stopPropagation();
-        if (elephantOverlay) {
-          const shown = elephantOverlay.classList.contains('opacity-100');
-          if (shown) {
-            elephantOverlay.classList.remove('opacity-100');
-            elephantOverlay.classList.add('opacity-0');
-            if (btnElephantReveal) btnElephantReveal.textContent = "Reveal Highlights";
-          } else {
-            elephantOverlay.classList.remove('opacity-0');
-            elephantOverlay.classList.add('opacity-100');
-            if (btnElephantReveal) btnElephantReveal.textContent = "Hide Highlights";
-          }
-        }
-      });
-
-      elephantTryAgain?.addEventListener('click', (e) => {
-        e.stopPropagation();
-        if (elephantFeedback) elephantFeedback.classList.add('hidden');
-        if (elephantOverlay) {
-          elephantOverlay.classList.remove('opacity-100');
-          elephantOverlay.classList.add('opacity-0');
-        }
-        if (btnElephantReveal) btnElephantReveal.textContent = "Reveal Highlights";
-      });
-
-      // 11. Impossible Trident
-      const tridentCard = document.querySelector('[data-id="impossible-trident"]') as HTMLElement;
-      const btnToggleTrident = tridentCard?.querySelector('.btn-toggle-trident');
-      const tridentOverlay = tridentCard?.querySelector('.trident-overlay');
-      btnToggleTrident?.addEventListener('click', (e) => {
-        e.stopPropagation();
-        if (tridentOverlay) {
-          const shown = tridentOverlay.classList.contains('opacity-100');
-          if (shown) {
-            tridentOverlay.classList.replace('opacity-100', 'opacity-0');
-            if (btnToggleTrident) btnToggleTrident.textContent = "Reveal Highlights 👁️";
-          } else {
-            tridentOverlay.classList.replace('opacity-0', 'opacity-100');
-            if (btnToggleTrident) btnToggleTrident.textContent = "Hide Highlights 👁️";
-            btnSpotTrigger(tridentCard);
-          }
-        }
-      });
-    };
-
-    const btnSpotTrigger = (card: HTMLElement) => {
-      const btnSpot = card.querySelector('.btn-spot') as HTMLButtonElement;
-      btnSpot?.click();
-    };
-
-    // Init share buttons
-    const initShareButtons = () => {
-      document.querySelectorAll('.share-btn').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          const name = btn.getAttribute('data-name') || "an illusion";
-          const card = btn.closest('.illusion-container') as HTMLElement;
-          const time = card?.querySelector('.spot-time')?.textContent || "0.0s";
-          const text = `I spotted ${name} on the Optical Illusion Lab! Can you beat my time? Test here: ${window.location.href}`;
-          navigator.clipboard.writeText(text).then(() => {
-            const originalSvg = btn.innerHTML;
-            btn.innerHTML = `<span class="text-[9px] font-bold text-green-500">Copied! ✓</span>`;
-            setTimeout(() => {
-              btn.innerHTML = originalSvg;
-            }, 2000);
-          });
-        });
-      });
-    };
-
-    // Make cards clickable
-    const makeCardsClickable = () => {
-      document.querySelectorAll('.illusion-container').forEach(card => {
-        card.style.cursor = 'pointer';
-        card.addEventListener('click', (e) => {
-          const target = e.target as HTMLElement;
-          if (target.closest('button, input, select, details, summary, a, svg, iframe')) {
-            return;
-          }
-          const link = card.querySelector('a[href^="/illusions/"]');
-          if (link) {
-            const href = link.getAttribute('href');
-            if (href) {
-              window.location.href = href;
-            }
-          }
-        });
-      });
-    };
-
-    // Load scripts
-    startGlobalTimer();
-    loadPersonalBests();
-    initSpotButtons();
-    initVotingAndReveals();
-    initSpecialDemos();
-    initShareButtons();
-    makeCardsClickable();
+    initHiddenLabs();
+    document.addEventListener('astro:page-load', initHiddenLabs);
   </script>
-
 </Layout>

@@ -1,0 +1,152 @@
+---
+interface Props {
+  isCard?: boolean;
+}
+
+const { isCard = false } = Astro.props;
+---
+
+<div class="duckrabbit-container flex flex-col items-center w-full select-none" data-is-card={isCard ? "true" : "false"}>
+  <div class="relative flex flex-col items-center justify-center bg-[#1e293b] rounded-2xl overflow-hidden border border-slate-700 shadow-inner w-full min-h-[360px] p-4 pb-20">
+    
+    <!-- High-Fidelity SVG with paper filter -->
+    <svg class="w-full max-w-[280px] h-auto aspect-square select-none overflow-visible rounded-xl shadow-lg" viewBox="0 0 200 200">
+      <defs>
+        <!-- Vintage paper noise texture -->
+        <filter id="duckrabbit-paper" x="0%" y="0%" width="100%" height="100%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="3" result="noise" />
+          <feDiffuseLighting in="noise" lighting-color="#FFFDF9" surfaceScale="2" result="light">
+            <feDistantLight azimuth="45" elevation="60" />
+          </feDiffuseLighting>
+          <feBlend mode="multiply" in="SourceGraphic" in2="light" />
+        </filter>
+        <!-- Soft highlight glow -->
+        <filter id="h-glow" x="-10%" y="-10%" width="120%" height="120%">
+          <feGaussianBlur stdDeviation="3" result="blur" />
+          <feComposite in="SourceGraphic" in2="blur" operator="over" />
+        </filter>
+      </defs>
+
+      <!-- Background card backing -->
+      <rect x="0" y="0" width="200" height="200" fill="#EADCC9" rx="12" filter="url(#duckrabbit-paper)" />
+      
+      <!-- Hand-sketched Jastrow Duck-Rabbit Silhouette -->
+      <!-- A single continuous path defining the head, ears/bill, and neck -->
+      <path 
+        d="M 125,50 
+           C 165,50 185,85 185,115 
+           C 185,145 160,165 125,165 
+           C 95,165 88,150 88,135 
+           C 88,128 70,131 45,135
+           C 25,138 18,125 35,118
+           C 20,113 18,102 35,97
+           C 65,88 88,97 88,107
+           C 88,77 95,50 125,50 Z" 
+        fill="#FFFFFF" 
+        stroke="#1E293B" 
+        stroke-width="3" 
+        stroke-linejoin="round"
+      />
+
+      <!-- Eye -->
+      <circle cx="95" cy="111" r="5" fill="#1E293B" />
+      <circle cx="94" cy="110" r="1.8" fill="#FFFFFF" />
+
+      <!-- Mouth/Ear crease line (defines duck bill vs rabbit head back crease) -->
+      <path d="M 125,165 C 120,150 110,135 110,120" stroke="#1E293B" stroke-width="2" fill="none" stroke-linecap="round" />
+
+      <!-- Duck Bill Highlights Overlay (toggled via button) -->
+      <g class="duck-overlay opacity-0 transition-opacity duration-300 pointer-events-none" filter="url(#h-glow)">
+        <path 
+          d="M 88,107 C 88,107 70,131 45,135 C 25,138 18,125 35,118 C 20,113 18,102 35,97 C 65,88 88,97 88,107" 
+          stroke="#3B82F6" 
+          stroke-width="4.5" 
+          fill="none" 
+          stroke-linecap="round"
+        />
+        <text x="35" y="80" fill="#2563EB" font-size="10" font-weight="900" text-anchor="middle">Duck Bill 🦆</text>
+      </g>
+
+      <!-- Rabbit Ears Highlights Overlay (toggled via button) -->
+      <g class="rabbit-overlay opacity-0 transition-opacity duration-300 pointer-events-none" filter="url(#h-glow)">
+        <path 
+          d="M 88,107 C 88,107 70,131 45,135 C 25,138 18,125 35,118 C 20,113 18,102 35,97 C 65,88 88,97 88,107" 
+          stroke="#EF4444" 
+          stroke-width="4.5" 
+          fill="none" 
+          stroke-linecap="round"
+        />
+        <text x="35" y="155" fill="#DC2626" font-size="10" font-weight="900" text-anchor="middle">Rabbit Ears 🐇</text>
+      </g>
+    </svg>
+
+    <!-- Overlay Toggle Controls inside container -->
+    <div class="absolute bottom-2 flex gap-2 z-20">
+      <button class="btn-toggle-duck-rabbit-duck bg-[#7C3AED] hover:bg-[#6D28D9] text-white text-[9px] font-black px-3 py-1.5 rounded-lg border-none transition-colors cursor-pointer uppercase">Show Duck 🦆</button>
+      <button class="btn-toggle-duck-rabbit-rabbit bg-[#7C3AED] hover:bg-[#6D28D9] text-white text-[9px] font-black px-3 py-1.5 rounded-lg border-none transition-colors cursor-pointer uppercase">Show Rabbit 🐇</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  function initDuckRabbit() {
+    const containers = document.querySelectorAll('.duckrabbit-container');
+    containers.forEach(container => {
+      if (container.getAttribute('data-initialized') === 'true') return;
+      container.setAttribute('data-initialized', 'true');
+
+      const btnD = container.querySelector('.btn-toggle-duck-rabbit-duck');
+      const btnR = container.querySelector('.btn-toggle-duck-rabbit-rabbit');
+      const overlayD = container.querySelector('.duck-overlay');
+      const overlayR = container.querySelector('.rabbit-overlay');
+
+      let dActive = false;
+      let rActive = false;
+
+      btnD?.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        dActive = !dActive;
+        if (overlayD) {
+          if (dActive) {
+            overlayD.classList.replace('opacity-0', 'opacity-100');
+            btnD.textContent = "Hide Duck 🦆";
+            // Hide rabbit if shown
+            if (rActive && btnR && overlayR) {
+              rActive = false;
+              overlayR.classList.replace('opacity-100', 'opacity-0');
+              btnR.textContent = "Show Rabbit 🐇";
+            }
+          } else {
+            overlayD.classList.replace('opacity-100', 'opacity-0');
+            btnD.textContent = "Show Duck 🦆";
+          }
+        }
+      });
+
+      btnR?.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        rActive = !rActive;
+        if (overlayR) {
+          if (rActive) {
+            overlayR.classList.replace('opacity-0', 'opacity-100');
+            btnR.textContent = "Hide Rabbit 🐇";
+            // Hide duck if shown
+            if (dActive && btnD && overlayD) {
+              dActive = false;
+              overlayD.classList.replace('opacity-100', 'opacity-0');
+              btnD.textContent = "Show Duck 🦆";
+            }
+          } else {
+            overlayR.classList.replace('opacity-100', 'opacity-0');
+            btnR.textContent = "Show Rabbit 🐇";
+          }
+        }
+      });
+    });
+  }
+
+  initDuckRabbit();
+  document.addEventListener('astro:page-load', initDuckRabbit);
+</script>

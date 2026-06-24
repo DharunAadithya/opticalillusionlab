@@ -1,13 +1,12 @@
 ---
 // src/pages/color.astro
 import Layout from '../layouts/Layout.astro';
-import AdelsonDemo from '../components/illusions/AdelsonDemo.astro';
 import ColorSpheresDemo from '../components/illusions/ColorSpheresDemo.astro';
 ---
 
 <Layout 
-  title="Color & Colour Optical Illusions — 5 Visual Experiments | Optical Illusion Lab" 
-  description="Explore interactive color optical illusions, test Adelson's checkerboard, play with simultaneous contrast, and try the afterimage experiment."
+  title="Color & Colour Optical Illusions — 4 Visual Experiments | Optical Illusion Lab" 
+  description="Explore interactive color optical illusions, play with simultaneous contrast, and try the afterimage experiment."
 >
 
   <!-- Hero Section -->
@@ -35,11 +34,11 @@ import ColorSpheresDemo from '../components/illusions/ColorSpheresDemo.astro';
 
 
 
-  <!-- SECTION 2: 5 COLOR ILLUSION EXPERIMENTS -->
+  <!-- SECTION 2: 4 COLOR ILLUSION EXPERIMENTS -->
   <section id="experiments-grid" class="py-16 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto space-y-12">
     <div class="text-center space-y-2">
       <h2 class="font-display text-3xl sm:text-4xl font-black text-slate-900 dark:text-white">
-        5 COLOR ILLUSION EXPERIMENTS 🧪
+        4 COLOR ILLUSION EXPERIMENTS 🧪
       </h2>
       <p class="text-slate-600 dark:text-slate-400 max-w-md mx-auto text-sm">Interact with each visual lab to test your perceptual color limits.</p>
       <div class="mx-auto h-1 w-24 rounded-full bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-500 mt-4"></div>
@@ -47,46 +46,11 @@ import ColorSpheresDemo from '../components/illusions/ColorSpheresDemo.astro';
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
       
-      <!-- Experiment 1: Same Gray, Different World -->
-      <a href="/illusions/adelsons-checkerboard" class="bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 flex flex-col justify-between hover:border-purple-500/40 hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(168,85,247,0.35)] cursor-pointer transition-all duration-300 block group" data-exp="checkerboard">
-        <div class="space-y-3">
-          <div class="flex justify-between items-center">
-            <span class="text-xs font-bold text-purple-400 uppercase tracking-widest">1. Shadows & Contrast</span>
-            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-yellow-500/10 text-yellow-450 border border-yellow-500/20">🟡 MEDIUM</span>
-          </div>
-          <h3 class="font-display text-xl font-bold text-slate-900 dark:text-white">SAME GRAY, DIFFERENT WORLD 🏁</h3>
-          <p class="text-slate-600 dark:text-slate-300 text-xs leading-relaxed">
-            Tile A (in the light) and Tile B (in the shadow) look completely different. But they are the exact same gray color!
-          </p>
-        </div>
-        
-        <!-- Instruction Box -->
-        <div class="my-3 flex items-start gap-2 rounded-xl border border-indigo-500/10 bg-indigo-500/5 p-3 text-xs text-slate-350">
-          <span class="text-base leading-none">👁️</span>
-          <div>
-            <strong class="text-slate-200">👁️ WHAT TO LOOK FOR:</strong> Look at tiles A and B. Click 'Reveal Truth' or 'Remove Shadow' to check if they have the same shade of gray.
-          </div>
-        </div>
-        <AdelsonDemo isCard={true} />
-
-        <!-- Collapsible Explanation -->
-        <details class="mt-4 border-t border-slate-800/40 pt-3 text-xs text-slate-400 select-none">
-          <summary class="font-bold cursor-pointer hover:text-purple-400">👁️ Reveal Answer & Science</summary>
-          <p class="mt-2 font-normal leading-relaxed text-slate-400">
-            The brain does not measure raw luminance; it evaluates colors relative to lighting. Because Tile B is inside the shadow, the brain scales its perceived brightness up, making it look white compared to Tile A.
-          </p>
-        </details>
-
-        <div class="mt-5 flex items-center justify-between border-t border-slate-850 pt-4">
-          <span class="text-xs font-black text-purple-400 group-hover:text-purple-300 transition-colors">Explore &rarr;</span>
-        </div>
-      </a>
-
-      <!-- Experiment 2: All Gray Circles -->
+      <!-- Experiment 1: All Gray Circles -->
       <a href="/illusions/color-spheres" class="bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 flex flex-col justify-between hover:border-purple-500/40 hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(168,85,247,0.35)] cursor-pointer transition-all duration-300 block group" data-exp="spheres">
         <div class="space-y-3">
           <div class="flex justify-between items-center">
-            <span class="text-xs font-bold text-purple-400 uppercase tracking-widest">2. Chromatic Assimilation</span>
+            <span class="text-xs font-bold text-purple-400 uppercase tracking-widest">1. Chromatic Assimilation</span>
             <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-red-550/10 text-red-400 border border-red-500/20">🔴 HARD</span>
           </div>
           <h3 class="font-display text-xl font-bold text-slate-900 dark:text-white">ALL GRAY CIRCLES 🔵🟢🔴</h3>
@@ -119,11 +83,11 @@ import ColorSpheresDemo from '../components/illusions/ColorSpheresDemo.astro';
 
 
 
-      <!-- Experiment 3: White's Illusion -->
+      <!-- Experiment 2: White's Illusion -->
       <a href="/illusions/whites-illusion" class="bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 flex flex-col justify-between hover:border-purple-500/40 hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(168,85,247,0.35)] cursor-pointer transition-all duration-300 block group" data-exp="whites">
         <div class="space-y-3">
           <div class="flex justify-between items-center">
-            <span class="text-xs font-bold text-purple-400 uppercase tracking-widest">3. Lateral Inhibition</span>
+            <span class="text-xs font-bold text-purple-400 uppercase tracking-widest">2. Lateral Inhibition</span>
             <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-yellow-500/10 text-yellow-450 border border-yellow-500/20">🟡 MEDIUM</span>
           </div>
           <h3 class="font-display text-xl font-bold text-slate-900 dark:text-white">WHITE'S ILLUSION 🦓</h3>
@@ -178,11 +142,11 @@ import ColorSpheresDemo from '../components/illusions/ColorSpheresDemo.astro';
 
 
 
-      <!-- Experiment 4: Simultaneous Contrast -->
+      <!-- Experiment 3: Simultaneous Contrast -->
       <a href="/illusions/simultaneous-contrast" class="bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 flex flex-col justify-between hover:border-purple-500/40 hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(168,85,247,0.35)] cursor-pointer transition-all duration-300 block group" data-exp="contrast">
         <div class="space-y-3">
           <div class="flex justify-between items-center">
-            <span class="text-xs font-bold text-purple-400 uppercase tracking-wider">4. Hue Contrast</span>
+            <span class="text-xs font-bold text-purple-400 uppercase tracking-wider">3. Hue Contrast</span>
             <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-green-500/15 text-green-400 border border-green-500/20">🟢 EASY</span>
           </div>
           <h3 class="font-display text-xl font-bold text-slate-900 dark:text-white">SIMULTANEOUS CONTRAST 🟧</h3>
@@ -221,11 +185,11 @@ import ColorSpheresDemo from '../components/illusions/ColorSpheresDemo.astro';
         </div>
       </a>
 
-      <!-- Experiment 5: Afterimage - Stare and See -->
+      <!-- Experiment 4: Afterimage - Stare and See -->
       <a href="/illusions/afterimage-stare" class="bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 flex flex-col justify-between hover:border-purple-500/40 hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(168,85,247,0.35)] cursor-pointer transition-all duration-300 block group" data-exp="afterimage">
         <div class="space-y-3">
           <div class="flex justify-between items-center">
-            <span class="text-xs font-bold text-purple-400 uppercase tracking-widest">5. Receptor Fatigue</span>
+            <span class="text-xs font-bold text-purple-400 uppercase tracking-widest">4. Receptor Fatigue</span>
             <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-red-550/10 text-red-400 border border-red-500/20">🔴 HARD</span>
           </div>
           <h3 class="font-display text-xl font-bold text-slate-900 dark:text-white">AFTERIMAGE — STARE AND SEE ⏱️</h3>

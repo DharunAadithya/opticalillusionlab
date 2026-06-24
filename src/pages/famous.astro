@@ -15,7 +15,6 @@ import HermannGridDemo from '../components/illusions/HermannGridDemo.astro';
 import PenroseStairsDemo from '../components/illusions/PenroseStairsDemo.astro';
 import CofferDemo from '../components/illusions/CofferDemo.astro';
 import VerticalHorizontalDemo from '../components/illusions/VerticalHorizontalDemo.astro';
-import McGurkDemo from '../components/illusions/McGurkDemo.astro';
 import DelboeufDemo from '../components/illusions/DelboeufDemo.astro';
 import ImpossibleTridentDemo from '../components/illusions/ImpossibleTridentDemo.astro';
 
@@ -161,7 +160,7 @@ const fraserRing3 = generateFraserDashes(100, 100, 28, 12, 25, 6);
     </div>
 
     <!-- The 14 Illusion Cards Grid -->
-    <div id="famous-gallery-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div id="famous-gallery-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
       
       <!-- Card 1: Spinning Dancer -->
       <a href="/illusions/spinning-dancer" id="dancer-illusion" data-category="Ambiguous" data-difficulty="medium" data-difficulty-level="2" data-year="2003" data-category="Ambiguous" data-difficulty="medium" data-difficulty-level="2" data-year="2003" class="illusion-card flex flex-col justify-between rounded-2xl border border-indigo-100/10 bg-white dark:bg-slate-900/60 backdrop-blur-sm p-6 shadow-xl hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(168,85,247,0.35)] hover:border-purple-500/40 cursor-pointer transition-all duration-300 relative group border-l-4 border-l-yellow-500">
@@ -204,7 +203,7 @@ const fraserRing3 = generateFraserDashes(100, 100, 28, 12, 25, 6);
       </a>
 
       <!-- Card 2: Rubin's Vase -->
-      <a href="/illusions/rubins-vase" id="rubin-illusion" data-category="Ambiguous" data-difficulty="easy" data-difficulty-level="1" data-year="1915" data-category="Ambiguous" data-difficulty="easy" data-difficulty-level="1" data-year="1915" class="illusion-card flex flex-col justify-between rounded-2xl border border-indigo-100/10 bg-white dark:bg-slate-900/60 backdrop-blur-sm p-6 shadow-xl hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(168,85,247,0.35)] hover:border-purple-500/40 cursor-pointer transition-all duration-300 relative group border-l-4 border-l-emerald-500">
+      <a href="/illusions/rubin-vase" id="rubin-illusion" data-category="Ambiguous" data-difficulty="easy" data-difficulty-level="1" data-year="1915" data-category="Ambiguous" data-difficulty="easy" data-difficulty-level="1" data-year="1915" class="illusion-card flex flex-col justify-between rounded-2xl border border-indigo-100/10 bg-white dark:bg-slate-900/60 backdrop-blur-sm p-6 shadow-xl hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(168,85,247,0.35)] hover:border-purple-500/40 cursor-pointer transition-all duration-300 relative group border-l-4 border-l-emerald-500">
         <button class="share-btn absolute top-6 right-6 p-2 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-400 hover:text-slate-200 border border-slate-500/10 transition-colors z-20" aria-label="Share this illusion">
           <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M15 8a3 3 0 1 0-2.977-2.63l-4.94 2.47a3 3 0 1 0 0 4.319l4.94 2.47a3 3 0 1 0 .895-1.789l-4.94-2.47a3.027 3.027 0 0 0 0-.74l4.94-2.47C13.456 7.68 14.19 8 15 8Z"/></svg>
           <span class="share-toast absolute bottom-full right-0 mb-2 px-2.5 py-1 text-[10px] font-bold text-white bg-purple-600 rounded-lg shadow-md opacity-0 pointer-events-none transition-opacity duration-200 whitespace-nowrap">Link Copied! ✓</span>
@@ -740,46 +739,6 @@ const fraserRing3 = generateFraserDashes(100, 100, 28, 12, 25, 6);
         </div>
       </a>
 
-      <!-- Card 20: McGurk Effect -->
-      <a href="/illusions/mcgurk-effect" id="mcgurk-illusion" data-category="Physiological" data-difficulty="medium" data-difficulty-level="2" data-year="1976" class="illusion-card flex flex-col justify-between rounded-2xl border border-indigo-100/10 bg-white dark:bg-slate-900/60 backdrop-blur-sm p-6 shadow-xl relative group border-l-4 border-l-yellow-500">
-        <button class="share-btn absolute top-6 right-6 p-2 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-400 hover:text-slate-200 border border-slate-500/10 transition-colors z-20" aria-label="Share this illusion">
-          <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M15 8a3 3 0 1 0-2.977-2.63l-4.94 2.47a3 3 0 1 0 0 4.319l4.94 2.47a3 3 0 1 0 .895-1.789l-4.94-2.47a3.027 3.027 0 0 0 0-.74l4.94-2.47C13.456 7.68 14.19 8 15 8Z"/></svg>
-          <span class="share-toast absolute bottom-full right-0 mb-2 px-2.5 py-1 text-[10px] font-bold text-white bg-purple-600 rounded-lg shadow-md opacity-0 pointer-events-none transition-opacity duration-200 whitespace-nowrap">Link Copied! ✓</span>
-        </button>
-        <div>
-          <h3 class="font-display text-xl font-bold text-slate-900 dark:text-white mb-1 flex flex-col xs:flex-row xs:items-center gap-2 pr-10">
-            <span>McGurk Effect</span>
-            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-500/10 text-amber-500 border border-amber-500/20 w-fit">🟡 Medium</span>
-          </h3>
-          <div class="text-[10px] font-bold text-indigo-400 uppercase tracking-wide mb-2">Category: Physiological</div>
-          <p class="text-xs text-slate-600 dark:text-slate-400 mb-6">
-            Visual mouth movements override the auditory signal, making you hear "DA" instead of the actual audio "BA".
-          </p>
-        </div>
-        
-        <!-- Instruction Box -->
-        <div class="my-3 flex items-start gap-2 rounded-xl border border-indigo-500/10 bg-indigo-500/5 p-3 text-xs text-slate-350 text-left">
-          <span class="text-base leading-none">👁️</span>
-          <div>
-            <strong class="text-slate-200">👁️ WHAT TO LOOK FOR:</strong> Play the audio. Observe the mouth shape: does the visual coordinate make you hear DA instead of BA?
-          </div>
-        </div>
-<McGurkDemo isCard={true} />
-        <div class="mt-3 text-[11px] text-slate-500 dark:text-slate-400">
-          <strong>Discoverer:</strong> Harry McGurk & John MacDonald (1976)
-        </div>
-        <details class="mt-4 border-t border-slate-500/10 pt-3 text-xs text-slate-600 dark:text-slate-400">
-          <summary class="font-bold cursor-pointer hover:text-purple-500 dark:hover:text-purple-400 transition-colors select-none">🔬 Why it works</summary>
-          <p class="mt-2 leading-relaxed font-normal">
-            The McGurk Effect is a powerful audio-visual illusion showing how visual speech inputs alter auditory speech perception. When the mouth is seen speaking "GA" (velar consonant) but the audio track says "BA" (bilabial consonant), the brain integrates the conflicting visual and auditory streams to perceive "DA" (alveolar consonant), which is a fusion of the two coordinates. This proves that speech perception is multimodal.
-          </p>
-        </details>
-        <div class="mt-5 flex items-center justify-between text-xs font-bold text-purple-600 dark:text-purple-400 group-hover:text-purple-500 transition-colors">
-          <span>View Full Science & Facts</span>
-          <span>Explore &rarr;</span>
-        </div>
-      </a>
-
       <!-- Card 21: Delboeuf Circle Size Illusion -->
       <a href="/illusions/delboeuf" id="delboeuf-illusion" data-category="Geometric" data-difficulty="easy" data-difficulty-level="1" data-year="1867" class="illusion-card flex flex-col justify-between rounded-2xl border border-indigo-100/10 bg-white dark:bg-slate-900/60 backdrop-blur-sm p-6 shadow-xl hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(168,85,247,0.35)] hover:border-purple-500/40 cursor-pointer transition-all duration-300 relative group border-l-4 border-l-emerald-500">
         <button class="share-btn absolute top-6 right-6 p-2 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-400 hover:text-slate-200 border border-slate-500/10 transition-colors z-20" aria-label="Share this illusion">
@@ -1201,68 +1160,6 @@ const fraserRing3 = generateFraserDashes(100, 100, 28, 12, 25, 6);
           if (btnRotateVh) btnRotateVh.textContent = 'Rotate to Compare';
         }
       }
-    });
-
-    // 20. McGurk Effect Audio & Animation Synthesizer
-    const mcgurkContainer = document.getElementById('mcgurk-illusion');
-    const btnPlayMcgurk = document.getElementById('btn-play-mcgurk');
-    const mcgurkLips = document.getElementById('mcgurk-lips');
-    const mcgurkTeeth = document.getElementById('mcgurk-teeth');
-    const mcgurkTongue = document.getElementById('mcgurk-tongue');
-    const btnMcVotes = mcgurkContainer?.querySelectorAll('.btn-mc-vote');
-    const mcFeedback = document.getElementById('mcgurk-feedback');
-
-    btnPlayMcgurk?.addEventListener('click', (e) => {
-      e.stopPropagation();
-      
-      // 1. Play sound synthesized using Web Audio API
-      try {
-        const audioCtx = new (window.AudioContext || (window as any).webkitAudioContext)();
-        
-        // Simulating the "BA" sound synthesis:
-        // Consonants like B have a quick burst of low frequencies
-        const osc = audioCtx.createOscillator();
-        const gainNode = audioCtx.createGain();
-        
-        osc.connect(gainNode);
-        gainNode.connect(audioCtx.destination);
-        
-        // Pitch envelope: drops from 280Hz to 120Hz (simulating BA)
-        osc.frequency.setValueAtTime(280, audioCtx.currentTime);
-        osc.frequency.exponentialRampToValueAtTime(120, audioCtx.currentTime + 0.12);
-        
-        // Volume envelope: fast attack, quick decay
-        gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
-        gainNode.gain.linearRampToValueAtTime(0.8, audioCtx.currentTime + 0.02);
-        gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.25);
-        
-        osc.start(audioCtx.currentTime);
-        osc.stop(audioCtx.currentTime + 0.25);
-      } catch (err) {
-        console.error("Web Audio failed: ", err);
-      }
-
-      // 2. Animate lips to simulate "GA" (mouth wider and tongue visible)
-      if (mcgurkLips && mcgurkTeeth && mcgurkTongue) {
-        // Morph lips to "GA": flatter, open
-        mcgurkLips.setAttribute('d', 'M 10,30 Q 50,5 90,30 Q 50,55 10,30 Z');
-        mcgurkTeeth.classList.remove('opacity-0');
-        mcgurkTongue.classList.remove('opacity-0');
-        
-        setTimeout(() => {
-          // Reset mouth to closed state
-          mcgurkLips.setAttribute('d', 'M 10,30 Q 50,15 90,30 Q 50,45 10,30 Z');
-          mcgurkTeeth.classList.add('opacity-0');
-          mcgurkTongue.classList.add('opacity-0');
-        }, 300);
-      }
-    });
-
-    btnMcVotes?.forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        mcFeedback?.classList.remove('hidden');
-      });
     });
 
 

@@ -1,24 +1,27 @@
 ---
+// src/components/illusions/TroxlerFadingDemo.astro
 interface Props {
   isCard?: boolean;
 }
 
 const { isCard = false } = Astro.props;
 
-// Generate 12 dots positions on a circle of radius 150px centered at (210, 210)
+// Generate 12 dots evenly spaced on a circle of radius 150px, centered at (210, 210)
 const dots = Array.from({ length: 12 }).map((_, i) => {
-  const angle = (i * 30) * Math.PI / 180;
-  const cx = 210 + 150 * Math.cos(angle);
-  const cy = 210 + 150 * Math.sin(angle);
-  return { cx, cy, index: i };
+  const angle = (i * 30 * Math.PI) / 180;
+  return {
+    cx: 210 + 150 * Math.cos(angle),
+    cy: 210 + 150 * Math.sin(angle),
+    index: i
+  };
 });
 ---
 
 <div class="troxler-container flex flex-col items-center w-full select-none" data-is-card={isCard ? "true" : "false"}>
   
-  <div class="relative flex flex-col items-center justify-center w-full min-h-[460px] bg-[#d4d4d4] rounded-xl overflow-hidden border border-slate-350 shadow-inner p-6 pb-24">
+  <div class="relative flex flex-col items-center justify-center w-full min-h-[440px] bg-[#E8E8E8] rounded-xl overflow-hidden border border-slate-300 shadow-inner p-6 pb-16">
     <!-- SVG Area (420x420 px) -->
-    <svg class="w-full max-w-[420px] h-auto aspect-square select-none overflow-visible" viewBox="0 0 420 420">
+    <svg class="w-full max-w-[360px] h-auto aspect-square select-none overflow-visible" viewBox="0 0 420 420" width="420" height="420">
       <defs>
         <!-- Gaussian blur for soft, blurry edges (stdDeviation=6) -->
         <filter id="fuzzy-blur-troxler">
@@ -27,48 +30,37 @@ const dots = Array.from({ length: 12 }).map((_, i) => {
       </defs>
 
       <!-- Faint guide circle outline (radius exactly 150px, centered at (210, 210)) -->
-      <circle cx="210" cy="210" r="150" stroke="#b5b5b5" stroke-width="1.5" stroke-dasharray="4,4" fill="none" />
+      <circle cx="210" cy="210" r="150" stroke="#AAAAAA" stroke-width="1" stroke-dasharray="4,4" fill="none" />
 
-      <!-- Center fixation cross (+) size 20px, stroke-width 2px, color #333 -->
-      <line x1="200" y1="210" x2="220" y2="210" stroke="#333333" stroke-width="2" stroke-linecap="round" />
-      <line x1="210" y1="200" x2="210" y2="220" stroke="#333333" stroke-width="2" stroke-linecap="round" />
+      <!-- Center fixation cross (+) size 20px, stroke-width 2px, color #222222 -->
+      <line x1="200" y1="210" x2="220" y2="210" stroke="#222222" stroke-width="2" stroke-linecap="round" />
+      <line x1="210" y1="200" x2="210" y2="220" stroke="#222222" stroke-width="2" stroke-linecap="round" />
       
-      <!-- Circle of 12 soft, blurry pink dots (radius 18px, fill #FF9EBC) -->
+      <!-- Circle of 12 soft, blurry pink dots (radius 18px, fill #FFB3C6) -->
       <g class="troxler-dots-group">
         {dots.map(dot => (
           <circle 
             cx={dot.cx} 
             cy={dot.cy} 
             r="18" 
-            fill="#FF9EBC" 
-            class="troxler-dot transition-opacity duration-[400ms] ease-in-out" 
-            style="opacity: 1;"
+            fill="#FFB3C6" 
+            class="troxler-dot" 
+            style="opacity: 1; transition: opacity 0.3s ease-in-out;"
             filter="url(#fuzzy-blur-troxler)" 
             data-index={dot.index}
           />
         ))}
       </g>
     </svg>
-
-    <!-- Controller Bar -->
-    <div class="absolute bottom-3 flex flex-col items-center space-y-1 bg-slate-950/90 px-4 py-2 rounded-xl border border-slate-800 z-20 w-[240px]">
-      <span class="text-[8px] text-slate-400 font-bold uppercase tracking-wider text-center">Stare at center cross. Don't blink.</span>
-      <div class="flex items-center justify-between w-full">
-        <button class="btn-start-troxler bg-[#7C3AED] hover:bg-[#6D28D9] text-white text-[10px] font-black px-4 py-2 rounded-lg border-none transition-colors shadow cursor-pointer w-28">
-          Start Timer
-        </button>
-        <span class="troxler-time font-mono text-[11px] text-purple-400">20.0s</span>
-      </div>
-    </div>
   </div>
 
   <!-- Instruction Box & Feedback -->
   <div class="mt-3 p-3 bg-white/40 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 rounded-xl text-center w-full max-w-md">
-    <p class="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-bold">
-      There is NO green dot in this image. Zero. The green is entirely in your brain.
+    <p class="text-xs text-slate-700 dark:text-slate-350 leading-relaxed font-bold">
+      There is NO green dot in this image. Your brain creates it.
     </p>
     <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed mt-1.5">
-      Fix your gaze on the cross. Don't move your eyes. After a few seconds, the traveling gap will appear to become a phantom green dot chasing the gap around the ring due to neural adaptation (Troxler fading).
+      Fix your gaze on the cross. Don't move your eyes. After a few seconds, the traveling gap will appear to become a phantom green dot chasing the gap around the ring due to neural adaptation.
     </p>
   </div>
 </div>
@@ -80,71 +72,36 @@ const dots = Array.from({ length: 12 }).map((_, i) => {
       if (container.getAttribute('data-initialized') === 'true') return;
       container.setAttribute('data-initialized', 'true');
 
-      const startBtn = container.querySelector('.btn-start-troxler');
-      const timeDisplay = container.querySelector('.troxler-time');
-      const dots = container.querySelectorAll('.troxler-dot') as NodeListOf<SVGElement>;
+      const dots = Array.from(container.querySelectorAll('.troxler-dot')) as HTMLElement[];
+      if (dots.length === 0) return;
 
-      let timerInterval: any = null;
-      let blinkInterval: any = null;
-      let secondsLeft = 20.0;
-      let isRunning = false;
-      let blinkIndex = 0;
+      const N = 12;
+      let step = 0;
+      
+      // Start: fade dot 0 immediately
+      dots[0].style.opacity = '0';
 
-      const stopAll = () => {
-        clearInterval(timerInterval);
-        clearInterval(blinkInterval);
-        
-        // Reset all dots to fully visible
-        dots.forEach(dot => {
-          dot.style.opacity = '1';
-        });
+      const intervalId = setInterval(() => {
+        // Restore previous dot
+        dots[step].style.opacity = '1';
+        // Advance
+        step = (step + 1) % N;
+        // Fade new dot
+        dots[step].style.opacity = '0';
+      }, 500);
 
-        secondsLeft = 20.0;
-        if (timeDisplay) timeDisplay.textContent = '20.0s';
-        if (startBtn) startBtn.textContent = 'Start Timer';
-        isRunning = false;
-      };
-
-      startBtn?.addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-
-        if (isRunning) {
-          stopAll();
-          return;
+      // Clean up interval if container leaves DOM
+      const observer = new MutationObserver(() => {
+        if (!document.body.contains(container)) {
+          clearInterval(intervalId);
+          observer.disconnect();
         }
-
-        isRunning = true;
-        if (startBtn) startBtn.textContent = 'Reset';
-
-        const startTime = Date.now();
-        
-        // Start the rotating gap animation (changes active dot to 0 opacity, others to 1)
-        blinkInterval = setInterval(() => {
-          dots.forEach((dot, index) => {
-            if (index === blinkIndex) {
-              dot.style.opacity = '0';
-            } else {
-              dot.style.opacity = '1';
-            }
-          });
-          blinkIndex = (blinkIndex + 1) % dots.length;
-        }, 400); // 400ms fade duration matched with clockwise movement
-
-        // Start the countdown timer
-        timerInterval = setInterval(() => {
-          const elapsed = (Date.now() - startTime) / 1000;
-          secondsLeft = Math.max(20.0 - elapsed, 0.0);
-
-          if (secondsLeft <= 0) {
-            clearInterval(timerInterval);
-          }
-          if (timeDisplay) timeDisplay.textContent = `${secondsLeft.toFixed(1)}s`;
-        }, 100);
       });
+      observer.observe(document.body, { childList: true, subtree: true });
     });
   }
 
+  // Run on load
   initTroxler();
   document.addEventListener('astro:page-load', initTroxler);
 </script>

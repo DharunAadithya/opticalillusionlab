@@ -1,0 +1,248 @@
+---
+// src/pages/illusions/dalmatian-dog.astro
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout 
+  title="Camouflaged Dalmatian — Hidden Figure Optical Illusion | Optical Illusion Lab" 
+  description="Explore the classic Ronald C. James Dalmatian dog illusion. Find the sniffing dog in a field of black blobs. Test your visual grouping speed."
+>
+  <div class="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-12">
+    <!-- Breadcrumb back navigation -->
+    <nav class="flex text-xs font-black uppercase tracking-wider text-slate-400 space-x-2 pb-2 border-b border-indigo-500/10">
+      <a href="/" class="hover:text-white transition-colors">Home</a>
+      <span>/</span>
+      <a href="/hidden" class="hover:text-white transition-colors">Hidden & Ambiguous</a>
+      <span>/</span>
+      <span class="text-purple-400">Camouflaged Dalmatian</span>
+    </nav>
+
+    <!-- Header -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6">
+      <div class="space-y-3">
+        <div class="flex items-center space-x-2">
+          <span class="text-xs font-black px-2.5 py-0.5 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 uppercase tracking-wider">Hidden</span>
+          <span class="text-xs font-black px-2.5 py-0.5 rounded-full bg-red-550/10 text-red-500 border border-red-500/20 uppercase tracking-wider">🔴 Hard</span>
+        </div>
+        <h1 class="font-display text-4xl sm:text-5xl font-black tracking-tight text-slate-900 dark:text-white">
+          Camouflaged Dalmatian
+        </h1>
+        <p class="text-slate-600 dark:text-slate-355 text-base max-w-2xl font-medium">
+          Ronald C. James (1966). A famous example of visual closure where scattered black spots on a white background suddenly group to form a sniffing Dalmatian dog.
+        </p>
+      </div>
+      <button 
+        id="share-illusion-page-btn"
+        class="shrink-0 flex items-center space-x-2 rounded-lg bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-black text-sm px-6 py-3.5 transition-colors shadow-lg cursor-pointer border-none"
+      >
+        <span>Share Page</span>
+      </button>
+    </div>
+
+    <!-- MAIN GRID CONTAINER -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start">
+      <!-- Demo / SVG Column -->
+      <div class="lg:col-span-2 space-y-6">
+        <div id="illusion-card" class="relative flex flex-col items-center justify-center bg-white rounded-3xl border border-slate-200 p-8 min-h-[420px] shadow-sm select-none">
+          
+          <svg class="w-full max-w-[280px] h-auto aspect-square select-none overflow-visible" viewBox="0 0 300 300">
+            <!-- Background white canvas -->
+            <rect width="300" height="300" fill="#FFFFFF" rx="16" />
+            
+            <!-- Scattered Black Blobs creating camouflage noise (~30 blobs) -->
+            <circle cx="40" cy="50" r="12" fill="#000000" />
+            <circle cx="80" cy="30" r="16" fill="#000000" />
+            <circle cx="260" cy="40" r="22" fill="#000000" />
+            <circle cx="280" cy="110" r="14" fill="#000000" />
+            <circle cx="30" cy="220" r="18" fill="#000000" />
+            <circle cx="240" cy="260" r="20" fill="#000000" />
+
+            <!-- Dalmatian Spots (they form part of the body and background simultaneously) -->
+            <ellipse cx="85" cy="190" rx="6" ry="12" fill="#000000" transform="rotate(-30, 85, 190)" />
+            <circle cx="95" cy="175" r="5" fill="#000000" />
+            <ellipse cx="70" cy="210" rx="5" ry="9" fill="#000000" />
+            <circle cx="115" cy="160" r="8" fill="#000000" />
+            <circle cx="125" cy="170" r="6" fill="#000000" />
+
+            <!-- Back & Body spots -->
+            <ellipse cx="160" cy="140" rx="10" ry="16" fill="#000000" transform="rotate(45, 160, 140)" />
+            <circle cx="180" cy="135" r="7" fill="#000000" />
+            <circle cx="195" cy="150" r="9" fill="#000000" />
+            <ellipse cx="170" cy="165" rx="8" ry="12" fill="#000000" />
+            <circle cx="150" cy="180" r="6" fill="#000000" />
+
+            <!-- Rear leg spots -->
+            <circle cx="215" cy="190" r="10" fill="#000000" />
+            <circle cx="205" cy="210" r="6" fill="#000000" />
+            <ellipse cx="220" cy="235" rx="7" ry="14" fill="#000000" />
+
+            <!-- Foreleg spots -->
+            <circle cx="140" cy="210" r="5" fill="#000000" />
+            <ellipse cx="135" cy="235" rx="6" ry="12" fill="#000000" />
+
+            <!-- Snout sniff spot -->
+            <circle cx="55" cy="235" r="8" fill="#000000" />
+            <!-- Floor shadows -->
+            <ellipse cx="110" cy="255" rx="40" ry="6" fill="#000000" />
+            <ellipse cx="200" cy="255" rx="30" ry="5" fill="#000000" />
+            <ellipse cx="155" cy="252" rx="20" ry="4" fill="#000000" />
+
+            <!-- The outline of the Dalmatian dog (Revealed via stroke dash in Orange #F97316) -->
+            <path 
+              id="path-dog" 
+              class="reveal-path stroke-[#F97316] fill-none stroke-[3.5] stroke-linecap-round stroke-linejoin-round opacity-0" 
+              d="
+                M 245,100 
+                C 230,115 210,120 190,125 
+                C 170,130 150,135 130,140
+                C 115,145 105,150 95,160
+                C 85,170 80,185 75,195
+                C 70,205 60,215 52,225
+                C 50,230 55,235 60,235
+                C 70,230 80,225 90,215
+                C 100,205 105,200 115,205
+                C 125,210 128,215 130,225
+                L 125,250
+                L 135,250
+                C 140,235 142,220 145,210
+                C 155,205 170,205 180,210
+                C 185,215 190,230 195,250
+                L 205,250
+                C 205,235 210,215 220,205
+                C 230,200 240,180 242,160
+                C 245,140 250,120 255,105 Z" 
+            />
+          </svg>
+
+          <!-- Interactive controls at bottom -->
+          <div class="w-full max-w-sm mt-6 space-y-4">
+            <!-- Timer container -->
+            <div class="flex items-center justify-between p-3 bg-slate-50 rounded-xl border border-slate-200 text-xs">
+              <span class="font-bold text-slate-500 uppercase">Find the Hidden Figure</span>
+              <span id="countdown-timer" class="font-mono font-bold text-slate-700">30.0s</span>
+            </div>
+
+            <!-- Reveal & Hide Buttons -->
+            <div class="flex gap-2 w-full">
+              <button id="btn-reveal" class="flex-1 bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-bold text-xs py-2.5 rounded-lg border-none transition-colors cursor-pointer shadow">
+                Reveal
+              </button>
+              <button id="btn-hide" class="flex-1 bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-bold text-xs py-2.5 rounded-lg border-none transition-colors cursor-pointer shadow hidden">
+                Hide Answer
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Science / Explanation Column -->
+      <div class="space-y-8">
+        <section id="science-section" class="space-y-4">
+          <h2 class="font-display text-2xl font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">🧠</span>
+            <span>THE SCIENCE</span>
+          </h2>
+          <div class="prose prose-indigo dark:prose-invert text-slate-700 dark:text-slate-300 leading-relaxed text-xs sm:text-sm font-semibold text-justify">
+            <p>
+              <strong>Visual Closure & Gestalt Grouping:</strong> The Dalmatian Dog is a classic representation of perceptual organization. The image contains no explicit continuous lines outlining a dog; it only has scattered blobs of ink. 
+            </p>
+            <p>
+              Initially, your brain processes the spots as noise. But once your visual system groups the black patches together based on structural relationships (edges, shadows, legs, tail shape), it achieves "visual closure." Your brain instantly constructs a 3D model of a dog sniffing the ground.
+            </p>
+            <h4 class="font-extrabold text-purple-400 text-sm mt-4 mb-2">Perceptual Learning</h4>
+            <p>
+              Once your brain resolves the camouflaged shapes and sees the Dalmatian, it undergoes a lasting change called <strong>perceptual learning</strong>. Your brain retains this visual template in long-term memory. As a result, you will never be able to "un-see" the dog; the next time you look at this image, the Dalmatian will pop out instantly, illustrating how top-down memory structures visual processing.
+            </p>
+          </div>
+        </section>
+
+        <!-- RELATED LINKS -->
+        <section class="border-t border-indigo-500/10 pt-6 space-y-3">
+          <h3 class="font-display text-lg font-black text-slate-900 dark:text-white">Related Illusions</h3>
+          <div class="grid grid-cols-1 gap-3">
+            <a href="/illusions/hidden-tiger" class="rounded-xl border border-slate-200 bg-white dark:bg-slate-900/60 p-4 hover:border-purple-500/40 hover:-translate-y-0.5 transition-all text-xs font-bold text-slate-900 dark:text-white">
+              Tiger in the Bamboo &rarr;
+            </a>
+            <a href="/illusions/faces-in-tree" class="rounded-xl border border-slate-200 bg-white dark:bg-slate-900/60 p-4 hover:border-purple-500/40 hover:-translate-y-0.5 transition-all text-xs font-bold text-slate-900 dark:text-white">
+              Faces in the Tree &rarr;
+            </a>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    /* 1.5s stroke dashoffset animation */
+    .reveal-path {
+      stroke-dasharray: 1000;
+      stroke-dashoffset: 1000;
+    }
+  </style>
+
+  <script>
+    function initDalmatian() {
+      const timerText = document.getElementById('countdown-timer');
+      const btnReveal = document.getElementById('btn-reveal') as HTMLButtonElement;
+      const btnHide = document.getElementById('btn-hide') as HTMLButtonElement;
+      const pathDog = document.getElementById('path-dog') as SVGPathElement;
+
+      let secondsLeft = 30.0;
+      let timerActive = true;
+      let isRevealed = false;
+
+      const startTime = Date.now();
+      const intervalId = setInterval(() => {
+        if (!timerActive) {
+          clearInterval(intervalId);
+          return;
+        }
+        const elapsed = (Date.now() - startTime) / 1000;
+        secondsLeft = Math.max(30.0 - elapsed, 0.0);
+        if (timerText) timerText.textContent = `${secondsLeft.toFixed(1)}s`;
+
+        if (secondsLeft <= 0) {
+          clearInterval(intervalId);
+          triggerReveal();
+        }
+      }, 100);
+
+      const triggerReveal = () => {
+        isRevealed = true;
+        timerActive = false;
+        if (timerText) timerText.textContent = '0.0s';
+        
+        btnReveal?.classList.add('hidden');
+        btnHide?.classList.remove('hidden');
+
+        if (pathDog) {
+          pathDog.classList.remove('opacity-0');
+          pathDog.style.strokeDasharray = '1000';
+          pathDog.style.strokeDashoffset = '1000';
+          pathDog.getBoundingClientRect();
+          pathTiger = pathDog; // just local check, actually pathDog is correct
+          pathDog.style.transition = 'stroke-dashoffset 1.5s ease-in-out';
+          pathDog.style.strokeDashoffset = '0';
+        }
+      };
+
+      const triggerHide = () => {
+        isRevealed = false;
+        btnReveal?.classList.remove('hidden');
+        btnHide?.classList.add('hidden');
+
+        if (pathDog) {
+          pathDog.classList.add('opacity-0');
+          pathDog.style.strokeDasharray = '1000';
+          pathDog.style.strokeDashoffset = '1000';
+        }
+      };
+
+      btnReveal?.addEventListener('click', triggerReveal);
+      btnHide?.addEventListener('click', triggerHide);
+    }
+
+    initDalmatian();
+    document.addEventListener('astro:page-load', initDalmatian);
+  </script>
+</Layout>

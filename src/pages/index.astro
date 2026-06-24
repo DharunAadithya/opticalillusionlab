@@ -2,7 +2,6 @@
 // src/pages/index.astro
 import Layout from '../layouts/Layout.astro';
 import PoggendorffDemo from '../components/illusions/PoggendorffDemo.astro';
-import AdelsonDemo from '../components/illusions/AdelsonDemo.astro';
 import ColorSpheresDemo from '../components/illusions/ColorSpheresDemo.astro';
 import CurvatureBlindnessDemo from '../components/illusions/CurvatureBlindnessDemo.astro';
 import KanizsaTriangleDemo from '../components/illusions/KanizsaTriangleDemo.astro';
@@ -14,7 +13,7 @@ import PinnaBrelstaffDemo from '../components/illusions/PinnaBrelstaffDemo.astro
 
 <Layout 
   title="Optical Illusions — Trick Your Brain | Optical Illusion Lab" 
-  description="Explore the ultimate interactive gallery of 12 upgraded optical illusions. Test your brain with Adelson's Checkerboard, Troxler Fading, Curvature Blindness, Poggendorff, and more."
+  description="Explore the ultimate interactive gallery of 11 upgraded optical illusions. Test your brain with Troxler Fading, Curvature Blindness, Poggendorff, and more."
 >
   <script type="application/ld+json" slot="head">
     {
@@ -165,11 +164,11 @@ import PinnaBrelstaffDemo from '../components/illusions/PinnaBrelstaffDemo.astro
     </div>
 
     <!-- The 12 Illusion Cards Grid (Anchors linking to sub-pages) -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
       
       <!-- Card 1: Poggendorff Illusion (Amber Accent) -->
       <a href="/illusions/poggendorff" id="poggendorff-illusion" class="illusion-card flex flex-col justify-between rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-8 shadow-sm hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(245,158,11,0.12)] hover:border-amber-500/40 cursor-pointer transition-all duration-300 relative group border-l-4 border-l-yellow-500">
-        <button class="share-btn absolute top-6 right-6 p-2 rounded-lg bg-slate-50 hover:bg-slate-100 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-400 hover:text-slate-200 border border-slate-500/5 transition-colors z-20" aria-label="Share this illusion">
+        <button class="share-btn absolute top-6 right-6 p-2 rounded-lg bg-[#7C3AED] hover:bg-[#6D28D9] text-white border-none transition-colors z-20 cursor-pointer" aria-label="Share this illusion">
           <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M15 8a3 3 0 1 0-2.977-2.63l-4.94 2.47a3 3 0 1 0 0 4.319l4.94 2.47a3 3 0 1 0 .895-1.789l-4.94-2.47a3.027 3.027 0 0 0 0-.74l4.94-2.47C13.456 7.68 14.19 8 15 8Z"/></svg>
           <span class="share-toast absolute bottom-full right-0 mb-2 px-2.5 py-1 text-[10px] font-bold text-white bg-purple-600 rounded-lg shadow-md opacity-0 pointer-events-none transition-opacity duration-200 whitespace-nowrap">Link Copied! ✓</span>
         </button>
@@ -207,49 +206,10 @@ import PinnaBrelstaffDemo from '../components/illusions/PinnaBrelstaffDemo.astro
         </details>
 </a>
 
-      <!-- Card 2: Adelson Checkerboard (Purple Accent) -->
-      <a href="/illusions/adelsons-checkerboard" id="adelson-illusion" class="illusion-card flex flex-col justify-between rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-8 shadow-sm hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(168,85,247,0.12)] hover:border-purple-500/40 cursor-pointer transition-all duration-300 relative group border-l-4 border-l-rose-500">
-        <button class="share-btn absolute top-6 right-6 p-2 rounded-lg bg-slate-50 hover:bg-slate-100 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-400 hover:text-slate-200 border border-slate-500/5 transition-colors z-20" aria-label="Share this illusion">
-          <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M15 8a3 3 0 1 0-2.977-2.63l-4.94 2.47a3 3 0 1 0 0 4.319l4.94 2.47a3 3 0 1 0 .895-1.789l-4.94-2.47a3.027 3.027 0 0 0 0-.74l4.94-2.47C13.456 7.68 14.19 8 15 8Z"/></svg>
-          <span class="share-toast absolute bottom-full right-0 mb-2 px-2.5 py-1 text-[10px] font-bold text-white bg-purple-600 rounded-lg shadow-md opacity-0 pointer-events-none transition-opacity duration-200 whitespace-nowrap">Link Copied! ✓</span>
-        </button>
-
-        <div>
-          <span class="text-[9px] font-bold px-2 py-0.5 rounded bg-purple-50 dark:bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-200 dark:border-purple-500/20 w-fit mb-2 block">Contrast</span>
-          <h3 class="font-display text-xl font-bold text-slate-900 dark:text-white mb-2 pr-10">
-            Adelson Checkerboard
-          </h3>
-          <p class="text-sm text-slate-600 dark:text-slate-400 mb-6 italic">
-            Tile A in the light and Tile B in the cylinder shadow are identical gray colors, though your brain insists B is much lighter.
-          </p>
-        </div>
-
-        
-        <!-- Instruction Box -->
-        <div class="my-3 flex items-start gap-2 rounded-xl border border-indigo-500/10 bg-indigo-500/5 p-3 text-xs text-slate-350 text-left">
-          <span class="text-base leading-none">👁️</span>
-          <div>
-            <strong class="text-slate-200">👁️ WHAT TO LOOK FOR:</strong> Look at tiles A and B. Click 'Verify' to remove the background and check if they have the same shade of gray.
-          </div>
-        </div>
-        <AdelsonDemo isCard={true} />
-        <div class="mt-5 flex items-center justify-between text-xs font-bold text-purple-600 dark:text-purple-400 group-hover:text-purple-500 transition-colors">
-          <span>Interactive Details</span>
-          <span>Explore &rarr;</span>
-        </div>
-      
-        <!-- Collapsible Explanation -->
-        <details class="w-full mt-4 border-t border-slate-800/40 pt-3 text-xs text-slate-400 select-none text-left">
-          <summary class="font-bold cursor-pointer hover:text-purple-400">👁️ Reveal Answer & Science</summary>
-          <p class="mt-2 font-normal leading-relaxed text-slate-400">
-            Adelson's Checkerboard shows that the brain does not measure raw surface luminance; it evaluates colors relative to lighting. Because Tile B is inside the shadow cast by the cylinder, the visual cortex automatically scales its perceived brightness up, making it look white compared to Tile A.
-          </p>
-        </details>
-</a>
 
       <!-- Card 3: Color Spheres Illusion (Purple Accent) -->
       <a href="/illusions/color-spheres" id="spheres-illusion" class="illusion-card flex flex-col justify-between rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#1a1a2e] p-8 shadow-sm hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(168,85,247,0.12)] hover:border-purple-500/40 cursor-pointer transition-all duration-300 relative group border-l-4 border-l-yellow-500">
-        <button class="share-btn absolute top-6 right-6 p-2 rounded-lg bg-slate-50 hover:bg-slate-100 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-400 hover:text-slate-200 border border-slate-500/5 transition-colors z-20" aria-label="Share this illusion">
+        <button class="share-btn absolute top-6 right-6 p-2 rounded-lg bg-[#7C3AED] hover:bg-[#6D28D9] text-white border-none transition-colors z-20 cursor-pointer" aria-label="Share this illusion">
           <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M15 8a3 3 0 1 0-2.977-2.63l-4.94 2.47a3 3 0 1 0 0 4.319l4.94 2.47a3 3 0 1 0 .895-1.789l-4.94-2.47a3.027 3.027 0 0 0 0-.74l4.94-2.47C13.456 7.68 14.19 8 15 8Z"/></svg>
           <span class="share-toast absolute bottom-full right-0 mb-2 px-2.5 py-1 text-[10px] font-bold text-white bg-purple-600 rounded-lg shadow-md opacity-0 pointer-events-none transition-opacity duration-200 whitespace-nowrap">Link Copied! ✓</span>
         </button>
@@ -289,7 +249,7 @@ import PinnaBrelstaffDemo from '../components/illusions/PinnaBrelstaffDemo.astro
 
       <!-- Card 4: Curvature Blindness (Amber Accent) -->
       <a href="/illusions/curvature-blindness" id="curvature-illusion" class="illusion-card flex flex-col justify-between rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-8 shadow-sm hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(245,158,11,0.12)] hover:border-amber-500/40 cursor-pointer transition-all duration-300 relative group border-l-4 border-l-emerald-500">
-        <button class="share-btn absolute top-6 right-6 p-2 rounded-lg bg-slate-50 hover:bg-slate-100 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-400 hover:text-slate-200 border border-slate-500/5 transition-colors z-20" aria-label="Share this illusion">
+        <button class="share-btn absolute top-6 right-6 p-2 rounded-lg bg-[#7C3AED] hover:bg-[#6D28D9] text-white border-none transition-colors z-20 cursor-pointer" aria-label="Share this illusion">
           <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M15 8a3 3 0 1 0-2.977-2.63l-4.94 2.47a3 3 0 1 0 0 4.319l4.94 2.47a3 3 0 1 0 .895-1.789l-4.94-2.47a3.027 3.027 0 0 0 0-.74l4.94-2.47C13.456 7.68 14.19 8 15 8Z"/></svg>
           <span class="share-toast absolute bottom-full right-0 mb-2 px-2.5 py-1 text-[10px] font-bold text-white bg-purple-600 rounded-lg shadow-md opacity-0 pointer-events-none transition-opacity duration-200 whitespace-nowrap">Link Copied! ✓</span>
         </button>
@@ -328,7 +288,7 @@ import PinnaBrelstaffDemo from '../components/illusions/PinnaBrelstaffDemo.astro
 
       <!-- Card 5: Kanizsa Triangle (Emerald Accent) -->
       <a href="/illusions/kanizsa-triangle" id="kanizsa-illusion" class="illusion-card flex flex-col justify-between rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-8 shadow-sm hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(16,185,129,0.12)] hover:border-emerald-500/40 cursor-pointer transition-all duration-300 relative group border-l-4 border-l-emerald-500">
-        <button class="share-btn absolute top-6 right-6 p-2 rounded-lg bg-slate-50 hover:bg-slate-100 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-400 hover:text-slate-200 border border-slate-500/5 transition-colors z-20" aria-label="Share this illusion">
+        <button class="share-btn absolute top-6 right-6 p-2 rounded-lg bg-[#7C3AED] hover:bg-[#6D28D9] text-white border-none transition-colors z-20 cursor-pointer" aria-label="Share this illusion">
           <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M15 8a3 3 0 1 0-2.977-2.63l-4.94 2.47a3 3 0 1 0 0 4.319l4.94 2.47a3 3 0 1 0 .895-1.789l-4.94-2.47a3.027 3.027 0 0 0 0-.74l4.94-2.47C13.456 7.68 14.19 8 15 8Z"/></svg>
           <span class="share-toast absolute bottom-full right-0 mb-2 px-2.5 py-1 text-[10px] font-bold text-white bg-purple-600 rounded-lg shadow-md opacity-0 pointer-events-none transition-opacity duration-200 whitespace-nowrap">Link Copied! ✓</span>
         </button>
@@ -368,7 +328,7 @@ import PinnaBrelstaffDemo from '../components/illusions/PinnaBrelstaffDemo.astro
 
       <!-- Card 6: Troxler Fading (Purple Accent) -->
       <a href="/illusions/troxler-fading" id="troxler-illusion" class="illusion-card flex flex-col justify-between rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#1a1a2e] p-8 shadow-sm hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(168,85,247,0.12)] hover:border-purple-500/40 cursor-pointer transition-all duration-300 relative group border-l-4 border-l-rose-500">
-        <button class="share-btn absolute top-6 right-6 p-2 rounded-lg bg-slate-50 hover:bg-slate-100 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-400 hover:text-slate-200 border border-slate-500/5 transition-colors z-20" aria-label="Share this illusion">
+        <button class="share-btn absolute top-6 right-6 p-2 rounded-lg bg-[#7C3AED] hover:bg-[#6D28D9] text-white border-none transition-colors z-20 cursor-pointer" aria-label="Share this illusion">
           <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M15 8a3 3 0 1 0-2.977-2.63l-4.94 2.47a3 3 0 1 0 0 4.319l4.94 2.47a3 3 0 1 0 .895-1.789l-4.94-2.47a3.027 3.027 0 0 0 0-.74l4.94-2.47C13.456 7.68 14.19 8 15 8Z"/></svg>
           <span class="share-toast absolute bottom-full right-0 mb-2 px-2.5 py-1 text-[10px] font-bold text-white bg-purple-600 rounded-lg shadow-md opacity-0 pointer-events-none transition-opacity duration-200 whitespace-nowrap">Link Copied! ✓</span>
         </button>
@@ -408,7 +368,7 @@ import PinnaBrelstaffDemo from '../components/illusions/PinnaBrelstaffDemo.astro
 
       <!-- Card 9: Reverse Spoke Illusion (Purple Accent) -->
       <a href="/illusions/reverse-spoke" id="spoke-illusion" class="illusion-card flex flex-col justify-between rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#1a1a2e] p-8 shadow-sm hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(168,85,247,0.12)] hover:border-purple-500/40 cursor-pointer transition-all duration-300 relative group border-l-4 border-l-purple-500">
-        <button class="share-btn absolute top-6 right-6 p-2 rounded-lg bg-slate-50 hover:bg-slate-100 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-400 hover:text-slate-200 border border-slate-500/5 transition-colors z-20" aria-label="Share this illusion">
+        <button class="share-btn absolute top-6 right-6 p-2 rounded-lg bg-[#7C3AED] hover:bg-[#6D28D9] text-white border-none transition-colors z-20 cursor-pointer" aria-label="Share this illusion">
           <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M15 8a3 3 0 1 0-2.977-2.63l-4.94 2.47a3 3 0 1 0 0 4.319l4.94 2.47a3 3 0 1 0 .895-1.789l-4.94-2.47a3.027 3.027 0 0 0 0-.74l4.94-2.47C13.456 7.68 14.19 8 15 8Z"/></svg>
           <span class="share-toast absolute bottom-full right-0 mb-2 px-2.5 py-1 text-[10px] font-bold text-white bg-purple-600 rounded-lg shadow-md opacity-0 pointer-events-none transition-opacity duration-200 whitespace-nowrap">Link Copied! ✓</span>
         </button>
@@ -448,7 +408,7 @@ import PinnaBrelstaffDemo from '../components/illusions/PinnaBrelstaffDemo.astro
 
       <!-- Card 10: Afterimage Light Bulb (Green Accent for Easy) -->
       <a href="/illusions/afterimage-lightbulb" id="afterimage-bulb-card" class="illusion-card flex flex-col justify-between rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-8 shadow-sm relative group border-l-4 border-l-emerald-500">
-        <button class="share-btn absolute top-6 right-6 p-2 rounded-lg bg-slate-50 hover:bg-slate-100 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-400 hover:text-slate-200 border border-slate-500/5 transition-colors z-20" aria-label="Share this illusion" data-share-url="/illusions/afterimage-lightbulb">
+        <button class="share-btn absolute top-6 right-6 p-2 rounded-lg bg-[#7C3AED] hover:bg-[#6D28D9] text-white border-none transition-colors z-20 cursor-pointer" aria-label="Share this illusion" data-share-url="/illusions/afterimage-lightbulb">
           <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M15 8a3 3 0 1 0-2.977-2.63l-4.94 2.47a3 3 0 1 0 0 4.319l4.94 2.47a3 3 0 1 0 .895-1.789l-4.94-2.47a3.027 3.027 0 0 0 0-.74l4.94-2.47C13.456 7.68 14.19 8 15 8Z"/></svg>
           <span class="share-toast absolute bottom-full right-0 mb-2 px-2.5 py-1 text-[10px] font-bold text-white bg-purple-600 rounded-lg shadow-md opacity-0 pointer-events-none transition-opacity duration-200 whitespace-nowrap">Link Copied! ✓</span>
         </button>
@@ -493,7 +453,7 @@ import PinnaBrelstaffDemo from '../components/illusions/PinnaBrelstaffDemo.astro
 
       <!-- Card 12: Pinna-Brelstaff Illusion (Purple Accent) -->
       <a href="/illusions/pinna-brelstaff" id="pinna-illusion" class="illusion-card flex flex-col justify-between rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-[#1a1a2e] p-8 shadow-sm hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(168,85,247,0.12)] hover:border-purple-500/40 cursor-pointer transition-all duration-300 relative group border-l-4 border-l-purple-500">
-        <button class="share-btn absolute top-6 right-6 p-2 rounded-lg bg-slate-50 hover:bg-slate-100 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-400 hover:text-slate-200 border border-slate-500/5 transition-colors z-20" aria-label="Share this illusion">
+        <button class="share-btn absolute top-6 right-6 p-2 rounded-lg bg-[#7C3AED] hover:bg-[#6D28D9] text-white border-none transition-colors z-20 cursor-pointer" aria-label="Share this illusion">
           <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M15 8a3 3 0 1 0-2.977-2.63l-4.94 2.47a3 3 0 1 0 0 4.319l4.94 2.47a3 3 0 1 0 .895-1.789l-4.94-2.47a3.027 3.027 0 0 0 0-.74l4.94-2.47C13.456 7.68 14.19 8 15 8Z"/></svg>
           <span class="share-toast absolute bottom-full right-0 mb-2 px-2.5 py-1 text-[10px] font-bold text-white bg-purple-600 rounded-lg shadow-md opacity-0 pointer-events-none transition-opacity duration-200 whitespace-nowrap">Link Copied! ✓</span>
         </button>
@@ -572,7 +532,7 @@ import PinnaBrelstaffDemo from '../components/illusions/PinnaBrelstaffDemo.astro
             Many illusions work at the foundational level of edge and contrast detection. For instance, in the <strong>Poggendorff Illusion</strong>, the slanted appearance is triggered by the brain's visual cortex processing orientation and depth sequentially. When the vertical rectangle blocks the diagonal line, our orientation-sensitive simple cells overestimate the acute angle, making the exit path look misaligned. Toggling the rectangle away instantly proves that the segments are collinear.
           </p>
           <p>
-            In <strong>Adelson's Checkerboard</strong>, the brain resolves brightness not by measuring absolute luminance, but by evaluating shadows. The brain knows that shadows dim surfaces, so it automatically scales up the perceived brightness of Tile B inside the shadow, making it look much whiter than Tile A, even though their RGB values are identical. Similarly, in the <strong>Wertheimer-Koffka Ring</strong>, a uniform gray ring on a split background appears split in brightness due to relative contrast.
+            In <strong>White's Illusion</strong>, the brain resolves brightness not by measuring absolute luminance, but by evaluating spatial grouping and border ownership. The brain groups each gray bar with the stripe pattern it continues rather than with its immediate local background, showing that brightness is context-dependent. Similarly, in the <strong>Wertheimer-Koffka Ring</strong>, a uniform gray ring on a split background appears split in brightness due to relative contrast.
           </p>
 
           <div class="pl-6 border-l-4 border-purple-500 my-8">
@@ -702,7 +662,6 @@ import PinnaBrelstaffDemo from '../components/illusions/PinnaBrelstaffDemo.astro
     // ----------------------------------------------------
     const illusions = [
       { id: 'poggendorff-illusion', name: 'Poggendorff Illusion', tease: 'Diagonal line segments interrupted by a thick vertical rectangle look misaligned, but are actually continuous.' },
-      { id: 'adelson-illusion', name: 'Adelson Checkerboard', tease: 'Tile A in the light and Tile B in the cylinder shadow are identical gray colors, though your brain insists B is much lighter.' },
       { id: 'spheres-illusion', name: 'Color Spheres Illusion', tease: 'Nine spheres appear red, blue, and green, but all are actually identical grey. Overlapping colored lines create the color.' },
       { id: 'curvature-illusion', name: 'Curvature Blindness', tease: 'Identical wavy lines appear as sharp zig-zags or smooth curves depending entirely on where the color changes.' },
       { id: 'kanizsa-illusion', name: 'Kanizsa Triangle', tease: 'A white triangle appears to float in the center, yet not a single triangle boundary is actually drawn.' },

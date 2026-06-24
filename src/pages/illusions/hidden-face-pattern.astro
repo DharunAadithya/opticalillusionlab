@@ -1,0 +1,237 @@
+---
+// src/pages/illusions/hidden-face-pattern.astro
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout 
+  title="Hidden Face in Pattern — Optical Illusion | Optical Illusion Lab" 
+  description="Spot the face hidden in a repeated organic texture. Test your visual integration with a 30s timer."
+>
+  <div class="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-12">
+    <!-- Breadcrumb back navigation -->
+    <nav class="flex text-xs font-black uppercase tracking-wider text-slate-400 space-x-2 pb-2 border-b border-indigo-500/10">
+      <a href="/" class="hover:text-white transition-colors">Home</a>
+      <span>/</span>
+      <a href="/hidden" class="hover:text-white transition-colors">Hidden & Ambiguous</a>
+      <span>/</span>
+      <span class="text-purple-400">Hidden Face in Pattern</span>
+    </nav>
+
+    <!-- Header -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6">
+      <div class="space-y-3">
+        <div class="flex items-center space-x-2">
+          <span class="text-xs font-black px-2.5 py-0.5 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 uppercase tracking-wider">Hidden</span>
+          <span class="text-xs font-black px-2.5 py-0.5 rounded-full bg-red-550/10 text-red-500 border border-red-500/20 uppercase tracking-wider">🔴 Hard</span>
+        </div>
+        <h1 class="font-display text-4xl sm:text-5xl font-black tracking-tight text-slate-900 dark:text-white">
+          Hidden Face in Pattern
+        </h1>
+        <p class="text-slate-600 dark:text-slate-355 text-base max-w-2xl font-medium">
+          A pareidolia optical illusion where an organic warm brown texture hides a subtle human face.
+        </p>
+      </div>
+      <button 
+        id="share-illusion-page-btn"
+        class="shrink-0 flex items-center space-x-2 rounded-lg bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-black text-sm px-6 py-3.5 transition-colors shadow-lg cursor-pointer border-none"
+      >
+        <span>Share Page</span>
+      </button>
+    </div>
+
+    <!-- MAIN GRID CONTAINER -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start">
+      <!-- Demo / SVG Column -->
+      <div class="lg:col-span-2 space-y-6">
+        <div id="illusion-card" class="relative flex flex-col items-center justify-center bg-white rounded-3xl border border-slate-200 p-8 min-h-[420px] shadow-sm select-none">
+          
+          <svg class="w-full max-w-[280px] h-auto aspect-square select-none overflow-visible" viewBox="0 0 300 300">
+            <!-- Background: Deep warm brown -->
+            <rect width="300" height="300" fill="#3d2314" rx="16" />
+            
+            <!-- Overlapping Organic Shapes (Warm browns) -->
+            <g fill="#5c3d2e" opacity="0.8">
+              <ellipse cx="50" cy="50" rx="40" ry="25" transform="rotate(30, 50, 50)" />
+              <ellipse cx="250" cy="50" rx="35" ry="30" transform="rotate(-20, 250, 50)" />
+              <ellipse cx="50" cy="250" rx="38" ry="22" transform="rotate(-15, 50, 250)" />
+              <ellipse cx="250" cy="250" rx="42" ry="28" transform="rotate(40, 250, 250)" />
+            </g>
+            <g fill="#865439" opacity="0.7">
+              <circle cx="100" cy="40" r="30" />
+              <circle cx="200" cy="40" r="28" />
+              <circle cx="40" cy="150" r="35" />
+              <circle cx="260" cy="150" r="32" />
+              <circle cx="100" cy="260" r="28" />
+              <circle cx="200" cy="260" r="32" />
+            </g>
+            <g fill="#c68b59" opacity="0.6">
+              <ellipse cx="150" cy="60" rx="45" ry="20" />
+              <ellipse cx="150" cy="240" rx="40" ry="25" />
+              <ellipse cx="70" cy="190" rx="25" ry="35" transform="rotate(10, 70, 190)" />
+              <ellipse cx="230" cy="190" rx="30" ry="25" transform="rotate(-10, 230, 190)" />
+            </g>
+
+            <!-- Subtle Embedded Face Shadows (blends with the texture) -->
+            <g fill="#271307" opacity="0.85">
+              <!-- Left eye-shadow region -->
+              <ellipse cx="110" cy="120" rx="16" ry="12" transform="rotate(-5, 110, 120)" />
+              <!-- Right eye-shadow region -->
+              <ellipse cx="190" cy="120" rx="16" ry="12" transform="rotate(5, 190, 120)" />
+              <!-- Nose shadow -->
+              <path d="M 145,115 Q 150,150 142,165 Q 155,165 158,160 Q 152,150 151,115 Z" />
+              <!-- Lip curve shadow -->
+              <path d="M 125,200 Q 150,212 175,200 Q 150,205 125,200 Z" />
+            </g>
+
+            <!-- Reveal Highlight Overlay: Light Purple (#C084FC) Ellipses and Text Labels -->
+            <g id="reveal-face-group" class="opacity-0 transition-opacity duration-300" stroke="#C084FC" stroke-width="2.5" fill="none">
+              <!-- Left Eye -->
+              <ellipse class="reveal-path" cx="110" cy="120" rx="20" ry="15" />
+              <text x="110" y="95" fill="#C084FC" font-size="10" font-weight="900" stroke="none" text-anchor="middle">Eye</text>
+
+              <!-- Right Eye -->
+              <ellipse class="reveal-path" cx="190" cy="120" rx="20" ry="15" />
+              <text x="190" y="95" fill="#C084FC" font-size="10" font-weight="900" stroke="none" text-anchor="middle">Eye</text>
+
+              <!-- Nose -->
+              <path class="reveal-path" d="M 142,115 L 142,165 L 158,165 L 158,115" />
+              <text x="150" y="182" fill="#C084FC" font-size="10" font-weight="900" stroke="none" text-anchor="middle">Nose</text>
+
+              <!-- Mouth -->
+              <ellipse class="reveal-path" cx="150" cy="203" rx="30" ry="10" />
+              <text x="150" y="230" fill="#C084FC" font-size="10" font-weight="900" stroke="none" text-anchor="middle">Mouth</text>
+            </g>
+          </svg>
+
+          <!-- Interactive controls at bottom -->
+          <div class="w-full max-w-sm mt-6 space-y-4">
+            <!-- Timer container -->
+            <div class="flex items-center justify-between p-3 bg-slate-50 rounded-xl border border-slate-200 text-xs">
+              <span class="font-bold text-slate-500 uppercase">Find the Hidden Figure</span>
+              <span id="countdown-timer" class="font-mono font-bold text-slate-700">30.0s</span>
+            </div>
+
+            <!-- Reveal & Hide Buttons -->
+            <div class="flex gap-2 w-full">
+              <button id="btn-reveal" class="flex-1 bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-bold text-xs py-2.5 rounded-lg border-none transition-colors cursor-pointer shadow">
+                Reveal
+              </button>
+              <button id="btn-hide" class="flex-1 bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-bold text-xs py-2.5 rounded-lg border-none transition-colors cursor-pointer shadow hidden">
+                Hide Answer
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Science / Explanation Column -->
+      <div class="space-y-8">
+        <section id="science-section" class="space-y-4">
+          <h2 class="font-display text-2xl font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">🧠</span>
+            <span>THE SCIENCE</span>
+          </h2>
+          <div class="prose prose-indigo dark:prose-invert text-slate-700 dark:text-slate-300 leading-relaxed text-xs sm:text-sm font-semibold text-justify">
+            <p>
+              <strong>Pareidolia & Feature Alignment:</strong> This visual puzzle shows how repeated patterns disrupt shape recognition. 
+            </p>
+            <p>
+              When a texture consists of organic shapes in warm browns, the brain's visual area V4 categorizes it as a homogenous field, filtering out local features. Because a few shadows (representing eyes, nose, and mouth) are subtly embedded, they are hidden in plain sight. Only when you perform a slow, element-by-element scan does the local alignment stand out, allowing your face-detection centers (FFA) to parse the layout and resolve the face.
+            </p>
+          </div>
+        </section>
+
+        <!-- RELATED LINKS -->
+        <section class="border-t border-indigo-500/10 pt-6 space-y-3">
+          <h3 class="font-display text-lg font-black text-slate-900 dark:text-white">Related Illusions</h3>
+          <div class="grid grid-cols-1 gap-3">
+            <a href="/illusions/dalmatian-dog" class="rounded-xl border border-slate-200 bg-white dark:bg-slate-900/60 p-4 hover:border-purple-500/40 hover:-translate-y-0.5 transition-all text-xs font-bold text-slate-900 dark:text-white">
+              Camouflaged Dalmatian &rarr;
+            </a>
+            <a href="/illusions/hidden-arrow" class="rounded-xl border border-slate-200 bg-white dark:bg-slate-900/60 p-4 hover:border-purple-500/40 hover:-translate-y-0.5 transition-all text-xs font-bold text-slate-900 dark:text-white">
+              Hidden Arrow &rarr;
+            </a>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    /* 1.5s stroke dashoffset animation */
+    .reveal-path {
+      stroke-dasharray: 1000;
+      stroke-dashoffset: 1000;
+    }
+  </style>
+
+  <script>
+    function initHiddenFace() {
+      const timerText = document.getElementById('countdown-timer');
+      const btnReveal = document.getElementById('btn-reveal') as HTMLButtonElement;
+      const btnHide = document.getElementById('btn-hide') as HTMLButtonElement;
+      const groupReveal = document.getElementById('reveal-face-group');
+
+      let secondsLeft = 30.0;
+      let timerActive = true;
+      let isRevealed = false;
+
+      const startTime = Date.now();
+      const intervalId = setInterval(() => {
+        if (!timerActive) {
+          clearInterval(intervalId);
+          return;
+        }
+        const elapsed = (Date.now() - startTime) / 1000;
+        secondsLeft = Math.max(30.0 - elapsed, 0.0);
+        if (timerText) timerText.textContent = `${secondsLeft.toFixed(1)}s`;
+
+        if (secondsLeft <= 0) {
+          clearInterval(intervalId);
+          triggerReveal();
+        }
+      }, 100);
+
+      const triggerReveal = () => {
+        isRevealed = true;
+        timerActive = false;
+        if (timerText) timerText.textContent = '0.0s';
+        
+        btnReveal?.classList.add('hidden');
+        btnHide?.classList.remove('hidden');
+
+        if (groupReveal) {
+          groupReveal.classList.remove('opacity-0');
+          groupReveal.querySelectorAll('.reveal-path').forEach(p => {
+            const path = p as SVGPathElement;
+            path.style.strokeDasharray = '1000';
+            path.style.strokeDashoffset = '1000';
+            path.getBoundingClientRect();
+            path.style.transition = 'stroke-dashoffset 1.5s ease-in-out';
+            path.style.strokeDashoffset = '0';
+          });
+        }
+      };
+
+      const triggerHide = () => {
+        isRevealed = false;
+        btnReveal?.classList.remove('hidden');
+        btnHide?.classList.add('hidden');
+
+        if (groupReveal) {
+          groupReveal.classList.add('opacity-0');
+          groupReveal.querySelectorAll('.reveal-path').forEach(p => {
+            (p as SVGPathElement).style.strokeDasharray = '1000';
+            (p as SVGPathElement).style.strokeDashoffset = '1000';
+          });
+        }
+      };
+
+      btnReveal?.addEventListener('click', triggerReveal);
+      btnHide?.addEventListener('click', triggerHide);
+    }
+
+    initHiddenFace();
+    document.addEventListener('astro:page-load', initHiddenFace);
+  </script>
+</Layout>

@@ -1,11 +1,41 @@
 ---
 // src/pages/illusions/motion-aftereffect.astro
 import Layout from '../../layouts/Layout.astro';
+
+// Helper to generate Archimedean Spiral coordinates for Motion Aftereffect
+function getSpiralWedgePath(cx: number, cy: number, maxR: number, startAngleRad: number, spiralTightness: number) {
+  const pointsOuter = [];
+  const pointsInner = [];
+  const steps = 100;
+  const angleWedgeWidth = (2 * Math.PI) / 8; // 8 sectors total (4 black, 4 white)
+  
+  for (let i = 0; i <= steps; i++) {
+    const r = (i / steps) * maxR;
+    const theta1 = startAngleRad + spiralTightness * r;
+    const x1 = cx + r * Math.cos(theta1);
+    const y1 = cy + r * Math.sin(theta1);
+    pointsOuter.push(`${x1.toFixed(1)},${y1.toFixed(1)}`);
+    
+    const theta2 = startAngleRad + angleWedgeWidth + spiralTightness * r;
+    const x2 = cx + r * Math.cos(theta2);
+    const y2 = cy + r * Math.sin(theta2);
+    pointsInner.unshift(`${x2.toFixed(1)},${y2.toFixed(1)}`);
+  }
+  
+  return `M ${pointsOuter.join(' L ')} L ${pointsInner.join(' L ')} Z`;
+}
+
+// Generate the 4 spiral wedges for the 300px diameter stimulus
+const wedges = [];
+for (let i = 0; i < 4; i++) {
+  const startAngleRad = (i * 2 * Math.PI) / 4;
+  wedges.push(getSpiralWedgePath(150, 150, 150, startAngleRad, 0.05));
+}
 ---
 
 <Layout 
   title="Motion Aftereffect — Interactive Optical Illusion | Optical Illusion Lab" 
-  description="Stare at the rotating spiral for 30 seconds, then watch it freeze to see it warp and spin in the opposite direction!"
+  description="Stare at the rotating spiral for 20 seconds, then watch the concentric circles expand or contract!"
 >
   <div class="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-12">
     
@@ -28,15 +58,15 @@ import Layout from '../../layouts/Layout.astro';
         <h1 class="font-display text-4xl sm:text-5xl font-black tracking-tight text-slate-900 dark:text-white">
           Motion Aftereffect
         </h1>
-        <p class="text-slate-600 dark:text-slate-350 text-base max-w-2xl font-medium">
-          Stare at the spinning spiral for 30 seconds. When it freezes, the static image will appear to swirl in the opposite direction!
+        <p class="text-slate-600 dark:text-slate-355 text-base max-w-2xl font-medium">
+          Stare at the spinning spiral for 20 seconds. When it stops, look at the static concentric circles to see them expand or contract.
         </p>
       </div>
 
       <!-- Share Button -->
       <button 
         id="share-illusion-page-btn"
-        class="relative shrink-0 flex items-center space-x-2 rounded-2xl bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-600 hover:scale-105 text-white font-black text-sm px-6 py-3.5 transition-all shadow-lg shadow-purple-500/10"
+        class="shrink-0 flex items-center space-x-2 rounded-lg bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-black text-sm px-6 py-3.5 transition-colors shadow-lg cursor-pointer border-none"
       >
         <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M15 8a3 3 0 1 0-2.977-2.63l-4.94 2.47a3 3 0 1 0 0 4.319l4.94 2.47a3 3 0 1 0 .895-1.789l-4.94-2.47a3.027 3.027 0 0 0 0-.74l4.94-2.47C13.456 7.68 14.19 8 15 8Z"/></svg>
         <span>Share Page</span>
@@ -47,29 +77,34 @@ import Layout from '../../layouts/Layout.astro';
     <!-- LARGE INTERACTIVE DEMO -->
     <div class="flex flex-col items-center justify-center py-6 border-b border-indigo-500/10">
       <div class="w-full max-w-[600px] mx-auto space-y-4">
-        <div id="motion-illusion-container" class="relative flex flex-col items-center justify-center h-96 w-full bg-slate-950 border border-slate-800 rounded-xl overflow-hidden p-8">
+        <div id="motion-illusion-container" class="relative flex flex-col items-center justify-center h-[400px] w-full bg-white border border-slate-200 rounded-xl overflow-hidden p-8 shadow-inner">
           
-          <!-- Spiral SVG -->
-          <svg id="svg-motion-spiral" class="w-56 h-56 select-none transition-transform duration-500" viewBox="0 0 100 100">
-            <!-- Outermost circle -->
-            <circle cx="50" cy="50" r="45" fill="none" stroke="#ec4899" stroke-width="3" />
-            <!-- Concentric spirals/curves -->
-            <path d="M 50,50 C 30,30 20,50 50,5" fill="none" stroke="#ec4899" stroke-width="2.5" />
-            <path d="M 50,50 C 70,30 80,50 95,50" fill="none" stroke="#ec4899" stroke-width="2.5" />
-            <path d="M 50,50 C 70,70 80,50 50,95" fill="none" stroke="#ec4899" stroke-width="2.5" />
-            <path d="M 50,50 C 30,70 20,50 5,50" fill="none" stroke="#ec4899" stroke-width="2.5" />
-            
-            <path d="M 50,50 C 40,40 30,50 50,15" fill="none" stroke="#3b82f6" stroke-width="1.5" />
-            <path d="M 50,50 C 60,40 70,50 85,50" fill="none" stroke="#3b82f6" stroke-width="1.5" />
-            <path d="M 50,50 C 60,60 70,50 50,85" fill="none" stroke="#3b82f6" stroke-width="1.5" />
-            <path d="M 50,50 C 40,60 30,50 15,50" fill="none" stroke="#3b82f6" stroke-width="1.5" />
-            
-            <!-- Central yellow staring dot -->
-            <circle cx="50" cy="50" r="3.5" fill="#eab308" />
+          <!-- Spiral SVG (300px diameter) -->
+          <svg id="svg-motion-spiral" class="w-[300px] h-[300px] select-none rounded-full border border-slate-350 bg-white" viewBox="0 0 300 300" width="300" height="300">
+            <!-- Staring Stimulus Group -->
+            <g id="motion-spiral-g" class="origin-center" style="transform-origin: 150px 150px;">
+              <!-- White background circle base -->
+              <circle cx="150" cy="150" r="150" fill="#FFFFFF" />
+              <!-- 4 Black Wedges -->
+              {wedges.map(path => (
+                <path d={path} fill="#000000" stroke="none" />
+              ))}
+            </g>
+
+            <!-- Post-Adaptation Display: Concentric Circles (Shown after 20s) -->
+            <g id="motion-static-circles" class="hidden">
+              <circle cx="150" cy="150" r="150" fill="#FFFFFF" />
+              {Array.from({ length: 7 }).map((_, i) => (
+                <circle cx="150" cy="150" r={(i + 1) * 20} fill="none" stroke="#000000" stroke-width="2" />
+              ))}
+            </g>
+
+            <!-- Central red staring dot (always on top) -->
+            <circle cx="150" cy="150" r="6" fill="#ef4444" stroke="#ffffff" stroke-width="2" />
           </svg>
 
           <!-- Text overlay indicating frozen state -->
-          <div id="motion-freeze-overlay" class="absolute top-4 left-4 bg-purple-900/90 text-white font-black text-[10px] px-3 py-1.5 rounded-full border border-purple-500/20 uppercase tracking-widest hidden animate-pulse">
+          <div id="motion-freeze-overlay" class="absolute top-4 left-4 bg-[#7C3AED] text-white font-black text-[10px] px-3 py-1.5 rounded-full border border-purple-500/20 uppercase tracking-widest hidden animate-pulse">
             Spiral Frozen! Stare at center 🌀
           </div>
 
@@ -79,21 +114,25 @@ import Layout from '../../layouts/Layout.astro';
               <div id="motion-progress-fill" class="bg-purple-500 h-full w-full transition-all duration-100"></div>
             </div>
             <div class="flex items-center justify-between w-full">
-              <button id="btn-start-motion" class="text-xs font-black px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white transition-all shadow-md">Start Spinning (30s)</button>
-              <span id="motion-timer-text" class="font-mono text-xs text-purple-400 font-black">30.0s</span>
+              <button id="btn-start-motion" class="text-xs font-black px-4 py-2 rounded-lg bg-[#7C3AED] hover:bg-[#6D28D9] text-white transition-colors cursor-pointer border-none">Start Spinning (20s)</button>
+              <span id="motion-timer-text" class="font-mono text-xs text-purple-400 font-black">20.0s</span>
             </div>
           </div>
+        </div>
+
+        <div id="motion-static-text" class="hidden text-center text-sm text-purple-400 font-extrabold py-2 bg-purple-950/10 rounded-xl border border-purple-500/20">
+          Look at the center of this image. Does it appear to expand or contract?
         </div>
 
         <!-- Experience Feedback Panel (hidden by default) -->
         <div id="experience-feedback-panel" class="hidden w-full p-6 bg-slate-900/90 border border-white/10 rounded-2xl text-left space-y-4 shadow-xl">
           <h4 class="text-xs font-black uppercase text-purple-400">Stare Experience Verdict</h4>
           <p class="text-[11px] text-slate-350 font-semibold leading-relaxed">
-            Did the motion aftereffect work for you? Did you notice the frozen spiral appear to rotate or warp in the opposite direction?
+            Did the motion aftereffect work for you? Did you notice the static circles appear to expand or contract?
           </p>
           <div class="flex gap-2">
-            <button id="btn-work-yes" class="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs py-2 rounded-xl transition-all">Yes, it worked! 👍</button>
-            <button id="btn-work-no" class="flex-1 bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs py-2 rounded-xl transition-all">No, it didn't... 👎</button>
+            <button id="btn-work-yes" class="flex-1 bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-bold text-xs py-2 rounded-lg transition-colors cursor-pointer border-none">Yes, it worked! 👍</button>
+            <button id="btn-work-no" class="flex-1 bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-bold text-xs py-2 rounded-lg transition-colors cursor-pointer border-none">No, it didn't... 👎</button>
           </div>
           
           <!-- Result/Troubleshooting section -->
@@ -101,27 +140,27 @@ import Layout from '../../layouts/Layout.astro';
             <div id="verdict-yes-content" class="hidden text-emerald-450 font-semibold leading-relaxed space-y-2">
               <p>✓ Awesome! Your visual cortex adapted exactly as predicted.</p>
               <div class="p-3 bg-emerald-500/5 border border-emerald-500/20 rounded-lg text-[10px] text-slate-350 space-y-2">
-                <p><strong>Neurological Explanation:</strong> Staring at the rotating spiral fatigues direction-selective neurons in the middle temporal area (MT/V5) of your visual cortex that respond to clockwise motion. When the spiral freezes, these neurons fire below their baseline rate. The counterpart neurons tuned to counter-clockwise motion fire at their normal resting rate. Your brain interprets this relative imbalance as actual motion, causing the static spiral to appear to spin in reverse.</p>
+                <p><strong>Neurological Explanation:</strong> Staring at the rotating spiral fatigues direction-selective neurons in the middle temporal area (MT/V5) of your visual cortex that respond to inward rotation. When the spiral vanishes and static concentric circles are displayed, the non-adapted neurons representing outward expansion fire relatively faster. Your brain interprets this relative imbalance as actual motion, causing the static concentric circles to appear to expand outward.</p>
               </div>
             </div>
             <div id="verdict-no-content" class="hidden text-slate-350 leading-relaxed space-y-2">
               <p class="text-rose-400 font-bold">✗ Keep Trying!</p>
               <div class="p-3 bg-rose-500/5 border border-rose-500/20 rounded-lg text-[10px] space-y-1">
                 <strong class="text-white">Troubleshooting Tips:</strong>
-                <ul class="list-disc pl-4 space-y-1 text-slate-300">
-                  <li>Keep your gaze locked strictly on the central yellow dot during the entire 30-second spinning countdown.</li>
+                <ul class="list-disc pl-4 space-y-1 text-slate-350 font-normal">
+                  <li>Keep your gaze locked strictly on the central red dot during the entire 20-second spinning countdown.</li>
                   <li>Try not to blink or look around, as any eye movement resets or decreases adaptation in your motion-sensitive neurons.</li>
-                  <li>Once the spiral stops, maintain your focus on the yellow dot. The motion aftereffect should appear within a few seconds of freezing.</li>
+                  <li>Once the spiral stops, maintain your focus on the red dot. The expanding aftereffect should appear on the static concentric circles immediately.</li>
                   <li>Ensure your screen brightness is at least 60% and sit closer to the screen.</li>
                 </ul>
               </div>
             </div>
-            <button id="btn-reset-experience" class="w-full border border-purple-500/30 text-purple-400 hover:bg-purple-500/10 font-bold text-[10px] py-1.5 rounded-xl transition-all">Try Again 🔄</button>
+            <button id="btn-reset-experience" class="w-full bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-bold text-[10px] py-2 rounded-lg transition-colors border-none cursor-pointer">Try Again 🔄</button>
           </div>
         </div>
 
         <div class="text-center text-xs text-slate-500 dark:text-slate-400 italic">
-          Use the "Start Spinning" controller to run the 30-second motion-induction timer.
+          Use the "Start Spinning" controller to run the 20-second motion-induction timer.
         </div>
       </div>
     </div>
@@ -135,13 +174,13 @@ import Layout from '../../layouts/Layout.astro';
             <span class="text-purple-500">🎮</span>
             <span>EXPERIENCE IT FIRST</span>
           </h2>
-          <div class="bg-indigo-950/20 border-2 border-indigo-500/15 rounded-3xl p-6 text-slate-700 dark:text-slate-300">
+          <div class="bg-indigo-955/20 border-2 border-indigo-500/15 rounded-3xl p-6 text-slate-700 dark:text-slate-300">
             <p class="font-bold text-sm sm:text-base text-slate-200">Follow these steps to experience the Motion Aftereffect:</p>
             <ul class="list-disc pl-5 mt-3 space-y-2 text-xs sm:text-sm font-medium">
               <li>Click the "Start Spinning" button to activate the rapid rotation.</li>
-              <li>Focus your gaze entirely on the yellow dot at the center of the spiral. Keep your head and eyes completely still.</li>
-              <li>When the timer hits 0s, the spiral will freeze instantly.</li>
-              <li>Keep looking at the yellow center dot. The stationary spiral will appear to warp, swirl, or expand in the opposite direction for several seconds.</li>
+              <li>Focus your gaze entirely on the red dot at the center of the spiral. Keep your head and eyes completely still.</li>
+              <li>When the timer hits 0s, the spiral will freeze and immediately swap to static concentric circles.</li>
+              <li>Keep looking at the red center dot. The stationary circles will appear to expand or contract for several seconds.</li>
             </ul>
           </div>
         </section>
@@ -159,7 +198,7 @@ import Layout from '../../layouts/Layout.astro';
 
       <!-- Right Column -->
       <div class="space-y-8">
-        <section class="rounded-3xl border border-indigo-950/20 bg-slate-900/60 p-6 space-y-4 shadow-xl">
+        <section class="rounded-3xl border border-indigo-955/20 bg-slate-900/60 p-6 space-y-4 shadow-xl">
           <h3 class="font-display text-lg font-black text-slate-900 dark:text-white flex items-center space-x-2">
             <span class="text-purple-500">📜</span>
             <span>HISTORY</span>
@@ -171,6 +210,16 @@ import Layout from '../../layouts/Layout.astro';
       </div>
     </div>
   </div>
+
+  <style is:global>
+    @keyframes spin-clockwise-anim {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .animate-spiral-spin {
+      animation: spin-clockwise-anim 4s linear infinite;
+    }
+  </style>
 
   <script>
     const sharePageBtn = document.getElementById('share-illusion-page-btn');
@@ -195,7 +244,9 @@ import Layout from '../../layouts/Layout.astro';
     const timerText = document.getElementById('motion-timer-text') as HTMLElement;
     const progressFill = document.getElementById('motion-progress-fill') as HTMLElement;
     const progressContainer = document.getElementById('motion-progress-bar-container');
-    const spiral = document.getElementById('svg-motion-spiral');
+    const spiralG = document.getElementById('motion-spiral-g');
+    const staticCirclesG = document.getElementById('motion-static-circles');
+    const staticTextDiv = document.getElementById('motion-static-text');
     const freezeOverlay = document.getElementById('motion-freeze-overlay');
 
     const feedbackPanel = document.getElementById('experience-feedback-panel');
@@ -206,7 +257,7 @@ import Layout from '../../layouts/Layout.astro';
     const noContent = document.getElementById('verdict-no-content');
     const resetExpBtn = document.getElementById('btn-reset-experience');
 
-    let secondsLeft = 30.0;
+    let secondsLeft = 20.0;
     let timerId: any = null;
     let spinningActive = false;
 
@@ -220,14 +271,16 @@ import Layout from '../../layouts/Layout.astro';
     const stopSpinning = () => {
       clearInterval(timerId);
       spinningActive = false;
-      secondsLeft = 30.0;
-      timerText.textContent = '30.0s';
+      secondsLeft = 20.0;
+      timerText.textContent = '20.0s';
       progressContainer?.classList.add('hidden');
-      spiral?.classList.remove('animate-spin');
-      // Set to double spin duration to clear the fast spinning
-      spiral?.style.removeProperty('animation');
+      spiralG?.classList.remove('animate-spiral-spin');
+      spiralG?.style.removeProperty('animation-play-state');
+      spiralG?.classList.remove('hidden');
+      staticCirclesG?.classList.add('hidden');
+      staticTextDiv?.classList.add('hidden');
       freezeOverlay?.classList.add('hidden');
-      startBtn.textContent = 'Start Spinning (30s)';
+      startBtn.textContent = 'Start Spinning (20s)';
       hideFeedback();
     };
 
@@ -236,33 +289,36 @@ import Layout from '../../layouts/Layout.astro';
         stopSpinning();
       } else {
         spinningActive = true;
-        secondsLeft = 30.0;
-        timerText.textContent = '30.0s';
+        secondsLeft = 20.0;
+        timerText.textContent = '20.0s';
         progressContainer?.classList.remove('hidden');
         freezeOverlay?.classList.add('hidden');
+        spiralG?.classList.remove('hidden');
+        staticCirclesG?.classList.add('hidden');
+        staticTextDiv?.classList.add('hidden');
         
-        // Add fast spin class and override custom CSS timing
-        spiral?.classList.add('animate-spin');
-        spiral!.style.animationDuration = '1.2s';
-        spiral!.style.animationTimingFunction = 'linear';
-        spiral!.style.animationIterationCount = 'infinite';
+        // Add smooth slow rotation
+        spiralG?.classList.add('animate-spiral-spin');
+        if (spiralG) spiralG.style.animationPlayState = 'running';
 
-        startBtn.textContent = 'Reset Spin 🔄';
+        startBtn.textContent = 'Reset 🔄';
         hideFeedback();
 
         const startTime = Date.now();
         timerId = setInterval(() => {
           const elapsed = (Date.now() - startTime) / 1000;
-          secondsLeft = 30.0 - elapsed;
+          secondsLeft = 20.0 - elapsed;
           if (secondsLeft <= 0) {
             secondsLeft = 0;
             clearInterval(timerId);
             timerText.textContent = '0.0s';
             progressContainer?.classList.add('hidden');
             
-            // Stop spin immediately by removing animation styles
-            spiral?.classList.remove('animate-spin');
-            spiral?.style.removeProperty('animation');
+            if (spiralG) spiralG.style.animationPlayState = 'paused';
+            spiralG?.classList.add('hidden');
+            
+            staticCirclesG?.classList.remove('hidden');
+            staticTextDiv?.classList.remove('hidden');
             
             freezeOverlay?.classList.remove('hidden');
             startBtn.textContent = 'Try Stare Again 🔄';
@@ -272,7 +328,7 @@ import Layout from '../../layouts/Layout.astro';
             feedbackPanel?.classList.remove('hidden');
           }
           if (timerText) timerText.textContent = `${secondsLeft.toFixed(1)}s`;
-          if (progressFill) progressFill.style.width = `${(secondsLeft / 30.0) * 100}%`;
+          if (progressFill) progressFill.style.width = `${(secondsLeft / 20.0) * 100}%`;
         }, 100);
       }
     });

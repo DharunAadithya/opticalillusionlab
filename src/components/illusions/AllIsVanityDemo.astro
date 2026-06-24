@@ -1,0 +1,167 @@
+---
+interface Props {
+  isCard?: boolean;
+}
+
+const { isCard = false } = Astro.props;
+---
+
+<div class="vanity-container flex flex-col items-center w-full select-none" data-is-card={isCard ? "true" : "false"}>
+  <div class="relative flex flex-col items-center justify-center bg-[#0B0F19] rounded-2xl overflow-hidden border border-slate-800 shadow-inner w-full min-h-[380px] p-4 pb-20">
+    
+    <!-- High-Fidelity SVG Viewbox 0 0 300 300 -->
+    <svg class="w-full max-w-[280px] h-auto aspect-square select-none overflow-visible" viewBox="0 0 300 300">
+      <defs>
+        <!-- Soft skull glow filter -->
+        <filter id="skull-glow" x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur stdDeviation="6" result="blur" />
+          <feComposite in="SourceGraphic" in2="blur" operator="over" />
+        </filter>
+        <!-- Elegant wood/mirror gradient -->
+        <linearGradient id="mirror-grad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#334155" />
+          <stop offset="30%" stop-color="#1E293B" />
+          <stop offset="70%" stop-color="#0F172A" />
+          <stop offset="100%" stop-color="#1E293B" />
+        </linearGradient>
+        <!-- Woman dress shading -->
+        <linearGradient id="dress-grad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#E2E8F0" />
+          <stop offset="100%" stop-color="#475569" />
+        </linearGradient>
+      </defs>
+
+      <!-- Draw dresser frame / table background shadow -->
+      <path d="M 40,250 L 260,250 L 250,290 L 50,290 Z" fill="#1E293B" stroke="#0F172A" stroke-width="2.5" />
+      
+      <!-- Mirror stand & base (supports the circle frame) -->
+      <path d="M 120,250 L 120,225 L 180,225 L 180,250 Z" fill="#334155" stroke="#0f172a" stroke-width="2" />
+      
+      <!-- Large Circular Vanity Mirror (Forms the outer skull dome) -->
+      <circle cx="150" cy="125" r="75" fill="url(#mirror-grad)" stroke="#475569" stroke-width="4.5" />
+      <circle cx="150" cy="125" r="71" fill="none" stroke="#0F172A" stroke-width="1.5" />
+      
+      <!-- Symmetrical dark curtains/shadows draped around mirror (defining skull cheek curves) -->
+      <path d="M 65,80 C 45,100 50,160 70,185 C 80,170 85,150 78,125 Z" fill="#020617" opacity="0.85" />
+      <path d="M 235,80 C 255,100 250,160 230,185 C 220,170 215,150 222,125 Z" fill="#020617" opacity="0.85" />
+
+      <!-- The Woman sitting in front of mirror -->
+      <!-- Dress back & shoulders (forms the nasal/maxilla outline of skull) -->
+      <path d="M 115,250 C 115,205 130,180 150,180 C 170,180 185,205 185,250 Z" fill="url(#dress-grad)" stroke="#0F172A" stroke-width="2" />
+      
+      <!-- Hair Bun on the left (Forms the Left Eye Socket) -->
+      <circle cx="126" cy="132" r="16" fill="#090D16" stroke="#1E293B" stroke-width="1" />
+      <circle cx="126" cy="132" r="11" fill="#020617" />
+      <path d="M 112,126 C 118,120 128,120 134,126" fill="none" stroke="#475569" stroke-width="1" />
+
+      <!-- Face Reflection on the right (Forms the Right Eye Socket) -->
+      <!-- Profile contour: forehead, nose, lips, chin facing right inside mirror -->
+      <circle cx="174" cy="132" r="16" fill="#090D16" stroke="#1E293B" stroke-width="1" />
+      <path d="M 166,122 C 172,118 180,123 182,128 C 180,132 178,136 172,137 C 166,134 164,126 166,122 Z" fill="#020617" />
+      <!-- Skin reflection highlights -->
+      <path d="M 164,132 Q 170,134 174,132" fill="none" stroke="#94A3B8" stroke-width="1" />
+
+      <!-- Choker necklace / Old woman mouth -->
+      <path d="M 142,205 Q 150,208 158,205" fill="none" stroke="#EF4444" stroke-width="4.5" stroke-linecap="round" />
+
+      <!-- White perfume bottles & cosmetics on table (Forms the skull Teeth) -->
+      <g fill="#FFFFFF" stroke="#0F172A" stroke-width="1.5">
+        <!-- Bottle 1 -->
+        <rect x="120" y="235" width="6" height="15" rx="1.5" />
+        <rect x="121" y="231" width="4" height="4" />
+        
+        <!-- Bottle 2 -->
+        <rect x="132" y="232" width="7" height="18" rx="1.5" fill="#E2E8F0" />
+        <circle cx="135.5" cy="229" r="2" fill="#E2E8F0" />
+
+        <!-- Bottle 3 (Center) -->
+        <rect x="147" y="236" width="6" height="14" rx="1.5" />
+        
+        <!-- Bottle 4 -->
+        <rect x="161" y="232" width="7" height="18" rx="1.5" fill="#E2E8F0" />
+        <circle cx="164.5" cy="229" r="2" fill="#E2E8F0" />
+
+        <!-- Bottle 5 -->
+        <rect x="174" y="235" width="6" height="15" rx="1.5" />
+        <rect x="175" y="231" width="4" height="4" />
+      </g>
+
+      <!-- Skull shape highlights overlay (toggled via button) -->
+      <g class="vanity-overlay-skull opacity-0 transition-opacity duration-300 pointer-events-none" filter="url(#skull-glow)">
+        <!-- Outer Skull contour in transparent red -->
+        <circle cx="150" cy="125" r="74" fill="none" stroke="#EF4444" stroke-width="3" />
+        <!-- Eye socket circles -->
+        <circle cx="126" cy="132" r="18" fill="none" stroke="#EF4444" stroke-width="2.5" />
+        <circle cx="174" cy="132" r="18" fill="none" stroke="#EF4444" stroke-width="2.5" />
+        <!-- Nose cavity -->
+        <path d="M 144,175 L 150,165 L 156,175 Z" fill="none" stroke="#EF4444" stroke-width="2.5" />
+        <!-- Teeth region -->
+        <rect x="116" y="228" width="68" height="23" fill="none" stroke="#EF4444" stroke-width="2.5" rx="4" />
+      </g>
+
+      <!-- Woman highlights overlay -->
+      <g class="vanity-overlay-woman opacity-0 transition-opacity duration-300 pointer-events-none">
+        <path d="M 115,250 C 115,205 130,180 150,180 C 170,180 185,205 185,250" fill="none" stroke="#3B82F6" stroke-width="3.5" />
+        <circle cx="126" cy="132" r="19" fill="none" stroke="#3B82F6" stroke-width="2" />
+        <circle cx="174" cy="132" r="19" fill="none" stroke="#3B82F6" stroke-width="2" />
+      </g>
+    </svg>
+
+    <!-- Overlay Toggle Controls inside container -->
+    <div class="absolute bottom-2 flex gap-2 z-20">
+      <button class="btn-toggle-vanity-woman bg-[#7C3AED] hover:bg-[#6D28D9] text-white text-[9px] font-black px-3 py-1.5 rounded-lg border-none transition-colors cursor-pointer uppercase">Show Woman 👩</button>
+      <button class="btn-toggle-vanity-skull bg-[#7C3AED] hover:bg-[#6D28D9] text-white text-[9px] font-black px-3 py-1.5 rounded-lg border-none transition-colors cursor-pointer uppercase">Show Skull 💀</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  function initVanity() {
+    const containers = document.querySelectorAll('.vanity-container');
+    containers.forEach(container => {
+      if (container.getAttribute('data-initialized') === 'true') return;
+      container.setAttribute('data-initialized', 'true');
+
+      const btnW = container.querySelector('.btn-toggle-vanity-woman');
+      const btnS = container.querySelector('.btn-toggle-vanity-skull');
+      const overlayW = container.querySelector('.vanity-overlay-woman');
+      const overlayS = container.querySelector('.vanity-overlay-skull');
+
+      let wActive = false;
+      let sActive = false;
+
+      btnW?.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        wActive = !wActive;
+        if (overlayW) {
+          if (wActive) {
+            overlayW.classList.replace('opacity-0', 'opacity-100');
+            btnW.textContent = "Hide Woman 👩";
+          } else {
+            overlayW.classList.replace('opacity-100', 'opacity-0');
+            btnW.textContent = "Show Woman 👩";
+          }
+        }
+      });
+
+      btnS?.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        sActive = !sActive;
+        if (overlayS) {
+          if (sActive) {
+            overlayS.classList.replace('opacity-0', 'opacity-100');
+            btnS.textContent = "Hide Skull 💀";
+          } else {
+            overlayS.classList.replace('opacity-100', 'opacity-0');
+            btnS.textContent = "Show Skull 💀";
+          }
+        }
+      });
+    });
+  }
+
+  initVanity();
+  document.addEventListener('astro:page-load', initVanity);
+</script>

@@ -7,48 +7,89 @@ const { isCard = false } = Astro.props;
 ---
 
 <div class="poggendorff-container flex flex-col items-center w-full select-none" data-is-card={isCard ? "true" : "false"}>
-  <div class="relative flex flex-col items-center justify-center bg-white rounded-xl overflow-hidden border border-slate-200 shadow-inner w-full min-h-[380px] p-6 pb-20">
+  <div class="relative flex flex-col items-center justify-center bg-slate-900 rounded-xl overflow-hidden border border-slate-800 shadow-inner w-full min-h-[400px] p-6 pb-24">
     
-    <div class="mb-4 text-center max-w-sm">
-      <p class="text-xs font-bold text-slate-800">
-        Which colored line (red or blue) is the true continuation of the black line? Click to reveal.
+    <div class="mb-3 text-center max-w-sm">
+      <p class="text-xs font-bold text-slate-300">
+        Adjust the slider to align the right line with the left black line!
       </p>
     </div>
 
     <!-- SVG Area (Exactly 500x400) -->
-    <svg class="pogg-svg w-full max-w-[400px] h-auto aspect-[5/4] select-none overflow-visible" viewBox="0 0 500 400">
+    <svg class="pogg-svg w-full max-w-[400px] h-auto aspect-[5/4] select-none overflow-visible rounded-lg shadow-lg border border-slate-950" viewBox="0 0 500 400">
       <!-- Background of SVG is white -->
       <rect x="0" y="0" width="500" height="400" fill="#FFFFFF" />
 
       <!-- Left Black Line segment -->
-      <line class="stroke-black stroke-[4] stroke-linecap-round" x1="110" y1="0" x2="210" y2="200" />
+      <line class="stroke-[#1E293B] stroke-[5] stroke-linecap-round" x1="80" y1="70" x2="210" y2="200" />
       
-      <!-- Right Red Line (True continuation) -->
-      <line class="stroke-[#EF4444] stroke-[3] stroke-linecap-round" x1="290" y1="360" x2="310" y2="400" />
+      <!-- Right Adjustable Line (User controlled) -->
+      <!-- True continuation starts at (290, 280) and ends at (410, 400).
+           We add vertical offset dynamically in script. -->
+      <line 
+        class="pogg-user-line stroke-[#7C3AED] stroke-[5] stroke-linecap-round transition-all duration-75" 
+        x1="290" 
+        y1="255" 
+        x2="410" 
+        y2="375" 
+      />
       
-      <!-- Right Blue Line (Offset, parallel) -->
-      <line class="stroke-[#3B82F6] stroke-[3] stroke-linecap-round" x1="290" y1="340" x2="320" y2="400" />
+      <!-- True continuation reference line (Drawn in green, shown only on check) -->
+      <line class="pogg-true-line hidden stroke-[#10B981] stroke-[5] stroke-linecap-round" x1="290" y1="280" x2="410" y2="400" />
 
-      <!-- Intercepting Gray Rectangle -->
-      <rect class="pogg-rect fill-[#999999] shadow-md transition-opacity duration-300" x="210" y="25" width="80" height="350" rx="4" />
+      <!-- Intercepting Gray/Gradient Rectangle (The Occluder) -->
+      <defs>
+        <linearGradient id="occluder-gradient" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#475569" />
+          <stop offset="50%" stop-color="#64748B" />
+          <stop offset="100%" stop-color="#334155" />
+        </linearGradient>
+        <filter id="occluder-shadow" x="-20%" y="-10%" width="140%" height="120%">
+          <feDropShadow dx="3" dy="3" stdDeviation="4" flood-color="#000000" flood-opacity="0.3" />
+        </filter>
+      </defs>
+      
+      <rect 
+        class="pogg-rect fill-[url(#occluder-gradient)]" 
+        x="210" 
+        y="25" 
+        width="80" 
+        height="350" 
+        rx="6" 
+        filter="url(#occluder-shadow)"
+      />
 
-      <!-- Thin red connecting line (Shown on reveal, drawn over the rectangle) -->
-      <line class="pogg-connector hidden stroke-[#EF4444] stroke-[1.5] stroke-dasharray-[3,3]" x1="210" y1="200" x2="290" y2="360" />
+      <!-- Thin red connecting line (Shown on check, drawn under the occluder? No, over it to prove continuity) -->
+      <line class="pogg-connector hidden stroke-[#EF4444] stroke-[2] stroke-dasharray-[4,4]" x1="210" y1="200" x2="290" y2="280" />
     </svg>
 
     <!-- Controls Panel -->
-    <div class="absolute bottom-3 z-20 flex gap-3">
-      <button class="btn-reveal-pogg bg-[#7C3AED] hover:bg-[#6D28D9] text-white text-[10px] font-black px-4 py-2 rounded-lg border-none transition-colors shadow-sm cursor-pointer">
-        Reveal Answer
-      </button>
-      <button class="btn-reset-pogg hidden bg-[#7C3AED] hover:bg-[#6D28D9] text-white text-[10px] font-black px-4 py-2 rounded-lg border-none transition-colors shadow-sm cursor-pointer">
-        Reset
-      </button>
+    <div class="absolute bottom-3 left-4 right-4 z-20 flex flex-col items-center gap-2">
+      <!-- Slider -->
+      <div class="flex items-center gap-3 w-full max-w-[320px] bg-slate-950/80 px-3 py-2 rounded-xl border border-slate-800">
+        <span class="text-[10px] font-bold text-slate-400 uppercase whitespace-nowrap">Shift Line:</span>
+        <input 
+          type="range" 
+          class="pogg-slider flex-grow h-1.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-[#7C3AED]" 
+          min="-60" 
+          max="60" 
+          value="-25" 
+        />
+      </div>
+
+      <div class="flex gap-2">
+        <button class="btn-check-pogg bg-[#7C3AED] hover:bg-[#6D28D9] text-white text-[10px] font-black px-4 py-2 rounded-lg border-none transition-colors shadow-sm cursor-pointer">
+          Check Alignment
+        </button>
+        <button class="btn-reset-pogg hidden bg-[#7C3AED] hover:bg-[#6D28D9] text-white text-[10px] font-black px-4 py-2 rounded-lg border-none transition-colors shadow-sm cursor-pointer">
+          Reset Game
+        </button>
+      </div>
     </div>
   </div>
 
   <!-- Feedback Text -->
-  <div class="pogg-feedback mt-3 text-center text-xs font-semibold text-slate-650 h-5">
+  <div class="pogg-feedback mt-3 text-center text-xs font-semibold text-slate-700 dark:text-slate-300 min-h-6 max-w-md">
     <!-- Feedback injected here -->
   </div>
 </div>
@@ -60,21 +101,46 @@ const { isCard = false } = Astro.props;
       if (container.getAttribute('data-initialized') === 'true') return;
       container.setAttribute('data-initialized', 'true');
 
-      const btnReveal = container.querySelector('.btn-reveal-pogg');
-      const btnReset = container.querySelector('.btn-reset-pogg');
+      const slider = container.querySelector('.pogg-slider') as HTMLInputElement;
+      const userLine = container.querySelector('.pogg-user-line');
+      const trueLine = container.querySelector('.pogg-true-line');
       const connector = container.querySelector('.pogg-connector');
+      const btnCheck = container.querySelector('.btn-check-pogg');
+      const btnReset = container.querySelector('.btn-reset-pogg');
       const feedback = container.querySelector('.pogg-feedback');
 
-      btnReveal?.addEventListener('click', (e) => {
+      const baseTrueY1 = 280;
+      const baseTrueY2 = 400;
+
+      // Update line position in real-time as user slides
+      const updateLine = () => {
+        if (!slider || !userLine) return;
+        const offset = parseInt(slider.value);
+        userLine.setAttribute('y1', (baseTrueY1 + offset).toString());
+        userLine.setAttribute('y2', (baseTrueY2 + offset).toString());
+      };
+
+      slider?.addEventListener('input', updateLine);
+      updateLine();
+
+      btnCheck?.addEventListener('click', (e) => {
         e.preventDefault();
         e.stopPropagation();
 
+        const offset = parseInt(slider.value);
+        trueLine?.classList.remove('hidden');
         connector?.classList.remove('hidden');
-        btnReveal?.classList.add('hidden');
+
+        btnCheck?.classList.add('hidden');
         btnReset?.classList.remove('hidden');
+        if (slider) slider.disabled = true;
 
         if (feedback) {
-          feedback.innerHTML = '<span class="text-emerald-600 font-bold">Revealed:</span> The <span class="text-[#EF4444] font-bold">Red line</span> is the true straight continuation! The blue line is parallel but offset.';
+          if (Math.abs(offset) <= 2) {
+            feedback.innerHTML = '<span class="text-emerald-500 font-bold">Perfect! ✓</span> You aligned the lines perfectly! The green line shows the true path.';
+          } else {
+            feedback.innerHTML = `You are off by <span class="text-rose-500 font-bold">${Math.abs(offset)} pixels</span>! The illusion made you think they aligned. The green line shows the actual path.`;
+          }
         }
       });
 
@@ -82,9 +148,16 @@ const { isCard = false } = Astro.props;
         e.preventDefault();
         e.stopPropagation();
 
+        trueLine?.classList.add('hidden');
         connector?.classList.add('hidden');
-        btnReveal?.classList.remove('hidden');
+
+        btnCheck?.classList.remove('hidden');
         btnReset?.classList.add('hidden');
+        if (slider) {
+          slider.disabled = false;
+          slider.value = "-25";
+          updateLine();
+        }
 
         if (feedback) {
           feedback.innerHTML = '';

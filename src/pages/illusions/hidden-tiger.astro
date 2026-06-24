@@ -4,11 +4,10 @@ import Layout from '../../layouts/Layout.astro';
 ---
 
 <Layout 
-  title="The Hidden Tiger — Interactive Word-Pattern Optical Illusion | Optical Illusion Lab" 
-  description="Stare at the tiger's side stripes. Can you read the words 'the hidden tiger' hidden in plain sight? Test your top-down text processing centers."
+  title="The Hidden Tiger — Camouflage Optical Illusion | Optical Illusion Lab" 
+  description="Spot the tiger hidden in the vertical bamboo forest. Take the 30-second timer challenge and learn the science."
 >
   <div class="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-12">
-    
     <!-- Breadcrumb back navigation -->
     <nav class="flex text-xs font-black uppercase tracking-wider text-slate-400 space-x-2 pb-2 border-b border-indigo-500/10">
       <a href="/" class="hover:text-white transition-colors">Home</a>
@@ -18,198 +17,235 @@ import Layout from '../../layouts/Layout.astro';
       <span class="text-purple-400">The Hidden Tiger</span>
     </nav>
 
-    <!-- Hero Header Section -->
+    <!-- Header -->
     <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6">
       <div class="space-y-3">
         <div class="flex items-center space-x-2">
-          <span class="text-xs font-black px-2.5 py-0.5 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 uppercase tracking-wider">Type 3: Ambiguous Figures</span>
-          <span class="text-xs font-black px-2.5 py-0.5 rounded-full bg-yellow-500/10 text-yellow-550 border border-yellow-500/20 uppercase tracking-wider">🟡 Medium</span>
+          <span class="text-xs font-black px-2.5 py-0.5 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 uppercase tracking-wider">Camouflage</span>
+          <span class="text-xs font-black px-2.5 py-0.5 rounded-full bg-red-550/10 text-red-500 border border-red-500/20 uppercase tracking-wider">🔴 Hard</span>
         </div>
         <h1 class="font-display text-4xl sm:text-5xl font-black tracking-tight text-slate-900 dark:text-white">
-          The Hidden Tiger
+          Tiger in the Bamboo
         </h1>
-        <p class="text-slate-600 dark:text-slate-350 text-base max-w-2xl font-medium">
-          A famous word-camouflage visual puzzle where literal English words are disguised as natural biological tiger stripes.
+        <p class="text-slate-600 dark:text-slate-355 text-base max-w-2xl font-medium">
+          A classic camouflage optical illusion where the vertical stripes of a tiger blend seamlessly with the vertical stalks of a bamboo forest.
         </p>
       </div>
-
-      <!-- Share Button -->
       <button 
         id="share-illusion-page-btn"
-        class="relative shrink-0 flex items-center space-x-2 rounded-2xl bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-600 hover:scale-105 text-white font-black text-sm px-6 py-3.5 transition-all shadow-lg shadow-purple-500/10"
+        class="shrink-0 flex items-center space-x-2 rounded-lg bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-black text-sm px-6 py-3.5 transition-colors shadow-lg cursor-pointer border-none"
       >
-        <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M15 8a3 3 0 1 0-2.977-2.63l-4.94 2.47a3 3 0 1 0 0 4.319l4.94 2.47a3 3 0 1 0 .895-1.789l-4.94-2.47a3.027 3.027 0 0 0 0-.74l4.94-2.47C13.456 7.68 14.19 8 15 8Z"/></svg>
         <span>Share Page</span>
-        <span id="page-share-toast" class="absolute bottom-full right-1/2 translate-x-1/2 mb-2 px-2.5 py-1 text-[10px] font-bold text-white bg-purple-655 rounded-lg shadow-md opacity-0 pointer-events-none transition-opacity duration-200 whitespace-nowrap">Link Copied! ✓</span>
       </button>
     </div>
 
-    <!-- LARGE INTERACTIVE DEMO -->
-    <div class="flex flex-col items-center justify-center py-6 border-b border-indigo-500/10">
-      <div class="w-full max-w-[600px] mx-auto space-y-4">
-        
-        <!-- Instruction Box -->
-        <div class="my-3 flex items-start gap-2 rounded-xl border border-indigo-500/10 bg-indigo-500/5 p-3 text-xs text-slate-350 text-left">
-          <span class="text-base leading-none">👁️</span>
-          <div>
-            <strong class="text-slate-200">👁️ WHAT TO LOOK FOR:</strong> Stare at the tiger's side stripes. Can you read the words "THE HIDDEN TIGER" hidden in plain sight? Tap the "Reveal Text" button to highlight the letters.
-          </div>
-        </div>
+    <!-- MAIN GRID CONTAINER -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start">
+      <!-- Demo / SVG Column -->
+      <div class="lg:col-span-2 space-y-6">
+        <div id="illusion-card" class="relative flex flex-col items-center justify-center bg-[#132a13] rounded-3xl border border-slate-800 p-8 min-h-[420px] shadow-sm select-none">
+          
+          <svg class="w-full max-w-[320px] h-auto aspect-[4/3] select-none overflow-visible" viewBox="0 0 400 300" id="svg-hidden-tiger">
+            <!-- Background: Deep jungle green -->
+            <rect width="400" height="300" fill="#132a13" rx="16" />
 
-        <div id="tiger-illusion" class="relative flex flex-col items-center justify-center h-96 w-full bg-slate-950 rounded-xl overflow-hidden border border-indigo-500/10 p-6">
-          <svg class="w-full h-full select-none bg-amber-500 rounded-2xl" viewBox="0 0 200 120" id="svg-tiger-detail">
-            <!-- Tiger body representation -->
-            <ellipse cx="100" cy="60" rx="70" ry="40" fill="#f59e0b" stroke="#000000" stroke-width="2" />
-            <!-- Head -->
-            <circle cx="40" cy="50" r="24" fill="#f59e0b" stroke="#000000" stroke-width="2" />
-            <circle cx="32" cy="45" r="3" fill="#000000" />
-            <!-- Side stripes spelling out 'the hidden tiger' -->
-            <path d="M 70,30 Q 75,50 72,70 M 80,25 Q 86,50 82,75 M 92,20 Q 98,60 94,90 M 110,22 Q 116,60 112,85 M 125,24 Q 130,55 127,82 M 140,28 Q 142,50 144,76" fill="none" stroke="#000000" stroke-width="3" />
-            
-            <g id="tiger-text-overlay" style="display:none" class="pointer-events-none">
-              <!-- Highlighted stripes representing text -->
-              <path d="M 70,30 Q 75,50 72,70 M 80,25 Q 86,50 82,75 M 92,20 Q 98,60 94,90" fill="none" stroke="#ef4444" stroke-width="4.5" />
-              <text x="100" y="112" fill="#ef4444" font-size="10" font-weight="950" text-anchor="middle">Text: T-H-E H-I-D-D-E-N T-I-G-E-R</text>
+            <!-- Background Bamboo Stalks (10 stalks, dark forest green) -->
+            <g stroke="#061e06" stroke-width="12" stroke-linecap="round">
+              <line x1="25" y1="10" x2="25" y2="290" />
+              <line x1="65" y1="10" x2="65" y2="290" />
+              <line x1="105" y1="10" x2="105" y2="290" />
+              <line x1="145" y1="10" x2="145" y2="290" />
+              <line x1="185" y1="10" x2="185" y2="290" />
+              <line x1="225" y1="10" x2="225" y2="290" />
+              <line x1="265" y1="10" x2="265" y2="290" />
+              <line x1="305" y1="10" x2="305" y2="290" />
+              <line x1="345" y1="10" x2="345" y2="290" />
+              <line x1="385" y1="10" x2="385" y2="290" />
             </g>
+
+            <!-- Tiger Group (Orange body + vertical black stripes aligning with bamboo) -->
+            <g id="tiger-body-group">
+              <!-- Tiger Base Shape (Orange, slightly detailed body contour) -->
+              <!-- Facing left, crouching slightly -->
+              <path 
+                d="M 80,180 C 70,175 60,170 55,160 C 50,150 45,130 50,120 C 55,110 70,100 85,100 C 100,100 115,95 130,85 C 145,75 160,80 180,85 C 200,90 230,90 260,85 C 290,80 320,90 330,110 C 340,120 345,140 340,155 C 335,165 315,185 295,190 C 275,195 240,195 210,190 C 180,185 140,190 120,195 C 100,195 90,190 80,180 Z" 
+                fill="#EA580C" 
+              />
+              
+              <!-- Tiger Head & Ears detail -->
+              <path d="M 60,120 L 45,115 L 48,125 Z" fill="#EA580C" />
+              <circle cx="58" cy="132" r="2.5" fill="#FEF08A" /> <!-- eye -->
+
+              <!-- Tiger Vertical Black Stripes (aligning perfectly with stalks at x=105, 145, 185, 225, 265, 305) -->
+              <g stroke="#061e06" stroke-width="12" stroke-linecap="butt">
+                <!-- Stripe 1 (intersecting body at x=105) -->
+                <line x1="105" y1="100" x2="105" y2="195" />
+                <!-- Stripe 2 (x=145) -->
+                <line x1="145" y1="83" x2="145" y2="192" />
+                <!-- Stripe 3 (x=185) -->
+                <line x1="185" y1="86" x2="185" y2="190" />
+                <!-- Stripe 4 (x=225) -->
+                <line x1="225" y1="88" x2="225" y2="191" />
+                <!-- Stripe 5 (x=265) -->
+                <line x1="265" y1="84" x2="265" y2="192" />
+                <!-- Stripe 6 (x=305) -->
+                <line x1="305" y1="95" x2="305" y2="182" />
+              </g>
+            </g>
+
+            <!-- Foreground Bamboo overlay (to complete the sandwich and enhance camouflage) -->
+            <g stroke="#061e06" stroke-width="12" stroke-linecap="round">
+              <line x1="105" y1="10" x2="105" y2="90" />
+              <line x1="105" y1="200" x2="105" y2="290" />
+              
+              <line x1="145" y1="10" x2="145" y2="70" />
+              <line x1="145" y1="200" x2="145" y2="290" />
+
+              <line x1="185" y1="10" x2="185" y2="75" />
+              <line x1="185" y1="200" x2="185" y2="290" />
+
+              <line x1="225" y1="10" x2="225" y2="75" />
+              <line x1="225" y1="200" x2="225" y2="290" />
+
+              <line x1="265" y1="10" x2="265" y2="70" />
+              <line x1="265" y1="200" x2="265" y2="290" />
+
+              <line x1="305" y1="10" x2="305" y2="85" />
+              <line x1="305" y1="190" x2="305" y2="290" />
+            </g>
+
+            <!-- Reveal Outline overlay: traces the complete tiger shape in bright orange (#F97316) -->
+            <path 
+              id="path-tiger-reveal" 
+              class="reveal-path stroke-[#F97316] fill-none stroke-[3.5] stroke-linecap-round stroke-linejoin-round opacity-0" 
+              d="M 80,180 C 70,175 60,170 55,160 C 50,150 45,130 50,120 C 55,110 70,100 85,100 C 100,100 115,95 130,85 C 145,75 160,80 180,85 C 200,90 230,90 260,85 C 290,80 320,90 330,110 C 340,120 345,140 340,155 C 335,165 315,185 295,190 C 275,195 240,195 210,190 C 180,185 140,190 120,195 C 100,195 90,190 80,180 Z" 
+            />
           </svg>
 
-          <!-- Control buttons inside demo -->
-          <div class="absolute bottom-4 flex space-x-2 bg-slate-900/90 border border-white/10 rounded-xl p-1 z-10">
-            <button id="reveal-text-btn" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-indigo-950 text-slate-350 hover:bg-slate-800 transition-all">Reveal Text 📖</button>
-            <button id="reset-btn" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-indigo-950 text-slate-350 hover:bg-slate-800 transition-all">Reset Highlights</button>
+          <!-- Interactive controls at bottom -->
+          <div class="w-full max-w-sm mt-6 space-y-4">
+            <!-- Timer container -->
+            <div class="flex items-center justify-between p-3 bg-slate-900 rounded-xl border border-slate-800 text-xs text-white">
+              <span class="font-bold text-slate-400 uppercase">Find the Hidden Figure</span>
+              <span id="countdown-timer" class="font-mono font-bold text-slate-300">30.0s</span>
+            </div>
+
+            <!-- Reveal & Hide Buttons -->
+            <div class="flex gap-2 w-full">
+              <button id="btn-reveal" class="flex-1 bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-bold text-xs py-2.5 rounded-lg border-none transition-colors cursor-pointer shadow">
+                Reveal
+              </button>
+              <button id="btn-hide" class="flex-1 bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-bold text-xs py-2.5 rounded-lg border-none transition-colors cursor-pointer shadow hidden">
+                Hide Answer
+              </button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- Content Split Layout -->
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 pt-4">
-      
-      <!-- Left 2-Columns: Science and Prompt -->
-      <div class="lg:col-span-2 space-y-10">
-        <!-- EXPERIENCE IT FIRST prompt -->
-        <section class="space-y-4">
-          <h2 class="font-display text-2xl font-black text-slate-900 dark:text-white flex items-center space-x-2">
-            <span class="text-purple-500">🎮</span>
-            <span>EXPERIENCE IT FIRST</span>
-          </h2>
-          <div class="bg-indigo-950/20 border-2 border-indigo-500/15 rounded-3xl p-6 text-slate-700 dark:text-slate-300">
-            <p class="font-bold text-sm sm:text-base text-slate-200">Observe how your brain resolves this visual ambiguity:</p>
-            <ul class="list-disc pl-5 mt-3 space-y-2 text-xs sm:text-sm font-medium">
-              <li>When you first look at the tiger's side, do the stripes look like normal biological camouflage?</li>
-              <li>Read the stripes from left to right. Notice how the vertical lines resolve into the letters T-H-E H-I-D-D-E-N T-I-G-E-R.</li>
-              <li>How quickly did your brain shift from pattern-recognition (stripes) to character-recognition (reading)? This shift represents a transition between visual cortex areas.</li>
-            </ul>
-          </div>
-        </section>
-
-        <!-- THE SCIENCE (400 words) -->
-        <section class="space-y-4">
+      <!-- Science / Explanation Column -->
+      <div class="space-y-8">
+        <section id="science-section" class="space-y-4">
           <h2 class="font-display text-2xl font-black text-slate-900 dark:text-white flex items-center space-x-2">
             <span class="text-purple-500">🧠</span>
             <span>THE SCIENCE</span>
           </h2>
-          <div class="prose prose-indigo dark:prose-invert text-slate-700 dark:text-slate-300 leading-relaxed space-y-4 text-xs sm:text-sm font-semibold text-justify">
+          <div class="prose prose-indigo dark:prose-invert text-slate-700 dark:text-slate-300 leading-relaxed text-xs sm:text-sm font-semibold text-justify">
             <p>
-              The Hidden Tiger is an ambiguous figure based on word-camouflage and top-down cognitive priming. In the human visual system, pattern processing and text reading are processed in distinct cortical regions. Biological patterns (like stripes, textures, and bark) are grouped by visual area V2 and V4 using Gestalt continuity rules, which emphasize smooth contours and regular spacing.
+              <strong>Visual Camouflage & Disruption:</strong> Camouflage relies on breaking up the silhouette of an object so that its boundaries cannot be easily segmented from the background by the visual cortex.
             </p>
             <p>
-              Conversely, written words and characters are recognized in a highly specialized area of the left temporal lobe known as the Visual Word Form Area (VWFA). The VWFA is primed to extract symbols, letters, and lexical patterns, passing them to language centers for semantic decoding.
-            </p>
-            <p>
-              In this illusion, the stripes on the tiger's body have been carefully styled to replicate both the vertical thickness of normal tiger stripes and the stroke widths of capital English letters. When you first observe the tiger, your visual system categorizes the shapes as part of the animal's coat. This is top-down context gating: you expect a tiger to have stripes, so your LOC (lateral occipital complex) groups them as stripes.
-            </p>
-            <p>
-              However, when you are prompted to search for a hidden text, your attention redirects. The brain gates the visual signals, routing them through the VWFA. The letters are segmentally extracted, and once you read "THE HIDDEN TIGER," your brain builds a new cognitive hypothesis. The stripes are permanently re-coded in your consciousness as text, showing that what we perceive is heavily mediated by attention and cognitive expectations.
+              By aligning the tiger's vertical black stripes exactly with the dark green bamboo stalks in the background and foreground, the brain's visual area V1 groups the tiger's stripes together with the stalks based on parallel alignment (Gestalt grouping of good continuation). Consequently, the brain parses the image as a single uniform field of vertical lines, effectively hiding the contour of the tiger until a color contrast or motion cue reveals it.
             </p>
           </div>
         </section>
-      </div>
 
-      <!-- Right Column: Fun Facts and Try This -->
-      <div class="space-y-8">
-        <!-- FUN FACTS -->
-        <section class="rounded-3xl border border-indigo-950/20 bg-slate-900/60 p-6 space-y-4 shadow-xl">
-          <h3 class="font-display text-lg font-black text-slate-900 dark:text-white flex items-center space-x-2">
-            <span class="text-purple-500">💡</span>
-            <span>FUN FACTS</span>
-          </h3>
-          <ul class="space-y-4 text-xs sm:text-sm text-slate-650 dark:text-slate-300 font-semibold">
-            <li class="flex items-start space-x-2">
-              <span class="text-purple-500 font-black">•</span>
-              <span>This visual puzzle is famously mislabeled: people often search the forest background for a "second tiger" when it is literally written on the main tiger's body!</span>
-            </li>
-            <li class="flex items-start space-x-2">
-              <span class="text-purple-500 font-black">•</span>
-              <span>This belongs to the category of lexical pareidolia, where human language symbols are camouflaged in natural textures.</span>
-            </li>
-            <li class="flex items-start space-x-2">
-              <span class="text-purple-500 font-black">•</span>
-              <span>Once your brain extracts the letters, it is almost impossible to "un-see" the text, showing how memory restructures visual perception.</span>
-            </li>
-          </ul>
-        </section>
-
-        <!-- TRY THIS AT HOME -->
-        <section class="rounded-3xl border border-indigo-950/20 bg-slate-900/60 p-6 space-y-4 shadow-xl">
-          <h3 class="font-display text-lg font-black text-slate-900 dark:text-white flex items-center space-x-2">
-            <span class="text-purple-500">🧪</span>
-            <span>TRY THIS AT HOME</span>
-          </h3>
-          <p class="text-xs sm:text-sm text-slate-650 dark:text-slate-300 leading-relaxed font-semibold">
-            Show this tiger image to family members without mentioning that there are words. Count how many minutes they spend looking at the trees in the background before they spot the text on the tiger.
-          </p>
-        </section>
-
-        <!-- DISCOVERER -->
-        <section class="rounded-3xl border border-indigo-950/20 bg-slate-900/60 p-6 space-y-4 shadow-xl">
-          <h3 class="font-display text-lg font-black text-slate-900 dark:text-white flex items-center space-x-2">
-            <span class="text-purple-500">📜</span>
-            <span>DISCOVERER</span>
-          </h3>
-          <div class="text-xs sm:text-sm text-slate-650 dark:text-slate-300 leading-relaxed font-semibold space-y-2">
-            <p><strong>Creator:</strong> Graphic Puzzle Designers</p>
-            <p>Originally designed as a print puzzle in the late 20th century. It became one of the most famous viral internet visual puzzles due to its clever play on the word "hidden."</p>
+        <!-- RELATED LINKS -->
+        <section class="border-t border-indigo-500/10 pt-6 space-y-3">
+          <h3 class="font-display text-lg font-black text-slate-900 dark:text-white">Related Illusions</h3>
+          <div class="grid grid-cols-1 gap-3">
+            <a href="/illusions/faces-in-tree" class="rounded-xl border border-slate-200 bg-white dark:bg-slate-900/60 p-4 hover:border-purple-500/40 hover:-translate-y-0.5 transition-all text-xs font-bold text-slate-900 dark:text-white">
+              Faces in the Tree &rarr;
+            </a>
+            <a href="/illusions/dalmatian-dog" class="rounded-xl border border-slate-200 bg-white dark:bg-slate-900/60 p-4 hover:border-purple-500/40 hover:-translate-y-0.5 transition-all text-xs font-bold text-slate-900 dark:text-white">
+              Camouflaged Dalmatian &rarr;
+            </a>
           </div>
         </section>
       </div>
-
     </div>
-
   </div>
 
+  <style>
+    /* 1.5s stroke dashoffset animation */
+    .reveal-path {
+      stroke-dasharray: 1000;
+      stroke-dashoffset: 1000;
+    }
+  </style>
+
   <script>
-    // Share Page URL
-    const sharePageBtn = document.getElementById('share-illusion-page-btn');
-    const pageToast = document.getElementById('page-share-toast');
+    function initHiddenTiger() {
+      const timerText = document.getElementById('countdown-timer');
+      const btnReveal = document.getElementById('btn-reveal') as HTMLButtonElement;
+      const btnHide = document.getElementById('btn-hide') as HTMLButtonElement;
+      const pathTiger = document.getElementById('path-tiger-reveal') as SVGPathElement;
 
-    sharePageBtn?.addEventListener('click', () => {
-      const pageUrl = window.location.href;
-      navigator.clipboard.writeText(pageUrl).then(() => {
-        if (pageToast) {
-          pageToast.classList.remove('opacity-0');
-          pageToast.classList.add('opacity-100');
-          setTimeout(() => {
-            pageToast.classList.remove('opacity-100');
-            pageToast.classList.add('opacity-0');
-          }, 2000);
+      let secondsLeft = 30.0;
+      let timerActive = true;
+      let isRevealed = false;
+
+      const startTime = Date.now();
+      const intervalId = setInterval(() => {
+        if (!timerActive) {
+          clearInterval(intervalId);
+          return;
         }
-      });
-    });
+        const elapsed = (Date.now() - startTime) / 1000;
+        secondsLeft = Math.max(30.0 - elapsed, 0.0);
+        if (timerText) timerText.textContent = `${secondsLeft.toFixed(1)}s`;
 
-    // Toggle highlights
-    const revealBtn = document.getElementById('reveal-text-btn');
-    const resetBtn = document.getElementById('reset-btn');
-    const textOverlay = document.getElementById('tiger-text-overlay');
+        if (secondsLeft <= 0) {
+          clearInterval(intervalId);
+          triggerReveal();
+        }
+      }, 100);
 
-    revealBtn?.addEventListener('click', () => {
-      if (textOverlay) textOverlay.style.display = 'block';
-      revealBtn.className = 'text-xs font-bold px-3 py-1.5 rounded-lg bg-blue-600 text-white transition-all';
-    });
+      const triggerReveal = () => {
+        isRevealed = true;
+        timerActive = false;
+        if (timerText) timerText.textContent = '0.0s';
+        
+        btnReveal?.classList.add('hidden');
+        btnHide?.classList.remove('hidden');
 
-    resetBtn?.addEventListener('click', () => {
-      if (textOverlay) textOverlay.style.display = 'none';
-      if (revealBtn) revealBtn.className = 'text-xs font-bold px-3 py-1.5 rounded-lg bg-indigo-950 text-slate-350 hover:bg-slate-800 transition-all';
-    });
+        if (pathTiger) {
+          pathTiger.classList.remove('opacity-0');
+          pathTiger.style.strokeDasharray = '1000';
+          pathTiger.style.strokeDashoffset = '1000';
+          pathTiger.getBoundingClientRect();
+          pathTiger.style.transition = 'stroke-dashoffset 1.5s ease-in-out';
+          pathTiger.style.strokeDashoffset = '0';
+        }
+      };
+
+      const triggerHide = () => {
+        isRevealed = false;
+        btnReveal?.classList.remove('hidden');
+        btnHide?.classList.add('hidden');
+
+        if (pathTiger) {
+          pathTiger.classList.add('opacity-0');
+          pathTiger.style.strokeDasharray = '1000';
+          pathTiger.style.strokeDashoffset = '1000';
+        }
+      };
+
+      btnReveal?.addEventListener('click', triggerReveal);
+      btnHide?.addEventListener('click', triggerHide);
+    }
+
+    initHiddenTiger();
+    document.addEventListener('astro:page-load', initHiddenTiger);
   </script>
 </Layout>

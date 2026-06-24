@@ -1,0 +1,294 @@
+---
+// src/pages/illusions/faces-in-tree.astro
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout 
+  title="Faces in the Tree — Hidden Optical Illusion | Optical Illusion Lab" 
+  description="Stare at the bare tree branches and trunk. Find 4 hidden human face profiles. Beat the 30-second timer challenge."
+>
+  <div class="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-12">
+    <!-- Breadcrumb back navigation -->
+    <nav class="flex text-xs font-black uppercase tracking-wider text-slate-400 space-x-2 pb-2 border-b border-indigo-500/10">
+      <a href="/" class="hover:text-white transition-colors">Home</a>
+      <span>/</span>
+      <a href="/hidden" class="hover:text-white transition-colors">Hidden & Ambiguous</a>
+      <span>/</span>
+      <span class="text-purple-400">Faces in the Tree</span>
+    </nav>
+
+    <!-- Header -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6">
+      <div class="space-y-3">
+        <div class="flex items-center space-x-2">
+          <span class="text-xs font-black px-2.5 py-0.5 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 uppercase tracking-wider">Hidden</span>
+          <span class="text-xs font-black px-2.5 py-0.5 rounded-full bg-red-550/10 text-red-500 border border-red-500/20 uppercase tracking-wider">🔴 Hard</span>
+        </div>
+        <h1 class="font-display text-4xl sm:text-5xl font-black tracking-tight text-slate-900 dark:text-white">
+          Faces in the Tree
+        </h1>
+        <p class="text-slate-600 dark:text-slate-355 text-base max-w-2xl font-medium">
+          Bare tree silhouette with 4 face profiles hidden in branches/roots. Find them before the timer runs out!
+        </p>
+      </div>
+      <button 
+        id="share-illusion-page-btn"
+        class="shrink-0 flex items-center space-x-2 rounded-lg bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-black text-sm px-6 py-3.5 transition-colors shadow-lg cursor-pointer border-none"
+      >
+        <span>Share Page</span>
+      </button>
+    </div>
+
+    <!-- MAIN GRID CONTAINER -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start">
+      <!-- Demo / SVG Column -->
+      <div class="lg:col-span-2 space-y-6">
+        <div id="illusion-card" class="relative flex flex-col items-center justify-center bg-white rounded-3xl border border-slate-200 p-8 min-h-[420px] shadow-sm select-none">
+          
+          <svg class="w-full max-w-[320px] h-auto aspect-[400/360] select-none overflow-visible" viewBox="0 0 400 360" id="svg-faces-tree">
+            <!-- Background white canvas -->
+            <rect width="400" height="360" fill="#FFFFFF" rx="16" />
+
+            <!-- Ground roots area (Black) -->
+            <path d="M 20,330 Q 200,320 380,330 L 380,360 L 20,360 Z" fill="#000000" />
+            
+            <!-- Tree Trunk silhouette containing the face profiles (Black) -->
+            <path d="
+              M 150,330 
+              C 140,300 135,270 145,250 
+              C 155,230 148,220 152,215 
+              C 155,210 142,200 146,192 
+              C 150,185 140,175 145,160 
+              C 130,150 115,130 110,100
+              C 125,105 135,100 142,80
+              C 150,60 170,45 200,30
+              C 230,45 250,60 258,80
+              C 265,100 275,105 290,100
+              C 285,130 270,150 255,160
+              C 260,175 250,185 254,192
+              C 258,200 245,210 248,215
+              C 252,220 245,230 255,250
+              C 265,270 260,300 250,330 Z" 
+              fill="#000000" 
+            />
+
+            <!-- Branches forming additional hidden profiles in negative space (Black) -->
+            <path d="M 125,100 C 100,80 80,90 60,60 C 80,50 100,70 120,80" fill="none" stroke="#000000" stroke-width="12" stroke-linecap="round" />
+            <path d="M 275,100 C 300,80 320,90 340,60 C 320,50 300,70 280,80" fill="none" stroke="#000000" stroke-width="12" stroke-linecap="round" />
+            <path d="M 170,45 C 160,20 130,10 110,30 C 130,40 150,45 160,45" fill="none" stroke="#000000" stroke-width="8" stroke-linecap="round" />
+            <path d="M 230,45 C 240,20 270,10 290,30 C 270,40 250,45 240,45" fill="none" stroke="#000000" stroke-width="8" stroke-linecap="round" />
+
+            <!-- Clickable Face Hotspots and Highlights (Cyan circles and arrows) -->
+            <!-- Face 1 (Left Trunk profile) -->
+            <g class="face-hotspot cursor-pointer" data-idx="1" transform="translate(146, 215)">
+              <circle cx="0" cy="0" r="22" class="hotspot-trigger fill-transparent hover:fill-purple-500/10" />
+              <circle cx="0" cy="0" r="14" class="hotspot-highlight fill-none stroke-[#F97316] stroke-[2.5] opacity-0 transition-opacity" />
+              <text x="-5" y="4" class="hotspot-text font-black text-[12px] fill-[#F97316] opacity-0 transition-opacity">①</text>
+            </g>
+
+            <!-- Face 2 (Right Trunk profile) -->
+            <g class="face-hotspot cursor-pointer" data-idx="2" transform="translate(254, 215)">
+              <circle cx="0" cy="0" r="22" class="hotspot-trigger fill-transparent hover:fill-purple-500/10" />
+              <circle cx="0" cy="0" r="14" class="hotspot-highlight fill-none stroke-[#F97316] stroke-[2.5] opacity-0 transition-opacity" />
+              <text x="-5" y="4" class="hotspot-text font-black text-[12px] fill-[#F97316] opacity-0 transition-opacity">②</text>
+            </g>
+
+            <!-- Face 3 (Left Branch profile) -->
+            <g class="face-hotspot cursor-pointer" data-idx="3" transform="translate(120, 110)">
+              <circle cx="0" cy="0" r="22" class="hotspot-trigger fill-transparent hover:fill-purple-500/10" />
+              <circle cx="0" cy="0" r="14" class="hotspot-highlight fill-none stroke-[#F97316] stroke-[2.5] opacity-0 transition-opacity" />
+              <text x="-5" y="4" class="hotspot-text font-black text-[12px] fill-[#F97316] opacity-0 transition-opacity">③</text>
+            </g>
+
+            <!-- Face 4 (Right Branch profile) -->
+            <g class="face-hotspot cursor-pointer" data-idx="4" transform="translate(280, 110)">
+              <circle cx="0" cy="0" r="22" class="hotspot-trigger fill-transparent hover:fill-purple-500/10" />
+              <circle cx="0" cy="0" r="14" class="hotspot-highlight fill-none stroke-[#F97316] stroke-[2.5] opacity-0 transition-opacity" />
+              <text x="-5" y="4" class="hotspot-text font-black text-[12px] fill-[#F97316] opacity-0 transition-opacity">④</text>
+            </g>
+
+            <!-- Face outlines that draw over the faces on reveal (Orange #F97316) -->
+            <g id="reveal-outlines" class="opacity-0 transition-opacity duration-300" stroke="#F97316" stroke-width="2.5" fill="none">
+              <!-- Face 1 trace -->
+              <path class="reveal-path" d="M 152,215 A 14,14 0 1,1 146,192" />
+              <!-- Face 2 trace -->
+              <path class="reveal-path" d="M 248,215 A 14,14 0 1,0 254,192" />
+              <!-- Face 3 trace -->
+              <path class="reveal-path" d="M 125,100 Q 115,115 120,125" />
+              <!-- Face 4 trace -->
+              <path class="reveal-path" d="M 275,100 Q 285,115 280,125" />
+            </g>
+          </svg>
+
+          <!-- Interactive controls at bottom -->
+          <div class="w-full max-w-sm mt-6 space-y-4">
+            <!-- Timer container -->
+            <div class="flex items-center justify-between p-3 bg-slate-50 rounded-xl border border-slate-200 text-xs">
+              <span class="font-bold text-slate-500 uppercase">Find the Hidden Figure</span>
+              <span id="countdown-timer" class="font-mono font-bold text-slate-700">30.0s</span>
+            </div>
+
+            <!-- Reveal & Hide Buttons -->
+            <div class="flex gap-2 w-full">
+              <button id="btn-reveal" class="flex-1 bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-bold text-xs py-2.5 rounded-lg border-none transition-colors cursor-pointer shadow">
+                Reveal
+              </button>
+              <button id="btn-hide" class="flex-1 bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-bold text-xs py-2.5 rounded-lg border-none transition-colors cursor-pointer shadow hidden">
+                Hide Answer
+              </button>
+            </div>
+          </div>
+
+          <!-- Found counter -->
+          <div class="absolute bottom-2 left-2 bg-slate-900/80 px-3 py-1 rounded-lg border border-slate-700 text-xs text-white">
+            Found: <span id="faces-found-count" class="font-bold text-purple-400">0</span> of 4 faces
+          </div>
+        </div>
+      </div>
+
+      <!-- Science / Explanation Column -->
+      <div class="space-y-8">
+        <section id="science-section" class="space-y-4">
+          <h2 class="font-display text-2xl font-black text-slate-900 dark:text-white flex items-center space-x-2">
+            <span class="text-purple-500">🧠</span>
+            <span>THE SCIENCE</span>
+          </h2>
+          <div class="prose prose-indigo dark:prose-invert text-slate-700 dark:text-slate-300 leading-relaxed text-xs sm:text-sm font-semibold text-justify">
+            <p>
+              <strong>Pareidolia & Fusiform Face Area:</strong> Humans have an innate evolutionary tuning to identify faces. This tendency is so strong that we identify facial structures in completely random patterns (a phenomenon called pareidolia).
+            </p>
+            <p>
+              In this tree, the negative spaces between branches and the curves of the trunk are sculpted to mimic human profiles. When your brain processes the organic lines of the tree, it triggers the Fusiform Face Area (FFA), highlighting the faces in your consciousness.
+            </p>
+          </div>
+        </section>
+
+        <!-- RELATED LINKS -->
+        <section class="border-t border-indigo-500/10 pt-6 space-y-3">
+          <h3 class="font-display text-lg font-black text-slate-900 dark:text-white">Related Illusions</h3>
+          <div class="grid grid-cols-1 gap-3">
+            <a href="/illusions/hidden-tiger" class="rounded-xl border border-slate-200 bg-white dark:bg-slate-900/60 p-4 hover:border-purple-500/40 hover:-translate-y-0.5 transition-all text-xs font-bold text-slate-900 dark:text-white">
+              Tiger in the Bamboo &rarr;
+            </a>
+            <a href="/illusions/dalmatian-dog" class="rounded-xl border border-slate-200 bg-white dark:bg-slate-900/60 p-4 hover:border-purple-500/40 hover:-translate-y-0.5 transition-all text-xs font-bold text-slate-900 dark:text-white">
+              Camouflaged Dalmatian &rarr;
+            </a>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    /* 1.5s stroke dashoffset animation */
+    .reveal-path {
+      stroke-dasharray: 1000;
+      stroke-dashoffset: 1000;
+    }
+  </style>
+
+  <script>
+    function initFacesTree() {
+      const timerText = document.getElementById('countdown-timer');
+      const btnReveal = document.getElementById('btn-reveal') as HTMLButtonElement;
+      const btnHide = document.getElementById('btn-hide') as HTMLButtonElement;
+      const outlines = document.getElementById('reveal-outlines');
+      const counterText = document.getElementById('faces-found-count');
+      const hotspots = document.querySelectorAll('.face-hotspot');
+
+      let secondsLeft = 30.0;
+      let timerActive = true;
+      let isRevealed = false;
+      let foundSet = new Set();
+
+      const startTime = Date.now();
+      const intervalId = setInterval(() => {
+        if (!timerActive) {
+          clearInterval(intervalId);
+          return;
+        }
+        const elapsed = (Date.now() - startTime) / 1000;
+        secondsLeft = Math.max(30.0 - elapsed, 0.0);
+        if (timerText) timerText.textContent = `${secondsLeft.toFixed(1)}s`;
+
+        if (secondsLeft <= 0) {
+          clearInterval(intervalId);
+          triggerReveal();
+        }
+      }, 100);
+
+      const triggerReveal = () => {
+        isRevealed = true;
+        timerActive = false;
+        if (timerText) timerText.textContent = '0.0s';
+        
+        btnReveal?.classList.add('hidden');
+        btnHide?.classList.remove('hidden');
+
+        if (outlines) {
+          outlines.classList.remove('opacity-0');
+          outlines.querySelectorAll('.reveal-path').forEach(p => {
+            const path = p as SVGPathElement;
+            path.style.strokeDasharray = '1000';
+            path.style.strokeDashoffset = '1000';
+            path.getBoundingClientRect();
+            path.style.transition = 'stroke-dashoffset 1.5s ease-in-out';
+            path.style.strokeDashoffset = '0';
+          });
+        }
+
+        hotspots.forEach(hotspot => {
+          hotspot.querySelector('.hotspot-highlight')?.classList.replace('opacity-0', 'opacity-100');
+          hotspot.querySelector('.hotspot-text')?.classList.replace('opacity-0', 'opacity-100');
+        });
+
+        if (counterText) counterText.textContent = '4';
+      };
+
+      const triggerHide = () => {
+        isRevealed = false;
+        btnReveal?.classList.remove('hidden');
+        btnHide?.classList.add('hidden');
+
+        if (outlines) {
+          outlines.classList.add('opacity-0');
+          outlines.querySelectorAll('.reveal-path').forEach(p => {
+            (p as SVGPathElement).style.strokeDasharray = '1000';
+            (p as SVGPathElement).style.strokeDashoffset = '1000';
+          });
+        }
+
+        hotspots.forEach(hotspot => {
+          hotspot.querySelector('.hotspot-highlight')?.classList.replace('opacity-100', 'opacity-0');
+          hotspot.querySelector('.hotspot-text')?.classList.replace('opacity-100', 'opacity-0');
+        });
+
+        if (counterText) counterText.textContent = foundSet.size.toString();
+      };
+
+      hotspots.forEach(hotspot => {
+        hotspot.addEventListener('click', (e) => {
+          e.stopPropagation();
+          if (isRevealed) return;
+          const idx = hotspot.getAttribute('data-idx');
+          if (idx && !foundSet.has(idx)) {
+            foundSet.add(idx);
+            hotspot.querySelector('.hotspot-highlight')?.classList.replace('opacity-0', 'opacity-100');
+            hotspot.querySelector('.hotspot-text')?.classList.replace('opacity-0', 'opacity-100');
+            if (counterText) counterText.textContent = foundSet.size.toString();
+            
+            if (foundSet.size === 4) {
+              triggerReveal();
+            }
+          }
+        });
+      });
+
+      btnReveal?.addEventListener('click', triggerReveal);
+      btnHide?.addEventListener('click', triggerHide);
+    }
+
+    initFacesTree();
+    document.addEventListener('astro:page-load', initFacesTree);
+  </script>
+</Layout>

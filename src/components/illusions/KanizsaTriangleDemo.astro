@@ -1,4 +1,5 @@
 ---
+// src/components/illusions/KanizsaTriangleDemo.astro
 interface Props {
   isCard?: boolean;
 }
@@ -7,48 +8,41 @@ const { isCard = false } = Astro.props;
 ---
 
 <div class="kanizsa-container flex flex-col items-center w-full select-none" data-is-card={isCard ? "true" : "false"}>
-  <div class="relative flex flex-col items-center justify-center bg-white rounded-xl overflow-hidden border border-slate-200 shadow-inner w-full min-h-[380px] p-6 pb-20">
+  <div class="relative flex flex-col items-center justify-center bg-slate-900 rounded-xl overflow-hidden border border-slate-800 shadow-inner w-full min-h-[380px] p-6 pb-20">
     
-    <!-- SVG Area (Exactly 400x320) -->
-    <svg class="w-full max-w-[360px] h-auto aspect-[5/4] select-none overflow-visible rounded-lg" viewBox="0 0 400 320">
-      <!-- Background: Solid White -->
-      <rect x="0" y="0" width="400" height="320" fill="#FFFFFF" />
+    <!-- SVG Area (400x380 px, Light background #F8F8F8, EXACTLY THREE black Pac-Man shapes) -->
+    <svg class="kanizsa-svg w-full max-w-[380px] h-auto aspect-[40/38] select-none overflow-visible rounded-lg shadow-lg border border-slate-950 bg-[#F8F8F8]" viewBox="0 0 400 380" width="400" height="380">
+      <!-- Light background rectangle -->
+      <rect x="0" y="0" width="400" height="380" fill="#F8F8F8" />
 
-      <!-- Three Pac-Man shapes at the corners of an implied upward-pointing equilateral triangle -->
-      <!-- Top Corner: (200, 60) - Notch points down (90 deg) -->
-      <g transform="translate(200, 60)">
-        <path 
-          class="pacman-shape fill-[#000000] transition-transform duration-500 ease-out" 
-          d="M 0,0 L 38.971,-22.5 A 45,45 0 1,1 38.971,22.5 Z" 
-          transform="rotate(90)"
-          data-base-rot="90"
-        />
-      </g>
+      <!-- Pac-Man 1 — TOP: center (200, 80), radius 50px -->
+      <path 
+        id="kanizsa-pacman-top"
+        class="kanizsa-pacman transition-transform duration-500 ease-out fill-black" 
+        d="M 200 80 L 225 123.3 A 50 50 0 1 0 175 123.3 Z" 
+        style="transform-origin: 200px 80px; transform: rotate(0deg);"
+      />
 
-      <!-- Bottom-Left Corner: (100, 233.2) - Notch points up-right (-30 deg) -->
-      <g transform="translate(100, 233.2)">
-        <path 
-          class="pacman-shape fill-[#000000] transition-transform duration-500 ease-out" 
-          d="M 0,0 L 38.971,-22.5 A 45,45 0 1,1 38.971,22.5 Z" 
-          transform="rotate(-30)"
-          data-base-rot="-30"
-        />
-      </g>
+      <!-- Pac-Man 2 — BOTTOM LEFT: center (107, 285), radius 50px -->
+      <path 
+        id="kanizsa-pacman-left"
+        class="kanizsa-pacman transition-transform duration-500 ease-out fill-black" 
+        d="M 107 285 L 120.8 237.0 A 50 50 0 1 0 155.6 272.9 Z" 
+        style="transform-origin: 107px 285px; transform: rotate(0deg);"
+      />
 
-      <!-- Bottom-Right Corner: (300, 233.2) - Notch points up-left (-150 deg) -->
-      <g transform="translate(300, 233.2)">
-        <path 
-          class="pacman-shape fill-[#000000] transition-transform duration-500 ease-out" 
-          d="M 0,0 L 38.971,-22.5 A 45,45 0 1,1 38.971,22.5 Z" 
-          transform="rotate(-150)"
-          data-base-rot="-150"
-        />
-      </g>
+      <!-- Pac-Man 3 — BOTTOM RIGHT: center (293, 285), radius 50px -->
+      <path 
+        id="kanizsa-pacman-right"
+        class="kanizsa-pacman transition-transform duration-500 ease-out fill-black" 
+        d="M 293 285 L 244.4 272.9 A 50 50 0 1 0 279.2 237.0 Z" 
+        style="transform-origin: 293px 285px; transform: rotate(0deg);"
+      />
     </svg>
 
     <!-- Controls Panel -->
     <div class="absolute bottom-3 left-0 right-0 flex justify-center gap-2 px-4 z-20">
-      <button class="btn-rotate-pacmen bg-[#7C3AED] hover:bg-[#6D28D9] text-white text-[10px] font-black px-4 py-2 rounded-lg border-none transition-colors shadow cursor-pointer">
+      <button class="btn-rotate-pacmen bg-[#7C3AED] hover:bg-[#6D28D9] text-white text-[11px] font-bold px-5 py-2.5 rounded-lg border-none transition-colors shadow cursor-pointer">
         Rotate Pac-Men
       </button>
     </div>
@@ -56,8 +50,8 @@ const { isCard = false } = Astro.props;
 
   <!-- Instructions -->
   <div class="mt-3 p-3 bg-white/40 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 rounded-xl text-center w-full max-w-md">
-    <p class="text-xs text-slate-755 dark:text-slate-300 leading-relaxed">
-      <strong>Instruction:</strong> Click "Rotate Pac-Men" to rotate their mouths 45° away. Notice how the illusory white triangle completely vanishes when the notches are misaligned.
+    <p class="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-semibold">
+      <strong>Instruction:</strong> Observe the center area. Do you see a bright white floating triangle? Click "Rotate Pac-Men" to turn them 45° away and watch the illusory triangle disappear.
     </p>
   </div>
 </div>
@@ -70,7 +64,9 @@ const { isCard = false } = Astro.props;
       container.setAttribute('data-initialized', 'true');
 
       const btn = container.querySelector('.btn-rotate-pacmen');
-      const pacmen = container.querySelectorAll('.pacman-shape');
+      const pacmanTop = container.querySelector('#kanizsa-pacman-top') as HTMLElement;
+      const pacmanLeft = container.querySelector('#kanizsa-pacman-left') as HTMLElement;
+      const pacmanRight = container.querySelector('#kanizsa-pacman-right') as HTMLElement;
 
       let isRotated = false;
 
@@ -79,11 +75,10 @@ const { isCard = false } = Astro.props;
         e.stopPropagation();
         isRotated = !isRotated;
 
-        pacmen.forEach(el => {
-          const baseRot = parseInt(el.getAttribute('data-base-rot') || '0');
-          const newRot = isRotated ? baseRot + 45 : baseRot;
-          el.setAttribute('transform', `rotate(${newRot})`);
-        });
+        const deg = isRotated ? '45deg' : '0deg';
+        if (pacmanTop) pacmanTop.style.transform = `rotate(${deg})`;
+        if (pacmanLeft) pacmanLeft.style.transform = `rotate(${deg})`;
+        if (pacmanRight) pacmanRight.style.transform = `rotate(${deg})`;
 
         if (btn) {
           btn.textContent = isRotated ? 'Align Pac-Men' : 'Rotate Pac-Men';

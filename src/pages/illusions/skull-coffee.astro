@@ -1,6 +1,5 @@
----
-// src/pages/illusions/skull-coffee.astro
 import Layout from '../../layouts/Layout.astro';
+import CoffeeSkullDemo from '../../components/illusions/CoffeeSkullDemo.astro';
 ---
 
 <Layout 
@@ -36,7 +35,7 @@ import Layout from '../../layouts/Layout.astro';
       <!-- Share Button -->
       <button 
         id="share-illusion-page-btn"
-        class="relative shrink-0 flex items-center space-x-2 rounded-2xl bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-600 hover:scale-105 text-white font-black text-sm px-6 py-3.5 transition-all shadow-lg shadow-purple-500/10"
+        class="relative shrink-0 flex items-center space-x-2 rounded-lg bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-black text-sm px-6 py-3.5 transition-colors shadow-lg cursor-pointer border-none"
       >
         <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20"><path d="M15 8a3 3 0 1 0-2.977-2.63l-4.94 2.47a3 3 0 1 0 0 4.319l4.94 2.47a3 3 0 1 0 .895-1.789l-4.94-2.47a3.027 3.027 0 0 0 0-.74l4.94-2.47C13.456 7.68 14.19 8 15 8Z"/></svg>
         <span>Share Page</span>
@@ -47,61 +46,7 @@ import Layout from '../../layouts/Layout.astro';
     <!-- LARGE INTERACTIVE DEMO -->
     <div class="flex flex-col items-center justify-center py-6 border-b border-indigo-500/10">
       <div class="w-full max-w-[600px] mx-auto space-y-4">
-        
-        <!-- Instruction Box -->
-        <div class="my-3 flex items-start gap-2 rounded-xl border border-indigo-500/10 bg-indigo-500/5 p-3 text-xs text-slate-350 text-left">
-          <span class="text-base leading-none">👁️</span>
-          <div>
-            <strong class="text-slate-200">👁️ WHAT TO LOOK FOR:</strong> Stare at the coffee cup. Use the buttons below to toggle visual overlays highlighting the coffee froth structure vs the human skull contour.
-          </div>
-        </div>
-
-        <div id="coffee-skull-illusion" class="relative flex flex-col items-center justify-center h-[400px] w-full bg-slate-950 rounded-xl overflow-hidden border border-indigo-500/10 p-6">
-          <svg class="w-64 h-64 select-none" viewBox="0 0 200 200" id="svg-coffee-skull-detail">
-            <!-- Outer cup edge -->
-            <circle cx="100" cy="100" r="80" fill="none" stroke="#e2e8f0" stroke-width="3.5" />
-            <circle cx="100" cy="100" r="70" fill="url(#coffee-foam-grad-detail)" />
-            
-            <!-- Skull eye cavities / Coffee pools -->
-            <circle cx="80" cy="85" r="14" fill="#582f0e" />
-            <circle cx="120" cy="85" r="14" fill="#582f0e" />
-            <path d="M 92,110 L 108,110 L 100,122 Z" fill="#582f0e" /> <!-- Nose cavity -->
-            
-            <!-- Teeth dashes -->
-            <line x1="88" y1="140" x2="88" y2="148" stroke="#582f0e" stroke-width="2" />
-            <line x1="96" y1="140" x2="96" y2="148" stroke="#582f0e" stroke-width="2" />
-            <line x1="104" y1="140" x2="104" y2="148" stroke="#582f0e" stroke-width="2" />
-            <line x1="112" y1="140" x2="112" y2="148" stroke="#582f0e" stroke-width="2" />
-
-            <!-- Coffee Foam Overlay -->
-            <g id="coffee-detail-overlay-foam" style="display:none" class="pointer-events-none">
-              <circle cx="100" cy="100" r="70" fill="none" stroke="#3b82f6" stroke-width="3" />
-              <text x="100" y="30" fill="#60a5fa" font-size="11" font-weight="950" text-anchor="middle">Coffee Cup & Froth</text>
-            </g>
-            <!-- Skull Overlay -->
-            <g id="coffee-detail-overlay-skull" style="display:none" class="pointer-events-none">
-              <circle cx="80" cy="85" r="16" fill="none" stroke="#ef4444" stroke-width="2.5" />
-              <circle cx="120" cy="85" r="16" fill="none" stroke="#ef4444" stroke-width="2.5" />
-              <path d="M 90,108 L 110,108 L 100,124 Z" fill="none" stroke="#ef4444" stroke-width="2" />
-              <path d="M 60,85 C 60,40 140,40 140,85 C 140,110 130,120 130,135 L 70,135 C 70,120 60,110 60,85 Z" fill="none" stroke="#ef4444" stroke-width="3" />
-              <text x="100" y="30" fill="#f87171" font-size="11" font-weight="950" text-anchor="middle">Skull Contour</text>
-            </g>
-
-            <defs>
-              <radialGradient id="coffee-foam-grad-detail" cx="50%" cy="50%" r="50%">
-                <stop offset="0%" stop-color="#ddb892" />
-                <stop offset="100%" stop-color="#ede0d4" />
-              </radialGradient>
-            </defs>
-          </svg>
-
-          <!-- Control buttons inside demo -->
-          <div class="absolute bottom-4 flex space-x-2 bg-slate-900/90 border border-white/10 rounded-xl p-1 z-10">
-            <button id="show-foam-btn" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-indigo-950 text-slate-350 hover:bg-slate-800 transition-all">Show Foam ☕</button>
-            <button id="show-skull-btn" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-indigo-950 text-slate-350 hover:bg-slate-800 transition-all">Show Skull 💀</button>
-            <button id="reset-btn" class="text-xs font-bold px-3 py-1.5 rounded-lg bg-indigo-950 text-slate-350 hover:bg-slate-800 transition-all">Reset Highlights</button>
-          </div>
-        </div>
+        <CoffeeSkullDemo isCard={false} />
       </div>
     </div>
 
@@ -157,7 +102,7 @@ import Layout from '../../layouts/Layout.astro';
             <span class="text-purple-500">💡</span>
             <span>FUN FACTS</span>
           </h3>
-          <ul class="space-y-4 text-xs sm:text-sm text-slate-650 dark:text-slate-300 font-semibold">
+          <ul class="space-y-4 text-xs sm:text-sm text-slate-655 dark:text-slate-300 font-semibold">
             <li class="flex items-start space-x-2">
               <span class="text-purple-500 font-black">•</span>
               <span>This belongs to the "pareidolia" class of illusions, where random noise is resolved as human faces.</span>
@@ -218,34 +163,6 @@ import Layout from '../../layouts/Layout.astro';
           }, 2000);
         }
       });
-    });
-
-    // Toggle highlights
-    const foamBtn = document.getElementById('show-foam-btn');
-    const skullBtn = document.getElementById('show-skull-btn');
-    const resetBtn = document.getElementById('reset-btn');
-    const foamOverlay = document.getElementById('coffee-detail-overlay-foam');
-    const skullOverlay = document.getElementById('coffee-detail-overlay-skull');
-
-    foamBtn?.addEventListener('click', () => {
-      if (foamOverlay) foamOverlay.style.display = 'block';
-      if (skullOverlay) skullOverlay.style.display = 'none';
-      foamBtn.className = 'text-xs font-bold px-3 py-1.5 rounded-lg bg-blue-600 text-white transition-all';
-      if (skullBtn) skullBtn.className = 'text-xs font-bold px-3 py-1.5 rounded-lg bg-indigo-950 text-slate-350 hover:bg-slate-800 transition-all';
-    });
-
-    skullBtn?.addEventListener('click', () => {
-      if (foamOverlay) foamOverlay.style.display = 'none';
-      if (skullOverlay) skullOverlay.style.display = 'block';
-      if (foamBtn) foamBtn.className = 'text-xs font-bold px-3 py-1.5 rounded-lg bg-indigo-950 text-slate-350 hover:bg-slate-800 transition-all';
-      skullBtn.className = 'text-xs font-bold px-3 py-1.5 rounded-lg bg-red-650 text-white transition-all';
-    });
-
-    resetBtn?.addEventListener('click', () => {
-      if (foamOverlay) foamOverlay.style.display = 'none';
-      if (skullOverlay) skullOverlay.style.display = 'none';
-      if (foamBtn) foamBtn.className = 'text-xs font-bold px-3 py-1.5 rounded-lg bg-indigo-950 text-slate-350 hover:bg-slate-800 transition-all';
-      if (skullBtn) skullBtn.className = 'text-xs font-bold px-3 py-1.5 rounded-lg bg-indigo-950 text-slate-350 hover:bg-slate-800 transition-all';
     });
   </script>
 </Layout>

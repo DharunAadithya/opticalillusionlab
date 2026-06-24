@@ -1,68 +1,103 @@
 ---
+// src/components/illusions/CurvatureBlindnessDemo.astro
 interface Props {
   isCard?: boolean;
 }
 
 const { isCard = false } = Astro.props;
 
-// Row offsets
-const rows = Array.from({ length: 11 }).map((_, i) => 20 + i * 15);
-// Number of cycles across width 400
-const cycles = Array.from({ length: 10 }).map((_, i) => i * 40);
+// Generate baselines for the wavy lines (filling 300px height with 14px vertical spacing)
+const lineYCoords = [];
+for (let y = 10; y <= 290; y += 14) {
+  lineYCoords.push(y);
+}
+
+// Helper to generate a continuous sinusoidal path
+// amplitude 15px, wavelength 60px
+const generateSinePath = (y: number) => {
+  let d = `M -30,${y}`;
+  for (let cx = -30; cx < 450; cx += 60) {
+    d += ` C ${cx + 7.5},${y} ${cx + 7.5},${y - 15} ${cx + 15},${y - 15}`;
+    d += ` C ${cx + 22.5},${y - 15} ${cx + 22.5},${y} ${cx + 30},${y}`;
+    d += ` C ${cx + 37.5},${y} ${cx + 37.5},${y + 15} ${cx + 45},${y + 15}`;
+    d += ` C ${cx + 52.5},${y + 15} ${cx + 52.5},${y} ${cx + 60},${y}`;
+  }
+  return d;
+};
+
+const lines = lineYCoords.map((y, idx) => ({
+  y,
+  path: generateSinePath(y),
+  isOdd: idx % 2 === 1
+}));
 ---
 
 <div class="curvature-blindness-container flex flex-col items-center w-full select-none" data-is-card={isCard ? "true" : "false"}>
-  <div class="relative flex flex-col items-center justify-center bg-slate-800 rounded-xl overflow-hidden border border-slate-700 shadow-inner w-full min-h-[300px] md:min-h-[360px] p-6 pb-16">
-    <svg class="w-full max-w-[340px] h-auto aspect-[2/1] select-none overflow-visible rounded-lg shadow-md" viewBox="0 0 400 200">
-      <!-- Diagonal 3-zone background split -->
-      <!-- White zone (top-left) -->
-      <polygon points="0,0 150,0 0,150" fill="#ffffff" />
-      <!-- Medium gray zone (middle) -->
-      <polygon points="150,0 300,0 100,200 0,200 0,150" fill="#7f7f7f" />
-      <!-- Black zone (bottom-right) -->
-      <polygon points="300,0 400,0 400,200 100,200" fill="#000000" />
+  <div class="relative flex flex-col items-center justify-center bg-slate-900 rounded-xl overflow-hidden border border-slate-800 shadow-inner w-full min-h-[360px] p-6 pb-20">
+    <!-- SVG Area (Exactly 400x300 px) -->
+    <svg class="curvature-svg w-full max-w-[380px] h-auto aspect-[4/3] select-none overflow-visible rounded-lg shadow-lg border border-slate-950 bg-white" viewBox="0 0 400 300" width="400" height="300">
+      <defs>
+        <!-- Sharp diagonal clip-path for White region (0 to ~133.3px width) -->
+        <clipPath id="clip-white">
+          <polygon points="0,0 100,0 166.6,300 0,300" />
+        </clipPath>
 
-      <!-- Horizontal Wave rows -->
-      <g class="wave-rows">
-        {rows.map((rowY) => (
-          <g class="wave-row">
-            {cycles.map((cx) => (
-              <g>
-                <!-- Upward half-cycle: Dark stroke -->
-                <path 
-                  class="wave-dark-segment transition-all duration-350"
-                  d={`M ${cx},${rowY} C ${cx + 5},${rowY} ${cx + 5},${rowY - 6} ${cx + 10},${rowY - 6} C ${cx + 15},${rowY - 6} ${cx + 15},${rowY} ${cx + 20},${rowY}`}
-                  fill="none"
-                  stroke="#1c1917"
-                  stroke-width="2"
-                />
-                <!-- Downward half-cycle: Light stroke -->
-                <path 
-                  class="wave-light-segment transition-all duration-350"
-                  d={`M ${cx + 20},${rowY} C ${cx + 25},${rowY} ${cx + 25},${rowY + 6} ${cx + 30},${rowY + 6} C ${cx + 35},${rowY + 6} ${cx + 35},${rowY} ${cx + 40},${rowY}`}
-                  fill="none"
-                  stroke="#e7e5e4"
-                  stroke-width="2"
-                />
-                
-                <!-- Single neutral overlay (hidden by default) -->
-                <path 
-                  class="wave-true-geom hidden"
-                  d={`M ${cx},${rowY} C ${cx + 5},${rowY} ${cx + 5},${rowY - 6} ${cx + 10},${rowY - 6} C ${cx + 15},${rowY - 6} ${cx + 15},${rowY} ${cx + 20},${rowY} C ${cx + 25},${rowY} ${cx + 25},${rowY + 6} ${cx + 30},${rowY + 6} C ${cx + 35},${rowY + 6} ${cx + 35},${rowY} ${cx + 40},${rowY}`}
-                  fill="none"
-                  stroke="#3b82f6"
-                  stroke-width="2.5"
-                />
-              </g>
-            ))}
-          </g>
-        ))}
+        <!-- Sharp diagonal clip-path for Gray region (~133.3px to ~266.6px width) -->
+        <clipPath id="clip-gray">
+          <polygon points="100,0 233.3,0 300,300 166.6,300" />
+        </clipPath>
+
+        <!-- Sharp diagonal clip-path for Black region (~266.6px to 400px width) -->
+        <clipPath id="clip-black">
+          <polygon points="233.3,0 400,0 400,300 300,300" />
+        </clipPath>
+      </defs>
+
+      <!-- Illusion Display Group -->
+      <g class="illusion-display-group">
+        <!-- 1. Backgrounds -->
+        <polygon points="0,0 100,0 166.6,300 0,300" fill="#FFFFFF" />
+        <polygon points="100,0 233.3,0 300,300 166.6,300" fill="#808080" />
+        <polygon points="233.3,0 400,0 400,300 300,300" fill="#000000" />
+
+        <!-- 2. Lines in White Region (clipped, stroke #FFFFFF, width 3px - invisible) -->
+        <g clip-path="url(#clip-white)" stroke="#FFFFFF" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          {lines.map(line => (
+            <path d={line.path} />
+          ))}
+        </g>
+
+        <!-- 3. Lines in Gray Region (clipped, alternating white/black, width 3px - where the illusion occurs) -->
+        <g clip-path="url(#clip-gray)" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          {lines.map(line => (
+            <path d={line.path} stroke={line.isOdd ? "#FFFFFF" : "#000000"} />
+          ))}
+        </g>
+
+        <!-- 4. Lines in Black Region (clipped, stroke #000000, width 3px - invisible) -->
+        <g clip-path="url(#clip-black)" stroke="#000000" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          {lines.map(line => (
+            <path d={line.path} />
+          ))}
+        </g>
+      </g>
+
+      <!-- True Geometry Overlay Group (Hidden by default, shown when toggled) -->
+      <g class="true-geometry-group hidden">
+        <!-- White background -->
+        <rect x="0" y="0" width="400" height="300" fill="#FFFFFF" />
+        <!-- All lines drawn identically in #808080 with 3px stroke -->
+        <g stroke="#808080" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          {lines.map(line => (
+            <path d={line.path} />
+          ))}
+        </g>
       </g>
     </svg>
 
-    <!-- Interactive Toggles -->
+    <!-- Controls Panel -->
     <div class="absolute bottom-3 left-0 right-0 flex justify-center gap-2 px-4 z-20">
-      <button class="btn-toggle-geometry text-[11px] font-bold px-3 py-1.5 rounded-lg border border-slate-700 bg-slate-950/90 text-slate-350 hover:bg-slate-800 hover:text-white transition-all">
+      <button class="btn-toggle-geometry bg-[#7C3AED] hover:bg-[#6D28D9] text-white text-[11px] font-bold px-5 py-2.5 rounded-lg border-none transition-colors shadow cursor-pointer">
         Show True Geometry
       </button>
     </div>
@@ -77,29 +112,26 @@ const cycles = Array.from({ length: 10 }).map((_, i) => i * 40);
       container.setAttribute('data-initialized', 'true');
 
       const btn = container.querySelector('.btn-toggle-geometry');
-      const darkSegments = container.querySelectorAll('.wave-dark-segment');
-      const lightSegments = container.querySelectorAll('.wave-light-segment');
-      const trueGeoms = container.querySelectorAll('.wave-true-geom');
+      const illusionGroup = container.querySelector('.illusion-display-group');
+      const trueGroup = container.querySelector('.true-geometry-group');
 
       let showingTrue = false;
 
-      const toggleGeometry = (e: Event) => {
+      btn?.addEventListener('click', (e) => {
         e.preventDefault();
         e.stopPropagation();
         showingTrue = !showingTrue;
 
-        darkSegments.forEach(el => el.classList.toggle('hidden', showingTrue));
-        lightSegments.forEach(el => el.classList.toggle('hidden', showingTrue));
-        trueGeoms.forEach(el => el.classList.toggle('hidden', !showingTrue));
-
-        if (btn) {
-          btn.textContent = showingTrue ? 'Show Illusion' : 'Show True Geometry';
-          btn.classList.toggle('bg-purple-600', showingTrue);
-          btn.classList.toggle('text-white', showingTrue);
+        if (showingTrue) {
+          illusionGroup?.classList.add('hidden');
+          trueGroup?.classList.remove('hidden');
+          if (btn) btn.textContent = 'Show Illusion';
+        } else {
+          illusionGroup?.classList.remove('hidden');
+          trueGroup?.classList.add('hidden');
+          if (btn) btn.textContent = 'Show True Geometry';
         }
-      };
-
-      btn?.addEventListener('click', toggleGeometry);
+      });
     });
   }
 
